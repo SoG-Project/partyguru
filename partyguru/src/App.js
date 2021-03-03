@@ -1,49 +1,28 @@
 import React, { useState } from 'react'
-import Note from './components/Note'
+import { BrowserRouter, Route } from 'react-router-dom';
+import HomeScreen from './screens/HomeScreen';
+import ProductScreen from './screens/PartyPackageScreen';
 
-const App = ( props ) => {
-  const [notes, setNotes] = useState(props.notes)
-
-  const [newNote, setNewNote] = useState(
-    'a new note...'
-  )
-
-  const addNote = (event) => {
-    event.preventDefault()
-    //console.log('Button clicked', event.target)
-
-    const noteObject = {
-      content: newNote,
-      date: new Date().toISOString(),
-      important: Math.random() > 0.5,
-      id: notes.length + 1,
-    }
-
-    setNotes(notes.concat(noteObject))
-    setNewNote('')
-  }
-
-  const handleNoteChange = (event) => {
-    console.log(event.target.value)
-    setNewNote(event.target.value)
-  }
-
+function App() {
   return (
-    <div>
-      <h1>Notes</h1>
-      <ul>
-        {notes.map((note, i) => 
-          <Note key={note.id} note={note} />
-        )}
-      </ul>
-      <form onSubmit={addNote}>
-          <input value={newNote}
-          onChange={handleNoteChange}
-          />
-          <button type='submit'>Save!</button>
-      </form>
-    </div>
-  )
+    <BrowserRouter>
+      <div className="grid-container">
+        <header className="row">
+          <div>
+            <a className="brand" href="/">
+              Party Guru
+            </a>
+          </div>
+          <div>
+            <a href="/cart">Cart</a>
+          </div>
+        </header>
+        <main>
+          <Route path="/product/:id" component={ProductScreen}></Route>
+          <Route path="/" component={HomeScreen} exact></Route>
+        </main>
+      </div>
+    </BrowserRouter>
+  );
 }
-
 export default App
