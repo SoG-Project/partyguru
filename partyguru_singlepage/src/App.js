@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import HomeScreen from './screens/HomeScreen';
+import HomeScreen from "./screens/HomeScreen";
 import PartyPackageScreen from "./screens/PartyPackageScreen";
 import GuruPage from "./screens/GuruPage";
+import CreatePartyPage from "./screens/CreatePartyPage"
+import CartScreen from "./screens/CartScreen";
+import LoginScreen from './screens/LoginScreen';
+import InviteToParty from "./screens/InviteToParty"
 //Browserrouter hoitaa tän urlien reitityksen
 //Kaikki HTML koodi mitä tässä näkyy ajetaan joka sivulla,
 //paitsi nuo <Route> tagit, jotka ajetaan vain URLin mukaisella sivulle
@@ -21,13 +25,21 @@ const App = () => {
           <div>
             <Link to="/cart">Cart</Link>
           </div>
+          <div>
+            <Link to="/login">Login</Link>
+          </div>
         </header>
         <main>
           <Switch>
-          <Route path="/product/:id"> <PartyPackageScreen/> </Route>
-            <Route path="/gurupage/"> <GuruPage/> </Route>
-            <Route path="/"> <HomeScreen/> </Route>
 
+            {/*Linkit tuotteissa toimivat, koska ne on luotu Product.js tiedostossa 'Link to' tyylillä */}
+            <Route path="/createpartypage"> <CreatePartyPage/> </Route>
+            <Route path="/cart"> <CartScreen/> </Route>
+            <Route path="/gurupage/"> <GuruPage/> </Route>
+            <Route path="/product/:id"> <PartyPackageScreen/> </Route>
+            <Route path="/login"><LoginScreen/></Route>
+            <Route path="/invitetoparty"><InviteToParty/></Route>
+            <Route path="/"> <HomeScreen/> </Route>
           </Switch>
         </main>
       </div>

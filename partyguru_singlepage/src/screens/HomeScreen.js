@@ -54,8 +54,7 @@ const useStyles = makeStyles((theme) => ({
 const HomeScreen = () => {
   const classes = useStyles();
   return (
-    
-    <div classname={classes.root}>
+    <div className={classes.root}>
       <Grid container spacing={4} justify="center">
       
         {data.products.map((product) => (
@@ -69,13 +68,8 @@ const HomeScreen = () => {
     </Button>
         <Link to='/gurupage/'>Click here if you are the party guru</Link>
 
-    
+
     </div>
   );
 }
 export default HomeScreen
-
-
-
-
- 
