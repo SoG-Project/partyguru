@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import LoginScreen from "./LoginScreen";
 import HomeScreen from "./HomeScreen";
 //Topright link to Cart brings you here

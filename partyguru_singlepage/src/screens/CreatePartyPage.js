@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import {Link} from "react-router-dom";
 
 const CreatePartyPage = () => {
-
     return(
         <div>
             <p>Here be Party Page Creation page</p>
