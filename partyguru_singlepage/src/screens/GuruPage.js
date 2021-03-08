@@ -2,6 +2,8 @@ import React from 'react';
 import './GuruPage.css';
 
 
+
+
 const GuruPage = (props)=> {
 
 
@@ -9,14 +11,20 @@ const GuruPage = (props)=> {
     return (
         <div className="guruGrid">
             <div>
-                Will Smith
+                <img src={'/images/will-smith.jpg'} alt={"will smith"} width={200} height={230}   />
+
             </div>
-            <div> Likes to play Minecraft</div>
             <div>
-                placeholder<br/>
-                placeholder <br/>
+                Name: Will Smith <br/>
+                Nick: TuoreMinecraftPrinssi<br/>
+                BIO: <br/>
+                Lorem ipsum dolor sit amet...
+
             </div>
-            <div> RÖI RÖI</div>
+            <div>
+                party packages
+            </div>
+            <div> Video</div>
 
 
         </div>
