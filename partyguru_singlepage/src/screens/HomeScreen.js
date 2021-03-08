@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import {Link} from 'react-router-dom';
 //splash sivu
 //map funktio looppaa datan läpi ja tekee niistä kortteja
 //Product.js tekee ne kortit viime kädessä
@@ -66,6 +67,8 @@ const HomeScreen = () => {
       <Button variant="contained" color="primary">
       Hello Button
     </Button>
+        <Link to='/gurupage/'>Click here if you are the party guru</Link>
+
     
     </div>
   );
