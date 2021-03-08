@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import HomeScreen from './screens/HomeScreen';
+import HomeScreen from "./screens/HomeScreen";
 import PartyPackageScreen from "./screens/PartyPackageScreen";
 import CreatePartyPage from "./screens/CreatePartyPage"
+import CartScreen from "./screens/CartScreen";
 //Browserrouter hoitaa tän urlien reitityksen
 //Kaikki HTML koodi mitä tässä näkyy ajetaan joka sivulla,
 //paitsi nuo <Route> tagit, jotka ajetaan vain URLin mukaisella sivulle
@@ -14,9 +15,9 @@ const App = () => {
       <div className="grid-container">
         <header className="row">
           <div>
-            <a className="brand" href="/">
+            <Link className="brand" to="/">
               Party Guru
-            </a>
+            </Link>
           </div>
           <div>
             <Link to="/cart">Cart</Link>
@@ -24,9 +25,11 @@ const App = () => {
         </header>
         <main>
           <Switch>
-          <Route path="/createpartypage"> <CreatePartyPage/> </Route>
-          <Route path="/product/:id"> <PartyPackageScreen/> </Route>
-          <Route path="/"> <HomeScreen/> </Route>
+            {/*Linkit tuotteissa toimivat, koska ne on luotu Product.js tiedostossa 'Link to' tyylillä */}
+            <Route path="/createpartypage"> <CreatePartyPage/> </Route>
+            <Route path="/cart"> <CartScreen/> </Route>
+            <Route path="/product/:id"> <PartyPackageScreen/> </Route>
+            <Route path="/"> <HomeScreen/> </Route>
           </Switch>
         </main>
       </div>

@@ -19,7 +19,7 @@ const Product = (props) => {
       <div className="card-body">
         <Link to={`/product/${product._id}`}>
           <h2>{product.name}</h2>
-  <h2>Guru: {product.guru}</h2>
+          <h2>Guru: {product.guru}</h2>
         </Link>
         <div className="price">${product.price}</div>
       </div>

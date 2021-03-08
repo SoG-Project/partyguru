@@ -53,8 +53,7 @@ const useStyles = makeStyles((theme) => ({
 const HomeScreen = () => {
   const classes = useStyles();
   return (
-    
-    <div classname={classes.root}>
+    <div className={classes.root}>
       <Grid container spacing={4} justify="center">
       
         {data.products.map((product) => (
@@ -66,13 +65,7 @@ const HomeScreen = () => {
       <Button variant="contained" color="primary">
       Hello Button
     </Button>
-    
     </div>
   );
 }
 export default HomeScreen
-
-
-
-
- 
