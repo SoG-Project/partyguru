@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import HomeScreen from "./screens/HomeScreen";
 import PartyPackageScreen from "./screens/PartyPackageScreen";
+import CreatePartyPage from "./screens/CreatePartyPage"
 import CartScreen from "./screens/CartScreen";
 import LoginScreen from './screens/LoginScreen';
 //Browserrouter hoitaa tän urlien reitityksen
@@ -29,6 +30,7 @@ const App = () => {
         <main>
           <Switch>
             {/*Linkit tuotteissa toimivat, koska ne on luotu Product.js tiedostossa 'Link to' tyylillä */}
+            <Route path="/createpartypage"> <CreatePartyPage/> </Route>
             <Route path="/cart"> <CartScreen/> </Route>
             <Route path="/product/:id"> <PartyPackageScreen/> </Route>
             <Route path="/login"><LoginScreen/></Route>
