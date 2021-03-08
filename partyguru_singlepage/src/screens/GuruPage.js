@@ -9,12 +9,12 @@ const GuruPage = (props)=> {
     return (
         <div className="guruGrid">
             <div>
-                castle of aargh
+                Will Smith
             </div>
-            <div> monty python sada sdaa miju</div>
+            <div> Likes to play Minecraft</div>
             <div>
-                monty python life of bian<br/>
-                darske duu <br/>
+                placeholder<br/>
+                placeholder <br/>
             </div>
             <div> RÖI RÖI</div>
 
