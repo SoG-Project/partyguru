@@ -13,9 +13,9 @@ const App = () => {
       <div className="grid-container">
         <header className="row">
           <div>
-            <a className="brand" href="/">
+            <Link className="brand" to="/">
               Party Guru
-            </a>
+            </Link>
           </div>
           <div>
             <Link to="/cart">Cart</Link>
