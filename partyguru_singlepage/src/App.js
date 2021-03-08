@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import HomeScreen from "./screens/HomeScreen";
 import PartyPackageScreen from "./screens/PartyPackageScreen";
 import CartScreen from "./screens/CartScreen";
+import LoginScreen from './screens/LoginScreen';
 //Browserrouter hoitaa tän urlien reitityksen
 //Kaikki HTML koodi mitä tässä näkyy ajetaan joka sivulla,
 //paitsi nuo <Route> tagit, jotka ajetaan vain URLin mukaisella sivulle
@@ -21,12 +22,16 @@ const App = () => {
           <div>
             <Link to="/cart">Cart</Link>
           </div>
+          <div>
+            <Link to="/login">Login</Link>
+          </div>
         </header>
         <main>
           <Switch>
             {/*Linkit tuotteissa toimivat, koska ne on luotu Product.js tiedostossa 'Link to' tyylillä */}
             <Route path="/cart"> <CartScreen/> </Route>
             <Route path="/product/:id"> <PartyPackageScreen/> </Route>
+            <Route path="/login"><LoginScreen/></Route>
             <Route path="/"> <HomeScreen/> </Route>
           </Switch>
         </main>
