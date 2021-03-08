@@ -11,7 +11,7 @@ const CreatePartyPage = () => {
     return(
         <div>
             <p>Here be Party Page Creation page</p>
-            <Link to ="/invitetoparty">To invitation creation</Link> 
+             <Link to ="/invitetoparty">To invitation creation</Link> 
         </div>
     )
 }
