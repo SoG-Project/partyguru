@@ -14,7 +14,9 @@ const App = () => {
       <div className="grid-container">
         <header className="row">
           <div>
-            <Link to="/">Party Guru home</Link>
+            <Link className="brand" to="/">
+              Party Guru
+            </Link>
           </div>
           <div>
             <Link to="/cart">Cart</Link>
