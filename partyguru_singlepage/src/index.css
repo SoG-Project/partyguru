@@ -126,7 +126,8 @@ a.brand {
 .row.center {
   justify-content: center;
 }
-
+.row.right{
+justify-content: right;}
 /*className="row top"*/
 .row.top {
   align-items: flex-start;
