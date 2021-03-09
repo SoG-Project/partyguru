@@ -8,6 +8,7 @@ import CartScreen from "./screens/CartScreen";
 import LoginScreen from './screens/LoginScreen';
 import InviteToParty from "./screens/InviteToParty"
 import PartyPageScreen from "./screens/PartyPageScreen";
+import { colors } from '@material-ui/core';
 //Browserrouter hoitaa tän urlien reitityksen
 //Kaikki HTML koodi mitä tässä näkyy ajetaan joka sivulla,
 //paitsi nuo <Route> tagit, jotka ajetaan vain URLin mukaisella sivulle
@@ -36,8 +37,6 @@ const App = () => {
         </header>
         <main>
           <Switch>
-
-            {/*Linkit tuotteissa toimivat, koska ne on luotu Product.js tiedostossa 'Link to' tyylillä */}
             <Route path="/createpartypage"> <CreatePartyPage/> </Route>
             <Route path="/cart"> <CartScreen/> </Route>
             <Route path="/gurupage/"> <GuruPage/> </Route>
@@ -48,6 +47,9 @@ const App = () => {
             <Route path="/"> <HomeScreen/> </Route>
           </Switch>
         </main>
+        <footer>
+          <p className="footer-text">Tänne footerin sisällöt</p>
+        </footer>
       </div>
     </Router>
   );
