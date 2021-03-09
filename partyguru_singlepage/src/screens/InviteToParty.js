@@ -8,7 +8,7 @@ const InviteToParty = () => {
         <Link to="/createpartypage">Back</Link>
         <h1>Party Package finalization 2/2</h1>
         <p>Personalize party invitations</p>
-        <Link to="/createpartypage">Send Invites</Link>
+        <Link to="/partypage">Send Invites and go to party page</Link>
     </div>
     )
 }

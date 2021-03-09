@@ -1,0 +1,40 @@
+.guruGrid{
+    display:grid;
+    grid-template-columns: 20% 20%;
+    grid-column-gap:1em;
+    grid-row-gap:0.5em;
+    justify-content: center;
+
+}
+
+
+.profilePic {
+
+}
+
+
+.guruGrid > div{
+    display:flex;
+    flex-direction: column;
+    background: #eee;
+    justify-content: center;
+    align-items: center;
+    padding:1em;
+    gap:10px;
+}
+
+.guruGrid > div.info{
+
+    justify-content: flex-start;
+    align-items: flex-start;
+
+}
+
+button {
+    background: orange;
+
+}
+
+p {
+    font-family: "Helvetica", "Arial";
+}
