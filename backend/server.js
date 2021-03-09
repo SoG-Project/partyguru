@@ -2,6 +2,7 @@ import express from 'express';
 import partypack from './partypack.js';
 import partyinfo from './partyinfo.js'
 import attendees from './attendees.js'
+import gurus from './gurus.js'
 const app = express();
 
 //Koska package.json:ssa on proxy-kenttä laitettu, voi requestit laittaa tulemaan samaan urliin kuin ne on tässä merkitty
@@ -81,5 +82,28 @@ app.get('/api/attendees/:id', (req, res) => {
   res.json(juhlijat)
 })
 
+
+//REQUEST: GET gurut id:n mukaan
+
+/**  
+let id=1;
+axios.get(`/api/gurus/${id}`).then(response => {
+  setState(response.data);
+  console.log(response.data);
+})
+   */
+
+app.get('/api/gurus/:id', (req, res) => {
+  const id = req.params.id
+  const gurut = gurus.gurus.find(guru => guru._id === id)
+  res.json(gurut)
+})
+
+//REQUEST: GET kaikki gurut
+
+
+app.get("/api/gurus", (req, res) => {
+  res.send(gurus.gurus);
+});
 
 app.listen(5000, () => { console.log("Server started at http://localhost:5000") });
