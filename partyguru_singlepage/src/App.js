@@ -7,12 +7,17 @@ import CreatePartyPage from "./screens/CreatePartyPage"
 import CartScreen from "./screens/CartScreen";
 import LoginScreen from './screens/LoginScreen';
 import InviteToParty from "./screens/InviteToParty"
+import PartyPageScreen from "./screens/PartyPageScreen";
 //Browserrouter hoitaa tän urlien reitityksen
 //Kaikki HTML koodi mitä tässä näkyy ajetaan joka sivulla,
 //paitsi nuo <Route> tagit, jotka ajetaan vain URLin mukaisella sivulle
 //---> Header ja footer on aina samat, mutta urlin mukaan valitaan oikea body
 // Eli uudet screenit uusiin tiedostoihin ja importti tohon ylös, ja sitten ton alemman <Route> tagin mukaisesti uus reititys.
 const App = () => {
+
+  //Yksinkertainen  useState sille onko käyttäjä logged in vai ei
+  const [loginStatus, setLoginStatus] = useState(false);
+
   return (
     <Router>
       <div className="grid-container">
@@ -39,6 +44,7 @@ const App = () => {
             <Route path="/product/:id"> <PartyPackageScreen/> </Route>
             <Route path="/login"><LoginScreen/></Route>
             <Route path="/invitetoparty"><InviteToParty/></Route>
+            <Route path="/partypage"><PartyPageScreen/></Route>
             <Route path="/"> <HomeScreen/> </Route>
           </Switch>
         </main>

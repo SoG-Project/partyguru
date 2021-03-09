@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import Product from '../components/Product';
 //import data from '../data';
@@ -28,8 +27,7 @@ const HomeScreen = () => {
   const [products, setProduct] = useState([]);
   const [singleProduct, setSingleProduct] = useState([]);
   const [singleid, setSingleid]=useState(1);
-  
-  
+
   useEffect(() => {
     const fetchData = async () => {
       axios.get('/api/products').then(response => {
@@ -50,7 +48,7 @@ const HomeScreen = () => {
       return item._id === singleid
     })
     for (var i = 0; i < products.length; i++){
-      if (products[i]._id == singleid){
+      if (products[i]._id === singleid){
          found=products[i];
          setSingleProduct(found);
       }
@@ -67,7 +65,7 @@ const HomeScreen = () => {
     })
     let foundBoolean=false;
     for (var i = 0; i < products.length; i++){
-      if (products[i]._id == singleid){
+      if (products[i]._id === singleid){
          foundBoolean=true;
          found=products[i];
          setSingleProduct(found);
@@ -102,6 +100,7 @@ const HomeScreen = () => {
       <Button variant="contained" color="primary" onClick={() => { handleClick() }}>
       Next package button
     </Button>
+    <div className="break"></div>
         <Link to='/gurupage/'>Click here if you are the party guru</Link>
 
         <Grid container spacing={4} justify="center">
