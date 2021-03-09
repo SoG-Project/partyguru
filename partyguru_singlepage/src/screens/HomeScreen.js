@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Product from '../components/Product';
-//import data from '../data';
+import data from '../data';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -24,11 +24,15 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeScreen = () => {
 
-  const [products, setProduct] = useState([]);
+  const [products, setProduct] = useState(data);
+  //package, joka on valittu next napilla
   const [singleProduct, setSingleProduct] = useState([]);
+  //Kun singleid muuttuu, etsi sen arvon mukainen partypackagedata ja laita se singleProductiin
   const [singleid, setSingleid]=useState(1);
 
   useEffect(() => {
+    setProduct(data);
+    /*
     const fetchData = async () => {
       axios.get('/api/products').then(response => {
       const {data} = response.data;
@@ -36,20 +40,23 @@ const HomeScreen = () => {
       console.log(data)
 })
     }
-    fetchData();
+    fetchData();*/
     return () => {
       //
     };
+      
+    
   }, []);
+
   
   //Kun products muuttuu, alustetaan singleID
   useEffect(() => {
-    let found=products.filter(item => {
+    let found=products.products.filter(item => {
       return item._id === singleid
     })
     for (var i = 0; i < products.length; i++){
       if (products[i]._id === singleid){
-         found=products[i];
+         found=products.products[i];
          setSingleProduct(found);
       }
     }
@@ -60,14 +67,14 @@ const HomeScreen = () => {
 
 //Kun singleid muuttuu, etsi sen arvon mukainen partypackagedata ja laita se singleProductiin
   useEffect(() => {
-    let found=products.filter(item => {
-      return item._id === singleid
-    })
+    console.log("täääl");
+    let found=null;
+    let apuri=singleid;
     let foundBoolean=false;
-    for (var i = 0; i < products.length; i++){
-      if (products[i]._id === singleid){
+    for (var i = 0; i < products.products.length; i++){
+      if (products.products[i]._id === singleid.toString()){
          foundBoolean=true;
-         found=products[i];
+         found=products.products[i];
          setSingleProduct(found);
       }
     }
@@ -88,11 +95,12 @@ const HomeScreen = () => {
    }
    
   const classes = useStyles();
+  
   return (
     <div className={classes.root}>
       <Grid container spacing={4} justify="center">
       
-        {products.map((product) => (
+        {products.products.map((product) => (
           <Product key={product._id} product={product}></Product>
         ))}
       </Grid>
