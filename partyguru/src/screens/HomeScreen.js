@@ -20,36 +20,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
-function CenteredGrid(props) {
-  const classes=useStyles();
-  return (
-    <div className={classes.root}>
-      <Grid container spacing={3} justify="center">
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>xs=12, Ilmeisesti gridin rivillä on aina 12 yksikköä tilaa</Paper>
-        </Grid>
-        <Grid item xs={1}>
-          <Paper className={classes.paper}>xs=1</Paper>
-        </Grid>
-        <Grid item xs={1}>
-          <Paper className={classes.paper}>xs=1</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={1}>
-          <Paper className={classes.paper}>xs=1</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-      </Grid>
-    </div>
-  );
-}
+
 export default function HomeScreen() {
   const classes = useStyles();
   return (
