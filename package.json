@@ -5,9 +5,12 @@
   "description": "party guru",
   "main": "index.js",
   "dependencies": {
+    "@devexpress/dx-react-scheduler-material-ui": "^2.7.5",
+    "@material-ui/icons": "^4.11.2",
     "babel-cli": "^6.26.0",
     "babel-node": "0.0.1-security",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "fontsource-roboto": "^4.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.0",

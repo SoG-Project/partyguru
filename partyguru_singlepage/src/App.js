@@ -16,9 +16,6 @@ import { colors } from '@material-ui/core';
 // Eli uudet screenit uusiin tiedostoihin ja importti tohon ylös, ja sitten ton alemman <Route> tagin mukaisesti uus reititys.
 const App = () => {
 
-  //Yksinkertainen  useState sille onko käyttäjä logged in vai ei
-  const [loginStatus, setLoginStatus] = useState(false);
-
   return (
     <Router>
       <div className="grid-container">
@@ -50,7 +47,7 @@ const App = () => {
           </Switch>
         </main>
         <footer>
-          <p className="footer-text">Tänne footerin sisällöt</p>
+          <p className="footer-text">Footer contents here</p>
         </footer>
       </div>
     </Router>

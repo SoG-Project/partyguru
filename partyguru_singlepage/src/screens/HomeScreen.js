@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import SchedulerTest from '../components/SchedulerTest';
 //splash sivu
 //map funktio looppaa datan läpi ja tekee niistä kortteja
 //Product.js tekee ne kortit viime kädessä
@@ -53,7 +54,7 @@ const HomeScreen = () => {
     return () => {
       //
     };
-  }, [products]);
+  }, [products, singleid]);
 
 //Kun singleid muuttuu, etsi sen arvon mukainen partypackagedata ja laita se singleProductiin
   useEffect(() => {
@@ -74,7 +75,7 @@ const HomeScreen = () => {
     return () => {
       //
     };
-  }, [singleid]);
+  }, [products, singleid]);
 
   //Nappi mikä vaihtaa partypackagekorttia, sen klikinhändlääjä
   //klikkauksessa vaan kasvatetaan singleid:tä, mikä triggeröi ylläolevan hookin^
@@ -83,7 +84,7 @@ const HomeScreen = () => {
     __sid+=1;
     setSingleid(__sid);
    }
-   
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -93,21 +94,45 @@ const HomeScreen = () => {
           <Product key={product._id} product={product}></Product>
         ))}
       </Grid>
-      <div className="row">uusi rivi</div>
-      <Button variant="contained" color="primary" onClick={() => { handleClick() }}>
-      Next package button
-    </Button>
-    <div className="break"></div>
-        <Link to='/gurupage/'>Click here if you are the party guru</Link>
+      {/*<div className="row">uusi rivi</div>*/}
 
-        <Grid container spacing={4} justify="center">
-        
+    <div className="break"></div>
+
+    {/*Tavoitteena sisäkkäiset gridit.
+    Vasemmalla näkymässä Scheduler, oikealla formeja tms (ks. Figma etusivua)
+    Tässä määritellään uloin grid container, jossa elementtien pitäisi mennä vas -> oik*/}
+      <Grid container direction="row" justify="space-around" alignItems="center">
+        {/*Ensimmmäisen gridin sisälle grid item, jossa on scheduler*/} 
+        <Grid container item xs={6} direction="column" spacing={4} justify="space-around" alignItems="center">
+          <Grid item>
+            <SchedulerTest/>
+          </Grid>
+          <Grid item>
+            <p>Party Guru photo and information</p>
+          </Grid>
+        </Grid>
+
+        {/*Toinen Grid, jonka sisään on tarkoitus tulla email, yms */}
+        <Grid container item xs={6} direction="column" spacing={4} justify="space-around" alignItems="center">
+          <Grid item xs>
+            <p>Contact information</p>
+          </Grid>
+          <Grid item xs>
+            <p>Attendee amount</p>
+          </Grid>
+          <Grid item>
+            <p>Party cost: 5B €</p>
+          </Grid>
+          <Grid item>
+            <Link to="/cart">View cart</Link>
+          </Grid>
+        </Grid>
+      </Grid>
+
+        <Grid container padding="15px" margin="15px" direction="column" spacing={4} justify="space-around" alignItems="center">
         {/* tämän kortin sisältö vaihtuu napista */}
        <Product key={singleid} product={singleProduct}></Product>
-        
-      
-      
-    
+       <Button size="large" variant="outlined" color="primary" onClick={() => { handleClick() }}> Next package button </Button>
     </Grid>
     </div>
   );

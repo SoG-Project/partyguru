@@ -5,11 +5,13 @@ import {Link} from "react-router-dom"
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import axios from 'axios';
 //party package kortti
-//packagen informaatiot tulee propsina 
+//packagen informaatiot tulee propsina HomeScreenista
 
 const Product = (props) => {
   const { product } = props;
+
   return (
     <Grid item xs={2}>
     <div key={product._id} className="card">
