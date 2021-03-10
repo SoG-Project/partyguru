@@ -31,6 +31,33 @@ const CreatePartyPage = () => {
             <div>Eat cake</div>
             <div>Minecraft mod 2</div>
           </div>
+
+
+          {/*Checkboxes for what the child likes
+          CHECK TUTORIAL: https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
+          */}
+
+          <div>Likes about Minecraft</div>
+          <label class="container">TNT
+            <input type="checkbox"></input>
+            <span class="checkmark"></span>
+          </label>
+          <label className="container">Cats
+            <input type="checkbox"></input>
+            <span class="checkmark"></span>
+          </label>
+          <label className="container">Dogs
+            <input type="checkbox"></input>
+            <span class="checkmark"></span>
+          </label>
+          <label className="container">Griefing
+            <input type="checkbox"></input>
+            <span class="checkmark"></span>
+          </label>
+          <label className="container">CO-OP
+            <input type="checkbox"></input>
+            <span class="checkmark"></span>
+          </label>
           <div>
           <Link to ="/invitetoparty">To invitation creation</Link> 
           </div>
