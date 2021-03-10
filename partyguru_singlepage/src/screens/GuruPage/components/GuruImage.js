@@ -4,7 +4,7 @@ const GuruImage = (props) =>{
 
     return (
         <div>
-            <img className="profilePic" src={'/images/will-smith.jpg'} alt={"will smith"} width={200} height={200}   />
+            <img className="profilePic" src={props.guruImage} alt={"will smith"} width={300} height={300}   />
             <button>Change Pic</button>
         </div>
     )

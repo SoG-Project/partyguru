@@ -9,9 +9,9 @@ const gurus={
             packages:[1, 2, 3],
             partyreservations:[1],
             video:'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-            image:'',
+            image:'https://mh-1-stockagency.panthermedia.net/media/previews/0011000000/11586000/~happy-man-with-white-teeth-smiling_11586559_high.jpg',
             availability:[],
-            bio:'Tarppi is a cool guy'  
+            bio:'Tarppi is a pretty cool guy, he hosts Minecraft parties and doesnt afraid of anything'
         },
 
         {

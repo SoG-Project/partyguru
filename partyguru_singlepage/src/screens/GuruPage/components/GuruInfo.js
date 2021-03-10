@@ -4,10 +4,10 @@ import React, {useState} from 'react'
 const GuruInfo = (props) =>{
 
     const [editMode, setEditMode] = useState(false)
+    const [bio, setBio] = useState("Lorem ipsum dolor sit amet...")
 
     const handleClick = () => {
 
-        console.log("sad")
     }
 
 
@@ -16,10 +16,10 @@ const GuruInfo = (props) =>{
         <div className="info">
             <p>
                 <b>Guru Info:</b><br/>
-                Name: Will Smith <br/>
-                Nick: TuoreMinecraftPrinssi<br/>
+                Name: {props.name} <br/>
+                Nick: {props.nick}<br/>
                 BIO: <br/>
-                Lorem ipsum dolor sit amet... <br/>
+                {props.bio} <br/>
                 <button onClick={handleClick}>Edit</button>
 
             </p>
