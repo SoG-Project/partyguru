@@ -14,7 +14,7 @@ const GuruVideo = (props) =>{
 
     return (
         <div>
-            <ReactPlayer url={props.video} controls width="500px"/>
+            <ReactPlayer url={props.video} controls width="100%"/>
             <button>Change Video URL</button>
 
         </div>
