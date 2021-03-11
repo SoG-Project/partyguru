@@ -26,7 +26,7 @@ const GuruPage = (props)=> {
         return () => {
             //
         };
-    }, []);
+    }, [userID]);
 
 
 
