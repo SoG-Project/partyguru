@@ -8,9 +8,6 @@
 }
 
 
-.profilePic {
-
-}
 
 
 .guruGrid > div{
@@ -28,6 +25,30 @@
     justify-content: flex-start;
     align-items: flex-start;
 
+
+
+}
+
+.guruGrid > div.infoEdit{
+
+    justify-content: flex-start;
+    align-items: stretch;
+
+
+}
+
+.flexAlignThis {
+    align-self:flex-start;
+}
+
+.form {
+    display:flex;
+    flex-direction: column;
+    background: #eee;
+    justify-content: center;
+    align-items: center;
+    padding:1em;
+    gap:10px;
 }
 
 button {

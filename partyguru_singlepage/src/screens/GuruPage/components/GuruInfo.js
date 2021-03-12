@@ -20,7 +20,10 @@ const GuruInfo = (props) =>{
     }, [props]);
 
 
+    //Turn editmode on or off
+
     const handleClick = () => {
+
         setEditMode(!editMode)
     }
 
@@ -55,30 +58,29 @@ const GuruInfo = (props) =>{
     }
 
 
+    //return this if editmode is turned off
     if (editMode === false) return (
-        <div className="info">
-            <p>
-                <b>Guru Info:</b><br/>
-                Name: {guruInfo.name} <br/>
-                Nick: {guruInfo.nick}<br/>
-                BIO: <br/>
-                {guruInfo.bio} <br/>
-                <button onClick={handleClick}>Edit</button>
-
-            </p>
+        <div className="infoEdit">
+            <form>
+                <TextField style={{marginBottom: '15px'}} value={guruInfo.name} label="name" onChange={handleNameChange}  variant="outlined" disabled/>   <br/>
+                <TextField style={{marginBottom: '15px'}} value={guruInfo.nick} label="nick" onChange={handleNickChange} variant="outlined" disabled/>  <br/>
+                <TextField style={{marginBottom: '10px'}} value={guruInfo.bio} multiline rows="12" fullWidth label="bio" onChange={handleBioChange} variant="outlined" disabled/>   <br/>
+            </form>
+            <button className="flexAlignThis" onClick={handleClick}>Edit</button>
         </div>
     )
 
+    //return this if editmode is turned on
+
     if (editMode === true) return (
 
-        <div>
+        <div className="infoEdit">
             <form onSubmit={handleSubmit}>
-            <TextField value={editedGuruInfo.name} label="name" onChange={handleNameChange}/> <br/>
-            <TextField value={editedGuruInfo.nick} label="nick" onChange={handleNickChange}/> <br/>
-            <TextField value={editedGuruInfo.bio} multiline label="bio" onChange={handleBioChange}/>  <br/>
+            <TextField style={{marginBottom: '15px'}} value={editedGuruInfo.name} label="name" onChange={handleNameChange}  variant="outlined"/> <br/>
+            <TextField style={{marginBottom: '15px'}} value={editedGuruInfo.nick} label="nick" onChange={handleNickChange} variant="outlined"/>  <br/>
+            <TextField style={{marginBottom: '10px'}} value={editedGuruInfo.bio} multiline rows="12" fullWidth label="bio" onChange={handleBioChange} variant="outlined"/>   <br/>
             <button type="submit">Save</button>
             </form>
-
         </div>
 
     )
