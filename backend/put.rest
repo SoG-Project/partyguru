@@ -1,0 +1,15 @@
+PUT http://localhost:5000/api/parties/1 HTTP/1.1
+content-type: application/json
+{
+            "_id":"1",
+            "packageid":"2",
+            "guruid":"4",
+            "datetime":"2021-04-23T18:25:43.511Z",
+            "duration":"2",
+            "email":"pimppa@diudau.com",
+            "phone":"+35840dsfdsffds3683295",
+            "num_attendees":"922222",
+            "schedule":["MOD1","MOD2","ppippeli"],
+            "likes":["cats","tnt","adventure"],
+            "description":"Tervetuloa mun partyyn!"
+}
