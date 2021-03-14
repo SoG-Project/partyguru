@@ -1,7 +1,7 @@
 .guruGrid{
     display:grid;
-    grid-template-columns: 20% 20%;
-    grid-column-gap:1em;
+    grid-template-columns: 25% 25%;
+    grid-column-gap: 0.5em;
     grid-row-gap:0.5em;
     justify-content: center;
 
@@ -41,15 +41,7 @@
     align-self:flex-start;
 }
 
-.form {
-    display:flex;
-    flex-direction: column;
-    background: #eee;
-    justify-content: center;
-    align-items: center;
-    padding:1em;
-    gap:10px;
-}
+
 
 button {
     background: orange;

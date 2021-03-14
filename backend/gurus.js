@@ -9,7 +9,7 @@ const gurus={
             "packages":[1, 2, 3],
             "partyreservations":[1],
             "video":"https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-            "image":"",
+            "image":"https://images.pexels.com/photos/2269872/pexels-photo-2269872.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
             "availability":[],
             "bio":"Tarppi is a cool guy"  
         },

@@ -31,6 +31,7 @@ const GuruPage = (props)=> {
 
 
 
+
     return (
         <div className="guruGrid">
             <GuruImage guruImage={userProfile.image}/>
