@@ -10,9 +10,9 @@ import { v4 as uuidv4 } from 'uuid';
 import partypack from './partypack.js';
 import partyinfo from './partyinfo.js';
 import attendees from './attendees.js' ;
-import gurus from './gurus.js'
-const app = express()
-app.use(express.static('build'))
+import gurus from './gurus.js';
+const app = express();
+app.use(express.static('build'));
 app.use(bodyParser.json());
 app.use(cors());
 var date = new Date();
@@ -68,7 +68,7 @@ axios.get(`/api/packages/${id}`).then(response => {
 app.get('/api/packages/:id', (req, res) => {
   const id = req.params.id
   const partypackage = partypack.products.find(product => product._id === id)
-  res.json(partypack)
+  res.json(partypackage)
 })
 
 //REQUEST: GET party id:n mukaan (huom URL on backtickien ympäröimä, ei normisinglequoteissa)
@@ -85,6 +85,8 @@ app.get('/api/parties/:id', (req, res) => {
   res.json(partyinformation)
 })
 
+
+//GET kaikki partyt, testiä varten
 app.get("/api/parties", (req, res) => {
   res.send(partyinfo.parties);
 });
@@ -201,7 +203,7 @@ app.post('/api/parties', (req, res) => {
 //ID pitää lähettää, se on sen partyn ID mihin juhlijat menee.
 //Tää ei tee sen suurempaa inputin validointia, että BETTER WATSH OUTS!!!s
 /*
-   axios.post('/api/attendees').then(response => {
+   axios.post('/api/attendees',<JSONTÄHÄN>).then(response => {
       console.log(response.data);
       //onko tuo oikea tapa logittaa vastaus, en tiä
 })
@@ -229,7 +231,7 @@ app.post('/api/attendees', (req, res) => {
 
 /*
   let id=1;
-   axios.put('/api/parties/:id').then(response => {
+   axios.put('/api/parties/:id',<JSONTÄHÄN>).then(response => {
       console.log(response.data);
       //onko tuo oikea tapa logittaa vastaus, en tiä
 })
@@ -250,7 +252,7 @@ app.put('/api/parties/:id', function (req, res) {
     entry=partyinformation;
 
     // Tämä tarkistaa, mitä kenttiä on tullut requestin mukana
-    // Kaikki requestin mukana tulleet kentät laitetaan oikeille paikalle
+    // Kaikki requestin mukana tulleet kentät laitetaan oikeille paikoilleen entry-objektiin
     if(req.body.packageid!==undefined){
       entry.packageid=req.body.packageid;
       updated+=1;
@@ -313,10 +315,109 @@ app.put('/api/parties/:id', function (req, res) {
   }
 })
 
+
+//REQUEST: PUT update guru ID:n mukaan
+//Kandee lähettää oikeat kentät, koska tässä ei validoida mitään
+//Paitsi lopussa tarkistetaan, päivittikö funktio mitään
+//Jos mitään ei päivitetty, tulee statuskoodi 400
+//Jos kenttä koostuu useammasta osasta (esim packages), sun pitää lähettää kaikki vanhat ja uudet osat samassa listassa
+//eli jos haluat lisätä packagen gurulle, lähetä sekä vanhat että uudet packaget listassa
+
+/*
+  let id=1;
+   axios.put('/api/gurus/:id',<JSONTÄHÄN>).then(response => {
+      console.log(response.data);
+      //onko tuo oikea tapa logittaa vastaus, en tiä
+})
+*/
+
+app.put('/api/gurus/:id', function (req, res) {
+  //muuttuja, että tiedetään päivitettiinkö mitään
+  let updated=0;
+  const id = req.params.id;
+  const updateGuru = gurus.gurus.find(guru => guru._id === id)
+  if(updateGuru === undefined){
+    res.status(400);
+    res.send('<h1>THERE IS NO GURU WITH THAT ID. SAD! ID: </h1>' + id)}
+  else{
+    
+    // entry === party mitä päivität
+    var entry = new Object();
+    entry=updateGuru;
+
+    // Tämä tarkistaa, mitä kenttiä on tullut requestin mukana
+    // Kaikki requestin mukana tulleet kentät laitetaan oikeille paikoilleen entry-objektiin
+    if(req.body.name!==undefined){
+      entry.name=req.body.name;
+      updated+=1;
+    }
+    if(req.body.nick!==undefined){
+      entry.nick=req.body.nick;
+      updated+=1;
+    }
+    if(req.body.email!==undefined){
+      entry.email=req.body.email;
+      updated+=1;
+    }
+    if(req.body.packages!==undefined){
+      entry.packages=req.body.packages;
+      updated+=1;
+    }
+    if(req.body.partyreservations!==undefined){
+      entry.partyreservations=req.body.partyreservations;
+      updated+=1;
+    }
+    if(req.body.video!==undefined){
+      entry.video=req.body.video;
+      updated+=1;
+    }
+    if(req.body.image!==undefined){
+      entry.image=req.body.image;
+      updated+=1;
+    }
+    if(req.body.availability!==undefined){
+      entry.availability=req.body.availability;
+      updated+=1;
+    }
+    if(req.body.bio!==undefined){
+      entry.bio=req.body.bio;
+      updated+=1;
+    }
+
+    //filtteröi päivitettävän partyn pois (koska siinä on vanhat tiedot)
+    let newGurus=partyinfo.parties.filter(function(item){
+      return item._id!==id;
+    })
+    //Päivitettiinkö edes mitään?
+    if(updated===0){
+      res.status(400);
+      res.send('Nothing got updated.');
+    }
+    else{
+      //Lisää päivitetyn gurun listaan
+      newGurus.push(entry);
+      gurus.gurus=newGurus;
+      res.status(200);
+      res.send('Guru updated. ID: ' + entry._id + '. ' + updated + ' fields were updated.');
+
+    }
+
+  }
+})
+
 // REQUEST: PUT update attendees
 // lähetettävä id on valitsemasi partyn id
 //lähetetyt juhlijat lisätään listaan
-//TODO: debuggaa tämä paske
+
+
+/*
+  let id=1;
+   axios.put('/api/attendees/:id',<JSONTÄHÄN>).then(response => {
+      console.log(response.data);
+      //onko tuo oikea tapa logittaa vastaus, en tiä
+})
+*/
+
 app.put('/api/attendees/:id', function (req, res) {
   const id = req.params.id;
 
@@ -345,7 +446,25 @@ app.put('/api/attendees/:id', function (req, res) {
   }
 })
 
+//REQUEST: DELETE juhlija (jos haluaa updeitata niin pitää eka poistaa vanha, soz)
+//TODO findindex ei toimi
+app.delete('/api/attendees/:id', function (req, res) {
+  const id = req.params.id;
+  const deletoitava=req.body.name;
+  //Päivitettävä juhlijalista
+  const lista = attendees.attendees.find(juhlija => juhlija._id === id)
+  if(lista === undefined){
+    res.status(400);
+    res.send('<h1>THERE IS NO PARTY WITH THAT ID. SAD! ID: </h1>' + id)}
+  else{
+    //var index = lista.findIndex(function(item, i){
+     // return item.name === deletoitava;
+   // });
 
+   // delete lista[index];
+    res.status(200);
+    res.send('Attendees updated. ID: ' + id);
 
-
+  }
+})
 app.listen(5000, () => { console.log("Server started at http://localhost:5000") });

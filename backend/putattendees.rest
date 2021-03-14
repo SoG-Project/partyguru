@@ -1,18 +1,15 @@
-PUT http://localhost:5000/api/attendees/1 HTTP/1.1
+PUT http://localhost:5000/api/attendees/2 HTTP/1.1
 content-type: application/json
 
         {
-            "_id":"1",
             "attendees":[
-                {"name":"simo kikkeli erkkilä",
-                "email":"erkkilan.simo@gmail.com",
-                "attends":true,
-                "discord":"yes",
-                "game":"yes"},
-                {"name":"Dimpo Vimpo",
-                "email":"jonne@web.com",
+                {"name":"Tarmo",
+                "email":"Tarmo@gmail.com",
                 "attends":false,
-                "discord":"yes",
-                "game":"yes"}
+                "discord":"fuck no",
+                "game":"yes"},
+                {"name":"Mahjong Man",
+                "email":"xiao@xu.com"
+                    }
             ]
         }
