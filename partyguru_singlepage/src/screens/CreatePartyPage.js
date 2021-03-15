@@ -11,13 +11,14 @@ const CreatePartyPage = () => {
                 Our Party Gurus host the most awesome parties for partiers of any age.<br/>
                 Parties are hosted on the Discord voice application and in various games <br/>
                 available in our selection. <br/>
-                Choose your package and get partying. Do it now!
+                Choose your package and get partying. Do it now!<br/>
+                <br/>
             </p>
           </div>
           
           <div>Schedule</div>
           <div class="schedulebox">
-            <div>Minecraft</div>
+            <div class="schedulecomponent">Minecraft</div>
             <div>Birthday Cheer</div>
             <div>Minecraft mod 1</div>
             <div>Eat cake</div>
@@ -37,7 +38,7 @@ const CreatePartyPage = () => {
           CHECK TUTORIAL: https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
           */}
 
-          <div>Likes about Minecraft</div>
+          <div className="checkboxtitle">Likes about Minecraft</div>
           <label class="container">TNT
             <input type="checkbox"></input>
             <span class="checkmark"></span>
@@ -58,7 +59,7 @@ const CreatePartyPage = () => {
             <input type="checkbox"></input>
             <span class="checkmark"></span>
           </label>
-          <div>
+          <div className="invitetoparty">
           <Link to ="/invitetoparty">To invitation creation</Link> 
           </div>
           </div>

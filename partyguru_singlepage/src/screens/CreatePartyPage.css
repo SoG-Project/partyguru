@@ -28,7 +28,16 @@
     grid-template-rows: auto;
     background-color: orange;
     grid-gap: 10px;
-    padding: 10px;
+    /*padding: 10px;*/
+}
+
+.schedulecomponent {
+    border: 3px solid black;
+}
+
+.checkboxtitle {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .container {
@@ -90,6 +99,10 @@
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+.invitetoparty {
+    margin-top: 30px;
 }
 
 button {
