@@ -1,34 +1,32 @@
 import React, {useState, useEffect} from 'react'
 import axios from "axios";
+import { Checkbox } from '@material-ui/core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 const GuruPartyPackages = (props) =>{
 
 
-    const [packages, setPackages] = useState({})
+
+    const [packages, setPackages] = useState([])
+    const [checked, setChecked] = useState({})
+
 
     useEffect(() => {
-
-
-        let id=5;
-        axios.get(`/api/packages/${id}`).then(response => {
+        axios.get('/api/packages').then(response => {
             setPackages(response.data)
         })
 
-        /* props.packages && props.packages.map(pPackage =>
-            axios.get(`/api/packages/${pPackage}`).then(response => {
-                console.log(response.data)
-            })) */
-        
+    }, []);
 
-    }, [props]);
+
 
 
 
     return (
         <div>
-
-            {packages.products && packages.products.map(pPackage => <div> {pPackage.name} </div> )}
+            {packages.map(pPackage =>
+                <FormControlLabel key={pPackage._id} control={<Checkbox name={pPackage.name}/>} label={pPackage.name}/> )}
         </div>
     )
 
