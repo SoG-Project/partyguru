@@ -36,7 +36,7 @@ const GuruPage = (props)=> {
         <div className="guruGrid">
             <GuruImage guruImage={userProfile.image}/>
             <GuruInfo  bio={userProfile.bio} name={userProfile.name} nick={userProfile.nick}/>
-            <GuruPartyPackages packages={userProfile.packages}/>
+            <GuruPartyPackages guruID={userProfile._id}/>
             <GuruVideo video={userProfile.video}/>
             <div>
                 <Link to = "/partypage">Go to party page</Link>

@@ -8,24 +8,24 @@ const GuruPartyPackages = (props) =>{
 
 
 
-    const [packages, setPackages] = useState([])
-    const [checked, setChecked] = useState({})
+    const [pPackages, setPPackages] = useState([])
+    const [checked, setChecked] = useState([])
 
 
     useEffect(() => {
         axios.get('/api/packages').then(response => {
-            setPackages(response.data)
+            setPPackages(response.data)
         })
 
-    }, []);
-
-
+        pPackages.map(pPackage =>
+        console.log(pPackage.guru))
+    }, [props]);
 
 
 
     return (
         <div>
-            {packages.map(pPackage =>
+            {pPackages.map(pPackage =>
                 <FormControlLabel key={pPackage._id} control={<Checkbox name={pPackage.name}/>} label={pPackage.name}/> )}
         </div>
     )
