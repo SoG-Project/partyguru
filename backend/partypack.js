@@ -25,7 +25,7 @@ const partypack ={
     "name":"Quake 3",
     "image":"/images/p1.jpeg",
 "price":150,
-"guru":["1","2","4"],
+"guru":["2","4"],
 "description":"play quake 3",
 "scheduleitems":["PVP","PVE","birthdaycheer"]},
     ]

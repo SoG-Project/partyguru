@@ -17,16 +17,17 @@ const GuruPartyPackages = (props) =>{
             setPPackages(response.data)
         })
 
-        pPackages.map(pPackage =>
-        console.log(pPackage.guru))
-    }, [props]);
+    }, []);
+
+    const updateGuruPackages = (event) => {
 
 
+    }
 
     return (
         <div>
             {pPackages.map(pPackage =>
-                <FormControlLabel key={pPackage._id} control={<Checkbox name={pPackage.name}/>} label={pPackage.name}/> )}
+                <FormControlLabel key={pPackage._id}  control={<Checkbox name={pPackage.name} checked={pPackage.guru.includes(props.guruID)}/>} label={pPackage.name} /> )}
         </div>
     )
 

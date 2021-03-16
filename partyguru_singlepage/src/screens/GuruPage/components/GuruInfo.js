@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {TextField} from "@material-ui/core";
+import axios from "axios";
+
 
 
 const GuruInfo = (props) =>{
@@ -52,8 +54,12 @@ const GuruInfo = (props) =>{
     const handleSubmit = (event) => {
         event.preventDefault()
         setGuruInfo(editedGuruInfo)
-        setEditedGuruInfo(guruInfo)
         setEditMode(!editMode)
+
+        let id=1
+        axios.put(`/api/gurus/${id}`, editedGuruInfo).then(response => {
+            console.log(response.data)
+        })
 
     }
 
