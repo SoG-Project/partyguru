@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import HomeScreen from "./screens/HomeScreen";
-import PartyPackageScreen from "./screens/PartyPackageScreen";
-import GuruPage from "./screens/GuruPage/GuruPage";
-import CreatePartyPage from "./screens/CreatePartyPage"
-import CartScreen from "./screens/CartScreen";
-import LoginScreen from './screens/LoginScreen';
-import InviteToParty from "./screens/InviteToParty"
-import PartyPageScreen from "./screens/PartyPageScreen";
+
+//Import Material-ui components here
 import { colors } from '@material-ui/core';
+
+//Import pages here
+import LandingPage from "./screens/LandingPage/LandingPage";
+import PartyPackage from "./screens/PartyPackage/PartyPackage";
+import GuruPage from "./screens/GuruPage/GuruPage";
+import CreatePartyPage from "./screens/CreatePartyPage/CreatePartyPage"
+import CartPage from "./screens/CartPage/CartPage";
+import LoginPage from './screens/LoginPage/LoginPage';
+import InviteToParty from "./screens/InviteToParty/InviteToParty"
+import PartyPage from "./screens/PartyPage/PartyPage";
+
 //Browserrouter hoitaa tän urlien reitityksen
 //Kaikki HTML koodi mitä tässä näkyy ajetaan joka sivulla,
 //paitsi nuo <Route> tagit, jotka ajetaan vain URLin mukaisella sivulle
@@ -37,13 +42,13 @@ const App = () => {
         <main>
           <Switch>
             <Route path="/createpartypage"> <CreatePartyPage/> </Route>
-            <Route path="/cart"> <CartScreen/> </Route>
+            <Route path="/cart"> <CartPage/> </Route>
             <Route path="/gurupage/"> <GuruPage/> </Route>
-            <Route path="/product/:id"> <PartyPackageScreen/> </Route>
-            <Route path="/login"><LoginScreen/></Route>
+            <Route path="/product/:id"> <PartyPackage/> </Route>
+            <Route path="/login"><LoginPage/></Route>
             <Route path="/invitetoparty"><InviteToParty/></Route>
-            <Route path="/partypage"><PartyPageScreen/></Route>
-            <Route path="/"> <HomeScreen/> </Route>
+            <Route path="/partypage"><PartyPage/></Route>
+            <Route path="/"> <LandingPage/> </Route>
           </Switch>
         </main>
         <footer>

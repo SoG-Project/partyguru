@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Product from '../components/Product';
+import Product from '../../components/Product';
 //import data from '../data';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import SchedulerTest from '../components/SchedulerTest';
+import SchedulerTest from '../../components/SchedulerTest';
 //splash sivu
 //map funktio looppaa datan läpi ja tekee niistä kortteja
 //Product.js tekee ne kortit viime kädessä
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomeScreen = () => {
+const LandingPage = () => {
 
   const [products, setProduct] = useState([]);
   const [singleProduct, setSingleProduct] = useState([]);
@@ -137,7 +137,7 @@ const HomeScreen = () => {
     </div>
   );
 }
-export default HomeScreen
+export default LandingPage
 /*
 import React, { useState, useEffect, useRef } from 'react';
 import Product from '../components/Product';

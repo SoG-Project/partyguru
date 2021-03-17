@@ -1,11 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import LoginScreen from "./LoginScreen";
-import HomeScreen from "./HomeScreen";
 //Topright link to Cart brings you here
 //Payment page where you can see what is in your cart and make your payment
 
-const CartScreen = () => {
+const CartPage = () => {
     return(
     <div> 
     <Link to ="/">Party Guru Home Page</Link>
@@ -13,4 +11,4 @@ const CartScreen = () => {
     <Link to = "/login">Pay and go to login</Link>
     </div>)
 }
-export default CartScreen
+export default CartPage

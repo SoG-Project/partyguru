@@ -17,15 +17,15 @@ const CreatePartyPage = () => {
           </div>
           
           <div>Schedule</div>
-          <div class="schedulebox">
-            <div class="schedulecomponent">Minecraft</div>
+          <div className="schedulebox">
+            <div className="schedulecomponent">Minecraft</div>
             <div>Birthday Cheer</div>
             <div>Minecraft mod 1</div>
             <div>Eat cake</div>
             <div>Minecraft mod 2</div>
           </div>
           <div>Available activities</div>
-          <div class="schedulebox">
+          <div className="schedulebox">
             <div>Minecraft</div>
             <div>Birthday Cheer</div>
             <div>Minecraft mod 1</div>
@@ -39,25 +39,25 @@ const CreatePartyPage = () => {
           */}
 
           <div className="checkboxtitle">Likes about Minecraft</div>
-          <label class="container">TNT
+          <label className="container">TNT
             <input type="checkbox"></input>
-            <span class="checkmark"></span>
+            <span className="checkmark"></span>
           </label>
           <label className="container">Cats
             <input type="checkbox"></input>
-            <span class="checkmark"></span>
+            <span className="checkmark"></span>
           </label>
           <label className="container">Dogs
             <input type="checkbox"></input>
-            <span class="checkmark"></span>
+            <span className="checkmark"></span>
           </label>
           <label className="container">Griefing
             <input type="checkbox"></input>
-            <span class="checkmark"></span>
+            <span className="checkmark"></span>
           </label>
           <label className="container">CO-OP
             <input type="checkbox"></input>
-            <span class="checkmark"></span>
+            <span className="checkmark"></span>
           </label>
           <div className="invitetoparty">
           <Link to ="/invitetoparty">To invitation creation</Link> 
