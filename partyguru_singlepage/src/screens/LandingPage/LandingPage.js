@@ -103,27 +103,28 @@ const LandingPage = () => {
     Tässä määritellään uloin grid container, jossa elementtien pitäisi mennä vas -> oik*/}
       <Grid container direction="row" justify="space-around" alignItems="center">
         {/*Ensimmmäisen gridin sisälle grid item, jossa on scheduler*/} 
-        <Grid container item xs={6} direction="column" spacing={4} justify="space-around" alignItems="center">
+        <Grid container item xs={7} direction="column" spacing={4} justify="flex-start" alignItems="center" style={{borderStyle:"solid", borderColor:"grey", marginBottom:"10px", marginTop:"10px"}}>
           <Grid item>
             <SchedulerTest/>
           </Grid>
+          {/*Ja toinen item, jossa placeholder gurun tiedoille*/}
           <Grid item>
             <p>Party Guru photo and information</p>
           </Grid>
         </Grid>
 
         {/*Toinen Grid, jonka sisään on tarkoitus tulla email, yms */}
-        <Grid container item xs={6} direction="column" spacing={4} justify="space-around" alignItems="center">
+        <Grid container item xs={3} direction="column" spacing={4} justify="flex-start" alignItems="stretch" style={{borderStyle:"dotted", borderColor:"grey", textAlign:"center", height:"800px"}}>
           <Grid item xs>
             <p>Contact information</p>
           </Grid>
           <Grid item xs>
             <p>Attendee amount</p>
           </Grid>
-          <Grid item>
+          <Grid item xs>
             <p>Party cost: 5B €</p>
           </Grid>
-          <Grid item>
+          <Grid item xs>
             <Link to="/cart">View cart</Link>
           </Grid>
         </Grid>
