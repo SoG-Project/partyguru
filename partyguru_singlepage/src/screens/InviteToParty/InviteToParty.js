@@ -2,7 +2,7 @@ import react, { useState, useEffect } from "react"
 import {Link} from "react-router-dom"
 import "./InviteToParty.css"
 import axios from 'axios'
-import { response } from "express"
+//import { response } from "express"
 
 
 
@@ -20,16 +20,16 @@ const InviteToParty = () => {
         //TARKOITUS LAITTAA DESCRIPTION TEKSTIKENTÄN TEKSTIKSI ALUSSA
         //changeDescription(partypack.description)
       }, [])
-    
+
     const getData = () => {
         let id=1;
         axios.get(`/api/parties/${id}`).then(response => {
-        
+
         //setState(response.data);
         const {partypack} = response.data
-        
-        
-        
+
+
+
         changeDescription(response.data.description)
         console.log(response.data);
         //return(partypack)
