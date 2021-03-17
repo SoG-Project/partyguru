@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomeScreen = () => {
+const LandingPage = () => {
 
   const [products, setProduct] = useState([]);
   const [singleProduct, setSingleProduct] = useState([]);
@@ -137,7 +137,7 @@ const HomeScreen = () => {
     </div>
   );
 }
-export default HomeScreen
+export default LandingPage
 /*
 import React, { useState, useEffect, useRef } from 'react';
 import Product from '../components/Product';

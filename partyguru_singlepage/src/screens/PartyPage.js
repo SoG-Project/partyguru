@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import React from 'react'
 
 //Screen for party page and it's contents
-const PartyPageScreen= () => {
+const PartyPage= () => {
     return(
         <div>
             <p>Page for party page: details, timetable, guru info etc</p>
@@ -10,4 +10,4 @@ const PartyPageScreen= () => {
         </div>
     )
 }
-export default PartyPageScreen
+export default PartyPage

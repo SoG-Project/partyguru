@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import HomeScreen from "./screens/HomeScreen";
-import PartyPackageScreen from "./screens/PartyPackageScreen";
+import LandingPage from "./screens/LandingPage";
+import PartyPackage from "./screens/PartyPackage";
 import GuruPage from "./screens/GuruPage/GuruPage";
 import CreatePartyPage from "./screens/CreatePartyPage"
-import CartScreen from "./screens/CartScreen";
-import LoginScreen from './screens/LoginScreen';
+import CartPage from "./screens/CartPage";
+import LoginPage from './screens/LoginPage';
 import InviteToParty from "./screens/InviteToParty"
-import PartyPageScreen from "./screens/PartyPageScreen";
+import PartyPage from "./screens/PartyPage";
 import { colors } from '@material-ui/core';
+import LoginPage from './screens/LoginPage';
+import CartPage from './screens/CartPage';
 //Browserrouter hoitaa tän urlien reitityksen
 //Kaikki HTML koodi mitä tässä näkyy ajetaan joka sivulla,
 //paitsi nuo <Route> tagit, jotka ajetaan vain URLin mukaisella sivulle
@@ -37,13 +39,13 @@ const App = () => {
         <main>
           <Switch>
             <Route path="/createpartypage"> <CreatePartyPage/> </Route>
-            <Route path="/cart"> <CartScreen/> </Route>
+            <Route path="/cart"> <CartPage/> </Route>
             <Route path="/gurupage/"> <GuruPage/> </Route>
-            <Route path="/product/:id"> <PartyPackageScreen/> </Route>
-            <Route path="/login"><LoginScreen/></Route>
+            <Route path="/product/:id"> <PartyPackage/> </Route>
+            <Route path="/login"><LoginPage/></Route>
             <Route path="/invitetoparty"><InviteToParty/></Route>
-            <Route path="/partypage"><PartyPageScreen/></Route>
-            <Route path="/"> <HomeScreen/> </Route>
+            <Route path="/partypage"><PartyPage/></Route>
+            <Route path="/"> <LandingPage/> </Route>
           </Switch>
         </main>
         <footer>
