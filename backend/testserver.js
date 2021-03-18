@@ -194,7 +194,7 @@ axios.get(`/api/gurus/${id}`).then(response => {
 app.get('/api/gurus/:id', (req, res) => {
 
   const id = req.params.id
-  Note.find({}).then(result => {
+  Guru.find({_id:id}).then(result => {
     res.json(result);
     result.forEach(note => {
       console.log(note)
