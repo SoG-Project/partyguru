@@ -21,10 +21,26 @@ const Product = (props) => {
 
   //Haetaan gurut, joiden ID mainitaan tässä product paketissa
   //Laitetaan guru-oliot/objektit talteen productGuru stateen
-  useEffect(() => (axios.get(`/api/gurus/${guruIDs}`).then(response => {
+
+  /* useEffect(() => (axios.get(`/api/gurus/${guruIDs}`).then(response => {
     setProductGurus(response.data);
     console.log("Response data: ", response.data);
-  })), []);
+  })), []); */
+
+  useEffect(() => {
+
+
+    //guruIDs && guruIDS -juttu varmistaa, ettei mappia suoriteta jos guruIDs on undefined -> estää crashin
+    let guruArray = []
+    guruIDs && guruIDs.map( guru =>
+    axios.get(`/api/gurus/${guru}`).then(response => {
+      guruArray = guruArray.concat(response.data)
+      setProductGurus(guruArray)
+    })
+    )
+
+  }, []);
+
 
   return (
     <Grid item xs={2}>
@@ -40,7 +56,8 @@ const Product = (props) => {
       <div className="card-body">
         <Link to={`/product/${product._id}`}>
           <h2>{product.name}</h2>
-          <h2>Guru: {productGuru.name}</h2>
+          <h2>Guru:</h2>
+          {productGuru && productGuru.map(guru => <div key={guru._id}> {guru.name} </div>)}
         </Link>
         <div className="price">${product.price}</div>
       </div>
