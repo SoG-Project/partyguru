@@ -102,6 +102,88 @@ app.get('/api/parties/:id', (req, res) => {
   res.json(partyinformation)
 })
 
+//REQUEST: PUT uusia guruja 
+//Parametrit: bodyyn JSON- jossa key "gurus" ja sisällä array numeroita (ne tulee olemaan numeroita mongodb:ssä)
+/*
+  let id=1;
+   axios.put('/api/packages/{id}/gurus',<JSONTÄHÄN>).then(response => {
+      console.log(response.data);
+      //onko tuo oikea tapa logittaa vastaus, en tiä
+})
+*/
+app.put('/api/packages/:id/gurus', (req, res) => {
+  const id = req.params.id
+  const toBeAdded= req.body.gurus;
+  const partyinformation = partypack.products.find(party => party._id === id);
+  // entry === party mitä päivität
+  var entry = new Object();
+  entry=partyinformation;
+  for (var k = 0; k < toBeAdded.length; k++) {
+    entry.guru.push(toBeAdded[k]);
+   }
+   //filtteröi päivitettävän partyn pois (koska siinä on vanhat tiedot)
+   let newPacks=partypack.products.filter(function(item){
+    return item._id!==id;
+  })
+  
+    //Lisää päivitetyn partyn listaan
+    newPacks.push(entry);
+    partypack.products=newPacks;
+    res.status(200);
+    res.send('Partypack updated. with new gurus');
+  });
+
+  //REQUEST: DELETE guru (tai monta gurua) party packagesta 
+//Parametrit: URLiin partyn id, bodyyn JSON jossa kenttä gurus. 
+app.delete('/api/packages/:id/gurus', function (req, res) {
+  const id = req.params.id;
+  const deletoitava=req.body.gurus;
+  var entry = new Object();
+  
+  if(req.body.gurus===undefined){
+    res.status(400);
+    res.send('You have to send a JSON with an gurus field with this request');
+  }
+  //Päivitettävä juhlijalista
+  const toBeUpdated = partypack.products.find(pack => pack._id === id)
+  console.log(toBeUpdated);
+  if(toBeUpdated === undefined){
+    res.status(400);
+    res.send('<h1>THERE IS NO PACKAGE WITH THAT ID. SAD! ID: </h1>' + id)}
+  else{
+    var changed=false;
+    for(var i=0; i<toBeUpdated.guru.length;i++){
+      for (var k = 0; k < req.body.gurus.length; k++) {
+        if (toBeUpdated.guru[i]===req.body.gurus[k]) {
+          toBeUpdated.guru.splice(i,1);
+          changed=true;
+        }
+      }
+    }
+     if(changed===false){
+       res.status(400);
+       res.send('Couldnt find those gurus in the database. sad.');
+     }
+     else{
+        //filtteröi päivitettävän partyn pois (koska siinä on vanhat tiedot)
+        let newPacks=partypack.products.filter(function(item){
+          return item._id!==id;
+        })
+        //Lisää päivitetyn partyn listaan
+        newPacks.push(toBeUpdated);
+        partypack.products=newPacks;                      
+        res.status(200);
+        res.send('gurus deleted');
+
+
+     }
+
+    res.status(200);
+    res.send('gurus deleted');
+  }
+})
+
+
 //GET kaikki partyt, testiä varten
 app.get("/api/parties", (req, res) => {
   res.send(partyinfo.parties);
@@ -459,7 +541,6 @@ app.delete('/api/attendees/:id', function (req, res) {
         changed=true;
       }
      }
-     //Jos samannimistä juhlijaa ei löytynyt, lisätään se uutena listaan
      if(changed===false){
        res.status(400);
        res.send('Attendee with that email not found.');
