@@ -7,7 +7,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import SchedulerTest from '../../components/SchedulerTest';
+import SchedulerTest from '../../components/Scheduler/SchedulerTest';
+import EditableScheduler from '../../components/Scheduler/EditableScheduler';
 //splash sivu
 //map funktio looppaa datan läpi ja tekee niistä kortteja
 //Product.js tekee ne kortit viime kädessä

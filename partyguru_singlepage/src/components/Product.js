@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {Link} from "react-router-dom"
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,21 +6,41 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 //party package kortti
-//packagen informaatiot tulee propsina HomeScreenista
+//packagen informaatiot tulee propsina LandingPagelta
 
 const Product = (props) => {
   const { product } = props;
+  //productGuru state on tämän productin gurujen tietojen hakemista varten
+  const [productGuru, setProductGurus] = useState([])
+
+  console.log("Productin sisältö", product);
+
+  const guruIDs = product.guru;
+
+  console.log("Guru IDs: ", guruIDs)
+
+  //Haetaan gurut, joiden ID mainitaan tässä product paketissa
+  //Laitetaan guru-oliot/objektit talteen productGuru stateen
+  useEffect(() => (axios.get(`/api/gurus/${guruIDs}`).then(response => {
+    setProductGurus(response.data);
+    console.log("Response data: ", response.data);
+  })), []);
 
   return (
     <Grid item xs={2}>
+      {/*Grid on material-ui komponentti, jolla saadaan kortin sisäinen layout hoidettua,
+      xs määrittää kokoa suhteessa muihin elementteihin (esim muut kortit) */}
     <div key={product._id} className="card">
+      {/*Tarviiko div keyt?
+      Kortin peruslayout */}
       <Link to={`/product/${product._id}`}>
         <img className="medium" src={product.image} alt={product.name} />
+        {/*Kuva, joka toimii linkkinä tuotteen lisätietosivuille*/}
       </Link>
       <div className="card-body">
         <Link to={`/product/${product._id}`}>
           <h2>{product.name}</h2>
-          <h2>Guru: {product.guru}</h2>
+          <h2>Guru: {productGuru.name}</h2>
         </Link>
         <div className="price">${product.price}</div>
       </div>
