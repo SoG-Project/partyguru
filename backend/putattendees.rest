@@ -1,4 +1,4 @@
-PUT http://localhost:5000/api/attendees/2 HTTP/1.1
+PUT http://localhost:5001/api/attendees/2 HTTP/1.1
 content-type: application/json
 
         {
@@ -6,7 +6,7 @@ content-type: application/json
                 {"name":"Tarmo",
                 "email":"Tarmo@gmail.com",
                 "attends":false,
-                "discord":"fuck no",
+                "discord":"fuck YES",
                 "game":"yes"},
                 {"name":"Mahjong Man",
                 "email":"xiao@xu.com"
