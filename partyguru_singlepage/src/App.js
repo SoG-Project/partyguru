@@ -52,7 +52,15 @@ const App = () => {
           </Switch>
         </main>
         <footer>
-          <p className="footer-text">Footer contents here</p>
+          <p className="footer-text">
+          <Link to="/createpartypage">Createpartypage </Link>
+          <Link to="/cart">Cart </Link>
+          <Link to="/gurupage">gurupage </Link>
+          <Link to="/product/1">Product id 1 </Link>
+          <Link to="/login">Login </Link>
+          <Link to="/invitetoparty">Invitetoparty </Link>
+          <Link to="/partypage">Partypage </Link>
+          </p>
         </footer>
       </div>
     </Router>

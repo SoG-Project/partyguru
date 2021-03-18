@@ -14,6 +14,14 @@ const attendeesSchema = new mongoose.Schema({
 });
 const Attendees= new mongoose.model('Attendees',attendeesSchema);
 
+const noteSchema = new mongoose.Schema({
+  content: String,
+  date: Date,
+  important: Boolean,
+})
+
+const Note = mongoose.model('Note', noteSchema)
+
 const guruSchema = new mongoose.Schema({
     //_id: String,
     name: String,
@@ -51,9 +59,44 @@ const partypackSchema = new mongoose.Schema({
 })
 const Partypack= new mongoose.model('Partypack',partypackSchema);
 
-const guruhaku= Guru.find({});
-console.log(guruhaku);
+Note.find({}).then(result => {
+  result.forEach(note => {
+    console.log(note)
+  })
+  
+});
 
+mongoose.connect(err => {
+  const collection = client.db("test").collection("devices");
+  console.log('taasss');
+  // perform actions on the collection object
+  client.close();
+});
+
+const guru1= new Guru({
+  name: 'Jasaddsadsamppa tuominen',
+  nick: 'Damppa Juodsadsaminen',
+  email: 'Strindsadsag',
+  partyreservations:[1,5,8],
+  video: 'Strindsag',
+  image: 'Strinsaddsaag',
+  availability:['trisasang'],
+  bio: 'asddsadsadsadsasasa'
+})
+guru1.save().then(response=>{
+console.log('guru savee');
+
+})
+
+Guru.find({}).then(result => {
+  console.log('voivvitttuu');
+  console.log(result);
+  result.forEach(guru => {
+    console.log(guru)
+  })
+  
+})
+process.exit();
 
 /*
 const partyinfo= new Partyinfo({

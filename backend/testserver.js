@@ -71,6 +71,13 @@ const attendeesSchema = new mongoose.Schema({
   })
   const Partypack= new mongoose.model('Partypack',partypackSchema);
   
+  const noteSchema = new mongoose.Schema({
+    content: String,
+    date: Date,
+    important: Boolean,
+  })
+  
+  const Note = mongoose.model('Note', noteSchema)
 
 /*client.connect(err => {
   const collection = client.db("test").collection("devices");
@@ -167,8 +174,13 @@ app.get('/api/attendees/:id', (req, res) => {
 })
 
 app.get('/api/gurus', (req, res) => {
-    res.send(gurus.gurus);
-    res.send('wtf');
+
+    Guru.find({}).then(result => {
+      res.json(result);
+      result.forEach(note => {
+        console.log(note)
+      })
+    })
   })
 
 //REQUEST: GET gurut id:n mukaan
@@ -180,11 +192,24 @@ axios.get(`/api/gurus/${id}`).then(response => {
 })
    */
 app.get('/api/gurus/:id', (req, res) => {
+
   const id = req.params.id
-  const gurut = Guru.find({});
+  Note.find({}).then(result => {
+    res.json(result);
+    result.forEach(note => {
+      console.log(note)
+    })
+  })
+  //const gurut = Guru.find();
+/*
+  Guru.find({}).toArray(function(error, documents) {
+    if (err) throw error;
+
+    res.send(documents);
+});*/
   console.log('wtf');
   //const gurut = gurus.gurus.find(guru => guru._id === id)
-  res.json(gurut)
+ // res.json(gurut)
 })
 //REQUEST: GET kaikki gurut
 /*

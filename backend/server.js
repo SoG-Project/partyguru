@@ -24,29 +24,13 @@ var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 var dateTime = date+' '+time;
 //const MongoClient = require('mongodb').MongoClient;
+
+/*
 const uri = "mongodb+srv://sogtietokanta:schoolofgamingtietokantaprojekti@cluster0.wqxpy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //j
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
-
-const noteSchema = new mongoose.Schema({
-  content: String,
-  date: Date,
-  important: Boolean,
-})
-
-const Note = mongoose.model('Note', noteSchema)
-
-const note = new Note({
-  content: 'HTML is Easy',
-  date: new Date(),
-  important: true,
-})
-
-note.save().then(response => {
-  console.log('note saved!')
-  mongoose.connection.close()
-})
+*/
 
 /*client.connect(err => {
   const collection = client.db("test").collection("devices");
@@ -250,7 +234,7 @@ app.post('/api/attendees', (req, res) => {
 //Jos mitään ei päivitetty, tulee statuskoodi 400
 /*
   let id=1;
-   axios.put('/api/parties/:id',<JSONTÄHÄN>).then(response => {
+   axios.put('/api/parties/{id}',<JSONTÄHÄN>).then(response => {
       console.log(response.data);
       //onko tuo oikea tapa logittaa vastaus, en tiä
 })
@@ -335,7 +319,7 @@ app.put('/api/parties/:id', function (req, res) {
 //eli jos haluat lisätä packagen gurulle, lähetä sekä vanhat että uudet packaget listassa
 /*
   let id=1;
-   axios.put('/api/gurus/:id',<JSONTÄHÄN>).then(response => {
+   axios.put('/api/gurus/{id}',<JSONTÄHÄN>).then(response => {
       console.log(response.data);
       //onko tuo oikea tapa logittaa vastaus, en tiä
 })
@@ -414,7 +398,7 @@ app.put('/api/gurus/:id', function (req, res) {
 //Jos samannimisiä juhlijoita oli jo, ne poistetaan ensin.
 /*
   let id=1;
-   axios.put('/api/attendees/:id',<JSONTÄHÄN>).then(response => {
+   axios.put('/api/attendees/{id}',<JSONTÄHÄN>).then(response => {
       console.log(response.data);
       //onko tuo oikea tapa logittaa vastaus, en tiä
 })
