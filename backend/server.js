@@ -135,10 +135,17 @@ app.put('/api/packages/:id/gurus', (req, res) => {
 
   //REQUEST: DELETE guru (tai monta gurua) party packagesta 
 //Parametrit: URLiin partyn id, bodyyn JSON jossa kenttä gurus. 
+
+/*
+  let id=1;
+   axios.delete('/api/packages/{id}/gurus',<JSONTÄHÄN>).then(response => {
+      console.log(response.data);
+      //onko tuo oikea tapa logittaa vastaus, en tiä
+})
+*/
+
 app.delete('/api/packages/:id/gurus', function (req, res) {
   const id = req.params.id;
-  const deletoitava=req.body.gurus;
-  var entry = new Object();
   
   if(req.body.gurus===undefined){
     res.status(400);
@@ -170,7 +177,9 @@ app.delete('/api/packages/:id/gurus', function (req, res) {
           return item._id!==id;
         })
         //Lisää päivitetyn partyn listaan
-        newPacks.push(toBeUpdated);
+        var entry = new Object();
+        entry=toBeUpdated;
+        newPacks.push(entry);
         partypack.products=newPacks;                      
         res.status(200);
         res.send('gurus deleted');
@@ -178,8 +187,6 @@ app.delete('/api/packages/:id/gurus', function (req, res) {
 
      }
 
-    res.status(200);
-    res.send('gurus deleted');
   }
 })
 
