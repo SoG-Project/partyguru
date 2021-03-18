@@ -16,8 +16,7 @@ const InviteToParty = () => {
     const[partypack, changePartyPack] = useState();
 
     useEffect(() => {
-        //KAATAA KOODIN
-        //const partypack = getData()
+        //getData gets partypack in question
         getData()
         //Kaksi riviä alhaalla toimivat kerran, olisikohan aikaisemmista fewtcheistä tullut data alustanut
         //console.log(partypack.description, ' was fetched from getData function')
@@ -28,18 +27,21 @@ const InviteToParty = () => {
         console.log(description, " is the description")
       }, [])
 
+    //getData gets the partypack in question from the server
     const getData = () => {
         let id=1;
         axios.get(`/api/parties/${id}`).then(response => {
 
         //setState(response.data);
+        changePartyPack(response.data)
         const {partypack} = response.data
 
 
 
         changeDescription(response.data.description)
         console.log(response.data, " is the partypack fetched in InviteToParty");
-        changePartyPack(response.data)
+        
+        //This part could be bugged because partypack useState is not initialized with an empty partypack object and therefore changes to 'undefined'
         console.log(partypack, " is the partypack fetched and stored")
         console.log(response.data.description, " is the description of the partypack")
         changeDescription(response.data.description)
@@ -51,6 +53,7 @@ const InviteToParty = () => {
     
     }
 
+    //Handles changes to the form
     const handleChange = (event) => {
         changeDescription(event.target.value)
     }
@@ -70,6 +73,9 @@ const InviteToParty = () => {
         
         <div class="partydescription">
             <h1>Party description</h1>
+            {/*This form will be initialized with the description useState. Once the partypack data is fetched from the database, its value will be updated with the
+            description field of the partypack object. If you use defaultValue instead of value, it doesn't work due to defaultValue not being updated (somehow).
+            */}
             <form onSubmit={handleSubmit}>
                 <label>
                     <input type="text" /*defaultValue={description}*/ value={description} onChange={handleChange}/>
