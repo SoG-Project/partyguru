@@ -5,7 +5,10 @@ import React, { useState } from "react";
 //toinen ongelma on että kun add element nappia painaa niin tulee uusi lista mutta niitä pitäisi
 //pystyä muokkaamaan erikseen
 
-//en ole ylpeä tästä
+//eli kun lisää useamman elementin ja yrittää muokata yhtä niistä niin se muokkaa niitä kaikkia
+
+//ei, en ole ylpeä tästä
+
 export default function App() {
   const [items, setItems] = useState([]);
   const [itemName, setItemName] = useState("");
