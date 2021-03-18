@@ -1,7 +1,7 @@
 import "./styles.css";
 import React, { useState } from "react";
 
-//textarea rivillä 47 temp placeholderi kun en parempaan keksinyt
+//textarea rivillä 51 temp placeholderi kun en parempaan keksinyt
 //toinen ongelma on että kun add element nappia painaa niin tulee uusi lista mutta niitä pitäisi
 //pystyä muokkaamaan erikseen
 
