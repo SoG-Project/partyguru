@@ -31,7 +31,9 @@ const SchedulerTest = () => {
             console.log({data})
             if(changed){
             }
-
+            if(deleted) {
+                
+            }
         })
     }
 */
@@ -42,7 +44,7 @@ return(
         heightillä määritellään korkeus pikseleinä,
         firstDayofWeek muuttaa vasemmanpuoleisinta päivää, 1 = maanantai */}
         <Scheduler
-        height={690}
+        height={600}
         firstDayOfWeek={1}>
 
             {/*Kapistus jolla saadaan jotain näkyviin, 

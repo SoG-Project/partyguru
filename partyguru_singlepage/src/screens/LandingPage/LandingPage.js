@@ -32,8 +32,9 @@ const LandingPage = () => {
   
   useEffect(() => {
     const fetchData = async () => {
-      axios.get('/api/packages').then(response => {
-      setProduct(response.data);
+      axios.get('/api/partypack').then(response => {
+        console.log(response.data);
+        setProduct(response.data);
     })}
     fetchData();
     return () => {
@@ -115,7 +116,7 @@ const LandingPage = () => {
         </Grid>
 
         {/*Toinen Grid, jonka sisään on tarkoitus tulla email, yms */}
-        <Grid container item xs={3} direction="column" spacing={4} justify="flex-start" alignItems="stretch" style={{borderStyle:"dotted", borderColor:"grey", textAlign:"center", height:"800px"}}>
+        <Grid container item xs={3} direction="column" spacing={4} justify="flex-start" alignItems="stretch" style={{borderStyle:"dotted", borderColor:"grey", textAlign:"center", height:"700px"}}>
           <Grid item xs>
             <p>Contact information</p>
           </Grid>
