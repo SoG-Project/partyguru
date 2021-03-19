@@ -70,7 +70,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFind
 })
 */
 
-app.get("/api/packages", (req, res) => {
+app.get("/api/partypack", (req, res) => {
   res.send(partypack.products);
 });
 

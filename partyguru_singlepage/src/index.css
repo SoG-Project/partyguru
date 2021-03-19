@@ -164,26 +164,40 @@ img {
 img.medium {
   max-width: 29rem;
   width: 100%;
+  max-height: 20rem;
+  min-height: 20rem;
 }
+
 img.large {
   width: 100%;
 }
 
 /* Card */
 .card {
-  border: 0.1rem #c0c0c0 solid;
+  border: 0.3rem #c0c0c0 solid;
   background-color: #f8f8f8;
   border-radius: 0.5rem;
   margin: 1rem;
+  min-height: 380px;
+  min-width: 220px;
+  position:relative;
 }
 .card-body {
   padding: 1rem;
 }
 .card-body > * {
   margin-bottom: 0.5rem;
+  position:relative;
 }
 .price {
   font-size: 2rem;
+  position:absolute;
+  bottom:0;
+  background-color: #f0c040;
+  text-align: center;
+  width: 90%;
+  border-style: dotted;
+  border-width: 1px;
 }
 
 .footer-text{

@@ -4,6 +4,6 @@ import data from '../../data';
 //jätin tän vaan siksi että näkyisi miten eri screenejä voi tehä browserroutella, oikeasti varmaan meillä ei oo mitään tällaista screeniä
 const PartyPackage = (props)=> {
 
- return <div className="row center">Party package description comes here</div>
+ return <div className="row center">Party package description comes here?</div>
 }
 export default PartyPackage

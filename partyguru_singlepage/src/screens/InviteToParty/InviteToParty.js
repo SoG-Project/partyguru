@@ -65,13 +65,13 @@ const InviteToParty = () => {
     return(
     <div>
         <Link to="/createpartypage">Back</Link>
-        <div class="mainheader">
+        <div className="mainheader">
             <h1>Party Package finalization 2/2</h1>
             <p>Personalize party invitations</p>
         </div>
         
         
-        <div class="partydescription">
+        <div className="partydescription">
             <h1>Party description</h1>
             {/*This form will be initialized with the description useState. Once the partypack data is fetched from the database, its value will be updated with the
             description field of the partypack object. If you use defaultValue instead of value, it doesn't work due to defaultValue not being updated (somehow).
