@@ -53,7 +53,7 @@ export default function App() {
       <h2 className="Test2">Kirjoita oma kutsukirjeesi seuraavaan kenttään :)</h2>
       <textarea
       
-       placeholder="Kirjoita kutsusi tähän kenttään..."
+       placeholder="Kirjoita oma kutsusi tähän kenttään..."
        rows={20}
        cols={50}
        minLength={10}
