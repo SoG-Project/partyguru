@@ -1,13 +1,13 @@
 import "./styles.css";
 import React, { useState } from "react";
 
-//textarea rivillä 51 temp placeholderi kun en parempaan keksinyt
+//textarea nyt vähän laadukkaampi mutta pitäisi saada keskelle sivua eikä vasemmalle laidalle
 //toinen ongelma on että kun add element nappia painaa niin tulee uusi lista mutta niitä pitäisi
 //pystyä muokkaamaan erikseen
 
 //eli kun lisää useamman elementin ja yrittää muokata yhtä niistä niin se muokkaa niitä kaikkia
 
-//ei, en ole ylpeä tästä
+//en ole ylpeä tästä
 
 export default function App() {
   const [items, setItems] = useState([]);
@@ -51,9 +51,17 @@ export default function App() {
         ))}
       </ul>
       <h2 className="Test2">Kirjoita oma kutsukirjeesi seuraavaan kenttään :)</h2>
-      <textarea> 
-        Morjesta pöytää, tulkaa juhliin ja antakaa lahjoja pls!!1
-        </textarea> 
+      <textarea
+      
+       placeholder="Kirjoita kutsusi tähän kenttään..."
+       rows={20}
+       cols={50}
+       minLength={10}
+       maxLength={1000}
+       
+       >
+        </textarea>
+        <button> Kutsu tehty'd </button>
     </div>
   );
 }
