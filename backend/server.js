@@ -50,7 +50,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFind
 /**Esimerkkihookki:
    useEffect(() => {
     const fetchData = async () => {
-      axios.get('/api/packages').then(response => {
+      axios.get('/api/partypack').then(response => {
       setProduct(response.data);
     })}
     fetchData();
@@ -64,7 +64,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFind
 
 /*REQUEST: GET kaikki packaget
 
-      axios.get('/api/packages').then(response => {
+      axios.get('/api/partypack').then(response => {
       setState(response.data);
       console.log(response.data)
 })
@@ -77,12 +77,12 @@ app.get("/api/partypack", (req, res) => {
 /*REQUEST: GET package ID:n mukaan (huom URL on backtickien ympäröimä, ei normisinglequoteissa)
 
 let id=1;
-axios.get(`/api/packages/${id}`).then(response => {
+axios.get(`/api/partypack/${id}`).then(response => {
   setState(response.data);
   console.log(response.data);
 })
 */
-app.get('/api/packages/:id', (req, res) => {
+app.get('/api/partypack/:id', (req, res) => {
   const id = req.params.id
   const partypackage = partypack.products.find(product => product._id === id)
   res.json(partypackage)
@@ -106,12 +106,12 @@ app.get('/api/parties/:id', (req, res) => {
 //Parametrit: bodyyn JSON- jossa key "gurus" ja sisällä array numeroita (ne tulee olemaan numeroita mongodb:ssä)
 /*
   let id=1;
-   axios.put('/api/packages/{id}/gurus',<JSONTÄHÄN>).then(response => {
+   axios.put('/api/partypack/{id}/gurus',<JSONTÄHÄN>).then(response => {
       console.log(response.data);
       //onko tuo oikea tapa logittaa vastaus, en tiä
 })
 */
-app.put('/api/packages/:id/gurus', (req, res) => {
+app.put('/api/partypack/:id/gurus', (req, res) => {
   const id = req.params.id
   const toBeAdded= req.body.gurus;
   const partyinformation = partypack.products.find(party => party._id === id);
@@ -138,13 +138,13 @@ app.put('/api/packages/:id/gurus', (req, res) => {
 
 /*
   let id=1;
-   axios.delete('/api/packages/{id}/gurus',<JSONTÄHÄN>).then(response => {
+   axios.delete('/api/partypack/{id}/gurus',<JSONTÄHÄN>).then(response => {
       console.log(response.data);
       //onko tuo oikea tapa logittaa vastaus, en tiä
 })
 */
 
-app.delete('/api/packages/:id/gurus', function (req, res) {
+app.delete('/api/partypack/:id/gurus', function (req, res) {
   const id = req.params.id;
   
   if(req.body.gurus===undefined){
