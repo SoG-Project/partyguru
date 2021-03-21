@@ -9,48 +9,42 @@ const GuruPartyPackages = ({guruID}) =>{
 
 
     const [pPackages, setPPackages] = useState([])
+    const [toggleCheckBox, setToggleCheckBox] = React.useState({})
+
 
     //array used to control the checked status of dynamically created checkboxes
-    const [checked, setChecked] = useState([])
 
 
     useEffect(() => {
 
         axios.get('/api/partypack').then(response => {
-            setPPackages(response.data)
 
-            const newCheckedArray = []
-            response.data.map(pPackage => newCheckedArray.push(pPackage.guru.includes(parseInt(guruID)))
+            //sorting the packages by ID using an inline compare function
+            setPPackages(response.data.sort((a,b) => (a._id > b._id) ? 1 : ((b._id > a._id) ? -1 : 0))
             )
-            console.log("check em" + newCheckedArray)
-            setChecked(newCheckedArray)
-
         })
         
 
-    }, [guruID]);
+    }, [guruID, pPackages]);
 
 
-    const handleChange = (id) => {
-
-        const newCheckedArray = (checked.concat())
+    const handleChange = (id, isChecked) => {
 
 
-        /* if (checked[id-1] === false)
+
+         if (isChecked === false)
         axios.put('/api/partypack/' + parseInt(id) + '/gurus', {gurus: [parseInt(guruID)]}).then(response => {
             console.log('täs response' + response.data)
 
 
-             })
+        })
 
-        if (checked[id-1] === true)
-            axios.delete('/api/partypack/' + parseInt(id) + '/gurus', {gurus: [parseInt(guruID)]}).then(response => {
+        if (isChecked === true)
+            axios.delete('/api/partypack/' + parseInt(id) + '/gurus',{data: {gurus: [parseInt(guruID)]}}).then(response => {
                 console.log('täs response' + response.data)
-n
-            }) */
 
-        newCheckedArray[id-1] = !checked[id-1]
-        setChecked(newCheckedArray)
+            })
+
 
     }
 
@@ -60,10 +54,10 @@ n
     return (
 
         <div>
-            {pPackages.map(pPackage =>
+            {pPackages && pPackages.map(pPackage =>
                 <FormControlLabel key={pPackage._id}  control=
-                    {<Checkbox onChange={() => handleChange(pPackage._id)} name={pPackage.name}
-                               checked={checked[pPackage._id-1] || false}/>} label={pPackage.name} /> )}
+                    {<Checkbox onChange={() => handleChange(pPackage._id, pPackage.guru.includes(parseInt(guruID)))} name={pPackage.name}
+                               checked={pPackage.guru.includes(parseInt(guruID)) || false}/>} label={pPackage.name} /> )}
         </div>
     )
 
