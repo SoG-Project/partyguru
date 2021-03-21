@@ -9,10 +9,7 @@ const GuruPartyPackages = ({guruID}) =>{
 
 
     const [pPackages, setPPackages] = useState([])
-    const [toggleCheckBox, setToggleCheckBox] = React.useState({})
 
-
-    //array used to control the checked status of dynamically created checkboxes
 
 
     useEffect(() => {
@@ -34,14 +31,14 @@ const GuruPartyPackages = ({guruID}) =>{
 
          if (isChecked === false)
         axios.put('/api/partypack/' + parseInt(id) + '/gurus', {gurus: [parseInt(guruID)]}).then(response => {
-            console.log('täs response' + response.data)
+            console.log('täs response:' + response.data)
 
 
-        })
+            })
 
         if (isChecked === true)
             axios.delete('/api/partypack/' + parseInt(id) + '/gurus',{data: {gurus: [parseInt(guruID)]}}).then(response => {
-                console.log('täs response' + response.data)
+                console.log('täs response:' + response.data)
 
             })
 
@@ -53,11 +50,11 @@ const GuruPartyPackages = ({guruID}) =>{
 
     return (
 
-        <div>
+        <div className="checkBoxes">
             {pPackages && pPackages.map(pPackage =>
                 <FormControlLabel key={pPackage._id}  control=
                     {<Checkbox onChange={() => handleChange(pPackage._id, pPackage.guru.includes(parseInt(guruID)))} name={pPackage.name}
-                               checked={pPackage.guru.includes(parseInt(guruID)) || false}/>} label={pPackage.name} /> )}
+                               checked={pPackage.guru.includes(parseInt(guruID)) || false}/>} label={<span style={{fontSize: '2rem'}}>{pPackage.name}</span>} /> )}
         </div>
     )
 
