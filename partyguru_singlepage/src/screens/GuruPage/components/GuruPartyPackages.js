@@ -51,10 +51,13 @@ const GuruPartyPackages = ({guruID}) =>{
     return (
 
         <div className="checkBoxes">
+            <ul>
             {pPackages && pPackages.map(pPackage =>
-                <FormControlLabel key={pPackage._id}  control=
+                <li><FormControlLabel key={pPackage._id}  control=
                     {<Checkbox onChange={() => handleChange(pPackage._id, pPackage.guru.includes(parseInt(guruID)))} name={pPackage.name}
-                               checked={pPackage.guru.includes(parseInt(guruID)) || false}/>} label={<span style={{fontSize: '2rem'}}>{pPackage.name}</span>} /> )}
+                               checked={pPackage.guru.includes(parseInt(guruID)) || false}/>} label={<span style={{fontSize: '2rem'}}>{pPackage.name}</span>} /></li> )}
+
+            </ul>
         </div>
     )
 
