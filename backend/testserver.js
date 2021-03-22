@@ -279,7 +279,7 @@ app.post('/api/parties', (req, res) => {
   const newParty= new Partyinfo({
     packageid: req.body.packageid,
     guruid: req.body.guruid,
-    datetime: Date.now,
+    datetime: Date.now(),
     duration:req.body.duration,
     email: req.body.email,
     phone: req.body.phone,
