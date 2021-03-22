@@ -122,8 +122,7 @@ header a {
 /*linkki headerin sisällä ja className="brand"*/
 a.brand {
   color: #ffffff;
-  font-size: 3rem;
-  font-weight: bold;
+  font-size: 2rem;
 }
 
 a.brand.hover{

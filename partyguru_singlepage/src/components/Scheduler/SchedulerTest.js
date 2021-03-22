@@ -38,14 +38,15 @@ const SchedulerTest = () => {
     }
 */
 return(
-    <Paper>
+    <Paper variant="outlined" style={{width:"50vw"}}>
         {/*Itse scheduler, sen tägien sisään tulee kaikki sen osat.
         Datana passataan appointments, jotka scheduler osaa ladata,
         heightillä määritellään korkeus pikseleinä,
         firstDayofWeek muuttaa vasemmanpuoleisinta päivää, 1 = maanantai */}
         <Scheduler
         height={600}
-        firstDayOfWeek={1}>
+        firstDayOfWeek={1}
+        >
 
             {/*Kapistus jolla saadaan jotain näkyviin, 
             defaultCurrentViewName määrittelee viewin ennen sen muuttelua*/}
@@ -82,13 +83,13 @@ return(
             {/*Renderöi varaukset kalenteriin*/}
             <Appointments/>
 
-{/*         <ConfirmationDialog/>   Varausten tekemistä varten, kommentoitu pois kun ei varmuudella tarvita näitä
+        {/* <ConfirmationDialog/>   Varausten tekemistä varten, kommentoitu pois kun ei varmuudella tarvita näitä
             <AppointmentTooltip
             showOpenButton
             showDeleteButton
             />
             <AppointmentForm/>
-*/}
+            */}
             
 
         </Scheduler>

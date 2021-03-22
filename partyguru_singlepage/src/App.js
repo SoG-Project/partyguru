@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 //Import Material-ui components here
-import { colors } from '@material-ui/core';
+import { colors, Toolbar, AppBar } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid'
 
 //Import pages here
 import LandingPage from "./screens/LandingPage/LandingPage";
@@ -14,6 +16,9 @@ import LoginPage from './screens/LoginPage/LoginPage';
 import InviteToParty from "./screens/InviteToParty/InviteToParty"
 import PartyPage from "./screens/PartyPage/PartyPage";
 
+//Import components
+import Header from "./components/Header";
+
 //Browserrouter hoitaa tän urlien reitityksen
 //Kaikki HTML koodi mitä tässä näkyy ajetaan joka sivulla,
 //paitsi nuo <Route> tagit, jotka ajetaan vain URLin mukaisella sivulle
@@ -24,21 +29,7 @@ const App = () => {
   return (
     <Router>
       <div className="grid-container">
-        <header className="row">
-          <div>
-            <Link className="brand" to="/">
-              Party Guru
-            </Link>
-          </div>
-          <div>
-            <Link to="/cart">Cart</Link>
-          </div>
-          <div><Link to='/gurupage/'>Guru Page</Link></div>
-
-          <div>
-            <Link to="/login">Login</Link>
-          </div>
-        </header>
+        <Header/>
         <main>
           <Switch>
             <Route path="/createpartypage"> <CreatePartyPage/> </Route>
@@ -53,13 +44,13 @@ const App = () => {
         </main>
         <footer>
           <p className="footer-text">
-          <Link to="/createpartypage">Createpartypage </Link>
-          <Link to="/cart">Cart </Link>
-          <Link to="/gurupage">gurupage </Link>
-          <Link to="/product/1">Product id 1 </Link>
-          <Link to="/login">Login </Link>
-          <Link to="/invitetoparty">Invitetoparty </Link>
-          <Link to="/partypage">Partypage </Link>
+          <Link href="/createpartypage">Createpartypage </Link>
+          <Link href="/cart">Cart </Link>
+          <Link href="/gurupage">gurupage </Link>
+          <Link href="/product/1">Product id 1 </Link>
+          <Link href="/login">Login </Link>
+          <Link href="/invitetoparty">Invitetoparty </Link>
+          <Link href="/partypage">Partypage </Link>
           </p>
         </footer>
       </div>

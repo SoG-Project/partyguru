@@ -20,7 +20,7 @@ const partypack ={
     "name":"Dwarf Fortress",
     "image":"/images/p3.jpeg",
 "price":150,
-"guru":[1],
+"guru":[1, 2],
 "description":"Play dorf fortress",
 "scheduleitems":["PVP","PVE","birthdaycheer"]},
 
