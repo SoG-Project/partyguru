@@ -118,9 +118,10 @@ app.put('/api/partypack/:id/gurus', (req, res) => {
   // entry === party mitä päivität
   var entry = new Object();
   entry=partyinformation;
-  for (var k = 0; k < toBeAdded.length; k++) {
+  /*for (var k = 0; k < toBeAdded.length; k++) {
     entry.guru.push(toBeAdded[k]);
-   }
+   }*/
+  entry.guru=req.body.gurus;
    //filtteröi päivitettävän partyn pois (koska siinä on vanhat tiedot)
    let newPacks=partypack.products.filter(function(item){
     return item._id!==id;
@@ -464,7 +465,7 @@ app.put('/api/gurus/:id', function (req, res) {
       updated+=1;
     }
     //filtteröi päivitettävän partyn pois (koska siinä on vanhat tiedot)
-    let newGurus=partyinfo.parties.filter(function(item){
+    let newGurus=gurus.gurus.filter(function(item){
       return item._id!==id;
     })
     //Päivitettiinkö edes mitään?

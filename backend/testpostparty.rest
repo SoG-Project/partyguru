@@ -1,0 +1,15 @@
+POST http://localhost:5001/api/parties/ HTTP/1.1
+content-type: application/json
+
+{
+            "packageid":"kikki hiiri",
+            "guruid":"4",
+            "datetime":"2021-04-23T18:25:43.511Z",
+            "duration":"2",
+            "email":"siiiiimppa@diudau.com",
+            "phone":"+358403683295",
+            "num_attendees":"9",
+            "schedule":["MOD1","MOD2"],
+            "likes":["cats","tnt","adventure"],
+            "description":"Tervetuloa mun partyyn!"
+}

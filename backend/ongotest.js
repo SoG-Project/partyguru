@@ -2,14 +2,22 @@
 import MongoClient from 'mongodb';
 import mongoose from 'mongoose';
 import Schema from 'mongodb';
+import close from 'mongodb';
+import db from 'mongodb';
 
 
-const uri = "mongodb+srv://sogtietokanta:schoolofgamingtietokantaprojekti@cluster0.wqxpy.mongodb.net/test?retryWrites=true&w=majority";
+const uri = "mongodb+srv://sogtietokanta:schoolofgamingtietokantaprojekti@cluster0.wqxpy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 //const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //j
 //await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 //const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-const client = new MongoClient(uri);
+//const client = new MongoClient(uri);
+
+mongoClient.connect(url, function(error, client){
+    if (error) return console.log(error);
+    var database = client.db("myFirstDatabase");
+    console.log("Database connected.");
+  });
 
 async function listDatabases(client){
     databasesList = await client.db().admin().listDatabases();
@@ -21,13 +29,13 @@ async function listDatabases(client){
 
 async function main(){
 
-    
+    console.log("started");
  
     try {
-        
-            await MongoClient.connect(uri, { useNewUrlParser: true }, (error, client) => {
+            console.log("trying");
+            const client = await MongoClient.connect(uri, { useNewUrlParser: true }, (error, client) => {
                 if (error) {
-                    console.log('wtf');
+                    
                 return console.log("Connection failed for some reason");
                 }
                 console.log("Connection established - All well");
@@ -40,8 +48,11 @@ async function main(){
         await  listDatabases(client);
  
     } catch (e) {
+        console.log("errored");
         console.error(e);
+        console.log(e);
     } finally {
+        console.log("finaled");
         await client.close();
     }
 }
@@ -83,4 +94,4 @@ const guru1= new Guru({
 
 mongoose.connection.close();
 */
-process.exit();
+//process.exit();

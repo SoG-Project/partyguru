@@ -25,27 +25,28 @@ var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(
 var dateTime = date+' '+time;
 //const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://sogtietokanta:schoolofgamingtietokantaprojekti@cluster0.wqxpy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+//const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //j
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+
+const guruSchema = new mongoose.Schema({
+  //_id: String,
+  name: String,
+  nick: String,
+  email: String,
+  partyreservations:[Number],
+  video: String,
+  image: String,
+  availability:[String],
+  bio: String
+});
+const Guru= new mongoose.model('Guru',guruSchema);
+
 
 const attendeesSchema = new mongoose.Schema({
     attendees: [{name: String, email: String, attends: Boolean, discord: Boolean, game: Boolean}]
   });
   const Attendees= new mongoose.model('Attendees',attendeesSchema);
-  
-  const guruSchema = new mongoose.Schema({
-      //_id: String,
-      name: String,
-      nick: String,
-      email: String,
-      partyreservations:[Number],
-      video: String,
-      image: String,
-      availability:[String],
-      bio: String
-  });
-  const Guru= new mongoose.model('Guru',guruSchema);
   
   const partyinfoSchema= new mongoose.Schema({
       packageid: String,
@@ -193,7 +194,7 @@ axios.get(`/api/gurus/${id}`).then(response => {
    */
 app.get('/api/gurus/:id', (req, res) => {
 
-  const id = req.params.id
+  const id = req.params.id;
   Guru.find({_id:id}).then(result => {
     res.json(result);
     result.forEach(note => {
@@ -238,51 +239,61 @@ app.post('/api/parties', (req, res) => {
     res.status(400);
     res.send('Error. no packageid')
   }
-  else if(req.body.guruid===undefined){
+   if(req.body.guruid===undefined){
     res.status(400);
     res.send('Error. no guru')
   }
-  else if(req.body.datetime===undefined){
+   if(req.body.datetime===undefined){
     res.status(400);
     res.send('Error. no date/time')
   }
-  else if(req.body.duration===undefined){
+   if(req.body.duration===undefined){
     res.status(400);
     res.send('Error. no duration')
   }
-  else if(req.body.email===undefined){
+   if(req.body.email===undefined){
     res.status(400);
     res.send('Error. no email')
   }
-  else if(req.body.phone===undefined){
+   if(req.body.phone===undefined){
     res.status(400);
     res.send('Error. no phone')
   }
-  else if(req.body.num_attendees===undefined){
+   if(req.body.num_attendees===undefined){
     res.status(400);
     res.send('Error. no number of attendees')
   }
-  else if(req.body.schedule===undefined){
+   if(req.body.schedule===undefined){
     res.status(400);
     res.send('Error. no schedule')
   }
-  else if(req.body.likes===undefined){
+   if(req.body.likes===undefined){
     res.status(400);
     res.send('Error. no likes')
   }
-  else if(req.body.description===undefined){
+   if(req.body.description===undefined){
     res.status(400);
     res.send('Error. no description')
   }
-  else{
-    const newID = uuidv4(); 
-    var entry = new Object();
-    entry.guruid = req.body.guruid;
-    entry.duration=req.body.duration;
-    entry._id=newID;
-    partyinfo.parties.push(entry);
-    res.send('Succéss' + entry.guruid)
-  }
+  
+  const newParty= new Partyinfo({
+    packageid: req.body.packageid,
+    guruid: req.body.guruid,
+    datetime: Date.now,
+    duration:req.body.duration,
+    email: req.body.email,
+    phone: req.body.phone,
+    num_attendees: req.body.num_attendees,
+    schedule: req.body.schedule,
+    likes: req.body.likes,
+    description: req.body.description
+});
+    newParty.save().then(result=>{
+      console.log(result);
+      res.send(result);
+    })
+
+  
 });
 //REQUEST: post uusi juhlijalista
 //ID pitää lähettää, se on sen partyn ID mihin juhlijat menee.
@@ -403,10 +414,61 @@ app.put('/api/parties/:id', function (req, res) {
 })
 */
 app.put('/api/gurus/:id', function (req, res) {
-  //muuttuja, että tiedetään päivitettiinkö mitään
-  let updated=0;
   const id = req.params.id;
-  const updateGuru = gurus.gurus.find(guru => guru._id === id)
+  //Promise chain: 1. etsi :id-guru 2. muuta sen fieldejä 3. kutsu updateOnea ja laita foundGuru[0] oikealle paikalleen.
+  Guru.find({_id:id}).then(foundGuru => {
+    if(req.body.name!==undefined){
+      foundGuru[0].name=req.body.name;
+
+    }
+    if(req.body.nick!==undefined){
+      foundGuru[0].nick=req.body.nick;
+
+    }
+    if(req.body.email!==undefined){
+      foundGuru[0].email=req.body.email;
+
+    }
+    if(req.body.packages!==undefined){
+      foundGuru[0].packages=req.body.packages;
+
+    }
+    if(req.body.partyreservations!==undefined){
+      foundGuru[0].partyreservations=req.body.partyreservations;
+
+    }
+    if(req.body.video!==undefined){
+      foundGuru[0].video=req.body.video;
+      
+    }
+    if(req.body.image!==undefined){
+      foundGuru[0].image=req.body.image;
+      
+    }
+    if(req.body.availability!==undefined){
+      foundGuru[0].availability=req.body.availability;
+      
+    }
+    if(req.body.bio!==undefined){
+      foundGuru[0].bio=req.body.bio;
+      
+    }
+    return foundGuru;})
+    .then(foundGuru=>{
+    Guru.updateOne({"_id": id }, { $set: foundGuru[0]}, (error, result) => {
+      if (error) throw error;
+      res.send(result);
+  });
+  })
+
+})
+  /*
+  const updateGuru = Guru.find({_id:id}).then(result => {
+
+    result.forEach(note => {
+      console.log(note)
+    })
+  })
   if(updateGuru === undefined){
     res.status(400);
     res.send('<h1>THERE IS NO GURU WITH THAT ID. SAD! ID: </h1>' + id)}
@@ -470,6 +532,7 @@ app.put('/api/gurus/:id', function (req, res) {
     }
   }
 })
+*/
 // REQUEST: PUT update attendees
 // lähetettävä id on valitsemasi partyn id
 //lähetetyt juhlijat lisätään listaan

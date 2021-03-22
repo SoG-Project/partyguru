@@ -1,3 +1,5 @@
+//poista packages
+
 const gurus={
     gurus:[
         
