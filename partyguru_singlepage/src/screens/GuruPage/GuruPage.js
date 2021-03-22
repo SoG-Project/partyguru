@@ -14,7 +14,7 @@ const GuruPage = (props)=> {
 
     const [userProfile, setUserProfile] = useState({})
 
-    let userID=1
+    let userID=2
 
 
     useEffect(() => {
