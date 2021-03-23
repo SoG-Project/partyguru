@@ -88,7 +88,7 @@ const InviteToParty = () => {
             */}
             <div className="emaildescription">
                 <form >
-                    <TextField className="test" id="outlined-basic" defaultValue={description} multiline variant="outlined"/>
+                    <TextField className="test" id="outlined-basic" defaultValue={description} inputProps={{maxLength:1000}} multiline variant="outlined"/>
                 </form>
             </div>
         </div>
@@ -98,3 +98,10 @@ const InviteToParty = () => {
 }
 
 export default InviteToParty
+
+/*tee nämä: 
+tekstikenttää voisi asettaa keskelle sivua
+fonttikokoa pitäisi kasvattaa koska nykyinen turhan pieni (inputpropsilla ehkä, ei atm toimi laittaa kahta ominaisuutta yhteen propsiin)
+placeholder teksti ei katoa kun siitä klikkaa vaan pitää poistaa manuaalisesti, en vielä täysin tiedä miten toimii
+tee preview kirjoitetusta tekstistä
+*/
