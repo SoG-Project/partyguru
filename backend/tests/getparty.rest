@@ -1,0 +1,2 @@
+GET http://localhost:5001/api/parties/605251a0e432d14abb0895bb HTTP/1.1
+content-type: application/json

@@ -1,0 +1,2 @@
+GET http://localhost:5001/api/attendees/1234555 HTTP/1.1
+content-type: application/json

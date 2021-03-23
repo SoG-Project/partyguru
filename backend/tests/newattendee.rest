@@ -1,0 +1,16 @@
+POST http://localhost:5001/api/attendees/ HTTP/1.1
+content-type: application/json
+
+        {
+            "partyid":"12345",
+            "attendees":[
+                {"name":"Tarmo",
+                "email":"Tarmo@gmail.com",
+                "attends":false,
+                "discord":"yes",
+                "game":"yes"},
+                {"name":"Mahjong Man",
+                "email":"xiao@xu.com"
+                    }
+            ]
+        }
