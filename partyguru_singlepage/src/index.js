@@ -4,6 +4,7 @@ import './index.css';
 import {ThemeProvider} from '@material-ui/core/styles';
 import theme from './theme';
 import App from './App';
+import 'fontsource-roboto';
 
 ReactDOM.render(
   <React.StrictMode>
