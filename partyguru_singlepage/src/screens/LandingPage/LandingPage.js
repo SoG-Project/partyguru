@@ -91,7 +91,6 @@ const LandingPage = () => {
   return (
     <div className={classes.root}>
       <Grid container spacing={4} justify="center">
-      
         {products.map((product) => (
           <Product key={product._id} product={product}></Product>
         ))}
@@ -103,9 +102,9 @@ const LandingPage = () => {
     {/*Tavoitteena sisäkkäiset gridit.
     Vasemmalla näkymässä Scheduler, oikealla formeja tms (ks. Figma etusivua)
     Tässä määritellään uloin grid container, jossa elementtien pitäisi mennä vas -> oik*/}
-      <Grid container direction="row" justify="space-around" alignItems="center">
+      <Grid container direction="row" justify="space-around" alignItems="center" spacing={4}>
         {/*Ensimmmäisen gridin sisälle grid item, jossa on scheduler*/} 
-        <Grid container item xs={7} direction="column" spacing={4} justify="flex-start" alignItems="center" style={{borderStyle:"solid", borderColor:"grey", marginBottom:"10px", marginTop:"10px"}}>
+        <Grid container item xs={7} direction="column" justify="flex-start" alignItems="center" style={{borderStyle:"solid", borderColor:"grey", marginBottom:"10px", marginTop:"10px"}}>
           <Grid item>
             <SchedulerTest/>
           </Grid>
@@ -116,7 +115,7 @@ const LandingPage = () => {
         </Grid>
 
         {/*Toinen Grid, jonka sisään on tarkoitus tulla email, yms */}
-        <Grid container item xs={3} direction="column" spacing={4} justify="flex-start" alignItems="stretch" style={{borderStyle:"dotted", borderColor:"grey", textAlign:"center", height:"75vh"}}>
+        <Grid container item xs={3} direction="column" justify="flex-start" alignItems="stretch" style={{borderStyle:"dotted", borderColor:"grey", textAlign:"center", height:"75vh"}}>
           <Grid item xs>
             <p>Contact information</p>
           </Grid>
@@ -135,7 +134,7 @@ const LandingPage = () => {
         <Grid container padding="15px" margin="15px" direction="column" spacing={4} justify="space-around" alignItems="center">
         {/* tämän kortin sisältö vaihtuu napista */}
        <Product key={singleid} product={singleProduct}></Product>
-       <Button size="large" variant="outlined" color="primary" onClick={() => { handleClick() }}> Next package button </Button>
+       <Button size="large" variant="contained" color="primary" onClick={() => { handleClick() }}> Next package button </Button>
     </Grid>
     </div>
   );
