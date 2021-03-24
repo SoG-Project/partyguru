@@ -16,6 +16,10 @@ const CreatePartyPage = () => {
             </p>
           </div>
           
+          {/*Creates a grid to display the schedule for the party
+          Schedule displays things that are meant to be done 
+          at the party like "Brithday Cheer", "Eat cake", 
+          "Play Minecraft"*/}
           <div>Schedule</div>
           <div className="schedulebox">
             <div className="schedulecomponent">Minecraft</div>
@@ -24,6 +28,7 @@ const CreatePartyPage = () => {
             <div>Eat cake</div>
             <div>Minecraft mod 2</div>
           </div>
+          {/*Available activities for the party package*/}
           <div>Available activities</div>
           <div className="schedulebox">
             <div>Minecraft</div>
