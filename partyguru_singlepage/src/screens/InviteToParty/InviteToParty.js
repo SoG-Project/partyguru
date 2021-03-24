@@ -4,9 +4,11 @@ import "./InviteToParty.css"
 import axios from 'axios'
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography'
+import AddIcon from '@material-ui/icons/Add';
 //import { response } from "express"
 
 import { makeStyles } from '@material-ui/core/styles';
+import { Button } from "@material-ui/core";
 
 //Function to set style for the email description box (https://material-ui.com/styles/basics/)
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +30,22 @@ const InviteToParty = () => {
     const classes = useStyles()
 
     //VAIHTAA DESCRIPTION-KENTÄN TILAA. TÄHÄN KIRJOITETAAN EMAILIN SISÄLTÖ
-    const[description, changeDescription] = useState("Please input a party description that will be included in the party invitations by email.");
+    const[description, changeDescription] = useState("");
+    //Added for the preview feature
+    const[description2, changeDescription2] = useState("");
+    const[descriptions, changeDescriptions] = useState([]);
+
+    const addDescription = (event) => {
+        event.preventDefault();
+        changeDescriptions([
+          ...descriptions,
+          {
+            id: descriptions.length,
+            name: description
+          }
+        ]);
+        changeDescription("");
+      };
     //Changes PartyPack state since server requests are asynchronous (e.g., code is being executed before a response is here)
     const[partypack, changePartyPack] = useState();
 
@@ -88,11 +105,40 @@ const InviteToParty = () => {
             */}
             <div className="emaildescription">
                 <form >
-                    <TextField className="test" id="outlined-basic" defaultValue={description} inputProps={{maxLength:1000}} multiline variant="outlined"/>
+                    <TextField className="test" id="outlined-basic" placeholder="Please input a party description that will be included in the party invitations by email." 
+                    defaultValue={description} inputProps={{maxLength:1000}} multiline variant="outlined"/>
                 </form>
+                
             </div>
         </div>
         <Link to="/partypage">Send Invites and go to party page</Link>
+        
+        {/*Preview feature in progress
+        this is based on the old code, might not be using material ui components entirely
+        teoriassa toimii mutta oikeasti vaatii vielä tosi paljon säätämistä*/}
+        <h2>Preview testing</h2>
+        <TextField
+        className="Testing preview feature"
+        name="preview"
+        type="text"
+        multline variant="outlined"
+        value={description2}
+        onChange={(e) => changeDescription2(e.target.value)}
+      />
+      <Button  size="large" color="secondary"  startIcon={<AddIcon />} onClick={addDescription}>Add preview</Button>
+      <ul>
+        {descriptions.map((item) => (
+          <li key={description.id}>
+            <TextField
+              name="preview"
+              type="text"
+              multline variant="outlined"
+              value={description2}
+              onChange={(e) => changeDescription(e.target.value)}
+            />
+          </li>
+        ))}
+      </ul>
     </div>
     )
 }
@@ -100,8 +146,9 @@ const InviteToParty = () => {
 export default InviteToParty
 
 /*tee nämä: 
+tee backup omalle koneelle siltä varalta että joku menee pieleen ---->> tehty
 tekstikenttää voisi asettaa keskelle sivua
-fonttikokoa pitäisi kasvattaa koska nykyinen turhan pieni (inputpropsilla ehkä, ei atm toimi laittaa kahta ominaisuutta yhteen propsiin)
-placeholder teksti ei katoa kun siitä klikkaa vaan pitää poistaa manuaalisesti, en vielä täysin tiedä miten toimii
-tee preview kirjoitetusta tekstistä
+fonttikokoa pitäisi kasvattaa koska nykyinen turhan pieni (inputpropsilla ehkä, ei atm toimi laittaa kahta ominaisuutta yhteen propsiin, css?)
+placeholder teksti ei katoa kun siitä klikkaa vaan pitää poistaa manuaalisesti ---->>> tehty?
+tee preview kirjoitetusta tekstistä ----->> työn alla
 */
