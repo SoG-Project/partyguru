@@ -1,0 +1,20 @@
+PUT http://localhost:5001/api/attendees/12345 HTTP/1.1
+content-type: application/json
+
+        {
+            "partyid":"12345",
+            "attendees":[
+                {"name":"Tarmo",
+                "email":"Tarmo@gmail.com",
+                "attends":true,
+                "discord":"yes",
+                "game":"yes"},
+                {"name":"Mahjong Man",
+                "email":"mahjong@man.com"},
+                {"name":"Diplo",
+                "email":"diplo@diplo.diplo",
+                "attends":true,
+                "discord":true,
+                "game":true}
+            ]
+        }
