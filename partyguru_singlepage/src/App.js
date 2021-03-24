@@ -15,6 +15,7 @@ import CartPage from "./screens/CartPage/CartPage";
 import LoginPage from './screens/LoginPage/LoginPage';
 import InviteToParty from "./screens/InviteToParty/InviteToParty"
 import PartyPage from "./screens/PartyPage/PartyPage";
+import RSVP from "./screens/RSVP/RSVP"
 
 //Import components
 import Header from "./components/Header";
@@ -39,6 +40,7 @@ const App = () => {
             <Route path="/login"><LoginPage/></Route>
             <Route path="/invitetoparty"><InviteToParty/></Route>
             <Route path="/partypage"><PartyPage/></Route>
+            <Route path="/RSVP"><RSVP/></Route>
             <Route path="/"> <LandingPage/> </Route>
           </Switch>
         </main>
@@ -51,6 +53,7 @@ const App = () => {
           <Link href="/login">Login </Link>
           <Link href="/invitetoparty">Invitetoparty </Link>
           <Link href="/partypage">Partypage </Link>
+          <Link href="/RSVP">RSVP</Link>
           </p>
         </footer>
       </div>
