@@ -26,7 +26,7 @@ var dateTime = date+' '+time;
 const uri = "mongodb+srv://sogtietokanta:schoolofgamingtietokantaprojekti@cluster0.wqxpy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 
-//Partygurun skeema ja model:
+//Partyguru schema and model
 const guruSchema = new mongoose.Schema({
   name: String,
   nick: String,
@@ -39,7 +39,7 @@ const guruSchema = new mongoose.Schema({
 });
 const Guru= new mongoose.model('Guru',guruSchema);
 
-//Osallistujalistan skeema ja model:
+//Attendee list schema and model
 const attendeesSchema = new mongoose.Schema({
     partyid:String,
     attendees: [{name: String, 
@@ -50,7 +50,7 @@ const attendeesSchema = new mongoose.Schema({
   });
   const Attendees= new mongoose.model('Attendees',attendeesSchema);
   
-  //Yksittäisen juhlan skeema ja model:
+  //A single party's schema and model
   const partyinfoSchema= new mongoose.Schema({
       packageid: String,
       guruid: String,
@@ -65,7 +65,7 @@ const attendeesSchema = new mongoose.Schema({
   });
   const Partyinfo= new mongoose.model('Partyinfo',partyinfoSchema);
   
-//Party packagen skeema ja model:
+//Party package schema and model
   const partypackSchema = new mongoose.Schema({
       name: String,
       image: String,
@@ -75,13 +75,8 @@ const attendeesSchema = new mongoose.Schema({
       scheduleitems: [String]
   })
   const Partypack= new mongoose.model('Partypack',partypackSchema);
-  
-/*client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});*/
- 
+
+
 //serveri lähtee päälle, kun teet "npm start" komennon juurikansiossa (eli se mistä pääsee backend tai singlepage kansioihin.)
 //Se toimii koska juurikansion package.json:ssa on määritelty toi npm start skripti avaamaan backendin dev-tilassa
 
@@ -106,7 +101,7 @@ const attendeesSchema = new mongoose.Schema({
  */
 
 
-/*REQUEST: GET kaikki packaget
+/*REQUEST: GET all party packages
 
       axios.get('/api/packages').then(response => {
       setState(response.data);
@@ -123,9 +118,10 @@ app.get("/api/packages", (req, res) => {
   })
 });
 
-/*REQUEST: GET package ID:n mukaan (huom URL on backtickien ympäröimä, ei normisinglequoteissa)
+/*REQUEST: GET package by ID
 
 let id=1;
+//remember the backticks on the url
 axios.get(`/api/packages/${id}`).then(response => {
   setState(response.data);
   console.log(response.data);
@@ -141,7 +137,8 @@ app.get('/api/packages/:id', (req, res) => {
   })
 })
 
-//REQUEST: GET party id:n mukaan (huom URL on backtickien ympäröimä, ei normisinglequoteissa)
+//REQUEST: GET party by ID
+//Returns a Partyinfo object
 /**  
 let id=1;
 axios.get(`/api/parties/${id}`).then(response => {
@@ -171,7 +168,9 @@ app.get("/api/attendees", (req, res) => {
 });
 */
 
-//REQUEST: GET juhliin osallistujat juhlaid mukaan X
+//REQUEST: GET attendees by party id
+//Parameters: party id in URL
+//Returns an Attendees object
 /**  
 let id=1;
 axios.get(`/api/attendees/${id}`).then(response => {
@@ -195,7 +194,7 @@ app.get('/api/attendees/:id', (req, res) => {
   
 })
 
-//Request: GET all gurus (for tests)
+//Request: GET all gurus (for tests) X
 
 app.get('/api/gurus', (req, res) => {
 
@@ -207,7 +206,9 @@ app.get('/api/gurus', (req, res) => {
     })
   })
 
-//REQUEST: GET gurut id:n mukaan X
+//REQUEST: GET guru by ID
+//Parameters: guru's _id in URL
+//Returns a Guru object
 /**  
 let id=1;
 axios.get(`/api/gurus/${id}`).then(response => {
@@ -226,25 +227,9 @@ app.get('/api/gurus/:id', (req, res) => {
   })
  
 })
-//REQUEST: GET kaikki gurut
-/*
-   axios.get('/api/gurus').then(response => {
-      setState(response.data);
-      console.log(response.data)
-})
-*/
-/*
-app.get("/api/gurus", (req, res) => {
-    Guru.find({}).toArray(function(error, documents) {
-        if (err) throw error;
-        res.json(documents);
-    });
 
-});
-*/
-
-//REQUEST: post uusi party X
-//Tämä requesti odottaa, että lähetät ihan kaikki fieldit.
+//REQUEST: POST a new party
+//Parameters: Partyinfo-object in JSON-body
 //Lähetä vaikka tyhjä stringi jos kaikkia ei oo saatavilla, niin se ei jää undefinediksi
 //_id tulee itsestään, ei tarvi sendiä sitä
 app.post('/api/parties', (req, res) => {
@@ -309,13 +294,11 @@ app.post('/api/parties', (req, res) => {
 
   
 });
-//REQUEST: post uusi juhlijalista X
-//ID pitää lähettää, se on sen partyn ID mihin juhlijat menee.
-//Tää ei tee sen suurempaa inputin validointia, että BETTER WATSH OUTS!!!s
+//REQUEST: POST a new attendee list
+//Parameters: Attendees-object in JSON-body
 /*
-   axios.post('/api/attendees',<JSONTÄHÄN>).then(response => {
+   axios.post('/api/attendees',{JSONHERE}).then(response => {
       console.log(response.data);
-      //onko tuo oikea tapa logittaa vastaus, en tiä
 })
 */
 
@@ -332,7 +315,7 @@ app.post('/api/parties', (req, res) => {
 app.post('/api/attendees', (req, res) => {
   if(req.body.partyid===undefined){
    res.status(400);
-   res.send('Error. no party id')
+   res.send('Error. no party id');
  }
  else{
    var entry = new Attendees();
@@ -345,10 +328,9 @@ app.post('/api/attendees', (req, res) => {
    
  }
 });
-//REQUEST: PUT update party id:n mukaan X
-//Kandee lähettää oikeat kentät, koska tässä ei validoida mitään
-//Paitsi lopussa tarkistetaan, päivittikö funktio mitään
-//Jos mitään ei päivitetty, tulee statuskoodi 400
+//REQUEST: PUT update Partyinfo object by ID
+//Parameters: party's _id in the URL, to-be-updated fields in the JSON-body
+//Returns status 200 if something got updated, 400 if not
 /*
   let id=1;
    axios.put('/api/parties/:id',<JSONTÄHÄN>).then(response => {
@@ -357,70 +339,56 @@ app.post('/api/attendees', (req, res) => {
 })
 */
 app.put('/api/parties/:id', function (req, res) {
-  //muuttuja, että tiedetään päivitettiinkö mitään
-  let updated=0;
   const id = req.params.id;
+  //Find the party to be updated
   Partyinfo.find({_id:id}).then(updatableParty => {
     const updatedParty=updatableParty[0];
-    //TODO: Mitä mongo lähettää jos id ei löydy
-   // res.status(200);
-   // res.send(updatedParty);
+    //TODO: Mitä mongo lähettää jos id ei löydy CATCH THAT SHIT
+
+   //If the field exists in the json-body, overwrite that field.
     if(req.body.packageid!==undefined){
       updatedParty.packageid=req.body.packageid;
-      updated+=1;
     }
     if(req.body.guruid!==undefined){
       updatedParty.guruid=req.body.guruid;
-      updated+=1;
     }
     if(req.body.datetime!==undefined){
       updatedParty.datetime=req.body.datetime;
-      updated+=1;
     }
     if(req.body.duration!==undefined){
       updatedParty.duration=req.body.duration;
-      updated+=1;
     }
     if(req.body.email!==undefined){
       updatedParty.email=req.body.email;
-      updated+=1;
     }
     if(req.body.phone!==undefined){
       updatedParty.phone=req.body.phone;
-      updated+=1;
     }
     if(req.body.num_attendees!==undefined){
       updatedParty.num_attendees=req.body.num_attendees;
-      updated+=1;
     }
     if(req.body.schedule!==undefined){
       updatedParty.schedule=req.body.schedule;
-      updated+=1;
     }
     if(req.body.likes!==undefined){
       updatedParty.likes=req.body.likes;
-      updated+=1;
     }
     if(req.body.description!==undefined){
       updatedParty.description=req.body.description;
-      updated+=1;
     }
-    if(updated===0){
-      res.status(400);
-      res.send('Error: nothing got updated.');
-    }
-    else{
-      Partyinfo.updateOne({"_id": id }, { $set: updatedParty}, (error, result) => {
-        if (error) throw error;
-        if(result.nModified===0){
-          res.status(400);
-          res.send('Error. Nothing got updated.');
-        }
-        else{
-        res.send(result);
-        }
+    //Replace the old Partyinfo-object with the new one
+    Partyinfo.updateOne({"_id": id }, { $set: updatedParty}, (error, result) => {
+      if (error) throw error;
+      if(result.nModified===0){
+        res.status(400);
+        res.send('Error. Nothing got updated.');
+      }
+      else{
+        res.status(200);
+      res.send(result);
+      }
     });
-    }
+    
   })
   /*
   const partyinformation = partyinfo.parties.find(party => party._id === id)
@@ -492,61 +460,47 @@ app.put('/api/parties/:id', function (req, res) {
     }
   }*/
 })
-//REQUEST: PUT update guru ID:n mukaan X
-//Kandee lähettää oikeat kentät, koska tässä ei validoida mitään
-//Paitsi lopussa tarkistetaan, päivittikö funktio mitään
-//Jos mitään ei päivitetty, tulee statuskoodi 400
-//Jos kenttä koostuu useammasta osasta (esim packages), sun pitää lähettää kaikki vanhat ja uudet osat samassa listassa
-//eli jos haluat lisätä packagen gurulle, lähetä sekä vanhat että uudet packaget listassa
+//REQUEST: PUT update a guru by ID
+//Parameters: Guru's _id in the URL, to-be-updated fields in the JSON-body
+//Old fields will be overwritten with the field in the JSON-body, no appends
 /*
   let id=1;
    axios.put('/api/gurus/:id',<JSONTÄHÄN>).then(response => {
       console.log(response.data);
-      //onko tuo oikea tapa logittaa vastaus, en tiä
+
 })
 */
 app.put('/api/gurus/:id', function (req, res) {
   const id = req.params.id;
-  //Promise chain: 1. etsi :id-guru 2. muuta sen fieldejä 3. kutsu updateOnea ja laita foundGuru[0] oikealle paikalleen.
+  //Fetch the guru with the right id, update the fields that were sent with the request body, replace the old entry
   Guru.find({_id:id}).then(foundGuru => {
     if(req.body.name!==undefined){
       foundGuru[0].name=req.body.name;
-
     }
     if(req.body.nick!==undefined){
       foundGuru[0].nick=req.body.nick;
-
     }
     if(req.body.email!==undefined){
       foundGuru[0].email=req.body.email;
-
     }
     if(req.body.packages!==undefined){
       foundGuru[0].packages=req.body.packages;
-
     }
     if(req.body.partyreservations!==undefined){
       foundGuru[0].partyreservations=req.body.partyreservations;
-
     }
     if(req.body.video!==undefined){
       foundGuru[0].video=req.body.video;
-      
     }
     if(req.body.image!==undefined){
       foundGuru[0].image=req.body.image;
-      
     }
     if(req.body.availability!==undefined){
       foundGuru[0].availability=req.body.availability;
-      
     }
     if(req.body.bio!==undefined){
       foundGuru[0].bio=req.body.bio;
-      
     }
-    return foundGuru;})
-    .then(foundGuru=>{
     Guru.updateOne({"_id": id }, { $set: foundGuru[0]}, (error, result) => {
       if (error) throw error;
       res.send(result);
@@ -554,91 +508,47 @@ app.put('/api/gurus/:id', function (req, res) {
   })
 
 })
-  /*
-  const updateGuru = Guru.find({_id:id}).then(result => {
-
-    result.forEach(note => {
-      console.log(note)
-    })
-  })
-  if(updateGuru === undefined){
-    res.status(400);
-    res.send('<h1>THERE IS NO GURU WITH THAT ID. SAD! ID: </h1>' + id)}
-  else{    
-    // entry === party mitä päivität
-    var entry = new Object();
-    entry=updateGuru;
-    // Tämä tarkistaa, mitä kenttiä on tullut requestin mukana
-    // Kaikki requestin mukana tulleet kentät laitetaan oikeille paikoilleen entry-objektiin
-    if(req.body.name!==undefined){
-      entry.name=req.body.name;
-      updated+=1;
-    }
-    if(req.body.nick!==undefined){
-      entry.nick=req.body.nick;
-      updated+=1;
-    }
-    if(req.body.email!==undefined){
-      entry.email=req.body.email;
-      updated+=1;
-    }
-    if(req.body.packages!==undefined){
-      entry.packages=req.body.packages;
-      updated+=1;
-    }
-    if(req.body.partyreservations!==undefined){
-      entry.partyreservations=req.body.partyreservations;
-      updated+=1;
-    }
-    if(req.body.video!==undefined){
-      entry.video=req.body.video;
-      updated+=1;
-    }
-    if(req.body.image!==undefined){
-      entry.image=req.body.image;
-      updated+=1;
-    }
-    if(req.body.availability!==undefined){
-      entry.availability=req.body.availability;
-      updated+=1;
-    }
-    if(req.body.bio!==undefined){
-      entry.bio=req.body.bio;
-      updated+=1;
-    }
-    //filtteröi päivitettävän partyn pois (koska siinä on vanhat tiedot)
-    let newGurus=partyinfo.parties.filter(function(item){
-      return item._id!==id;
-    })
-    //Päivitettiinkö edes mitään?
-    if(updated===0){
-      res.status(400);
-      res.send('Nothing got updated.');
-    }
-    else{
-      //Lisää päivitetyn gurun listaan
-      newGurus.push(entry);
-      gurus.gurus=newGurus;
-      res.status(200);
-      res.send('Guru updated. ID: ' + entry._id + '. ' + updated + ' fields were updated.');
-    }
-  }
-})
-*/
-// REQUEST: PUT update attendees Y
-// lähetettävä id on valitsemasi partyn id
-//lähetetyt juhlijat lisätään listaan
-//Jos samannimisiä juhlijoita oli jo, ne poistetaan ensin.
+ 
+// REQUEST: PUT update attendee information / add new attendees
+// The request checks whether the attendees in the JSON-body were already in the database.
+// If they were, their entry is replaced with the entry in the JSON-body.
+// If no such attendee was found, their entry is added to the attendee array.
+// Parameters: id in the url corresponds to the party id whose attendees are updated
+// Body must have a json with key "attendees", and an array of attendees included
+// If the attendee with the same email is found in the same party's attendees, their information will be replaced with the new information
 /*
-  let id=1;
-   axios.put('/api/attendees/:id',<JSONTÄHÄN>).then(response => {
-      console.log(response.data);
-      //onko tuo oikea tapa logittaa vastaus, en tiä
+  let id=1; TODO backticks
+   axios.put('/api/attendees/{id}',{JSONHERE}).then(response => {
+      console.log(response);
 })
 */
 app.put('/api/attendees/:id', function (req, res) {
   const id = req.params.id;
   //Päivitettävä juhlijalista
+  Attendees.find({partyid:id}).then(returnedItems=>{
+    const attendeeList=returnedItems[0];
+    //Check whether the fetched list is empty
+    if(!returnedItems.length) throw new Error("No attendee information found with that partyid. ID:" + id + ". Perhaps send a POST instead of PUT?");
+    //Iterate over the json-body and the fetched list, trying to match emails 
+    for(var i=0;i<req.body.attendees.length;i++){
+      var changed=false;
+      for (var k = 0; k < attendeeList.attendees.length; k++) {
+        //If the same email is found, insert the entry in the request body in the place of the fetched entry
+        if (attendeeList.attendees[k].email === req.body.attendees[i].email) {
+          attendeeList.attendees.splice(k,1,req.body.attendees[i]);
+          changed=true;
+        }
+       }
+       //If the same email isn't found, push the entry into the list
+       if(changed===false){
+        attendeeList.attendees.push(req.body.attendees[i]);
+      }
+    }
+  })
+  .catch(error => {console.log(error.message);
+                    res.status(400);
+                    res.send(error.message);});
+/*
   const lista = attendees.attendees.find(juhlija => juhlija._id === id)
   if(lista === undefined){
     res.status(400);
@@ -669,6 +579,7 @@ app.put('/api/attendees/:id', function (req, res) {
     res.status(200);
     res.send('Attendees updated. ID: ' + id);
   }
+  */
 })
 //REQUEST: DELETE juhlija 
 //Parametrit: URLiin partyn id, bodyyn JSON jossa kenttä email

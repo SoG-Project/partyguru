@@ -10,7 +10,7 @@ content-type: application/json
                 "discord":"yes",
                 "game":"yes"},
                 {"name":"Mahjong Man",
-                "email":"xiao@xu.com"
+                "email":"mahjong@man.com"
                     }
             ]
         }
