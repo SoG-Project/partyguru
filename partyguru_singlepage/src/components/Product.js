@@ -31,7 +31,7 @@ const Product = (props) => {
   }, []);
 
   return (
-    <Grid item xs={2}>
+    <Grid item xs={12} sm={6} md={3} lg={2}>
       {/*Grid on material-ui komponentti, jolla saadaan kortin sisäinen layout hoidettua,
       xs määrittää kokoa suhteessa muihin elementteihin (esim muut kortit) */}
     <div className="card">
