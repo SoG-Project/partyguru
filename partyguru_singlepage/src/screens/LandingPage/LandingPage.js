@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import SchedulerTest from '../../components/Scheduler/SchedulerTest';
+import Divider from '@material-ui/core/Divider';
 import EditableScheduler from '../../components/Scheduler/EditableScheduler';
 //splash sivu
 //map funktio looppaa datan läpi ja tekee niistä kortteja
@@ -103,6 +104,9 @@ const LandingPage = () => {
     Vasemmalla näkymässä Scheduler, oikealla formeja tms (ks. Figma etusivua)
     Tässä määritellään uloin grid container, jossa elementtien pitäisi mennä vas -> oik*/}
       <Grid container direction="row" justify="space-around" alignItems="center" spacing={4}>
+        <Grid item xs={12}>
+          <Divider/>
+        </Grid>
         {/*Ensimmmäisen gridin sisälle grid item, jossa on scheduler*/} 
         <Grid container item xs={7} direction="column" justify="flex-start" alignItems="center" style={{borderStyle:"solid", borderColor:"grey", marginBottom:"10px", marginTop:"10px"}}>
           <Grid item>

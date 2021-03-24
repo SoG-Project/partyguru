@@ -22,6 +22,15 @@ const theme = createMuiTheme({
             dark: '#5800af',
         }
     },
+    breakpoints:{
+        values:{
+            xs: 0,
+            sm: 600,
+            md: 1000,
+            lg: 1400,
+            xl: 1920,
+        }
+    }
 });
 
 export default theme;
