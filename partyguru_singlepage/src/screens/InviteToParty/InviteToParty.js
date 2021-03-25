@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
       '& .MuiTextField-root': {
         //margin: theme.spacing(1),
-        //This does not handle resizing of the window. Consider adding a hook to handle resize events.
+        //This does not handle resizing of the window. Consider adding a hook to handle resize events. 
+        //OR do it with vh (viewheight)
         width: 0.9*window.innerWidth,
       },
     //https://material-ui.com/customization/typography/#responsive-font-sizes
