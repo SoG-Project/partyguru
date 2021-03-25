@@ -38,7 +38,7 @@ const SchedulerTest = () => {
     }
 */
 return(
-    <Paper variant="outlined" style={{width:"50vw"}}>
+    <Paper variant="outlined" style={{width:"60vw"}}>
         {/*Itse scheduler, sen tägien sisään tulee kaikki sen osat.
         Datana passataan appointments, jotka scheduler osaa ladata,
         heightillä määritellään korkeus pikseleinä,

@@ -91,7 +91,7 @@ const LandingPage = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Grid container spacing={4} justify="center">
+      <Grid container spacing={3} justify="space-evenly">
         {products.map((product) => (
           <Product key={product._id} product={product}></Product>
         ))}
@@ -108,7 +108,7 @@ const LandingPage = () => {
           <Divider/>
         </Grid>
         {/*Ensimmmäisen gridin sisälle grid item, jossa on scheduler*/} 
-        <Grid container item xs={7} direction="column" justify="flex-start" alignItems="center" style={{borderStyle:"solid", borderColor:"grey", marginBottom:"10px", marginTop:"10px"}}>
+        <Grid container item xs={8} direction="column" justify="flex-start" alignItems="center" style={{borderStyle:"solid", borderColor:"grey", marginBottom:"10px", marginTop:"10px"}}>
           <Grid item>
             <SchedulerTest/>
           </Grid>

@@ -10,22 +10,18 @@ const theme = createMuiTheme({
         https://material.io/resources/color/#!/?view.left=0&view.right=0
         */ 
         primary: {
-            light: '#ffc753',
             main: '#f1961d',
-            dark: '#b96800',
         },
 
         /*Secondary color. SoG purple here */
         secondary: {
-            light: '#c64dff',
             main: '#8f00e2',
-            dark: '#5800af',
         }
     },
     breakpoints:{
         values:{
             xs: 0,
-            sm: 600,
+            sm: 650,
             md: 1000,
             lg: 1400,
             xl: 1920,
