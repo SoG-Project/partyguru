@@ -49,6 +49,18 @@ const gurus={
             "availability":[],
             "bio":"SBIRGFGGGG!!!!"  
         },
+		
+		{
+            "_id":"5",
+            "name":"Son Goku",
+            "nick":"OrangeAnimeMan",
+            "email":"oranssianimemies@gmail.com",
+            "partyreservations":[1],
+            "video":"https://www.youtube.com/watch?v=SiMHTK15Pik",
+            "image": "https://theflaneur88.weebly.com/uploads/4/5/4/2/45422931/3171005_orig.jpg",
+            "availability":[],
+            "bio":"Welcome to the School of Goku!"  
+        },
     ]
 }
 export default gurus;

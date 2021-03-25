@@ -6,7 +6,7 @@ import axios from "axios";
 
 const GuruInfo = (props) =>{
 
-
+    const id = props.id
     const [editMode, setEditMode] = useState(false)
     const [guruInfo, setGuruInfo] = useState({
         name: "", nick: "", bio: ""})
@@ -51,12 +51,10 @@ const GuruInfo = (props) =>{
         setEditedGuruInfo(newGuruInfo)
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
+    const handleSubmit = () => {
         setGuruInfo(editedGuruInfo)
         setEditMode(!editMode)
 
-        let id=1
         axios.put(`/api/gurus/${id}`, editedGuruInfo).then(response => {
             console.log(response.data)
         })
@@ -70,7 +68,7 @@ const GuruInfo = (props) =>{
             <form>
                 <TextField style={{marginBottom: '15px'}} value={guruInfo.name || ''} label="name" onChange={handleNameChange}  variant="outlined" disabled/>   <br/>
                 <TextField style={{marginBottom: '15px'}} value={guruInfo.nick || ''} label="nick" onChange={handleNickChange} variant="outlined" disabled/>  <br/>
-                <TextField style={{marginBottom: '10px'}} value={guruInfo.bio || ''} multiline rows="12" fullWidth label="bio" onChange={handleBioChange} variant="outlined" disabled/>   <br/>
+                <TextField style={{marginBottom: '1px'}} value={guruInfo.bio || ''} multiline rows="12" fullWidth label="bio" onChange={handleBioChange} variant="outlined" disabled/>   <br/>
             </form>
             <button className="flexAlignThis" onClick={handleClick}>Edit</button>
         </div>
@@ -84,9 +82,10 @@ const GuruInfo = (props) =>{
             <form onSubmit={handleSubmit}>
             <TextField style={{marginBottom: '15px'}} value={editedGuruInfo.name || '' } label="name" onChange={handleNameChange}  variant="outlined"/> <br/>
             <TextField style={{marginBottom: '15px'}} value={editedGuruInfo.nick || ''} label="nick" onChange={handleNickChange} variant="outlined"/>  <br/>
-            <TextField style={{marginBottom: '10px'}} value={editedGuruInfo.bio || ''} multiline rows="12" fullWidth label="bio" onChange={handleBioChange} variant="outlined"/>   <br/>
-            <button type="submit">Save</button>
+            <TextField style={{marginBottom: '1px'}} value={editedGuruInfo.bio || ''} multiline rows="12" fullWidth label="bio" onChange={handleBioChange} variant="outlined"/>   <br/>
             </form>
+            <button className="flexAlignThis" onClick={handleSubmit}>Save</button>
+
         </div>
 
     )

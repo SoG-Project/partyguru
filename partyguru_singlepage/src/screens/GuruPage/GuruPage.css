@@ -1,19 +1,23 @@
 .guruGrid{
     display:grid;
-    grid-template-columns: 25% 25%;
-    grid-column-gap: 0.5em;
-    grid-row-gap:0.5em;
+    grid-template-columns: repeat(2, minmax(240px, 400px));
+
     justify-content: center;
 
 }
 
+.profilePic {
+    width:80%;
+    border-style:solid;
 
+}
 
 
 .guruGrid > div{
+    border-style: double;
     display:flex;
     flex-direction: column;
-    background: #eee;
+    background: #D3D3D3;
     justify-content: center;
     align-items: center;
     padding:1em;

@@ -14,10 +14,11 @@ const GuruPage = (props)=> {
 
     const [userProfile, setUserProfile] = useState({})
 
-    let userID=1
+    let userID=5
 
 
     useEffect(() => {
+
         const fetchData = async () => {
             axios.get(`/api/gurus/${userID}`).then(response => {
                 setUserProfile(response.data)
@@ -35,7 +36,7 @@ const GuruPage = (props)=> {
     return (
         <div className="guruGrid">
             <GuruImage guruImage={userProfile.image}/>
-            <GuruInfo  bio={userProfile.bio} name={userProfile.name} nick={userProfile.nick}/>
+            <GuruInfo  id={userProfile._id} bio={userProfile.bio} name={userProfile.name} nick={userProfile.nick}/>
             <GuruPartyPackages guruID={userProfile._id}/>
             <GuruVideo video={userProfile.video}/>
             <div>

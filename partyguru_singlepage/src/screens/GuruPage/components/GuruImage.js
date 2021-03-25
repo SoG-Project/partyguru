@@ -3,6 +3,8 @@ import axios from "axios";
 import {TextField} from "@material-ui/core";
 import {Dialog} from "@material-ui/core";
 import {DialogTitle} from "@material-ui/core";
+import Image from 'material-ui-image'
+
 
 
 const GuruImage = (props) =>{
@@ -35,7 +37,7 @@ const GuruImage = (props) =>{
 
    return (
         <div>
-            <img className="profilePic" src={guruImage} alt={"will smith"} width={300} height={300}   />
+            <img className="profilePic" src={guruImage} alt={"profilePic"}   />
             <button onClick={handleClick}>Change Pic</button>
             <Dialog open={dialogOpen} onClose={handleClose}>
 
@@ -43,7 +45,7 @@ const GuruImage = (props) =>{
                 <TextField value={newGuruImageAddress || ''} label="url" onChange={handleChange}  variant="outlined" />   <br/>
                 preview <br/>
 
-                <img className="profilePic" src={newGuruImageAddress} alt={"preview"} width={300} height={300}   />
+                <img className="profilePic" src={newGuruImageAddress} alt={"preview"}  />
                 <button onClick={handleClose}>Save</button>
 
             </Dialog>
