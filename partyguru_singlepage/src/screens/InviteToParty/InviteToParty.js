@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+
 const InviteToParty = () => {
     
   //This enables materialsUI styles. Normall CSS won't work for materialsUI elements.
@@ -114,7 +115,8 @@ const InviteToParty = () => {
             <div className="emaildescription">
                 <form >
                     <TextField className="test" id="outlined-basic" placeholder="Please input a party description that will be included in the party invitations by email." 
-                    defaultValue={description} inputProps={{maxLength:1000}} multiline variant="outlined"/>
+                    defaultValue={description} inputProps={{maxLength:1000}} multiline variant="outlined" onChange={(e) => changeDescription2(e.target.value)}
+                    />
                 </form>
                 
             </div>
@@ -123,30 +125,12 @@ const InviteToParty = () => {
         
         {/*Preview feature in progress
         this is based on the old code, might not be using material ui components entirely
-        teoriassa toimii mutta oikeasti vaatii vielä tosi paljon säätämistä*/}
+        work in progress*/}
         <h2>Preview testing</h2>
-        <TextField
-        className="Testing preview feature"
-        name="preview"
-        type="text"
-        multline variant="outlined"
-        value={description2}
-        onChange={(e) => changeDescription2(e.target.value)}
-      />
-      <Button  size="large" color="secondary"  startIcon={<AddIcon />} onClick={addDescription}>Add preview</Button>
-      <ul>
-        {descriptions.map((item) => (
-          <li key={description.id}>
-            <TextField
-              name="preview"
-              type="text"
-              multline variant="outlined"
-              value={description2}
-              onChange={(e) => changeDescription(e.target.value)}
-            />
-          </li>
-        ))}
-      </ul>
+        <div className="preview">
+          
+        {description2}
+        </div>
     </div>
     )
 }
@@ -154,9 +138,9 @@ const InviteToParty = () => {
 export default InviteToParty
 
 /*tee nämä: 
-tee backup omalle koneelle siltä varalta että joku menee pieleen ---->> tehty
-tekstikenttää voisi asettaa keskelle sivua
+muunna preview tekstikenttä joksikin ei-tekstikentäksi jotta saadaan grafiikat
+preview keskelle sivua kunhan valmis
 fonttikokoa pitäisi kasvattaa koska nykyinen turhan pieni (inputpropsilla ehkä, ei atm toimi laittaa kahta ominaisuutta yhteen propsiin, css?)
 placeholder teksti ei katoa kun siitä klikkaa vaan pitää poistaa manuaalisesti ---->>> tehty?
-tee preview kirjoitetusta tekstistä ----->> työn alla
+tee preview kirjoitetusta tekstistä ----->> tehty
 */
