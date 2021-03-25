@@ -1,7 +1,17 @@
 import React from 'react'
 import {useState} from 'react'
-import {Button, Checkbox, FormControlLabel} from '@material-ui/core'
-import { STATES } from 'mongoose'
+import {makeStyles, Button, Checkbox, FormControlLabel} from '@material-ui/core'
+import createSpacing from '@material-ui/core/styles/createSpacing'
+
+const useStyles= makeStyles((theme) => ({
+    buttons: {
+        //padding: '10px 10px',
+        //paddingTop: '10px',
+        //paddingBottom: '10px',
+        //padding: theme.spacing(3),
+        margin: '10px',
+    },
+}))
 
 const RSVP = () => {
 
@@ -19,6 +29,8 @@ const RSVP = () => {
         //setChecked(event.target.checked)
         setChecked({ ...!checked, [event.target.name]: event.target.checked})
     };
+
+    const classes = useStyles()
 
     return(
         <div>
@@ -50,8 +62,15 @@ const RSVP = () => {
                     label="I can't attend"
                 />
             </div>
-
-            <Button variant="contained" color="primary" href="/">Send</Button>
+            <Button className={classes.buttons} variant="contained" color="primary" href="/">Send</Button>
+            <div><Button className={classes.buttons} variant="outlined">More information</Button></div>
+            <div className="faqGrid">
+                <h2>Frequently asked questions</h2>
+                <p>How do I join a Party Guru party?</p>
+                <p>What kind of qualifications do Party Guru have?</p>
+                <p>What is Discord and how do I get there?</p>
+                <p>What is Minecraft?</p>
+            </div>
 
         </div>
     )
