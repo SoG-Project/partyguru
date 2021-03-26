@@ -9,11 +9,6 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography, Divider } fro
 //The information in the cards comes as props from LandingPage.js
 
 const useStyles = makeStyles((theme) => ({
-  media: {
-    width: '100%',
-    height: '30%',
-  },
-  
   cardHeader: {
     textAlign: 'center',
     fontWeight: 'bold',
@@ -24,20 +19,25 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'lightgrey',
     width: '30%',
     textAlign: 'center',
-    justify: 'center',
-    alignContent: 'flex-end',
     marginTop: '1rem',
     fontSize: '2rem',
     color: 'purple',
     outline: 'dashed',
     outlineWidth: '1px',
-    marginLeft: '35%',
-    position: 'static',
+    bottom: '2px',
+    alignSelf: 'center',
+    justifySelf: 'flex-end'
     },
 
   cardStyle: {
     backgroundColor: 'orange',
-    height: 'auto',
+    height: '100%',
+    display:'flex',
+  },
+
+  contentStyle: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 }))
 
@@ -68,23 +68,33 @@ const Product = (props) => {
   }, []);
 
   return (
-    //Return a Material-UI Grid item as the returned outcome will be inside a Grid container
-    <Grid item className={classes.gridStyle} xs={12} sm={6} md={3} lg={2}>
-      {/*Card MUI component, contains the contents of the card*/}
+    <Grid item xs={12} sm={6} md={3} lg={2}>
+      {/*Card MUI component, contains the contents of the card
+      This component uses 'cardStyle' defined earlier in useStyles. It is taken into use with className={classes.cardStyle}
+      */}
       <Card variant="outlined" className={classes.cardStyle}>
-        <CardActionArea centerRipple href={`/product/${product._id}`}>
+        {/*Whole card is a CardActionArea. This makes the card look clickable and creates ripples when you click it */}
+        <CardActionArea style={{height:"100%"}} centerRipple href={`/product/${product._id}`}>
+          {/*CardMedia loads our image. Most likely the easiest way to have a resizing image */}
           <CardMedia
-            className={classes.media}
             image={product.image}
             title={product.name}
             component="img"
           />
-          <CardContent>
+          {/*
+          CardContent contains the 'header' of the card (name of product), names of gurus, and the price info
+          CardContent is only a container
+          Contents are not properly fitting card currently
+          */}
+          <CardContent className={classes.contentStyle}>
+            {/*Typography contains text, variant denotes how it should look basically using html tags like h1-h6, p1, etc. */}
             <Typography variant="h4" className={classes.cardHeader}>
               {product.name}
             </Typography>
+            {/*Divider line under header of card and gurus*/}
             <Divider />
-            <Typography variant="h4" style={{ marginTop: "7px"}}>
+            {/*Typography containers for gurus*/}
+            <Typography variant="h4" style={{ marginTop: "7px" }}>
               Gurus:
             </Typography>
             <Typography>
@@ -95,9 +105,8 @@ const Product = (props) => {
                   </div>
                 ))}
             </Typography>
-            <Grid container>
-              <Typography className={classes.cost}>{product.price}€</Typography>
-            </Grid>
+            {/*Another typography to contain the price of the product*/}
+            <Typography className={classes.cost}>{product.price}€</Typography>
           </CardContent>
         </CardActionArea>
       </Card>

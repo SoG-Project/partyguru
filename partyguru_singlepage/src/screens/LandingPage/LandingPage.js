@@ -91,7 +91,7 @@ const LandingPage = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Grid container spacing={3} justify="space-evenly">
+      <Grid container spacing={3} justify="center">
         {products.map((product) => (
           <Product key={product._id} product={product}></Product>
         ))}

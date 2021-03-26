@@ -21,7 +21,7 @@ const theme = createMuiTheme({
     breakpoints:{
         values:{
             xs: 0,
-            sm: 650,
+            sm: 550,
             md: 1000,
             lg: 1400,
             xl: 1920,
