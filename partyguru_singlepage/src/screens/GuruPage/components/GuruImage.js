@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react'
 import axios from "axios";
 import {TextField} from "@material-ui/core";
 import {Dialog} from "@material-ui/core";
-import {DialogTitle} from "@material-ui/core";
-import Image from 'material-ui-image'
+import {DialogTitle, DialogContent, DialogContentText, DialogActions} from "@material-ui/core";
+import {flexbox} from '@material-ui/system';
+import GuruImageDialog from "./GuruImageDialog";
+
 
 
 
 const GuruImage = (props) =>{
+
 
 
     const [guruImage, setGuruImage] = useState("")
@@ -27,9 +30,15 @@ const GuruImage = (props) =>{
 
     const handleClose = () => {
         setDialogOpen(false)
-        setGuruImage(newGuruImageAddress)
     }
 
+    const confirmChanges = (event) => {
+        setGuruImage(newGuruImageAddress)
+        axios.put(`/api/gurus/${parseInt(props.guruID)}`, {image: newGuruImageAddress}).then(response => {
+            console.log(response.data)
+        })
+        setDialogOpen(false)
+    }
 
     const handleChange = (event) => {
         setNewGuruImageAddress(event.target.value)
@@ -39,16 +48,9 @@ const GuruImage = (props) =>{
         <div>
             <img className="profilePic" src={guruImage} alt={"profilePic"}   />
             <button onClick={handleClick}>Change Pic</button>
-            <Dialog open={dialogOpen} onClose={handleClose}>
-
-            <DialogTitle>Enter the new image URL</DialogTitle>
-                <TextField value={newGuruImageAddress || ''} label="url" onChange={handleChange}  variant="outlined" />   <br/>
-                preview <br/>
-
-                <img className="profilePic" src={newGuruImageAddress} alt={"preview"}  />
-                <button onClick={handleClose}>Save</button>
-
-            </Dialog>
+            <GuruImageDialog confirmChanges={confirmChanges} newAddress={newGuruImageAddress} dialogOpen={dialogOpen}
+                        handleChange={handleChange} handleClose={handleClose}
+                        text={"Enter the new image URL"}/>
         </div>
     )
 

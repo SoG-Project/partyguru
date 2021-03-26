@@ -45,7 +45,7 @@ const gurus={
             "email":"sbirgel@dirgle.com",
             "partyreservations":[],
             "video":"https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-            "image":"",
+            "image":"https://www.rd.com/wp-content/uploads/2019/09/GettyImages-621924830.jpg",
             "availability":[],
             "bio":"SBIRGFGGGG!!!!"  
         },

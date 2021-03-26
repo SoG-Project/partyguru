@@ -3,7 +3,6 @@ import axios from 'axios'
 import {Link} from "react-router-dom";
 import './GuruPage.css';
 import './components/GuruImage';
-
 import GuruImage from "./components/GuruImage";
 import GuruInfo from "./components/GuruInfo";
 import GuruPartyPackages from "./components/GuruPartyPackages";
@@ -35,10 +34,10 @@ const GuruPage = (props)=> {
 
     return (
         <div className="guruGrid">
-            <GuruImage guruImage={userProfile.image}/>
-            <GuruInfo  id={userProfile._id} bio={userProfile.bio} name={userProfile.name} nick={userProfile.nick}/>
+            <GuruImage guruImage={userProfile.image} guruID={userProfile._id}/>
+            <GuruInfo  id={userProfile._id} bio={userProfile.bio} name={userProfile.name} nick={userProfile.nick} />
             <GuruPartyPackages guruID={userProfile._id}/>
-            <GuruVideo video={userProfile.video}/>
+            <GuruVideo video={userProfile.video} guruID={userProfile._id}/>
             <div>
                 <Link to = "/partypage">Go to party page</Link>
             </div>

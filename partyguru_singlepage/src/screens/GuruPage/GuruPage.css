@@ -8,9 +8,13 @@
 
 .profilePic {
     width:80%;
+    height: 80%;
+    max-height: 300px;
     border-style:solid;
+    align-self:center;
 
 }
+
 
 
 .guruGrid > div{
@@ -32,8 +36,6 @@
 
 
 }
-
-
 
 
 .guruGrid > div.infoEdit{
