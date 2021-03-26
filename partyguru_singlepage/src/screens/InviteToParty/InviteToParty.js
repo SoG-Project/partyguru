@@ -5,6 +5,9 @@ import axios from 'axios'
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography'
 import AddIcon from '@material-ui/icons/Add';
+
+
+
 //import { response } from "express"
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -125,12 +128,17 @@ const InviteToParty = () => {
         <Link to="/partypage">Send Invites and go to party page</Link>
         
         {/*Preview feature in progress
-        this is based on the old code, might not be using material ui components entirely
-        work in progress*/}
+        This only works on a 1920x1080 resolution at the moment, does not also like zooming*/}
         <h2>Preview testing</h2>
         <div className="preview">
-          
-        {description2}
+          <div className="invitelayout">
+           <img src={"https://i.pinimg.com/originals/00/71/3b/00713b61c2ae3b4f244f3ff3fbac2fa9.jpg"} />
+           </div>
+           <div className="invitetitle">
+             Kutsu Make Viljami-Macklemoren syntymäpäiväjuhliin
+           </div>
+           <div className="subtitle">{description2}</div>
+           
         </div>
     </div>
     )
@@ -139,9 +147,8 @@ const InviteToParty = () => {
 export default InviteToParty
 
 /*tee nämä: 
-muunna preview tekstikenttä joksikin ei-tekstikentäksi jotta saadaan grafiikat
-preview keskelle sivua kunhan valmis
-fonttikokoa pitäisi kasvattaa koska nykyinen turhan pieni (inputpropsilla ehkä, ei atm toimi laittaa kahta ominaisuutta yhteen propsiin, css?)
-placeholder teksti ei katoa kun siitä klikkaa vaan pitää poistaa manuaalisesti ---->>> tehty?
-tee preview kirjoitetusta tekstistä ----->> tehty
+tekstikenttää ei voi klikata tietyn määrän kirjoittamisen jälkeen, joku tukkii sen??
+
+fonttikokoa pitäisi kasvattaa koska nykyinen turhan pieni
+^(inputpropsilla ehkä, ei atm toimi laittaa kahta ominaisuutta yhteen propsiin, css?)
 */
