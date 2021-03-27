@@ -8,7 +8,7 @@ const attendees={
                 "attends":true,
                 "discord":"yes",
                 "game":"yes"},
-                {"name":"szvifuli dipsdips",
+                {"name":"Simo Small-Dip",
                 "email":"jonne@web.com",
                 "attends":false,
                 "discord":"yes",
@@ -18,7 +18,7 @@ const attendees={
         {
             "_id":"2",
             "attendees":[
-                {"name":"juhani saksikäsi",
+                {"name":"Juhani Saksikäsi",
                 "email":"juhani@johnnydepp.zx",
                 "attends":true,
                 "discord":"yes",
@@ -34,17 +34,3 @@ const attendees={
     ]
 }
 export default attendees;
-/**
-         {
-            _id:"",
-            attendees:[
-                {name:"",
-                email:"",
-                attends:,
-                discord:"",
-                game:""}
-                
-            ]
-            
-        }
- */

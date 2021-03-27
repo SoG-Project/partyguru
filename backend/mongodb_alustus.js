@@ -14,14 +14,6 @@ const attendeesSchema = new mongoose.Schema({
 });
 const Attendees= new mongoose.model('Attendees',attendeesSchema);
 
-const noteSchema = new mongoose.Schema({
-  content: String,
-  date: Date,
-  important: Boolean,
-})
-
-const Note = mongoose.model('Note', noteSchema)
-
 const guruSchema = new mongoose.Schema({
     //_id: String,
     name: String,

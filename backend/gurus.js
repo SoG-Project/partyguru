@@ -1,13 +1,11 @@
-//poista packages
-
 const gurus={
     gurus:[
         
         {
-            "_id":"1",
+            "_id":1,
             "name":"Tarmo",
             "nick":"Tarppizz",
-            "email":"tarppizzyxx@gmail.com",
+            "email":"tarppizzy@gmail.com",
             "partyreservations":[1],
             "video":"https://www.youtube.com/watch?v=dQw4w9WgXcQ",
             "image":"https://images.pexels.com/photos/2269872/pexels-photo-2269872.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
@@ -16,38 +14,38 @@ const gurus={
         },
 
         {
-            "_id":"2",
-            "name":"Dippeli Do-rag",
-            "nick":"Martti Ahtisaari",
+            "_id":2,
+            "name":"Diplo Ahlström",
+            "nick":"hcdude98",
             "email":"dipdip@dipdip.com",
             "partyreservations":[2],
             "video":"https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-            "image":"",
+            "image":"https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Pok%C3%A9mon_Pikachu_art.png/220px-Pok%C3%A9mon_Pikachu_art.png",
             "availability":[],
-            "bio":"Dip it down!!"  
+            "bio":"Diplo is my name, fucking up motherfuckers is my game!"  
         },
 
         {
             "_id":"3",
-            "name":"Vong Bong",
-            "nick":"Bong Vong",
-            "email":"bongbong@vong.com",
-            "partyreservations":[],
+            "name":"Longo Dongo",
+            "nick":"Longa Vonga",
+            "email":"zong@vong.com",
+            "partyreservations":[1,2,3],
             "video":"https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-            "image":"",
+            "image":"https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Pok%C3%A9mon_Pikachu_art.png/220px-Pok%C3%A9mon_Pikachu_art.png",
             "availability":[],
-            "bio":"VONG IT UP!!!"  
+            "bio":"Game on!"  
         },
         {
             "_id":"4",
             "name":"Sbirgle",
             "nick":"gamergirl12",
             "email":"sbirgel@dirgle.com",
-            "partyreservations":[],
+            "partyreservations":[3],
             "video":"https://www.youtube.com/watch?v=dQw4w9WgXcQ",
             "image":"https://www.rd.com/wp-content/uploads/2019/09/GettyImages-621924830.jpg",
             "availability":[],
-            "bio":"SBIRGFGGGG!!!!"  
+            "bio":"Game off!!"  
         },
 		
 		{

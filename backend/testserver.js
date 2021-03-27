@@ -1,29 +1,15 @@
-/*const express = require('express')
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const morgan = require('morgan');*/
+
 import express from 'express';
-//const express = require('express')
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import MongoClient from 'mongodb';
 import mongoose from 'mongoose';
-import morgan from 'morgan';
-import { v4 as uuidv4 } from 'uuid';
 import partypack from './partypack.js';
-import partyinfo from './partyinfo.js';
 import attendees from './attendees.js' ;
-import gurus from './gurus.js';
 const app = express();
 app.use(express.static('build'));
 app.use(bodyParser.json());
 app.use(cors());
-var date = new Date();
-var today = new Date();
-var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-var dateTime = date+' '+time;
-const uri = "mongodb+srv://sogtietokanta:schoolofgamingtietokantaprojekti@cluster0.wqxpy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = "mongodb+srv://sogtietokanta:schoolofgamingtietokantaprojekti@cluster0.wqxpy.mongodb.net/sog?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 
 //Partyguru schema and model
@@ -70,7 +56,7 @@ const attendeesSchema = new mongoose.Schema({
       name: String,
       image: String,
       price: Number,
-      guru:[String],
+      guruid:[String],
       description: String,
       scheduleitems: [String]
   })
@@ -101,45 +87,27 @@ const attendeesSchema = new mongoose.Schema({
  */
 
 
-/*REQUEST: GET all party packages
 
-      axios.get('/api/packages').then(response => {
-      setState(response.data);
-      console.log(response.data)
-})
-*/
-
-app.get("/api/packages", (req, res) => {
-  Partypack.find().then(result => {
-    res.json(result);
-    result.forEach(item => {
-      console.log(item)
-    })
-  })
-});
-
-/*REQUEST: GET package by ID
-
-let id=1;
-//remember the backticks on the url
-axios.get(`/api/packages/${id}`).then(response => {
-  setState(response.data);
-  console.log(response.data);
-})
-*/
-app.get('/api/packages/:id', (req, res) => {
-  const id = req.params.id
-  Partypack.find({_id:id}).then(result => {
-    res.json(result[0]);
-    result.forEach(note => {
-      console.log(note)
-    })
-  })
-})
+/** ************************PARTY REQUESTS:******************************************
+ * 
+ * Partyinfo object format:
+ * {
+      packageid: String,
+      guruid: String,
+      datetime: {type: Date, default: Date.now},
+      duration:Number,
+      email: String,
+      phone: String,
+      num_attendees: Number,
+      schedule: [String],
+      likes: [String],
+      description: String
+  }
+ */
 
 //REQUEST: GET party by ID
 //Returns a Partyinfo object
-/**  
+/**  Example hook:
 let id=1;
 axios.get(`/api/parties/${id}`).then(response => {
   setState(response.data);
@@ -148,186 +116,89 @@ axios.get(`/api/parties/${id}`).then(response => {
    */
 app.get('/api/parties/:id', (req, res) => {
   const id = req.params.id
-  Partyinfo.find({_id:id}).then(result => {
+  Partyinfo.find({_id:id})
+  .then(result => {
     res.json(result[0]);
     result.forEach(note => {
       console.log(note)
     })
   })
-})
-
-/* TODO: poista nämä
-//GET kaikki partyt, testiä varten
-app.get("/api/parties", (req, res) => {
-  res.send(partyinfo.parties);
-});
-
-//GET kaikki attendeet, testiä varten
-app.get("/api/attendees", (req, res) => {
-  res.send(attendees);
-});
-*/
-
-//REQUEST: GET attendees by party id
-//Parameters: party id in URL
-//Returns an Attendees object
-/**  
-let id=1;
-axios.get(`/api/attendees/${id}`).then(response => {
-  setState(response.data);
-  console.log(response.data);
-})
-   */
-app.get('/api/attendees/:id', (req, res) => {
-  const id = req.params.id
-  Attendees.find({partyid:id}).then(result => {
-    if(!result.length){
-      res.status(400);
-      res.send('Error: no attendees found.');
-    }
-    else{
-    res.json(result);
-    result.forEach(note => {
-      console.log(note)
-    })}
-  })
-  
-})
-
-//Request: GET all gurus (for tests) X
-
-app.get('/api/gurus', (req, res) => {
-
-    Guru.find({}).then(result => {
-      res.json(result);
-      result.forEach(note => {
-        console.log(note)
-      })
-    })
-  })
-
-//REQUEST: GET guru by ID
-//Parameters: guru's _id in URL
-//Returns a Guru object
-/**  
-let id=1;
-axios.get(`/api/gurus/${id}`).then(response => {
-  setState(response.data);
-  console.log(response.data);
-})
-   */
-app.get('/api/gurus/:id', (req, res) => {
-
-  const id = req.params.id;
-  Guru.find({_id:id}).then(result => {
-    res.json(result);
-    result.forEach(note => {
-      console.log(note)
-    })
-  })
- 
+  .catch(error => {
+    console.log(error.message);                    
+    res.status(400);
+    res.send(error.message);});
 })
 
 //REQUEST: POST a new party
 //Parameters: Partyinfo-object in JSON-body
-//Lähetä vaikka tyhjä stringi jos kaikkia ei oo saatavilla, niin se ei jää undefinediksi
-//_id tulee itsestään, ei tarvi sendiä sitä
+//Returns 200 OK
 app.post('/api/parties', (req, res) => {
 
-   if(req.body.packageid===undefined){
-    res.status(400);
-    res.send('Error. no packageid')
-  }
-   if(req.body.guruid===undefined){
-    res.status(400);
-    res.send('Error. no guru')
-  }
-   if(req.body.datetime===undefined){
-    res.status(400);
-    res.send('Error. no date/time')
-  }
-   if(req.body.duration===undefined){
-    res.status(400);
-    res.send('Error. no duration')
-  }
-   if(req.body.email===undefined){
-    res.status(400);
-    res.send('Error. no email')
-  }
-   if(req.body.phone===undefined){
-    res.status(400);
-    res.send('Error. no phone')
-  }
-   if(req.body.num_attendees===undefined){
-    res.status(400);
-    res.send('Error. no number of attendees')
-  }
-   if(req.body.schedule===undefined){
-    res.status(400);
-    res.send('Error. no schedule')
-  }
-   if(req.body.likes===undefined){
-    res.status(400);
-    res.send('Error. no likes')
-  }
-   if(req.body.description===undefined){
-    res.status(400);
-    res.send('Error. no description')
-  }
-  
-  const newParty= new Partyinfo({
-    packageid: req.body.packageid,
-    guruid: req.body.guruid,
-    datetime: Date.now(),
-    duration:req.body.duration,
-    email: req.body.email,
-    phone: req.body.phone,
-    num_attendees: req.body.num_attendees,
-    schedule: req.body.schedule,
-    likes: req.body.likes,
-    description: req.body.description
-});
-    newParty.save().then(result=>{
-      console.log(result);
-      res.send(result);
-    })
-
-  
-});
-//REQUEST: POST a new attendee list
-//Parameters: Attendees-object in JSON-body
-/*
-   axios.post('/api/attendees',{JSONHERE}).then(response => {
-      console.log(response.data);
-})
-*/
-
-/** Formaatti jsonille:
- * {
- *  partyid: String,
-    attendees: [{name: String, 
-                email: String, 
-                attends: Boolean, 
-                discord: Boolean, 
-                game: Boolean}]
-  } 
-  */
-app.post('/api/attendees', (req, res) => {
-  if(req.body.partyid===undefined){
+  if(req.body.packageid===undefined){
    res.status(400);
-   res.send('Error. no party id');
+   res.send('Error. no packageid')
  }
- else{
-   var entry = new Attendees();
-   entry.partyid = req.body.partyid;
-   entry.attendees=req.body.attendees;
-   entry.save().then(result=>{
-    console.log(result);
-    res.send(result);
-  })
-   
+  if(req.body.guruid===undefined){
+   res.status(400);
+   res.send('Error. no guru')
  }
+  if(req.body.datetime===undefined){
+   res.status(400);
+   res.send('Error. no date/time')
+ }
+  if(req.body.duration===undefined){
+   res.status(400);
+   res.send('Error. no duration')
+ }
+  if(req.body.email===undefined){
+   res.status(400);
+   res.send('Error. no email')
+ }
+  if(req.body.phone===undefined){
+   res.status(400);
+   res.send('Error. no phone')
+ }
+  if(req.body.num_attendees===undefined){
+   res.status(400);
+   res.send('Error. no number of attendees')
+ }
+  if(req.body.schedule===undefined){
+   res.status(400);
+   res.send('Error. no schedule')
+ }
+  if(req.body.likes===undefined){
+   res.status(400);
+   res.send('Error. no likes')
+ }
+  if(req.body.description===undefined){
+   res.status(400);
+   res.send('Error. no description')
+ }
+ 
+ const newParty= new Partyinfo({
+   packageid: req.body.packageid,
+   guruid: req.body.guruid,
+   datetime: req.body.datetime,
+   duration:req.body.duration,
+   email: req.body.email,
+   phone: req.body.phone,
+   num_attendees: req.body.num_attendees,
+   schedule: req.body.schedule,
+   likes: req.body.likes,
+   description: req.body.description
 });
+   newParty.save()
+   .then(result=>{
+     console.log(result);
+     res.send(result);
+    })
+    .catch(error => {
+      console.log(error.message);
+      res.status(400);
+      res.send(error.message);});
+});
+
+
 //REQUEST: PUT update Partyinfo object by ID
 //Parameters: party's _id in the URL, to-be-updated fields in the JSON-body
 //Returns status 200 if something got updated, 400 if not
@@ -341,9 +212,9 @@ app.post('/api/attendees', (req, res) => {
 app.put('/api/parties/:id', function (req, res) {
   const id = req.params.id;
   //Find the party to be updated
-  Partyinfo.find({_id:id}).then(updatableParty => {
+  Partyinfo.find({_id:id})
+  .then(updatableParty => {
     const updatedParty=updatableParty[0];
-    //TODO: Mitä mongo lähettää jos id ei löydy CATCH THAT SHIT
 
    //If the field exists in the json-body, overwrite that field.
     if(req.body.packageid!==undefined){
@@ -385,81 +256,125 @@ app.put('/api/parties/:id', function (req, res) {
       }
       else{
         res.status(200);
-      res.send(result);
+        res.send(result);
       }
     });
-    
   })
-  /*
-  const partyinformation = partyinfo.parties.find(party => party._id === id)
-  if(partyinformation === undefined){
+  .catch(error => {
+    console.log(error.message);
     res.status(400);
-    res.send('<h1>THERE IS NO PARTY WITH THAT ID. SAD! ID: </h1>' + id)}
-  else{    
-    // entry === party mitä päivität
-    var entry = new Object();
-    entry=partyinformation;
-    // Tämä tarkistaa, mitä kenttiä on tullut requestin mukana
-    // Kaikki requestin mukana tulleet kentät laitetaan oikeille paikoilleen entry-objektiin
-    if(req.body.packageid!==undefined){
-      entry.packageid=req.body.packageid;
-      updated+=1;
-    }
-    if(req.body.guruid!==undefined){
-      entry.guruid=req.body.guruid;
-      updated+=1;
-    }
-    if(req.body.datetime!==undefined){
-      entry.datetime=req.body.datetime;
-      updated+=1;
-    }
-    if(req.body.duration!==undefined){
-      entry.duration=req.body.duration;
-      updated+=1;
-    }
-    if(req.body.email!==undefined){
-      entry.email=req.body.email;
-      updated+=1;
-    }
-    if(req.body.phone!==undefined){
-      entry.phone=req.body.phone;
-      updated+=1;
-    }
-    if(req.body.num_attendees!==undefined){
-      entry.num_attendees=req.body.num_attendees;
-      updated+=1;
-    }
-    if(req.body.schedule!==undefined){
-      entry.schedule=req.body.schedule;
-      updated+=1;
-    }
-    if(req.body.likes!==undefined){
-      entry.likes=req.body.likes;
-      updated+=1;
-    }
-    if(req.body.description!==undefined){
-      entry.description=req.body.description;
-      updated+=1;
-    }
-    
-    //filtteröi päivitettävän partyn pois (koska siinä on vanhat tiedot)
-    let newParties=partyinfo.parties.filter(function(item){
-      return item._id!==id;
-    })
-    //Päivitettiinkö edes mitään?
-    if(updated===0){
+    res.send(error.message);});
+})
+
+//REQUEST: GET attendees by party id
+//Parameters: party id in URL
+//Returns an Attendees object (successful), 400 bad request (unsuccessful)
+/**  
+let id=1;
+axios.get(`/api/attendees/${id}`).then(response => {
+  setState(response.data);
+  console.log(response.data);
+})
+   */
+app.get('/api/attendees/:id', (req, res) => {
+  const id = req.params.id
+  Attendees.find({partyid:id})
+  .then(result => {
+    if(!result.length){
       res.status(400);
-      res.send('Nothing got updated.');
+      res.send('Error: no attendees found.');
     }
     else{
-      //Lisää päivitetyn partyn listaan
-      newParties.push(entry);
-      partyinfo.parties=newParties;
-      res.status(200);
-      res.send('Party updated. ID: ' + entry._id + '. ' + updated + ' fields were updated.');
-    }
-  }*/
+      res.json(result);
+      result.forEach(note => {
+      console.log(note)
+    })}
+  })
+  .catch(error => {
+    console.log(error.message);
+    res.status(400);
+    res.send(error.message);});
+  
 })
+
+/** **********************GURU REQUESTS *****************************************/
+
+/** Guru object format:
+ * {
+  name: String,
+  nick: String,
+  email: String,
+  partyreservations:[Number],
+  video: String,
+  image: String,
+  availability:[String],
+  bio: String
+} */
+
+
+//Request: GET all gurus 
+//Returns an array of Guru-objects
+
+app.get('/api/gurus', (req, res) => {
+    Guru.find({})
+    .then(result => {
+      res.json(result);
+      result.forEach(note => {
+        console.log(note)
+      })
+    }).catch(error => {
+      console.log(error.message);
+      res.status(400);
+      res.send(error.message);});
+  })
+
+//REQUEST: GET guru by ID
+//Parameters: guru's _id in URL
+//Returns a Guru object
+
+/**  Example:
+let id=1;
+axios.get(`/api/gurus/${id}`).then(response => {
+  setState(response.data);
+  console.log(response.data);
+})
+   */
+app.get('/api/gurus/:id', (req, res) => {
+  const id = req.params.id;
+  Guru.find({_id:id})
+  .then(result => {
+    res.json(result);
+    result.forEach(note => {
+      console.log(note)
+    })
+  })
+  .catch(error => {
+    console.log(error.message);
+    res.status(400);
+    res.send(error.message);});
+ 
+})
+
+//REQUEST: POST new guru
+//Parameters: Guru-object in JSON-body
+//Returns 200 OK
+app.post('/api/gurus', (req, res) => {
+  var entry = new Guru();
+  entry.name = req.body.name;
+  entry.email = req.body.email;
+  entry.partyreservations = req.body.partyreservations;
+  entry.video = req.body.video;
+  entry.image = req.body.image;
+  entry.availability = req.body.availability;
+  entry.bio = req.body.bio;
+  entry.save().then(result=>{
+   console.log(result);
+   res.send(result);
+ }).catch(error => {console.log(error.message);
+  res.status(400);
+res.send(error.message);});
+});
+
 //REQUEST: PUT update a guru by ID
 //Parameters: Guru's _id in the URL, to-be-updated fields in the JSON-body
 //Old fields will be overwritten with the field in the JSON-body, no appends
@@ -467,13 +382,13 @@ app.put('/api/parties/:id', function (req, res) {
   let id=1;
    axios.put('/api/gurus/:id',<JSONTÄHÄN>).then(response => {
       console.log(response.data);
-
 })
 */
 app.put('/api/gurus/:id', function (req, res) {
   const id = req.params.id;
   //Fetch the guru with the right id, update the fields that were sent with the request body, replace the old entry
-  Guru.find({_id:id}).then(foundGuru => {
+  Guru.find({_id:id})
+  .then(foundGuru => {
     if(req.body.name!==undefined){
       foundGuru[0].name=req.body.name;
     }
@@ -505,10 +420,51 @@ app.put('/api/gurus/:id', function (req, res) {
       if (error) throw error;
       res.send(result);
   });
-  })
-
+  }).catch(error => {
+    console.log(error.message);
+    res.status(400);
+    res.send(error.message);});
 })
- 
+ /************************************ATTENDEE REQUESTS****************** */
+
+//REQUEST: POST a new attendee list
+//Parameters: Attendees-object in JSON-body
+/*
+   axios.post('/api/attendees',{JSONHERE}).then(response => {
+      console.log(response.data);
+})
+*/
+
+/** Attendee format:
+ * {
+ *  partyid: String,
+    attendees: [{name: String, 
+                email: String, 
+                attends: Boolean, 
+                discord: Boolean, 
+                game: Boolean}]
+  } 
+  */
+app.post('/api/attendees', (req, res) => {
+  if(req.body.partyid===undefined){
+   res.status(400);
+   res.send('Error. no party id');
+ }
+ else{
+   var entry = new Attendees();
+   entry.partyid = req.body.partyid;
+   entry.attendees=req.body.attendees;
+   entry.save()
+   .then(result=>{
+    console.log(result);
+    res.send(result);
+  }).catch(error => {
+    console.log(error.message);
+    res.status(400);
+    res.send(error.message);});   
+ }
+});
+
 // REQUEST: PUT update attendee information / add new attendees
 // The request checks whether the attendees in the JSON-body were already in the database.
 // If they were, their entry is replaced with the entry in the JSON-body.
@@ -524,7 +480,7 @@ app.put('/api/gurus/:id', function (req, res) {
 */
 app.put('/api/attendees/:id', function (req, res) {
   const id = req.params.id;
-  //Päivitettävä juhlijalista
+  //Attendee list to be updated
   Attendees.find({partyid:id}).then(returnedItems=>{
     const attendeeList=returnedItems[0];
     //Check whether the fetched list is empty
@@ -545,44 +501,13 @@ app.put('/api/attendees/:id', function (req, res) {
       }
     }
   })
-  .catch(error => {console.log(error.message);
-                    res.status(400);
-                    res.send(error.message);});
-/*
-  const lista = attendees.attendees.find(juhlija => juhlija._id === id)
-  if(lista === undefined){
+  .catch(error => {
+    console.log(error.message);
     res.status(400);
-    res.send('<h1>THERE IS NO PARTY WITH THAT ID. SAD! ID: </h1>' + id)}
-  else{
-    for(var i=0;i<req.body.attendees.length;i++){
-      //lista.attendees.push(req.body.attendees[i]);
-      //req.body.attendees[i].email 
-      var changed=false;
-      for (var k = 0; k < lista.attendees.length; k++) {
-        if (lista.attendees[k].email === req.body.attendees[i].email) {
-          lista.attendees.splice(k,1,req.body.attendees[i]);
-          changed=true;
-        }
-       }
-       //Jos samannimistä juhlijaa ei löytynyt, lisätään se uutena listaan
-       if(changed===false){
-         lista.attendees.push(req.body.attendees[i]);
-       }
-    }
-    //filtteröi vanhan listan pois
-    let newAttendees=attendees.attendees.filter(function(item){
-      return item._id!==id;
-    })
-    //Lisää päivitetyn listan isompaan listaan
-    newAttendees.push(lista);
-    attendees.attendees=newAttendees;
-    res.status(200);
-    res.send('Attendees updated. ID: ' + id);
-  }
-  */
+    res.send(error.message);});
 })
-//REQUEST: DELETE juhlija 
-//Parametrit: URLiin partyn id, bodyyn JSON jossa kenttä email
+//REQUEST: DELETE juhlija  TODOOOO
+//Parametrit: partyid-string in URL, email-field in the JSON-body. Any entrants with that email will be deleted.
 app.delete('/api/attendees/:id', function (req, res) {
   const id = req.params.id;
   const deletoitava=req.body.email;
@@ -590,11 +515,11 @@ app.delete('/api/attendees/:id', function (req, res) {
     res.status(400);
     res.send('You have to send a JSON with an email field with this request');
   }
-  //Päivitettävä juhlijalista
+  //Attendee list to be updated
   const lista = attendees.attendees.find(juhlija => juhlija._id === id)
   if(lista === undefined){
     res.status(400);
-    res.send('<h1>THERE IS NO PARTY WITH THAT ID. SAD! ID: </h1>' + id)}
+    res.send('Cant find a party with this id: ' + id)}
   else{
     var changed=false;
     for (var k = 0; k < lista.attendees.length; k++) {
@@ -608,12 +533,46 @@ app.delete('/api/attendees/:id', function (req, res) {
        res.status(400);
        res.send('Attendee with that email not found.');
      }
-
     res.status(200);
     res.send('Attendees deleted. ID: ' + id);
   }
 })
 
+/*******************************PARTY PACKAGE REQUESTS ******************** */
+/**
+ * Partypack object format:
+ {
+      name: String,
+      image: String,
+      price: Number,
+      guruid:[String],
+      description: String,
+      scheduleitems: [String]
+  }
+ */
+
+//REQUEST: POST new party package
+app.post('/api/packages', (req, res) => {
+
+  var entry = new Partypack();
+  entry.name=req.body.name;
+  entry.image=req.body.image;
+  entry.price=req.body.price;
+  entry.guruid=req.body.guruid;
+  entry.description=req.body.description;
+  entry.scheduleitems=req.body.scheduleitems;
+  console.log(entry);
+  entry.save()
+  .then(result=>{
+   console.log(result);
+   res.send(result);
+ })    
+  .catch(error => {
+    console.log(error.message);
+    res.status(400);
+    res.send(error.message);});
+  
+});
 
 //REQUEST: PUT uusia guruja TODO muuta tämä databasea kannattamaan
 //Parametrit: bodyyn JSON- jossa key "gurus" ja sisällä array numeroita (ne tulee olemaan numeroita mongodb:ssä)
@@ -624,7 +583,7 @@ app.delete('/api/attendees/:id', function (req, res) {
       //onko tuo oikea tapa logittaa vastaus, en tiä
 })
 */
-app.put('/api/partypack/:id/gurus', (req, res) => {
+app.put('/api/packages/:id/gurus', (req, res) => {
   const id = req.params.id
   const toBeAdded= req.body.gurus;
   const partyinformation = partypack.products.find(party => party._id === id);
@@ -647,5 +606,48 @@ app.put('/api/partypack/:id/gurus', (req, res) => {
     res.send('Partypack updated. with new gurus');
   });
 
+
+/*REQUEST: GET all party packages
+
+      axios.get('/api/packages').then(response => {
+      setState(response.data);
+      console.log(response.data)
+})
+*/
+
+app.get("/api/packages", (req, res) => {
+  Partypack.find()
+  .then(result => {
+    res.json(result);
+  })
+  .catch(error => {
+    console.log(error.message);
+    res.status(400);
+    res.send(error.message);});
+});
+
+/*REQUEST: GET package by ID
+
+let id=1;
+//remember the backticks on the url
+axios.get(`/api/packages/${id}`).then(response => {
+  setState(response.data);
+  console.log(response.data);
+})
+*/
+app.get('/api/packages/:id', (req, res) => {
+  const id = req.params.id
+  Partypack.find({_id:id})
+  .then(result => {
+    res.json(result[0]);
+    result.forEach(note => {
+      console.log(note)
+    })
+  })  
+  .catch(error => {
+    console.log(error.message);
+    res.status(400);
+    res.send(error.message);});
+})
 
 app.listen(5001, () => { console.log("Server started at http://localhost:5001") });
