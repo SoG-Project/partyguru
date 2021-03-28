@@ -558,4 +558,4 @@ app.delete('/api/attendees/:id', function (req, res) {
     res.send('Attendees deleted. ID: ' + id);
   }
 })
-app.listen(5000, () => { console.log("Server started at http://localhost:5000") });
+app.listen(5000, () => { console.log("Server started at http://localhost:5000. WARNING: THIS SERVER IS DEPRECATED AND EVIL, PREFERENTIALLY USE 'npm test', BECAUSE ONLY THAT SERVER CONNECTS TO THE DB AND THIS SERVER HAS NO KENNY LOGGINS") });
