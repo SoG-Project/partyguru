@@ -13,14 +13,15 @@ const GuruPage = (props)=> {
 
     const [userProfile, setUserProfile] = useState({})
 
-    let userID=5
+    let userID="1"
 
 
     useEffect(() => {
 
         const fetchData = async () => {
-            axios.get(`/api/gurus/${userID}`).then(response => {
-                setUserProfile(response.data)
+            axios.get(`/api/gurus/`).then(response => {
+                const allGurus = response.data
+                setUserProfile(allGurus.find(guru => guru._id === userID))
             })}
         fetchData();
         return () => {
