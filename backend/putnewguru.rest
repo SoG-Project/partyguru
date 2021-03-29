@@ -1,4 +1,4 @@
-PUT http://localhost:5000/api/partypack/1/gurus HTTP/1.1
+PUT http://localhost:5000/api/packages/605f8a595b54c3088fc44d12/gurus HTTP/1.1
 content-type: application/json
 
         {
