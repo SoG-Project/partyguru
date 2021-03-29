@@ -2,6 +2,7 @@ import React from 'react'
 import {useState} from 'react'
 import {makeStyles, Button, Checkbox, FormControlLabel} from '@material-ui/core'
 import createSpacing from '@material-ui/core/styles/createSpacing'
+import "./RSVP.css"
 
 const useStyles= makeStyles((theme) => ({
     buttons: {
@@ -19,10 +20,21 @@ const RSVP = () => {
         attending: false,
         notattending: false,
     })
+    const [gamingspecs, setSpecs] = useState({
+        gameinstalled: false,
+        gamenotinstalled: false,
+        discordinstalled: false,
+        discordnotinstalled: false,
+    })
     //const [attending, changeAttending] = useState(true)
     //const [notattending, changeNotAttending] = useState(false)
 
     //äääääääää
+
+    const handleGamingSpecChange= (event) => {
+        console.log(event.target.name, " has changed its state to", event.target.checked)
+        setSpecs({ ...gamingspecs, [event.target.name]: event.target.checked})
+    }
 
     const handleChange = (event) => {
         console.log(event.target.name)
@@ -61,6 +73,25 @@ const RSVP = () => {
                     control={<Checkbox checked={checked.notattending} onChange={handleChange} name="notattending"/>}
                     label="I can't attend"
                 />
+            </div>
+            <div className="infofield">
+                <p>Special considerations about your child:</p>
+
+            </div>
+            <div className="gamingspecscontainer">
+                <div><p className="infoparagraph">Your gaming device information:</p></div>
+                <div><p className="installedparagraph">Installed</p></div>
+                <div><p className="notinstalledparagraph">Not installed</p></div>
+                <div><FormControlLabel className="gameinstalledcheckbox"
+                    label="Amongs Us"
+                    control={<Checkbox name="gameinstalled" onChange={handleGamingSpecChange}/>}
+                /></div>
+                <div><FormControlLabel className="discordinstalledcheckbox"
+                    label="Discord"
+                    control={<Checkbox name="discordinstalled" onChange={handleGamingSpecChange}/>}
+                /></div>
+                <div><Checkbox className="discordnotinstalledcheckbox" name="discordnotinstalled" onChange={handleGamingSpecChange}/></div>
+                <div><Checkbox className="gamenotinstalledcheckbox" name="gamenotinstalled" onChange={handleGamingSpecChange}/></div>
             </div>
             <Button className={classes.buttons} variant="contained" color="primary" href="/">Send</Button>
             <div><Button className={classes.buttons} variant="outlined">More information</Button></div>
