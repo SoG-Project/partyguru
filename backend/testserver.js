@@ -2,13 +2,16 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import require from 'requirejs';
 const app = express();
 app.use(express.static('build'));
 app.use(bodyParser.json());
 app.use(cors());
 const uri = "mongodb+srv://sogtietokanta:schoolofgamingtietokantaprojekti@cluster0.wqxpy.mongodb.net/sog?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
-
+//const add = require('./add.js') //name of the desired file  
+//const result = add(2,4)
+//console.log(result); //Output : 6
 //Partyguru schema and model
 const guruSchema = new mongoose.Schema({
   name: String,
@@ -60,8 +63,8 @@ const attendeesSchema = new mongoose.Schema({
   const Partypack= new mongoose.model('Partypack',partypackSchema);
 
 
-//serveri lähtee päälle, kun teet "npm start" komennon juurikansiossa (eli se mistä pääsee backend tai singlepage kansioihin.)
-//Se toimii koska juurikansion package.json:ssa on määritelty toi npm start skripti avaamaan backendin dev-tilassa
+//serveri lähtee päälle, kun teet "npm test" komennon juurikansiossa (eli se mistä pääsee backend tai singlepage kansioihin.)
+//Se toimii koska juurikansion package.json:ssa on määritelty toi npm test skripti avaamaan backendin dev-tilassa
 
 //Koska package.json:ssa on proxy-kenttä laitettu, voi requestit laittaa tulemaan samaan urliin kuin ne on tässä merkitty
 // eli jos haluaa "/api/packages" urlista tavaraa, voi sanoa axiosille että url on vaan "/api/packages" ja sen pitäs reitittää se oikein
@@ -128,51 +131,46 @@ app.get('/api/parties/:id', (req, res) => {
 
 //REQUEST: POST a new party
 //Parameters: Partyinfo-object in JSON-body
+//The request checks whether all fields are in the JSON-body, so send an empty field if it's not available
 //Returns status code 200 (successful) or 400 with error message (unsuccessful)
 
 app.post('/api/parties', (req, res) => {
 
-  if(req.body.packageid===undefined){
-   res.status(400);
-   res.send('Error. no packageid')
+try{
+    if(req.body.packageid===undefined){
+      throw('Error: no packageid');
  }
   if(req.body.guruid===undefined){
-   res.status(400);
-   res.send('Error. no guru')
+   throw('Error: no guruid');
  }
   if(req.body.datetime===undefined){
-   res.status(400);
-   res.send('Error. no date/time')
- }
+    throw('Error: no datetime');
+  }
   if(req.body.duration===undefined){
-   res.status(400);
-   res.send('Error. no duration')
+    throw('Error: no duration');
  }
   if(req.body.email===undefined){
-   res.status(400);
-   res.send('Error. no email')
+    throw('Error: no email');
  }
   if(req.body.phone===undefined){
-   res.status(400);
-   res.send('Error. no phone')
+    throw('Error: no phone');
  }
   if(req.body.num_attendees===undefined){
-   res.status(400);
-   res.send('Error. no number of attendees')
+    throw('Error: no attendees');
  }
   if(req.body.schedule===undefined){
-   res.status(400);
-   res.send('Error. no schedule')
+    throw('Error: no schedule');
  }
   if(req.body.likes===undefined){
-   res.status(400);
-   res.send('Error. no likes')
+    throw('Error: no likes');
  }
   if(req.body.description===undefined){
-   res.status(400);
-   res.send('Error. no description')
+    throw('Error: no description');
+ }}
+ catch(error){
+  res.status(400);
+  res.send(error);
  }
- 
  const newParty= new Partyinfo({
    packageid: req.body.packageid,
    guruid: req.body.guruid,
@@ -204,7 +202,7 @@ app.post('/api/parties', (req, res) => {
 //Returns status code 200 (successful) or 400 with error message (unsuccessful)
 /*
   let id=1;
-   axios.put(`/api/parties/{id}`,<JSONTÄHÄN>).then(response => {
+   axios.put(`/api/parties/{id}`,<JSONHERE>).then(response => {
       console.log(response.data);
 })
 */
@@ -212,9 +210,8 @@ app.put('/api/parties/:id', function (req, res) {
   const id = req.params.id;
   //Find the party to be updated
   Partyinfo.find({_id:id})
-  .then(updatableParty => {
-    const updatedParty=updatableParty[0];
-
+  .then(returnedArray => {
+    const updatedParty=returnedArray[0];
    //If the field exists in the json-body, overwrite that field.
     if(req.body.packageid!==undefined){
       updatedParty.packageid=req.body.packageid;
@@ -659,21 +656,27 @@ app.put('/api/packages/:id/gurus', (req, res) => {
     }
     //Save the updated list
     Partypack.updateOne({_id:id }, { $set: updatedPackage}, (error, result) => {
-      if (error) throw error;
+       try{
       if(result.nModified===0){
-        throw new Error ('Nothing got updated by your request');
+        console.log('Request successful but nothing got updated by the /api/packages/:id/gurus PUT request.');
+        throw ('Nothing got updated. Duplicate request? Anyhow, the gurus you sent didnt change the data object');
       }
       else{
         console.log('Partypack with new gurus saved to cloud.');
         res.status(200);
         res.send(result);
-      }
-    });
-  })  
-  .catch(error => {
+      }   }
+      catch(error){console.log("Guru not added to the party package. Error:");
+      console.log(error);
+      res.status(400);
+      res.send(error);}          
+    })
+  }).catch(error => {
+    console.log("Guru not added to the party package. Error:");
     console.log(error.message);
     res.status(400);
     res.send(error.message);});
+ 
   });
 
 /*REQUEST: GET all party packages

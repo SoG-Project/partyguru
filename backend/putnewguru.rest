@@ -1,6 +1,6 @@
-PUT http://localhost:5000/api/packages/605f8a595b54c3088fc44d12/gurus HTTP/1.1
+PUT http://localhost:5000/api/packages/605f8a595b54c3088fc44d14/gurus HTTP/1.1
 content-type: application/json
 
         {
-            "gurus":[115,116]
+            "guruid":["605f83e71a24316b543c6fc7","605f83e71a24316b543c6fc9"]
         }

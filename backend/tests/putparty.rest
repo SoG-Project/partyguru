@@ -1,15 +1,15 @@
-PUT http://localhost:5001/api/parties/605251a0e432d14abb0895bb HTTP/1.1
+PUT http://localhost:5000/api/parties/605f8bcd8dfd970aa770584a HTTP/1.1
 content-type: application/json
 
 {
-            "packageid":"2",
-            "guruid":"4",
+            "packageid":"605f8a595b54c3088fc44d14",
+            "guruid":"605f83e71a24316b543c6fc7",
             "datetime":"2021-04-23T18:25:43.511Z",
             "duration":"2",
             "email":"wimppa@diudau.com",
             "phone":"+35840dsfdsffds3683295",
             "num_attendees":"922222",
-            "schedule":["MOD1","MOD2","ppippeli"],
+            "schedule":["MOD1","MOD2","PVP-peli"],
             "likes":["cats","tnt","adventure"],
             "description":"Tervetuloa mun partyyn!"
 }
