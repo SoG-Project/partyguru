@@ -43,7 +43,6 @@ const GuruVideo = (props) =>{
         <div>
             <ReactPlayer url={guruVideo} controls width="100%"/>
             <button onClick={handleClick}>Change Video URL</button>
-
             <Dialog maxWidth={'xs'} open={dialogOpen} onClose={handleClose}>
                 <DialogTitle>{"Enter the new video url"}</DialogTitle>
                 <TextField maxWidth value={newGuruVideoAddress || ''} label="url" onChange={handleChange}  variant="outlined" />
