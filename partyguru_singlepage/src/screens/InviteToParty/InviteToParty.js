@@ -128,11 +128,12 @@ const InviteToParty = () => {
         </div>
         <Link to="/partypage">Send Invites and go to party page</Link>
         
-        {/*Preview feature in progress*/}
+        {/*Preview feature in progress
+        looks pretty wacky without 1080p resolution*/}
         <h2>Preview testing</h2>
         <div className="preview">
           <div className="invitelayout">
-           <img src={"https://i.pinimg.com/originals/59/2e/81/592e812f43f66758178347430b992436.png"} />
+           <img src={"https://i.pinimg.com/originals/00/71/3b/00713b61c2ae3b4f244f3ff3fbac2fa9.jpg"} />
            <div className="invitetitle">
              Kutsu Make Viljami-Macklemoren syntymäpäiväjuhliin
            </div>
