@@ -13,9 +13,10 @@ const GuruPage = (props)=> {
 
     const [userProfile, setUserProfile] = useState({})
 
-    let userID="605f83e71a24316b543c6fc7"
+    let userID='605f83e71a24316b543c6fc7'
 
 
+    // Initial useEffect on page load that gets the details of the correct guru
     useEffect(() => {
 
         const fetchData = async () => {

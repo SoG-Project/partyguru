@@ -46,7 +46,7 @@ const Product = (props) => {
   const { product } = props;
   //productGuru state is for containing the information of the gurus related to this card
   const [productGuru, setProductGurus] = useState([]);
-  const guruIDs = product.guru;
+  const guruIDs = product.guruid;
 
   //take stylings created in useStyles into classes variant
   //with classes we can apply styling to different elements by choosing a class from useStyles
@@ -56,16 +56,16 @@ const Product = (props) => {
   //Put all information of these gurus in the productGuru state
 
   useEffect(() => {
+
     //guruID && guruIDs check ensures that the map is not done if guruIDs is undefined -> prevents a crash
-    let guruArray = [];
-    guruIDs &&
-      guruIDs.map((guru) =>
-        axios.get(`/api/gurus/${guru}`).then((response) => {
-          guruArray = guruArray.concat(response.data);
-          setProductGurus(guruArray);
-        })
-      );
-  }, []);
+    axios.get('api/gurus').then((response) => {
+      const guruArray = guruIDs && response.data.filter(guru => guruIDs.includes(guru._id))
+      console.log("täs guruarray:", guruArray)
+      setProductGurus(guruArray)
+
+    })
+
+  }, [])
 
   return (
     <Grid item xs={12} sm={6} md={3} lg={2}>

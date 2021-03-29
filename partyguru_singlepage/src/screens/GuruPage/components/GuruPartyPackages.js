@@ -13,13 +13,13 @@ const GuruPartyPackages = ({guruID}) =>{
 
 
 
-
-
     useEffect(() => {
 
-        axios.get('/api/partypack').then(response => {
+        axios.get('/api/packages').then(response => {
+
 
             //sorting the packages by ID using an inline compare function
+            console.log("gurupaketit", response.data)
             setPPackages(response.data.sort((a,b) => (a._id > b._id) ? 1 : ((b._id > a._id) ? -1 : 0))
             )
         })
@@ -30,6 +30,7 @@ const GuruPartyPackages = ({guruID}) =>{
 
     const handleEditChange = () => {
         setEditMode(!editMode)
+        console.log(pPackages)
     }
 
 
@@ -44,7 +45,7 @@ const GuruPartyPackages = ({guruID}) =>{
 
 
                 }) */
-             tempPackages[id - 1].guru.push(parseInt(guruID))
+             tempPackages[id].guruid.push((guruID))
              setPPackages(tempPackages)
          }
 
@@ -57,7 +58,7 @@ const GuruPartyPackages = ({guruID}) =>{
 
             })  */
 
-             tempPackages[id - 1].guru.splice(tempPackages[id - 1].guru.indexOf(parseInt(guruID)), 1)
+             tempPackages[id].guruid.splice(tempPackages[id].guruid.indexOf((guruID)), 1)
             setPPackages(tempPackages)
         }
 
@@ -68,7 +69,7 @@ const GuruPartyPackages = ({guruID}) =>{
     const submitPackages = () => {
 
         pPackages.map(pPackage =>
-            axios.put('/api/partypack/' + parseInt(pPackage._id) + '/gurus', {gurus: pPackage.guru }).then(response => {
+            axios.put('/api/packages/'+(pPackage._id)+'/gurus', {guruid: pPackage.guruid}).then(response => {
                 console.log('täs response: ' + response.data)
             })
         )
@@ -81,10 +82,10 @@ const GuruPartyPackages = ({guruID}) =>{
 
         <div className="checkBoxes">
             <ul>
-            {pPackages && pPackages.map(pPackage =>
+            {pPackages && pPackages.map((pPackage, index) =>
                 <li><FormControlLabel key={pPackage._id}  control=
-                    {<Checkbox onChange={() => handleChange(pPackage._id, pPackage.guru.includes(parseInt(guruID)))} name={pPackage.name} disabled={!editMode}
-                               checked={pPackage.guru.includes(parseInt(guruID)) || false}/>} label={<span style={{fontSize: '2rem'}}>{pPackage.name}</span>} /></li> )}
+                    {<Checkbox onChange={() => handleChange(index, pPackage.guruid.includes((guruID)))} name={pPackage.name} disabled={!editMode}
+                               checked={pPackage.guruid.includes((guruID)) || false}/>} label={<span style={{fontSize: '2rem'}}>{pPackage.name}</span>} /></li> )}
 
                 {editMode ? <button className="submit" onClick={submitPackages}>Save</button> : <button className="submit" onClick={handleEditChange}>Edit</button>}
 
