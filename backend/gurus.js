@@ -26,7 +26,7 @@ const gurus={
         },
 
         {
-            "_id":"3",
+            "_id":3,
             "name":"Longo Dongo",
             "nick":"Longa Vonga",
             "email":"zong@vong.com",
@@ -37,7 +37,7 @@ const gurus={
             "bio":"Game on!"  
         },
         {
-            "_id":"4",
+            "_id":4,
             "name":"Sbirgle",
             "nick":"gamergirl12",
             "email":"sbirgel@dirgle.com",
@@ -49,7 +49,7 @@ const gurus={
         },
 		
 		{
-            "_id":"5",
+            "_id":5,
             "name":"Son Goku",
             "nick":"OrangeAnimeMan",
             "email":"oranssianimemies@gmail.com",
