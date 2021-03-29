@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 
 
+
 //import { response } from "express"
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -127,17 +128,18 @@ const InviteToParty = () => {
         </div>
         <Link to="/partypage">Send Invites and go to party page</Link>
         
-        {/*Preview feature in progress
-        This only works on a 1920x1080 resolution at the moment, does not also like zooming*/}
+        {/*Preview feature in progress*/}
         <h2>Preview testing</h2>
         <div className="preview">
           <div className="invitelayout">
-           <img src={"https://i.pinimg.com/originals/00/71/3b/00713b61c2ae3b4f244f3ff3fbac2fa9.jpg"} />
-           </div>
+           <img src={"https://i.pinimg.com/originals/59/2e/81/592e812f43f66758178347430b992436.png"} />
            <div className="invitetitle">
              Kutsu Make Viljami-Macklemoren syntymäpäiväjuhliin
            </div>
            <div className="subtitle">{description2}</div>
+           </div>
+           
+           
            
         </div>
     </div>
@@ -146,9 +148,6 @@ const InviteToParty = () => {
 
 export default InviteToParty
 
-/*tee nämä: 
-tekstikenttää ei voi klikata tietyn määrän kirjoittamisen jälkeen, joku tukkii sen??
-
-fonttikokoa pitäisi kasvattaa koska nykyinen turhan pieni
-^(inputpropsilla ehkä, ei atm toimi laittaa kahta ominaisuutta yhteen propsiin, css?)
+/*todo:
+change the invitation image to a background image so the text can be put on top of it
 */
