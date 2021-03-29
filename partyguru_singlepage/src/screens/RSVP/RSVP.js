@@ -12,6 +12,9 @@ const useStyles= makeStyles((theme) => ({
         //padding: theme.spacing(3),
         margin: '10px',
     },
+    checkBox: {
+        fontSize: '3rem',
+    }
 }))
 
 const RSVP = () => {
@@ -42,7 +45,7 @@ const RSVP = () => {
         setChecked({ ...!checked, [event.target.name]: event.target.checked})
     };
 
-    const classes = useStyles()
+    const classes = useStyles();
 
     return(
         <div>
@@ -53,6 +56,7 @@ const RSVP = () => {
                     on 26.3.21 16.00-18.00!
                     We will play Among Us.
                 </p>
+                {/* Extra checkboxit kommentoitu pois
                 <label>
                     <input type="checkbox"></input>
                     I will attend
@@ -61,16 +65,17 @@ const RSVP = () => {
                     <input type="checkbox"></input>
                     I can't attend
                 </label>
+                */}
             </div>
             <div>
-                <FormControlLabel
+                <FormControlLabel className={classes.checkBox}
                     control={<Checkbox checked={checked.attending} onChange={handleChange} name="attending"/>}
                     label="I will attend"
                 />
             </div>
             <div>
-                <FormControlLabel className="indiciso"
-                    control={<Checkbox checked={checked.notattending} onChange={handleChange} name="notattending"/>}
+                <FormControlLabel className={classes.checkBox}
+                    control={<Checkbox className={classes.checkBox} checked={checked.notattending} onChange={handleChange} name="notattending"/>}
                     label="I can't attend"
                 />
             </div>
