@@ -33,7 +33,7 @@ const LandingPage = () => {
   
   useEffect(() => {
     const fetchData = async () => {
-      axios.get('/api/partypack').then(response => {
+      axios.get('/api/packages').then(response => {
         console.log(response.data);
         setProduct(response.data);
     })}
