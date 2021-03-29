@@ -645,16 +645,16 @@ app.put('/api/packages/:id/gurus', (req, res) => {
   .then(returnedItems => {
     var updatedPackage=returnedItems[0];
     //Iterate over the partypack's gurus and JSON-body's gurus, flipping hasGuru if such guru exists
-    for(var i=0;i<req.body.gurus.length;i++){
+    for(var i=0;i<req.body.guruid.length;i++){
       var hasGuru=false;
       for(var k=0;k<updatedPackage.guruid.length;k++){
-        if(updatedPackage.guruid[k]===req.body.gurus[i]){
+        if(updatedPackage.guruid[k]===req.body.guruid[i]){
           hasGuru=true;
         }
       }
-      //If hasGuru was not flipped, req.body.gurus[i] can be saved
+      //If hasGuru was not flipped, req.body.guruid[i] can be saved
       if(hasGuru===false){
-        updatedPackage.guruid.push(req.body.gurus[i])
+        updatedPackage.guruid.push(req.body.guruid[i])
       }
     }
     //Save the updated list
