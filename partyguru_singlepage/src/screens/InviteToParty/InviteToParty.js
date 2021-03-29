@@ -128,7 +128,8 @@ const InviteToParty = () => {
         </div>
         <Link to="/partypage">Send Invites and go to party page</Link>
         
-        {/*Preview feature in progress*/}
+        {/*Preview feature in progress
+        looks pretty wacky without 1080p resolution*/}
         <h2>Preview testing</h2>
         <div className="preview">
           <div className="invitelayout">
