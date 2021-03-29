@@ -84,9 +84,9 @@ const RSVP = () => {
 
             </div>
             <div className="gamingspecscontainer">
-                <div><p className="infoparagraph">Your gaming device information:</p></div>
-                <div><p className="installedparagraph">Installed</p></div>
-                <div><p className="notinstalledparagraph">Not installed</p></div>
+                <p className="infoparagraph">Your gaming device information:</p>
+                <p className="installedparagraph">Installed</p>
+                <p className="notinstalledparagraph">Not installed</p>
                 <div><FormControlLabel className="gameinstalledcheckbox"
                     label="Amongs Us"
                     control={<Checkbox name="gameinstalled" onChange={handleGamingSpecChange}/>}
