@@ -2,12 +2,33 @@ import React from 'react';
 import {useState} from 'react'
 import {Link} from "react-router-dom";
 import "./CreatePartyPage.css"
-import {makeStyles, TextField, FormControl, InputLabel, Input} from '@material-ui/core'
+import {
+  makeStyles, 
+  TextField, 
+  Typography,
+  } from '@material-ui/core'
+/*import InputAdornment from '@material-ui/core/InputAdornment'
+import AccountCircle from '@material-ui/icons/AccountCircle'*/
+import Icon from '@material-ui/core/Icon';
+
+
+const useStyles = makeStyles((theme) => ({
+  textfielderino: {
+    padding: '',
+    minWidth: '20%',
+    maxWidth: '20%',
+    fontSize: "2rem",
+  },
+  resize: {
+    fontSize: "2rem",
+  }
+}))
 
 const CreatePartyPage = () => {
 
   const [guestName, changeName] = useState("Teppo Tapani")
 
+  const classes = useStyles()
     return(
         <div>
           <div className ="partyguruinfobox">
@@ -81,21 +102,42 @@ const CreatePartyPage = () => {
             <h2>Guest contacts</h2>
               <div className="namefield">
                 <TextField
+                  className={classes.textfielderino}
                   id="namefield"
-                  label="Guest name"
+                  label={<Typography className={classes.textfielderino}>Name</Typography>}
                   color="secondary"
-                  size = "normal"
-                  variant="filled"
+                  variant="outlined"
+                  /*inputProps={{
+                    classes: {
+                      input: classes.resize,
+                    },
+                  }}
+                  inputProps={{style: {fontSize: "2rem"}}}*/
+                  InputProps={{style: {fontSize: "2rem"}, 
+                  /*startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  )*/}}
                 />
               </div>
               <div className="emailfield">
                 <TextField
-                  id="emailfield"
-                  label="Email"
+                  className={classes.textfielderino}
+                  id="namefield"
+                  label={<Typography className={classes.textfielderino}>Email</Typography>}
                   color="secondary"
-                  size="normal"
-                  variant="filled"
+                  variant="outlined"
+                  /*inputProps={{
+                    classes: {
+                      input: classes.resize,
+                    },
+                  }}*/
+                  inputProps={{style: {fontSize: "2rem"}}}
                 />
+              </div>
+              <div className="plusbutton">
+                <Icon className="fa fa-plus-circle" style={{color: "orange"}}/>
               </div>
               <div>
                 <p>Plusnappi</p>
