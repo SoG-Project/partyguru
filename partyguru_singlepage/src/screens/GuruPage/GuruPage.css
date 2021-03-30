@@ -1,7 +1,6 @@
 .guruGrid{
     display:grid;
-    grid-template-columns: repeat(2, minmax(240px, 400px));
-
+    grid-template-columns: repeat(2, minmax(300px, 400px));
     justify-content: center;
 
 }
@@ -18,10 +17,10 @@
 
 
 .guruGrid > div{
-    border-style: double;
+    border-style: groove;
     display:flex;
+    background:#D3D3D3;
     flex-direction: column;
-    background: #D3D3D3;
     justify-content: center;
     align-items: center;
     padding:1em;
@@ -47,8 +46,11 @@
 }
 
 .buttonGrid {
+    justify-content: center;
     display:flex;
     flex-direction: column;
+    border-style:groove;
+    padding: 10px;
 
 
 
@@ -56,7 +58,7 @@
 
 
 .flexAlignThis {
-    align-self:flex-start;
+    align-self:center;
 }
 
 
@@ -66,8 +68,3 @@
 p {
     font-family: "Helvetica", "Arial";}
 
-.submit {
-
-
-
-}

@@ -40,11 +40,7 @@ const GuruPartyPackages = ({guruID}) =>{
         let tempPackages = pPackages.concat()
 
          if (isChecked === false) {
-             /* axios.put('/api/partypack/' + parseInt(id) + '/gurus', {gurus: [parseInt(guruID)]}).then(response => {
-                console.log('täs response:' + response.data)
 
-
-                }) */
              tempPackages[id].guruid.push((guruID))
              setPPackages(tempPackages)
          }
@@ -52,11 +48,7 @@ const GuruPartyPackages = ({guruID}) =>{
 
 
         if (isChecked === true) {
-            /*
-            axios.delete('/api/partypack/' + parseInt(id) + '/gurus',{data: {gurus: [parseInt(guruID)]}}).then(response => {
-                console.log('täs response:' + response.data)
 
-            })  */
 
              tempPackages[id].guruid.splice(tempPackages[id].guruid.indexOf((guruID)), 1)
             setPPackages(tempPackages)
@@ -84,15 +76,17 @@ const GuruPartyPackages = ({guruID}) =>{
     return (
 
         <div className="checkBoxes">
+            <h2>Party packages you can host:</h2>
+            <div className="buttonGrid">
             <ul>
             {pPackages && pPackages.map((pPackage, index) =>
                 <li><FormControlLabel key={pPackage._id}  control=
                     {<Checkbox onChange={() => handleChange(index, pPackage.guruid.includes((guruID)))} name={pPackage.name} disabled={!editMode}
                                checked={pPackage.guruid.includes((guruID)) || false}/>} label={<span style={{fontSize: '2rem'}}>{pPackage.name}</span>} /></li> )}
-
-                {editMode ? <button className="submit" onClick={submitPackages}>Save</button> : <button className="submit" onClick={handleEditChange}>Edit</button>}
-
             </ul>
+            </div>
+
+            {editMode ? <button className="flexAlignThis" onClick={submitPackages}>Save</button> : <button className="flexAlignThis" onClick={handleEditChange}>Edit</button>}
         </div>
     )
 

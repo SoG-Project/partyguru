@@ -4,6 +4,7 @@ import {Dialog} from "@material-ui/core";
 import {DialogTitle, DialogContent, DialogContentText, DialogActions} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+
     dialogTitle: {
         alignSelf:"center"
     },
@@ -13,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
     previewPic: {
 
+        padding:10,
         minWidth:150,
         maxWidth:300,
         minHeight:150,
