@@ -68,10 +68,13 @@ const GuruPartyPackages = ({guruID}) =>{
 
     const submitPackages = () => {
 
-        pPackages.map(pPackage =>
-            axios.put('/api/packages/'+(pPackage._id)+'/gurus', {guruid: pPackage.guruid}).then(response => {
-                console.log('täs response: ' + response.data)
-            })
+        pPackages.map(pPackage => {
+
+               if (pPackage.guruid.includes((guruID))) axios.put('/api/packages/' + (pPackage._id) + '/gurus', {guruid: pPackage.guruid}).then(response => {
+                })
+
+
+            }
         )
         setEditMode(!editMode)
     }

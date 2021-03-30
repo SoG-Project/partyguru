@@ -7,6 +7,9 @@ import GuruImage from "./components/GuruImage";
 import GuruInfo from "./components/GuruInfo";
 import GuruPartyPackages from "./components/GuruPartyPackages";
 import GuruVideo from "./components/GuruVideo";
+import { ToggleButton } from '@material-ui/lab';
+import GuruAvailability from "./components/GuruAvailability";
+
 
 
 const GuruPage = (props)=> {
@@ -40,6 +43,9 @@ const GuruPage = (props)=> {
             <GuruInfo  id={userProfile._id} bio={userProfile.bio} name={userProfile.name} nick={userProfile.nick} />
             <GuruPartyPackages guruID={userProfile._id}/>
             <GuruVideo video={userProfile.video} guruID={userProfile._id}/>
+            <div>Calendar goes here</div>
+            <GuruAvailability/>
+
             <div>
                 <Link to = "/partypage">Go to party page</Link>
             </div>

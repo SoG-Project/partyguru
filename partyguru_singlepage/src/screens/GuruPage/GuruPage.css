@@ -46,6 +46,13 @@
 
 }
 
+.buttonGrid {
+    display:flex;
+    flex-direction: column;
+
+
+
+}
 
 
 .flexAlignThis {
@@ -54,10 +61,7 @@
 
 
 
-button {
-    background: orange;
 
-}
 
 p {
     font-family: "Helvetica", "Arial";}
