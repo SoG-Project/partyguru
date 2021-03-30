@@ -119,7 +119,7 @@ const LandingPage = () => {
         </Grid>
 
         {/*Toinen Grid, jonka sisään on tarkoitus tulla email, yms */}
-        <Grid container item xs={3} direction="column" justify="flex-start" alignItems="stretch" style={{borderStyle:"dotted", borderColor:"grey", textAlign:"center", height:"75vh"}}>
+        <Grid container item xs={3} direction="column" justify="flex-start" alignItems="stretch" style={{borderStyle:"dotted", borderColor:"grey", textAlign:"center", height: "690px"}}>
           <Grid item xs>
             <p>Contact information</p>
           </Grid>

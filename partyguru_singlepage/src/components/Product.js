@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     marginBottom: '2px',
   },
-
   cost: {
     backgroundColor: 'lightgrey',
     width: '30%',
@@ -25,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     outline: 'dashed',
     outlineWidth: '1px',
     bottom: '2px',
+    position: 'static',
     alignSelf: 'center',
-    justifySelf: 'flex-end'
     },
 
   cardStyle: {
@@ -60,11 +59,9 @@ const Product = (props) => {
     //guruID && guruIDs check ensures that the map is not done if guruIDs is undefined -> prevents a crash
     axios.get('api/gurus').then((response) => {
       const guruArray = guruIDs && response.data.filter(guru => guruIDs.includes(guru._id))
-      console.log("täs guruarray:", guruArray)
+      console.log("täs guruarray (Product.js):", guruArray)
       setProductGurus(guruArray)
-
     })
-
   }, [])
 
   return (
@@ -79,7 +76,7 @@ const Product = (props) => {
           <CardMedia
             image={product.image}
             title={product.name}
-            component="img"
+            style={{paddingTop:"50%", borderBottomStyle:"dashed", borderWidth:"1px"}}
           />
           {/*
           CardContent contains the 'header' of the card (name of product), names of gurus, and the price info
@@ -97,12 +94,12 @@ const Product = (props) => {
             <Typography variant="h4" style={{ marginTop: "7px" }}>
               Gurus:
             </Typography>
-            <Typography>
+            <Typography paragraph>
               {productGuru &&
                 productGuru.map((guru) => (
-                  <div style={{ fontSize: "1.5rem" }} key={guru._id}>
+                  <Typography style={{ fontSize: "1.5rem" }} key={guru._id}>
                     {guru.name}
-                  </div>
+                  </Typography>
                 ))}
             </Typography>
             {/*Another typography to contain the price of the product*/}

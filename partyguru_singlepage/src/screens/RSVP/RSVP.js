@@ -22,18 +22,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "2rem",
   },
   checkBoxPaper: {
-    padding: "5px",
+    paddingTop: "2px",
+    paddingBottom: "2px",
+    paddingLeft: "15px",
     margin: "5px",
-    width: "20vw",
-    elevation: "3",
   },
 }));
 
 const RSVP = () => {
-  const [checked, setChecked] = useState({
-    attending: false,
-    notattending: false,
-  });
+  const [attending, setAttending] = useState(false);
   const [gamingspecs, setSpecs] = useState({
     gameinstalled: false,
     gamenotinstalled: false,
@@ -57,70 +54,223 @@ const RSVP = () => {
   const handleChange = (event) => {
     console.log(event.target.name);
     //setChecked(event.target.checked)
-    setChecked({ ...!checked, [event.target.name]: event.target.checked });
+    setAttending(!attending);
   };
 
   const classes = useStyles();
 
   return (
     <div>
-      <h1>Invitation</h1>
-      <div className="invitationinfo">
-        <p>
-          You’re invited to Sander Grander’s online birthday party on 26.3.21
-          16.00-18.00! We will play Among Us.
-        </p>
-        {/* Extra checkboxit kommentoitu pois
-                <label>
-                    <input type="checkbox"></input>
-                    I will attend
-                </label>
-                <label>
-                    <input type="checkbox"></input>
-                    I can't attend
-                </label>
-                */}
-      </div>
-      <Paper className={classes.checkBoxPaper}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={checked.attending}
-              onChange={handleChange}
-              name="attending"
-              icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
-              checkedIcon={<CheckBoxIcon fontSize="large" />}
+      <Typography variant="h1">Invitation</Typography>
+      <Typography paragraph variant="body1" style={{fontSize:"2rem"}}>
+        You’re invited to Sander Grander’s online birthday party on 26.3.21
+        16.00-18.00! We will play Among Us.
+      </Typography>
+
+      <Grid container direction="row">
+        <Grid item xs={6} md={3} lg={2}>
+          <Paper elevation={3} className={classes.checkBoxPaper}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={attending}
+                  onChange={handleChange}
+                  name="attending"
+                  icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
+                  checkedIcon={<CheckBoxIcon fontSize="large" />}
+                />
+              }
+              label={
+                <Typography className={classes.checkBoxFont}>
+                  I will attend
+                </Typography>
+              }
             />
-          }
-          label={
-            <Typography className={classes.checkBoxFont}>
-              I will attend
-            </Typography>
-          }
-        />
-      </Paper>
-      <Paper className={classes.checkBoxPaper}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              className={classes.checkBox}
-              checked={checked.notattending}
-              onChange={handleChange}
-              name="notattending"
-              icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
-              checkedIcon={<CheckBoxIcon fontSize="large" />}
+          </Paper>
+        </Grid>
+        <Grid item md={9} lg={10} />
+        <Grid item xs={6} md={3} lg={2}>
+          <Paper elevation={3} className={classes.checkBoxPaper}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  className={classes.checkBox}
+                  checked={!attending}
+                  onChange={handleChange}
+                  name="notattending"
+                  icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
+                  checkedIcon={<CheckBoxIcon fontSize="large" />}
+                />
+              }
+              label={
+                <Typography className={classes.checkBoxFont}>
+                  I can't attend
+                </Typography>
+              }
             />
-          }
-          label={
-            <Typography className={classes.checkBoxFont}>
-              I can't attend
-            </Typography>
-          }
-        />
-      </Paper>
+          </Paper>
+        </Grid>
+      </Grid>
       <Typography style={{ fontSize: "2.5rem" }}>
         Special considerations about your child:
       </Typography>
+
+      <Grid container justify="center" alignItems="center" direction="column">
+        <Grid
+          container
+          justify="space-around"
+          alignItems="center"
+          direction="row"
+          style={{
+            backgroundColor: "orange",
+            width: "75%",
+            borderBottomStyle: "solid",
+            borderWidth: "2px",
+            borderColor: "white",
+          }}
+        >
+          <Grid item xs={4}>
+            <Typography align="center" style={{ fontSize: "2rem" }}>
+              Device information
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography align="center" style={{ fontSize: "2rem" }}>
+              Installed
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography align="center" style={{ fontSize: "2rem" }}>
+              Not installed
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+          style={{
+            backgroundColor: "purple",
+            width: "75%",
+            borderBottomStyle: "solid",
+            borderWidth: "2px",
+            borderColor: "white",
+          }}
+        >
+          <Grid item xs={4}>
+            <Typography
+              align="center"
+              style={{ fontSize: "2rem", color: "white" }}
+            >
+              Amogus
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <div align="center">
+              <FormControlLabel
+                label={
+                  <Typography
+                    style={{ color: "white" }}
+                    className={classes.checkBoxFont}
+                  >
+                    Game installed
+                  </Typography>
+                }
+                control={
+                  <Checkbox
+                    name="gameinstalled"
+                    onChange={handleGamingSpecChange}
+                    icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
+                    checkedIcon={<CheckBoxIcon fontSize="large" />}
+                  />
+                }
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div align="center">
+              <FormControlLabel
+                className="gamenotinstalledcheckbox"
+                label={
+                  <Typography
+                    style={{ color: "white" }}
+                    className={classes.checkBoxFont}
+                  >
+                    Not installed
+                  </Typography>
+                }
+                control={
+                  <Checkbox
+                    name="gamenotinstalled"
+                    onChange={handleGamingSpecChange}
+                    icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
+                    checkedIcon={<CheckBoxIcon fontSize="large" />}
+                  />
+                }
+              />
+            </div>
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+          style={{
+            backgroundColor: "orange",
+            width: "75%",
+          }}
+        >
+          <Grid item xs={4}>
+            <Typography align="center" style={{ fontSize: "2rem" }}>
+              Discrod
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <div align="center">
+              <FormControlLabel
+                label={
+                  <Typography className={classes.checkBoxFont}>
+                    Discord installed
+                  </Typography>
+                }
+                control={
+                  <Checkbox
+                    name="discordinstalled"
+                    onChange={handleGamingSpecChange}
+                    icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
+                    checkedIcon={<CheckBoxIcon fontSize="large" />}
+                  />
+                }
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div align="center">
+              <FormControlLabel
+                label={
+                  <Typography className={classes.checkBoxFont}>
+                    Not installed
+                  </Typography>
+                }
+                control={
+                  <Checkbox
+                    name="discordnotinstalled"
+                    onChange={handleGamingSpecChange}
+                    icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
+                    checkedIcon={<CheckBoxIcon fontSize="large" />}
+                  />
+                }
+              />
+            </div>
+          </Grid>
+        </Grid>
+      </Grid>
+      <br />
+      <br />
 
       <div className="gamingspecscontainer">
         <Typography style={{ fontSize: "2rem" }}>
@@ -184,43 +334,41 @@ const RSVP = () => {
         variant="contained"
         color="primary"
         href="/"
-        style={{minWidth: '80px', minHeight: '40px', fontSize:'1.2rem'}}
+        style={{ minWidth: "80px", minHeight: "40px", fontSize: "1.2rem" }}
       >
         Send
       </Button>
-        <Button className={classes.buttons} 
-        variant="contained" 
+      <Button
+        className={classes.buttons}
+        variant="contained"
         color="secondary"
-        style={{minWidth: '60px', minHeight: '40px', fontSize:'1.2rem'}}>
-          More information
-        </Button>
+        style={{ minWidth: "60px", minHeight: "40px", fontSize: "1.2rem" }}
+      >
+        More information
+      </Button>
       <Grid container direction="column">
         <Grid item>
-          <Typography variant="h3" paragraph style={{marginTop:"5px"}}>Frequently Asked Questions</Typography>
+          <Typography variant="h3" paragraph style={{ marginTop: "5px" }}>
+            Frequently Asked Questions
+          </Typography>
         </Grid>
 
         <Grid item>
-          <Typography variant="p1">
-              How do I join a party?
-            </Typography>
+          <Typography>How do I join a party?</Typography>
         </Grid>
 
         <Grid item>
-          <Typography variant="p1">
+          <Typography>
             What kind of qualifications do Party Gurus have?
           </Typography>
         </Grid>
 
         <Grid item>
-          <Typography variant="p1">
-            What is Discrod and how do I install it?
-          </Typography>
+          <Typography>What is Discord and how do I install it?</Typography>
         </Grid>
 
         <Grid item>
-          <Typography variant="p1">
-            What is Minecraft and how do I install it?
-          </Typography>
+          <Typography>What is Minecraft and how do I install it?</Typography>
         </Grid>
       </Grid>
     </div>
