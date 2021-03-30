@@ -30,10 +30,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RSVP = () => {
+  //This state controls the attending/not attending checkbox state. 
   const [checked, setChecked] = useState({
     attending: false,
     notattending: false,
   });
+  //This state controls checkbox states. Example: if game (e.g. Minecraft) is installed, then user clicks on the game is installed checkbox.
+  //This checkbox method is to guide the client to installing what they need to prepare for a smooth party experience. Preferably,
+  //the checkboxes should not allow checking both installed and not installed on the same property (e.g. discord). Also, it would
+  //be beneficial to offer instructions on how to install them (e.g. official Minecraft/Discord FAQ)
   const [gamingspecs, setSpecs] = useState({
     gameinstalled: false,
     gamenotinstalled: false,
@@ -43,8 +48,7 @@ const RSVP = () => {
   //const [attending, changeAttending] = useState(true)
   //const [notattending, changeNotAttending] = useState(false)
 
-  //äääääääää
-
+  //This changes the state of the gaming specs checkboxes
   const handleGamingSpecChange = (event) => {
     console.log(
       event.target.name,
@@ -54,6 +58,10 @@ const RSVP = () => {
     setSpecs({ ...gamingspecs, [event.target.name]: event.target.checked });
   };
 
+  //This changes the state of the attending/not attending checkbox. ERROR: doing ...!checked changes
+  //the component from controlled to uncontrolled. ...checked means it will fill out all the checked
+  //object information. ...!checked flips the state from true to false and the other way around
+  //but it messes with the object causing a lengthy error.
   const handleChange = (event) => {
     console.log(event.target.name);
     //setChecked(event.target.checked)
