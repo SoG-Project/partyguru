@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme) => ({
   },
   textfielderino: {
     padding: "",
-    minWidth: "20%",
-    maxWidth: "20%",
+    /*minWidth: "20%",
+    maxWidth: "20%",*/
     fontSize: "2rem",
   },
   resize: {
@@ -108,102 +108,61 @@ const CreatePartyPage = () => {
         </div>
       </div>
 
-      <div>
+      <div style={{ padding: "20px" }}>
         <h2>Guest contacts</h2>
-        <div className="namefield">
-          <TextField
-            className={classes.textfielderino}
-            id="namefield"
-            label={
-              <Typography className={classes.textfielderino}>Name</Typography>
-            }
-            color="secondary"
-            variant="outlined"
-            InputProps={{
-              style: { fontSize: "2rem" },
-              /*startAdornment: (
-                    <InputAdornment position="start">
-                      <AccountCircle />
-                    </InputAdornment>
-                  )*/
-            }}
-          />
-        </div>
-        <div className="emailfield">
-          <TextField
-            className={classes.textfielderino}
-            id="namefield"
-            label={
-              <Typography className={classes.textfielderino}>Email</Typography>
-            }
-            color="secondary"
-            variant="outlined"
-            inputProps={{ style: { fontSize: "2rem" } }}
-          />
-        </div>
-        <div className="plusbutton">
-          <Icon className="fa fa-plus-circle" style={{ color: "orange" }} />
-        </div>
-        <div>
-          <IconButton>
-            <AddCircleIcon fontSize="large" />
-          </IconButton>
-        </div>
 
         {/* This is the add email Grid done with materialui Grid. See more at:
                 https://material-ui.com/components/grid/
               */}
-        <div className={classes.grid}>
-        <Grid justify="space-around" container spacing={3} direction="row">
-          <Grid spacing={3} direction="column">
-            <Grid item xs>
-              <div className="namefieldtest">
-                <TextField
-                  className={classes.textfielderino}
-                  id="namefieldtest"
-                  label={
-                    <Typography className={classes.textfielderino}>
-                      Name
-                    </Typography>
-                  }
-                  color="secondary"
-                  variant="outlined"
-                  InputProps={{ style: { fontSize: "2rem" } }}
-                />
-              </div>
+          <Grid container spacing={3} direction="row" alignItems="center">
+            <Grid container xs={6} spacing={3} direction="column">
+              <Grid item>
+                <div className="namefieldtest">
+                  <TextField
+                    className={classes.textfielderino}
+                    id="namefieldtest"
+                    fullWidth
+                    label={
+                      <Typography className={classes.textfielderino}>
+                        Name
+                      </Typography>
+                    }
+                    color="secondary"
+                    variant="outlined"
+                    InputProps={{ style: { fontSize: "2rem" } }}
+                  />
+                </div>
+              </Grid>
+              <Grid item>
+                <div className="emailfieldtest">
+                  <TextField
+                    className={classes.textfielderino}
+                    id="namefieldtest"
+                    fullWidth
+                    label={
+                      <Typography className={classes.textfielderino}>
+                        Email
+                      </Typography>
+                    }
+                    color="secondary"
+                    variant="outlined"
+                    inputProps={{ style: { fontSize: "2rem" } }}
+                  />
+                </div>
+              </Grid>
             </Grid>
-            <Grid item xs={"auto"}>
-              <div className="emailfieldtest">
-                <TextField
-                  className={classes.textfielderino}
-                  id="namefieldtest"
-                  label={
-                    <Typography className={classes.textfielderino}>
-                      Email
-                    </Typography>
-                  }
-                  color="secondary"
-                  variant="outlined"
-                  inputProps={{ style: { fontSize: "2rem" } }}
-                />
-              </div>
-            </Grid>
-          </Grid>
-          <Grid item xs>
-            <div>
+            <Grid item xs={1}>
               <IconButton>
-                <AddCircleIcon fontSize="large" />
+                <AddCircleIcon fontSize="large" color="primary" />
               </IconButton>
-            </div>
+            </Grid>
           </Grid>
-        </Grid>
-        </div>
+
         {/*<FormControl>
               <InputLabel htmlFor="component-simple">Guest name</InputLabel>
               <Input id="component-simple" value={guestName} onChange={changeName}></Input>
             </FormControl>*/}
       </div>
-
       <Link className="invitetopartylink" to="/invitetoparty">
         To invitation creation
       </Link>
