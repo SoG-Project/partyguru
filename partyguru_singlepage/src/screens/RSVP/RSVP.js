@@ -12,15 +12,16 @@ import {
   FormControl,
   FormLabel,
   TextField,
+  Button,
 } from "@material-ui/core";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import "./RSVP.css";
 
 const useStyles = makeStyles((theme) => ({
-  root:{
-    paddingLeft:"1rem",
-    paddingRight: "1rem"
+  root: {
+    paddingLeft: "1rem",
+    paddingRight: "1rem",
   },
   buttons: {
     margin: "10px",
@@ -35,10 +36,6 @@ const useStyles = makeStyles((theme) => ({
     margin: "5px",
   },
   textfielderino: {
-    minWidth: "100%",
-    maxWidth: "100%",
-    minHeight: "50%",
-    maxHeight: "50%",
     fontSize: "2rem",
     marginBottom: "15px",
   },
@@ -150,7 +147,7 @@ const RSVP = () => {
             Special considerations about your child:
           </Typography>
         </Grid>
-        <Grid item xs={6} lg={8}/>
+        <Grid item xs={6} lg={8} />
 
         <Grid item xs={6} lg={4}>
           <TextField
@@ -161,15 +158,20 @@ const RSVP = () => {
             rowsMax={5}
             id="namefield"
             label={
-              <Typography className={classes.textfielderino}>Enter info here</Typography>
+              <Typography className={classes.textfielderino}>
+                Enter info here
+              </Typography>
             }
             color="secondary"
             variant="outlined"
-            inputProps={{ maxLength:300, style: { fontSize: "2rem", lineHeight:"150%" } }}
+            inputProps={{
+              maxLength: 300,
+              style: { fontSize: "2rem", lineHeight: "150%" },
+            }}
           />
         </Grid>
-        
-        <Grid item xs={6} lg={8}/>
+
+        <Grid item xs={6} lg={8} />
       </Grid>
 
       <Grid container justify="center" alignItems="center" direction="column">
@@ -187,12 +189,12 @@ const RSVP = () => {
           }}
         >
           <Grid item xs={4}>
-            <Typography align="center" variant="h4" style={{margin:"2px"}}>
+            <Typography align="center" variant="h4" style={{ margin: "2px" }}>
               Device information
             </Typography>
           </Grid>
           <Grid item xs={4}>
-            <Typography align="center" variant="h4" >
+            <Typography align="center" variant="h4">
               Installed
             </Typography>
           </Grid>
@@ -285,6 +287,7 @@ const RSVP = () => {
             borderBottomStyle: "solid",
             borderRightStyle: "solid",
             borderWidth: "2px",
+            marginBottom:"5px"
           }}
         >
           <Grid item xs={4}>
@@ -330,6 +333,53 @@ const RSVP = () => {
               />
             </div>
           </Grid>
+        </Grid>
+      </Grid>
+
+      <Button
+        className={classes.buttons}
+        variant="contained"
+        color="primary"
+        href="/"
+        style={{ minWidth: "80px", minHeight: "40px", fontSize: "1.2rem" }}
+        style={{ minWidth: "80px", minHeight: "40px", fontSize: "1.2rem" }}
+      >
+        Send
+      </Button>
+
+      <Button
+        className={classes.buttons}
+        variant="contained"
+        color="secondary"
+        style={{ minWidth: "60px", minHeight: "40px", fontSize: "1.2rem" }}
+      >
+        More information
+      </Button>
+      <Grid container direction="column" style={{ paddingTop: "20px" }}>
+        <Grid item>
+          <Typography variant="h3" paragraph style={{ marginTop: "5px" }}>
+            Frequently Asked Questions
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography paragraph variant="p1">
+            How do I join a party?
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography paragraph variant="p1">
+            What kind of qualifications do Party Gurus have?
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography paragraph variant="p1">
+            What is Discrod and how do I install it?
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography paragraph variant="p1">
+            What is Minecraft and how do I install it?
+          </Typography>
         </Grid>
       </Grid>
     </div>
