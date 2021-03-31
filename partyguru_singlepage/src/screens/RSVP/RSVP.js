@@ -2,19 +2,26 @@ import React from "react";
 import { useState } from "react";
 import {
   makeStyles,
-  Button,
   Checkbox,
   FormControlLabel,
   Typography,
   Paper,
   Grid,
+  Radio,
+  RadioGroup,
+  FormControl,
+  FormLabel,
+  TextField,
 } from "@material-ui/core";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import createSpacing from "@material-ui/core/styles/createSpacing";
 import "./RSVP.css";
 
 const useStyles = makeStyles((theme) => ({
+  root:{
+    paddingLeft:"1rem",
+    paddingRight: "1rem"
+  },
   buttons: {
     margin: "10px",
   },
@@ -27,15 +34,20 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "15px",
     margin: "5px",
   },
+  textfielderino: {
+    minWidth: "100%",
+    maxWidth: "100%",
+    minHeight: "50%",
+    maxHeight: "50%",
+    fontSize: "2rem",
+    marginBottom: "15px",
+  },
 }));
 
 const RSVP = () => {
-  const [attending, setAttending] = useState(false);
-  //This state controls the attending/not attending checkbox state. 
-  const [checked, setChecked] = useState({
-    attending: false,
-    notattending: false,
-  });
+  //This state controls the attending/not attending radio buttons.
+  const [value, setValue] = useState("true");
+
   //This state controls checkbox states. Example: if game (e.g. Minecraft) is installed, then user clicks on the game is installed checkbox.
   //This checkbox method is to guide the client to installing what they need to prepare for a smooth party experience. Preferably,
   //the checkboxes should not allow checking both installed and not installed on the same property (e.g. discord). Also, it would
@@ -46,8 +58,6 @@ const RSVP = () => {
     discordinstalled: false,
     discordnotinstalled: false,
   });
-  //const [attending, changeAttending] = useState(true)
-  //const [notattending, changeNotAttending] = useState(false)
 
   //This changes the state of the gaming specs checkboxes
   const handleGamingSpecChange = (event) => {
@@ -64,68 +74,103 @@ const RSVP = () => {
   //object information. ...!checked flips the state from true to false and the other way around
   //but it messes with the object causing a lengthy error.
   const handleChange = (event) => {
-    console.log(event.target.name);
-    //setChecked(event.target.checked)
-    setAttending(!attending);
+    if (event.target.value === value) {
+      console.log("Value not changed");
+      return;
+    } else {
+      console.log("Value changed to", event.target.value);
+      setValue(event.target.value);
+    }
   };
 
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.root}>
       <Typography variant="h1">Invitation</Typography>
-      <Typography paragraph variant="body1" style={{fontSize:"2rem"}}>
+      <Typography paragraph variant="body1" style={{ fontSize: "2rem" }}>
         You’re invited to Sander Grander’s online birthday party on 26.3.21
         16.00-18.00! We will play Among Us.
       </Typography>
 
       <Grid container direction="row">
-        <Grid item xs={6} md={3} lg={2}>
-          <Paper elevation={3} className={classes.checkBoxPaper}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={attending}
-                  onChange={handleChange}
-                  name="attending"
-                  icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
-                  checkedIcon={<CheckBoxIcon fontSize="large" />}
-                />
-              }
-              label={
-                <Typography className={classes.checkBoxFont}>
-                  I will attend
-                </Typography>
-              }
-            />
+        <Grid item xs={6} md={3} lg={3}>
+          <Paper
+            elevation={3}
+            className={classes.checkBoxPaper}
+            style={{ padding: "10px" }}
+          >
+            <FormControl required component="fieldset">
+              <FormLabel
+                component="legend"
+                className={classes.checkBoxFont}
+                style={{ marginBottom: "3px", color: "black" }}
+              >
+                Can you attend this party?
+              </FormLabel>
+              <RadioGroup
+                aria-label="attending"
+                name="attending"
+                value={value}
+                onChange={handleChange}
+              >
+                <Paper style={{ margin: "5px", paddingLeft: "5px" }}>
+                  <FormControlLabel
+                    value="true"
+                    control={<Radio />}
+                    label={
+                      <Typography className={classes.checkBoxFont}>
+                        I can attend
+                      </Typography>
+                    }
+                  />
+                </Paper>
+
+                <Paper style={{ margin: "5px", paddingLeft: "5px" }}>
+                  <FormControlLabel
+                    value="false"
+                    control={<Radio />}
+                    label={
+                      <Typography className={classes.checkBoxFont}>
+                        I cannot attend
+                      </Typography>
+                    }
+                  />
+                </Paper>
+              </RadioGroup>
+            </FormControl>
           </Paper>
         </Grid>
         <Grid item md={9} lg={10} />
-        <Grid item xs={6} md={3} lg={2}>
-          <Paper elevation={3} className={classes.checkBoxPaper}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  className={classes.checkBox}
-                  checked={!attending}
-                  onChange={handleChange}
-                  name="notattending"
-                  icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
-                  checkedIcon={<CheckBoxIcon fontSize="large" />}
-                />
-              }
-              label={
-                <Typography className={classes.checkBoxFont}>
-                  I can't attend
-                </Typography>
-              }
-            />
-          </Paper>
-        </Grid>
       </Grid>
-      <Typography style={{ fontSize: "2.5rem" }}>
-        Special considerations about your child:
-      </Typography>
+
+      <Grid container direction="row">
+        <Grid item xs={6} lg={4}>
+          <Typography style={{ fontSize: "2.5rem", marginTop: "3vh" }}>
+            Special considerations about your child:
+          </Typography>
+        </Grid>
+        <Grid item xs={6} lg={8}/>
+
+        <Grid item xs={6} lg={4}>
+          <TextField
+            className={classes.textfielderino}
+            multiline
+            fullWidth
+            rows={3}
+            rowsMax={5}
+            id="namefield"
+            label={
+              <Typography className={classes.textfielderino}>Enter info here</Typography>
+            }
+            color="secondary"
+            variant="outlined"
+            inputProps={{ maxLength:300, style: { fontSize: "2rem", lineHeight:"150%" } }}
+          />
+        </Grid>
+        
+        <Grid item xs={6} lg={8}/>
+      </Grid>
 
       <Grid container justify="center" alignItems="center" direction="column">
         <Grid
@@ -136,23 +181,23 @@ const RSVP = () => {
           style={{
             backgroundColor: "orange",
             width: "75%",
-            borderBottomStyle: "solid",
+            borderStyle: "solid",
             borderWidth: "2px",
-            borderColor: "white",
+            borderBottomColor: "white",
           }}
         >
           <Grid item xs={4}>
-            <Typography align="center" style={{ fontSize: "2rem" }}>
+            <Typography align="center" variant="h4" style={{margin:"2px"}}>
               Device information
             </Typography>
           </Grid>
           <Grid item xs={4}>
-            <Typography align="center" style={{ fontSize: "2rem" }}>
+            <Typography align="center" variant="h4" >
               Installed
             </Typography>
           </Grid>
           <Grid item xs={4}>
-            <Typography align="center" style={{ fontSize: "2rem" }}>
+            <Typography align="center" variant="h4">
               Not installed
             </Typography>
           </Grid>
@@ -166,9 +211,11 @@ const RSVP = () => {
           style={{
             backgroundColor: "purple",
             width: "75%",
+            borderLeftStyle: "solid",
             borderBottomStyle: "solid",
+            borderRightStyle: "solid",
             borderWidth: "2px",
-            borderColor: "white",
+            borderBottomColor: "white",
           }}
         >
           <Grid item xs={4}>
@@ -234,6 +281,10 @@ const RSVP = () => {
           style={{
             backgroundColor: "orange",
             width: "75%",
+            borderLeftStyle: "solid",
+            borderBottomStyle: "solid",
+            borderRightStyle: "solid",
+            borderWidth: "2px",
           }}
         >
           <Grid item xs={4}>
@@ -279,108 +330,6 @@ const RSVP = () => {
               />
             </div>
           </Grid>
-        </Grid>
-      </Grid>
-      <br />
-      <br />
-
-      <div className="gamingspecscontainer">
-        <Typography style={{ fontSize: "2rem" }}>
-          Your gaming device information:
-        </Typography>
-        <Typography style={{ fontSize: "2rem" }}>Installed</Typography>
-        <Typography style={{ fontSize: "2rem" }}>Not installed</Typography>
-        <div>
-          <FormControlLabel
-            className="gameinstalledcheckbox"
-            label={
-              <Typography className={classes.checkBoxFont}>Amogus</Typography>
-            }
-            control={
-              <Checkbox
-                name="gameinstalled"
-                onChange={handleGamingSpecChange}
-                icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
-                checkedIcon={<CheckBoxIcon fontSize="large" />}
-              />
-            }
-          />
-        </div>
-        <div>
-          <FormControlLabel
-            className="discordinstalledcheckbox"
-            label={
-              <Typography className={classes.checkBoxFont}>Discord</Typography>
-            }
-            control={
-              <Checkbox
-                name="discordinstalled"
-                onChange={handleGamingSpecChange}
-                icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
-                checkedIcon={<CheckBoxIcon fontSize="large" />}
-              />
-            }
-          />
-        </div>
-        <div>
-          <Checkbox
-            className="discordnotinstalledcheckbox"
-            name="discordnotinstalled"
-            onChange={handleGamingSpecChange}
-            icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
-            checkedIcon={<CheckBoxIcon fontSize="large" />}
-          />
-        </div>
-        <div>
-          <Checkbox
-            className="gamenotinstalledcheckbox"
-            name="gamenotinstalled"
-            onChange={handleGamingSpecChange}
-            icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
-            checkedIcon={<CheckBoxIcon fontSize="large" />}
-          />
-        </div>
-      </div>
-      <Button
-        className={classes.buttons}
-        variant="contained"
-        color="primary"
-        href="/"
-        style={{ minWidth: "80px", minHeight: "40px", fontSize: "1.2rem" }}
-      >
-        Send
-      </Button>
-      <Button
-        className={classes.buttons}
-        variant="contained"
-        color="secondary"
-        style={{ minWidth: "60px", minHeight: "40px", fontSize: "1.2rem" }}
-      >
-        More information
-      </Button>
-      <Grid container direction="column">
-        <Grid item>
-          <Typography variant="h3" paragraph style={{ marginTop: "5px" }}>
-            Frequently Asked Questions
-          </Typography>
-        </Grid>
-
-        <Grid item>
-          <Typography>How do I join a party?</Typography>
-        </Grid>
-
-        <Grid item>
-          <Typography>
-            What kind of qualifications do Party Gurus have?
-          </Typography>
-        </Grid>
-
-        <Grid item>
-          <Typography>What is Discord and how do I install it?</Typography>
-        </Grid>
-
-        <Grid item>
-          <Typography>What is Minecraft and how do I install it?</Typography>
         </Grid>
       </Grid>
     </div>
