@@ -109,39 +109,5 @@ const Product = (props) => {
       </Card>
     </Grid>
   );
-
-// return (
-//    <Grid item xs={12} sm={6} md={3} lg={2}>
-      {/*Grid on material-ui komponentti, jolla saadaan kortin sisäinen layout hoidettua,
-      xs määrittää kokoa suhteessa muihin elementteihin (esim muut kortit) */}
-//      <div className="card">
-        {/*Kortin peruslayout */}
-//        <Link to={`/product/${product._id}`}>
-//          <img className="medium" src={product.image} alt={product.name} />
-          {/*Kuva, joka toimii linkkinä tuotteen lisätietosivuille*/}
-//        </Link>
-//        <div className="card-body">
-//          <Link to={`/product/${product._id}`}>
-//            <h2
-//              style={{
-//                marginBottom: "0px",
-//                marginTop: "0",
-//                paddingTop: "0",
-//                textAlign: "center",
-//              }}
-//            >
-//              {product.name}
-//            </h2>
-//            <h2 style={{ margin: "0px", padding: "1px" }}>Gurus: </h2>
-//            {productGuru &&
-//              productGuru.map((guru) => (
-//                <div key={guru._id}> {guru.name} </div>
-//              ))}
-//          </Link>
-//          <div className="price">${product.price}</div>
-//        </div>
-//      </div>
-//    </Grid>
-//  );
 };
 export default Product;
