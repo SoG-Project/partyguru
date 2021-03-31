@@ -120,7 +120,7 @@ const InviteToParty = () => {
             <div className="emaildescription">
                 <form >
                     <TextField className="test" id="outlined-basic" placeholder="Please input a party description that will be included in the party invitations by email." 
-                    defaultValue={description} inputProps={{maxLength:1000}} multiline variant="outlined" onChange={(e) => changeDescription2(e.target.value)}
+                    defaultValue={description} inputProps={{maxLength:180}} multiline variant="outlined" onChange={(e) => changeDescription2(e.target.value)}
                     />
                 </form>
                 
@@ -134,17 +134,17 @@ const InviteToParty = () => {
         <h2>Preview testing</h2>
         <div className="preview">
           <div className="invitelayout">
-           <img src={"https://i.pinimg.com/originals/00/71/3b/00713b61c2ae3b4f244f3ff3fbac2fa9.jpg"} />
+           <img src={"https://i.pinimg.com/originals/59/2e/81/592e812f43f66758178347430b992436.png"} />
+
            <div className="invitetitle">
              Kutsu Make Viljami-Macklemoren syntymäpäiväjuhliin
            </div>
            <div className="subtitle">{description2}</div>
            </div>
-           
-           
-           
+                       
         </div>
     </div>
+    
     )
 }
 
