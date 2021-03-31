@@ -30,9 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RSVP = () => {
-<<<<<<< HEAD
   const [attending, setAttending] = useState(false);
-=======
   //This state controls the attending/not attending checkbox state. 
   const [checked, setChecked] = useState({
     attending: false,
@@ -42,7 +40,6 @@ const RSVP = () => {
   //This checkbox method is to guide the client to installing what they need to prepare for a smooth party experience. Preferably,
   //the checkboxes should not allow checking both installed and not installed on the same property (e.g. discord). Also, it would
   //be beneficial to offer instructions on how to install them (e.g. official Minecraft/Discord FAQ)
->>>>>>> e26480d19c15b9b90ce8cf12ccd1a31688769a1e
   const [gamingspecs, setSpecs] = useState({
     gameinstalled: false,
     gamenotinstalled: false,
