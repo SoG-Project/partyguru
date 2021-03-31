@@ -68,7 +68,7 @@ const GuruInfo = (props) =>{
             <form>
                 <TextField style={{marginBottom: '15px'}} value={guruInfo.name || ''} label="name" onChange={handleNameChange}  variant="outlined" disabled/>   <br/>
                 <TextField style={{marginBottom: '15px'}} value={guruInfo.nick || ''} label="nick" onChange={handleNickChange} variant="outlined" disabled/>  <br/>
-                <TextField style={{marginBottom: '1px'}} value={guruInfo.bio || ''} multiline rows="12" fullWidth label="bio" onChange={handleBioChange} variant="outlined" disabled/>   <br/>
+                <TextField style={{marginBottom: '1px'}} value={guruInfo.bio || ''} multiline rows="11" fullWidth label="bio" onChange={handleBioChange} variant="outlined" disabled/>   <br/>
             </form>
             <button className="flexAlignThis" onClick={handleClick}>Edit</button>
         </div>
@@ -82,7 +82,7 @@ const GuruInfo = (props) =>{
             <form onSubmit={handleSubmit}>
             <TextField style={{marginBottom: '15px'}} value={editedGuruInfo.name || '' } label="name" onChange={handleNameChange}  variant="outlined"/> <br/>
             <TextField style={{marginBottom: '15px'}} value={editedGuruInfo.nick || ''} label="nick" onChange={handleNickChange} variant="outlined"/>  <br/>
-            <TextField style={{marginBottom: '1px'}} value={editedGuruInfo.bio || ''} multiline rows="12" fullWidth label="bio" onChange={handleBioChange} variant="outlined"/>   <br/>
+            <TextField style={{marginBottom: '2px'}} value={editedGuruInfo.bio || ''} multiline rows="11" fullWidth label="bio" onChange={handleBioChange} variant="outlined"/>   <br/>
             </form>
             <button className="flexAlignThis" onClick={handleSubmit}>Save</button>
 

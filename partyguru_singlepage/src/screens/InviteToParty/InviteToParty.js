@@ -129,7 +129,8 @@ const InviteToParty = () => {
         <Link to="/partypage">Send Invites and go to party page</Link>
         
         {/*Preview feature in progress
-        looks pretty wacky without 1080p resolution*/}
+        not relative positioned anymore so doesn't break when using different resolution or zooming
+        though it's currently standing on top of the bottom bar, making it unclickable, fix this soon*/}
         <h2>Preview testing</h2>
         <div className="preview">
           <div className="invitelayout">
@@ -150,5 +151,5 @@ const InviteToParty = () => {
 export default InviteToParty
 
 /*todo:
-change the invitation image to a background image so the text can be put on top of it
+fix the image positioning
 */
