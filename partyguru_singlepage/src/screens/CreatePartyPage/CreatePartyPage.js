@@ -9,8 +9,13 @@ import Icon from "@material-ui/core/Icon";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const useStyles = makeStyles((theme) => ({
+  margin: {
+    margin: "theme.spacing(2)",
+    borderRadius: 35,
+  },
   grid: {
     flexGrow: 1,
   },
@@ -162,6 +167,17 @@ const CreatePartyPage = () => {
               <InputLabel htmlFor="component-simple">Guest name</InputLabel>
               <Input id="component-simple" value={guestName} onChange={changeName}></Input>
             </FormControl>*/}
+      </div>
+      <p>Lisää sekä CSS margin ja stylesillä margin estääkseen resizen resizeemästä sivua</p>
+      <div>
+      <IconButton className={classes.margin}>
+        <AddCircleIcon fontSize="large" color="primary" />
+      </IconButton>
+      </div>
+      <div className="test">
+        <IconButton aria-label="delete" className={classes.margin}>
+          <DeleteIcon fontSize="large" />
+        </IconButton>
       </div>
       <Link className="invitetopartylink" to="/invitetoparty">
         To invitation creation
