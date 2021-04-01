@@ -41,6 +41,11 @@
 }
 
 .subtitle{
+    /*This might need fixing at some point
+    works in theory since people will use short words with spaces
+    but using long words without spaces will cause the text go over borders
+    even still looks kinda weird*/
+
     top: 60%;
     left:50%;
     transform: translate(-50%, -50%);

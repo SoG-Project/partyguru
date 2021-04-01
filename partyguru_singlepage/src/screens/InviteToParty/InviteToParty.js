@@ -5,7 +5,8 @@ import axios from 'axios'
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography'
 import AddIcon from '@material-ui/icons/Add';
-import Radio from '@material-ui/core/Radio'
+import Radio from '@material-ui/core/Radio';
+import Image from 'material-ui-image';
 
 
 
@@ -44,11 +45,12 @@ const InviteToParty = () => {
     //Theme selection IN PROGRESS
 const[teema, setTheme]=useState("default")
 const handleInviteTheme=(e)=>{
+  console.log(e.target.value)
   setTheme(e.target.value)
 }
     //This changes the description field where the user will write the contents of the email. 
     const[description, changeDescription] = useState("");
-    //Added for the preview feature
+    //Added for the preview feature, copies the user input from the textfield into the preview layout
     const[description2, changeDescription2] = useState("");
     const[descriptions, changeDescriptions] = useState([]);
 
@@ -138,8 +140,10 @@ const handleInviteTheme=(e)=>{
         <Link to="/partypage">Send Invites and go to party page</Link>
         
         {/*Preview feature in progress
+        this will preview the users input with an invitation letter layout
         not relative positioned anymore so doesn't break when using different resolution or zooming
-        though it's currently standing on top of the bottom bar, making it unclickable, fix this soon*/}
+        though it's currently standing on top of the bottom bar, making it unclickable, fix this soon
+        ADDED PLACEHOLDER FOR THE TIME BEING^*/}
         <h2>Preview testing</h2>
         <div className="preview">
           <div className="invitelayout">
@@ -149,9 +153,10 @@ const handleInviteTheme=(e)=>{
              Kutsu Make Viljami-Macklemoren syntymäpäiväjuhliin
            </div>
            <div className="subtitle">{description2}</div>
-           </div>
-                       
+          </div>
         </div>
+        {/* Radio buttons for the theme selection, don't do anything atm*/}
+        <div className="ThemeSelect">
         <h1>Valitse teemasi:</h1>
         <div>
         <span>default</span>
@@ -159,7 +164,7 @@ const handleInviteTheme=(e)=>{
         value="default"
         checked={teema==="default"}        
         color="primary"
-        onchange={handleInviteTheme}
+        onChange={handleInviteTheme}
         />
         </div>
         <div>
@@ -168,7 +173,7 @@ const handleInviteTheme=(e)=>{
         value="liekit"
         checked={teema==="liekit"} 
         color="primary"
-        onchange={handleInviteTheme}
+        onChange={handleInviteTheme}
         />
         </div>  
         <div>
@@ -177,8 +182,9 @@ const handleInviteTheme=(e)=>{
         value="maisema"
         checked={teema==="maisema"}        
         color="primary"
-        onchange={handleInviteTheme}
+        onChange={handleInviteTheme}
         />
+        </div>
         </div>     
     </div>
     
@@ -188,5 +194,5 @@ const handleInviteTheme=(e)=>{
 export default InviteToParty
 
 /*todo:
-fix the image positioning
+make the theme selection
 */
