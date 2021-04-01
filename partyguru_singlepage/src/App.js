@@ -15,7 +15,7 @@ import CartPage from "./screens/CartPage/CartPage";
 import LoginPage from './screens/LoginPage/LoginPage';
 import InviteToParty from "./screens/InviteToParty/InviteToParty"
 import PartyPage from "./screens/PartyPage/PartyPage";
-import RSVP from "./screens/RSVP/RSVP"
+import RSVP from "./screens/RSVP/RSVP";
 
 //Import components
 import Header from "./components/Header";

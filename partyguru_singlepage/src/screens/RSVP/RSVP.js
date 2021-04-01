@@ -13,8 +13,13 @@ import {
   FormLabel,
   TextField,
   Button,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Divider,
 } from "@material-ui/core";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import "./RSVP.css";
 
@@ -23,10 +28,13 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "1rem",
     paddingRight: "1rem",
   },
-  buttons: {
+  bigButtons: {
     margin: "10px",
+    minWidth: "80px",
+    minHeight: "40px",
+    fontSize: "1.2rem",
   },
-  checkBoxFont: {
+  radioFont: {
     fontSize: "2rem",
   },
   checkBoxPaper: {
@@ -35,9 +43,15 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "15px",
     margin: "5px",
   },
-  textfielderino: {
+  textField: {
     fontSize: "2rem",
     marginBottom: "15px",
+  },
+  FAQText: {
+    fontSize: "1.6rem",
+  },
+  accordionHeader: {
+    backgroundColor: "#f1961d",
   },
 }));
 
@@ -100,7 +114,7 @@ const RSVP = () => {
             <FormControl required component="fieldset">
               <FormLabel
                 component="legend"
-                className={classes.checkBoxFont}
+                className={classes.radioFont}
                 style={{ marginBottom: "3px", color: "black" }}
               >
                 Can you attend this party?
@@ -116,7 +130,7 @@ const RSVP = () => {
                     value="true"
                     control={<Radio />}
                     label={
-                      <Typography className={classes.checkBoxFont}>
+                      <Typography className={classes.radioFont}>
                         I can attend
                       </Typography>
                     }
@@ -128,7 +142,7 @@ const RSVP = () => {
                     value="false"
                     control={<Radio />}
                     label={
-                      <Typography className={classes.checkBoxFont}>
+                      <Typography className={classes.radioFont}>
                         I cannot attend
                       </Typography>
                     }
@@ -151,14 +165,14 @@ const RSVP = () => {
 
         <Grid item xs={6} lg={4}>
           <TextField
-            className={classes.textfielderino}
+            className={classes.textField}
             multiline
             fullWidth
             rows={3}
             rowsMax={5}
             id="namefield"
             label={
-              <Typography className={classes.textfielderino}>
+              <Typography className={classes.radioFont}>
                 Enter info here
               </Typography>
             }
@@ -234,7 +248,7 @@ const RSVP = () => {
                 label={
                   <Typography
                     style={{ color: "white" }}
-                    className={classes.checkBoxFont}
+                    className={classes.radioFont}
                   >
                     Game installed
                   </Typography>
@@ -257,7 +271,7 @@ const RSVP = () => {
                 label={
                   <Typography
                     style={{ color: "white" }}
-                    className={classes.checkBoxFont}
+                    className={classes.radioFont}
                   >
                     Not installed
                   </Typography>
@@ -287,7 +301,7 @@ const RSVP = () => {
             borderBottomStyle: "solid",
             borderRightStyle: "solid",
             borderWidth: "2px",
-            marginBottom:"5px"
+            marginBottom: "5px",
           }}
         >
           <Grid item xs={4}>
@@ -299,7 +313,7 @@ const RSVP = () => {
             <div align="center">
               <FormControlLabel
                 label={
-                  <Typography className={classes.checkBoxFont}>
+                  <Typography className={classes.radioFont}>
                     Discord installed
                   </Typography>
                 }
@@ -318,7 +332,7 @@ const RSVP = () => {
             <div align="center">
               <FormControlLabel
                 label={
-                  <Typography className={classes.checkBoxFont}>
+                  <Typography className={classes.radioFont}>
                     Not installed
                   </Typography>
                 }
@@ -337,49 +351,112 @@ const RSVP = () => {
       </Grid>
 
       <Button
-        className={classes.buttons}
+        className={classes.bigButtons}
         variant="contained"
         color="primary"
         href="/"
-        style={{ minWidth: "80px", minHeight: "40px", fontSize: "1.2rem" }}
-        style={{ minWidth: "80px", minHeight: "40px", fontSize: "1.2rem" }}
       >
         Send
       </Button>
 
       <Button
-        className={classes.buttons}
+        className={classes.bigButtons}
         variant="contained"
         color="secondary"
-        style={{ minWidth: "60px", minHeight: "40px", fontSize: "1.2rem" }}
+        style={{ minWidth: "60px" }}
       >
         More information
       </Button>
-      <Grid container direction="column" style={{ paddingTop: "20px" }}>
-        <Grid item>
-          <Typography variant="h3" paragraph style={{ marginTop: "5px" }}>
+
+      <Grid
+        container
+        direction="column"
+        spacing={2}
+        style={{ paddingTop: "20px", width: "60%" }}
+      >
+        <Grid item xs={12}>
+          <Typography variant="h3" paragraph>
             Frequently Asked Questions
           </Typography>
         </Grid>
-        <Grid item>
-          <Typography paragraph variant="p1">
-            How do I join a party?
-          </Typography>
+
+        <Grid item xs={12}>
+          <Accordion>
+            <AccordionSummary
+              className={classes.accordionHeader}
+              expandIcon={<ExpandMoreIcon />}
+            >
+              <Typography className={classes.FAQText}>
+                How do I join a party?
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography className={classes.FAQText}>
+                Install thingies and join online when the time is right and the
+                full moon shines.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
         </Grid>
-        <Grid item>
-          <Typography paragraph variant="p1">
-            What kind of qualifications do Party Gurus have?
-          </Typography>
+
+        <Grid item xs={12}>
+          <Accordion>
+            <AccordionSummary
+              className={classes.accordionHeader}
+              expandIcon={<ExpandMoreIcon />}
+            >
+              <Typography className={classes.FAQText}>
+                What kind of qualifications do Party Gurus have?
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography className={classes.FAQText}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
         </Grid>
-        <Grid item>
-          <Typography paragraph variant="p1">
-            What is Discrod and how do I install it?
-          </Typography>
+
+        <Grid item xs={12}>
+          <Accordion>
+            <AccordionSummary
+              className={classes.accordionHeader}
+              expandIcon={<ExpandMoreIcon />}
+            >
+              <Typography className={classes.FAQText}>
+                What is Discord and how do I install it?
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography className={classes.FAQText}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
         </Grid>
-        <Grid item>
-          <Typography paragraph variant="p1">
-            What is Minecraft and how do I install it?
-          </Typography>
+
+        <Grid item xs={12}>
+          <Accordion>
+            <AccordionSummary
+              className={classes.accordionHeader}
+              expandIcon={<ExpandMoreIcon />}
+            >
+              <Typography className={classes.FAQText}>
+                What is Minecraft and how do I install it?
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography className={classes.FAQText}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
         </Grid>
       </Grid>
     </div>
