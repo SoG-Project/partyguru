@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import ReactPlayer from "react-player"
-import GuruDialog from "./GuruImageDialog";
 import axios from "axios";
 import {Dialog, DialogActions, DialogTitle, TextField} from "@material-ui/core";
 

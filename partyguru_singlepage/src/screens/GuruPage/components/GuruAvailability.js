@@ -1,21 +1,38 @@
 import React, {useEffect, useState} from 'react'
 import {ToggleButton} from "@material-ui/lab";
+import axios from "axios";
 
 
-const GuruAvailability = () => {
+const GuruAvailability = (props) => {
 
     const [availability, setAvailability] = useState(false)
 
-    const toggleAvailable = () => {
-        if(availability === false)
+    // Set the availability on render based on what was retrieved from the DB
+    useEffect(() => {
+        if (props.availability && props.availability[0] === "true")
         setAvailability(true)
+        if (props.availability && props.availability[0] === "false")
+            setAvailability(false)
+    }, [props]);
+
+
+    const toggleAvailable = () => {
+        if(availability === false) {
+            setAvailability(true)
+            axios.put(`/api/gurus/${props.id}`, {availability: true}).then(response => {
+                console.log(response.data)
+            })
+        }
     }
 
     const toggleUnavailable = () => {
-        if(availability === true)
-        setAvailability(false)
+        if(availability === true) {
+            setAvailability(false)
+            axios.put(`/api/gurus/${props.id}`, {availability: false}).then(response => {
+                console.log(response.data)
+            })
+        }
     }
-
 
     return (
         <div>

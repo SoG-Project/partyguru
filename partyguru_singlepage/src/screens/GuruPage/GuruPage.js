@@ -44,7 +44,7 @@ const GuruPage = (props)=> {
             <GuruPartyPackages guruID={userProfile._id}/>
             <GuruVideo video={userProfile.video} guruID={userProfile._id}/>
             <div>Calendar goes here</div>
-            <GuruAvailability/>
+            <GuruAvailability id={userProfile._id} availability={userProfile.availability}/>
 
             <div>
                 <Link to = "/partypage">Go to party page</Link>
