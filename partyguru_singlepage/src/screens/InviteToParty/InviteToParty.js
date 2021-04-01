@@ -5,6 +5,8 @@ import axios from 'axios'
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography'
 import AddIcon from '@material-ui/icons/Add';
+import Radio from '@material-ui/core/Radio'
+
 
 
 
@@ -32,11 +34,18 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
+
+
 const InviteToParty = () => {
     
   //This enables materialsUI styles. Normall CSS won't work for materialsUI elements.
     const classes = useStyles()
 
+    //Theme selection IN PROGRESS
+const[teema, setTheme]=useState("default")
+const handleInviteTheme=(e)=>{
+  setTheme(e.target.value)
+}
     //This changes the description field where the user will write the contents of the email. 
     const[description, changeDescription] = useState("");
     //Added for the preview feature
@@ -54,7 +63,7 @@ const InviteToParty = () => {
         ]);
         changeDescription("");
       };
-    
+
     //Changes PartyPack state since server requests are asynchronous (e.g., code is being executed before a response is here)
     //This was added to save the partypack object
     const[partypack, changePartyPack] = useState();
@@ -143,6 +152,34 @@ const InviteToParty = () => {
            </div>
                        
         </div>
+        <h1>Valitse teemasi:</h1>
+        <div>
+        <span>default</span>
+        <Radio
+        value="default"
+        checked={teema==="default"}        
+        color="primary"
+        onchange={handleInviteTheme}
+        />
+        </div>
+        <div>
+        <span>eeppiset liekit</span>
+        <Radio
+        value="liekit"
+        checked={teema==="liekit"} 
+        color="primary"
+        onchange={handleInviteTheme}
+        />
+        </div>  
+        <div>
+        <span>kiva maisema</span>
+        <Radio
+        value="maisema"
+        checked={teema==="maisema"}        
+        color="primary"
+        onchange={handleInviteTheme}
+        />
+        </div>     
     </div>
     
     )
