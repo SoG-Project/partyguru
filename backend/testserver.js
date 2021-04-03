@@ -20,7 +20,7 @@ const guruSchema = new mongoose.Schema({
   partyreservations:[Number],
   video: String,
   image: String,
-  availability:[String],
+  availability:[Boolean],
   bio: String
 });
 const Guru= new mongoose.model('Guru',guruSchema);

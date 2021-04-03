@@ -9,10 +9,7 @@ const GuruAvailability = (props) => {
 
     // Set the availability on render based on what was retrieved from the DB
     useEffect(() => {
-        if (props.availability && props.availability[0] === "true")
-        setAvailability(true)
-        if (props.availability && props.availability[0] === "false")
-            setAvailability(false)
+        props.availability && setAvailability(props.availability[0])
     }, [props]);
 
 

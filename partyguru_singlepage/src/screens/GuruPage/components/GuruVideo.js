@@ -47,9 +47,6 @@ const GuruVideo = (props) =>{
                 <TextField maxWidth value={newGuruVideoAddress || ''} label="url" onChange={handleChange}  variant="outlined" />
                 <button onClick={confirmChanges}>Save</button>
 
-
-
-
             </Dialog>
 
         </div>
