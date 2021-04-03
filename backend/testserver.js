@@ -9,9 +9,7 @@ app.use(bodyParser.json());
 app.use(cors());
 const uri = "mongodb+srv://sogtietokanta:schoolofgamingtietokantaprojekti@cluster0.wqxpy.mongodb.net/sog?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
-//const add = require('./add.js') //name of the desired file  
-//const result = add(2,4)
-//console.log(result); //Output : 6
+
 //Partyguru schema and model
 const guruSchema = new mongoose.Schema({
   name: String,
@@ -40,7 +38,7 @@ const attendeesSchema = new mongoose.Schema({
   const partyinfoSchema= new mongoose.Schema({
       packageid: String,
       guruid: String,
-      datetime: {type: Date, default: Date.now},
+      datetime: {type: Date},
       duration:Number,
       email: String,
       phone: String,
@@ -102,6 +100,24 @@ const attendeesSchema = new mongoose.Schema({
       description: String
   }
  */
+
+//Request: GET all parties 
+//Returns an array of Partyinfo-objects (successful) or status code 400 with error message (unsuccessful)
+
+app.get('/api/parties', (req, res) => {
+  Partyinfo.find({})
+  .then(result => {
+    res.json(result);
+    result.forEach(note => {
+      console.log('Party fetched:');
+      console.log(note)
+    })
+  }).catch(error => {
+    console.log('Party not fetched, error:');
+    console.log(error.message);
+    res.status(400);
+    res.send(error.message);});
+})
 
 //REQUEST: GET party by ID
 //Returns a Partyinfo object (successful) or status code 400 with error message (unsuccessful)
@@ -244,20 +260,39 @@ app.put('/api/parties/:id', function (req, res) {
       updatedParty.description=req.body.description;
     }
     //Replace the old Partyinfo-object with the new one
-    Partyinfo.updateOne({"_id": id }, { $set: updatedParty}, (error, result) => {
-      if (error) throw error;
+    Partyinfo.updateOne({"_id": id }, { $set: updatedParty})
+    .then(result=>{
       if(result.nModified===0){
-        throw new Error ('Nothing got updated by your request');
+        console.log('Nothing got updated by the PUT request at /api/parties/:id');
+        throw('Nothing got updated by the PUT request at /api/parties/:id. Duplicate request?');
       }
       else{
         res.status(200);
         res.send(result);
       }
-    });
+    })
+    .catch(error => {
+      console.log('Party not updated, error:' + error);
+      res.status(400);
+      res.send(error);
+      }
+      ); 
+
+      /**
+       *    //Replace the old Partyinfo-object with the new one
+    Partyinfo.updateOne({"_id": id }, { $set: updatedParty}, (result) => {
+      
+    }).catch(error => {
+      console.log('Party not updated, error:');
+      console.log(error);
+      res.status(400);
+      res.send(error);
+      }
+      );
+       */
   })
   .catch(error => {
-    console.log('Party not updated, error:');
-    console.log(error.message);
+    console.log('Party not updated, error:' + error);
     res.status(400);
     res.send(error.message);
     }
@@ -278,6 +313,64 @@ app.put('/api/parties/:id', function (req, res) {
   bio: String
 } */
 
+//REQUEST: POST a new guru
+//Parameters: Guru-object in JSON-body
+//The request checks whether all fields are in the JSON-body, so send an empty field if it's not available
+//Returns status code 200 (successful) or 400 with error message (unsuccessful)
+
+app.post('/api/gurus', (req, res) => {
+  try{
+      if(req.body.name===undefined){
+        throw('Error: no name');
+      }
+      if(req.body.nick===undefined){
+        throw('Error: no nick.');
+      }
+      if(req.body.email===undefined){
+        throw('Error: no email');
+      }
+      if(req.body.partyreservations===undefined){
+        throw('Error: no partyreservations.');
+      }
+      if(req.body.video===undefined){
+        throw('Error: no video.');
+      }
+      if(req.body.image===undefined){
+        throw('Error: no image');
+      }
+      if(req.body.availability===undefined){
+        throw('Error: no availability.');
+      }
+      if(req.body.bio===undefined){
+        throw('Error: no bio');
+      }   
+    }
+   catch(error){
+    res.status(400);
+    res.send(error);
+   }
+   const newParty= new Partyinfo({
+    name: req.body.name,
+    nick: req.body.nick,
+    email: req.body.email,
+    partyreservations:req.body.partyreservations,
+    video: req.body.video,
+    image: req.body.image,
+    availability:req.body.availability,
+    bio: req.body.bio
+  });
+     newParty.save()
+     .then(result=>{
+      console.log('Party saved to db:');
+       console.log(result);
+       res.send(result);
+      })
+      .catch(error => {
+        console.log('Party not saved to db, error:');
+        console.log(error.message);
+        res.status(400);
+        res.send(error.message);});
+  });
 
 //Request: GET all gurus 
 //Returns an array of Guru-objects (successful) or status code 400 with error message (unsuccessful)
@@ -315,7 +408,7 @@ app.get('/api/gurus/:id', (req, res) => {
     res.json(result);
     result.forEach(note => {
       console.log('Guru fetched:');
-      console.log(note)
+      console.log(note);
     })
   })
   .catch(error => {
@@ -323,7 +416,6 @@ app.get('/api/gurus/:id', (req, res) => {
     console.log(error.message);
     res.status(400);
     res.send(error.message);});
- 
 })
 
 //REQUEST: POST new guru
@@ -399,11 +491,11 @@ app.put('/api/gurus/:id', function (req, res) {
       foundGuru[0].bio=req.body.bio;
     }
     // Save the updated guru
-    Guru.updateOne({"_id": id }, { $set: foundGuru[0]}, (error, result) => {
-      if (error) throw error;
+    Guru.updateOne({"_id": id }, { $set: foundGuru[0]})
+    .then(result=>{
       console.log('Guru updated successfully. ID: ' + id);
       res.send(result);
-  });
+    })
   }).catch(error => {
     console.log('Guru not updated. Error:')
     console.log(error.message);
@@ -411,7 +503,7 @@ app.put('/api/gurus/:id', function (req, res) {
     res.send(error.message);});
 })
 
- /************************************ATTENDEE REQUESTS****************** */
+ /************************************ATTENDEE REQUESTS**************************************************** */
 /** Attendee format:
  * {
  *  partyid: String,
@@ -456,7 +548,6 @@ app.get('/api/attendees/:id', (req, res) => {
     res.send(error.message);});
   
 })
-
 
 //REQUEST: POST a new attendee list
 //Parameters: Attendees-object in JSON-body
@@ -511,13 +602,16 @@ app.put('/api/attendees/:id', function (req, res) {
     //Check whether the fetched list is empty
     if(!returnedItems.length) throw new Error("No attendee information found with that partyid. ID:" + id + ". Perhaps send a POST instead of PUT?");
     //Iterate over the json-body and the fetched list, trying to match emails 
+    var updatedAttendee=false;
     for(var i=0;i<req.body.attendees.length;i++){
       var changed=false;
       for (var k = 0; k < attendeeList.attendees.length; k++) {
+        console.log(attendeeList.attendees[k]);
         //If the same email is found, insert the entry in the request body in the place of the fetched entry
         if (attendeeList.attendees[k].email === req.body.attendees[i].email) {
           attendeeList.attendees.splice(k,1,req.body.attendees[i]);
           changed=true;
+          updatedAttendee=true;
           console.log('Attendee updated with this email:' + req.body.attendees[i].email);
         }
        }
@@ -527,18 +621,18 @@ app.put('/api/attendees/:id', function (req, res) {
         console.log('Attendee added to the list as a new entry. Attendee email: ' + req.body.attendees[i].email);
       }
     }
+    if(updatedAttendee===false){
+      throw('Nothing got modified by your request');
+    }
     //Save the updated list
-    Attendees.updateOne({partyid: id }, { $set: attendeeList}, (error, result) => {
-      if (error) throw error;
+    Attendees.updateOne({partyid: id }, { $set: attendeeList})
+    .then(result=>{
       if(result.nModified===0){
-        throw new Error ('Nothing got updated by your request');
-      }
-      else{
         console.log('Attendee list saved to cloud.');
         res.status(200);
         res.send(result);
-      }
-    });
+      
+    }
   })
   .catch(error => {
     console.log('Attendees not updated. Error:')
@@ -569,17 +663,12 @@ app.delete('/api/attendees/:id', function (req, res) {
      }
      if(changed===false) throw new Error('No attendee with that email was found');
     //Save the updated list
-    Attendees.updateOne({partyid: id }, { $set: attendeeList}, (error, result) => {
-      if (error) throw error;
-      if(result.nModified===0){
-        throw new Error ('Nothing got deleted by your request');
-      }
-      else{
-        console.log('Attendee list with deletions saved to cloud.');
-        res.status(200);
-        res.send(result);
-      }
-    });
+    Attendees.updateOne({partyid: id }, { $set: attendeeList})
+    .then(result=>{
+      console.log('Attendee list with deletions saved to cloud.');
+      res.status(200);
+      res.send(result);
+    })
   })
   .catch(error => {
     console.log('Attendees not deleted. Error:')
@@ -626,8 +715,8 @@ app.post('/api/packages', (req, res) => {
     res.send(error.message);});
 });
 
-//REQUEST: PUT uusia guruja TODO muuta tämä databasea kannattamaan
-//Parametrit: bodyyn JSON- jossa key "gurus" ja sisällä array numeroita (ne tulee olemaan numeroita mongodb:ssä)
+//REQUEST: PUT update guru to a party package
+//Parametrit: list of guruids with key guruid in json-body
 /*
   let id=1;
    axios.put(`/api/partypack/{id}/gurus`,<JSONHERE>).then(response => {
@@ -679,6 +768,118 @@ app.put('/api/packages/:id/gurus', (req, res) => {
  
   });
 
+//REQUEST: DELETE guru from a party package
+//Parametres: guruid-list with key guruid in JSON-body
+/* TODO: verify the Guruids to be correct
+  let id=1;
+   axios.put(`/api/partypack/{id}/gurus`,<JSONHERE>).then(response => {
+      console.log(response.data);
+})
+*/
+app.put('/api/packages/:id/gurus', (req, res) => {
+  const id = req.params.id;
+  //Fetch the correct partypack
+  Partypack.find({_id:id})
+  .then(returnedItems => {
+    var updatedPackage=returnedItems[0];
+    //Iterate over the partypack's gurus and JSON-body's gurus, deleting matches
+    for(var i=0;i<req.body.guruid.length;i++){
+      for(var k=0;k<updatedPackage.guruid.length;k++){
+        if(updatedPackage.guruid[k]===req.body.guruid[i]){
+          updatedPackage.guruid.splice(i,1);
+        }
+      }
+    }
+    //Save the updated list
+    Partypack.updateOne({_id:id }, { $set: updatedPackage}, (error, result) => {
+      if (error) throw error;
+       try{
+      if(result.nModified===0){
+        console.log('The request successful but nothing got updated by the /api/packages/:id/gurus DELETE request.');
+        throw ('Nothing got deleted. Duplicate request?');
+      }
+      else{
+        console.log('Partypack with new gurus saved to cloud.');
+        res.status(200);
+        res.send(result);
+      }   }
+      catch(error){console.log("Guru not added to the party package. Error:");
+      console.log(error);
+      res.status(400);
+      res.send(error);}          
+    })
+  }).catch(error => {
+    console.log("Guru not added to the party package. Error:");
+    console.log(error.message);
+    res.status(400);
+    res.send(error.message);});
+ 
+  });
+
+
+    //REQUEST: DELETE guru (tai monta gurua) party packagesta 
+//Parametrit: URLiin partyn id, bodyyn JSON jossa kenttä gurus. 
+
+/*
+  let id=1;
+   axios.delete('/api/partypack/{id}/gurus',<JSONTÄHÄN>).then(response => {
+      console.log(response.data);
+      //onko tuo oikea tapa logittaa vastaus, en tiä
+})
+*/
+
+app.delete('/api/partypack/:id/gurus', function (req, res) {
+  const id = req.params.id;
+  try{
+    if(req.body.guruid===undefined){
+      throw ('No guruid sent with the JSON-body');
+    }
+    else{
+      //Päivitettävä juhlijalista
+      Partypack.find({_id:id})
+      .then(returnedItems=>{
+      let toBeUpdated=returnedItems[0];
+      if(toBeUpdated === undefined){
+        console.log('No party with this id found:' + id);
+        throw('No party with that id found.');
+        }
+      for(var i=0; i<toBeUpdated.guruid.length;i++){
+        console.log(i);
+        for (var k = 0; k < req.body.guruid.length; k++) {
+          if (toBeUpdated.guruid[i]===req.body.guruid[k]) {
+            toBeUpdated.guru.splice(i,1);
+          }
+        }
+      }
+    //Save the updated list
+    Partypack.updateOne({_id:id }, { $set: toBeUpdated}, (error, result) => {
+      if (error) throw error;
+      if(result.nModified===0){
+        console.log('The request was successful but nothing got updated by the /api/packages/:id/gurus DELETE request.');
+        throw ('Nothing got deleted. Duplicate request?');
+      }
+      else{
+        console.log('Partypack with new gurus saved to cloud.');
+        res.status(200);
+        res.send(result);
+      }           
+    })
+      .catch(error =>{
+        res.status(400);
+        res.send('Error:' + error);
+      })
+  }
+    ).catch(error =>{
+      res.status(400);
+      res.send('Error:' + error);
+    })
+}}
+  catch(error){
+    res.status(400);
+    res.send('Error:' + error);
+  }
+});
+
 /*REQUEST: GET all party packages
   Returns a list of Partypack-objects (successful) or status 400 + error message (unsuccessful)
       axios.get('/api/packages').then(response => {
@@ -723,6 +924,6 @@ app.get('/api/packages/:id', (req, res) => {
     console.log(error.message);
     res.status(400);
     res.send(error.message);});
-})
+});
 
 app.listen(5000, () => { console.log("Server started at http://localhost:5000. This is the server that connects to the database and is up to date.") });
