@@ -108,13 +108,13 @@ app.get('/api/parties', (req, res) => {
   Partyinfo.find({})
   .then(result => {
     res.json(result);
-    result.forEach(note => {
-      console.log('Party fetched:');
-      console.log(note)
+    result.forEach(item => {
+      console.log('Party fetched:' + item);
+      console.log(item)
     })
-  }).catch(error => {
-    console.log('Party not fetched, error:');
-    console.log(error.message);
+  })
+  .catch(error => {
+    console.log('Party not fetched, error:' + error.message);
     res.status(400);
     res.send(error.message);});
 })
@@ -134,8 +134,7 @@ app.get('/api/parties/:id', (req, res) => {
   .then(result => {
     res.json(result[0]);
     result.forEach(item => {
-      console.log('Party fetched:');
-      console.log(item)
+      console.log('Party fetched:' + item);
     })
   })
   .catch(error => {
@@ -277,19 +276,6 @@ app.put('/api/parties/:id', function (req, res) {
       res.send(error);
       }
       ); 
-
-      /**
-       *    //Replace the old Partyinfo-object with the new one
-    Partyinfo.updateOne({"_id": id }, { $set: updatedParty}, (result) => {
-      
-    }).catch(error => {
-      console.log('Party not updated, error:');
-      console.log(error);
-      res.status(400);
-      res.send(error);
-      }
-      );
-       */
   })
   .catch(error => {
     console.log('Party not updated, error:' + error);
@@ -631,7 +617,6 @@ app.put('/api/attendees/:id', function (req, res) {
         console.log('Attendee list saved to cloud.');
         res.status(200);
         res.send(result);
-      
     }
   })
   .catch(error => {
@@ -640,12 +625,12 @@ app.put('/api/attendees/:id', function (req, res) {
     res.status(400);
     res.send(error.message);});
 })
+})
 //REQUEST: DELETE attendees
 //Parametrit: partyid-string in URL, email-field in the JSON-body. Any entrants with that email will be deleted.
 //Returns status code 200 (successful) or 400 with error message (unsuccessful)
 app.delete('/api/attendees/:id', function (req, res) {
   const id = req.params.id;
-  const deletoitava=req.body.email;
   if(req.body.email===undefined){
     res.status(400);
     res.send('You have to send a JSON with an email field with this request');
@@ -675,7 +660,6 @@ app.delete('/api/attendees/:id', function (req, res) {
     console.log(error.message);
     res.status(400);
     res.send(error.message);});
- 
 })
 
 /*******************************PARTY PACKAGE REQUESTS ******************** */
@@ -852,26 +836,25 @@ app.delete('/api/partypack/:id/gurus', function (req, res) {
         }
       }
     //Save the updated list
-    Partypack.updateOne({_id:id }, { $set: toBeUpdated}, (error, result) => {
-      if (error) throw error;
-      if(result.nModified===0){
-        console.log('The request was successful but nothing got updated by the /api/packages/:id/gurus DELETE request.');
-        throw ('Nothing got deleted. Duplicate request?');
-      }
-      else{
-        console.log('Partypack with new gurus saved to cloud.');
-        res.status(200);
-        res.send(result);
-      }           
-    })
-      .catch(error =>{
+    Partypack.updateOne({_id:id }, { $set: toBeUpdated})
+      .then(result=>{
+        if(result.nModified===0){
+          console.log('The request was successful but nothing got updated by the /api/packages/:id/gurus DELETE request.');
+          throw ('Nothing got deleted. Duplicate request?');
+        }
+        else{
+          console.log('Partypack with new gurus saved to cloud.');
+          res.status(200);
+          res.send(result);
+        }
+      }).catch(error =>{
         res.status(400);
         res.send('Error:' + error);
       })
   }
-    ).catch(error =>{
-      res.status(400);
-      res.send('Error:' + error);
+      ).catch(error =>{
+        res.status(400);
+        res.send('Error:' + error);
     })
 }}
   catch(error){

@@ -1,4 +1,4 @@
-DELETE http://localhost:5000/api/attendees/2 HTTP/1.1
+DELETE http://localhost:5000/api/attendees/605f8bcd8dfd970aa770584a HTTP/1.1
 content-type: application/json
 
         {
