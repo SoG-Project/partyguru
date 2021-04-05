@@ -30,16 +30,15 @@ const GuruAvailability = (props) => {
             })
         }
     }
-
+    
     return (
-        <div>
 
+        <div className="availability">
             <h2>Toggle your availability:</h2>
             <div className="buttonGrid">
             <ToggleButton selected={availability} onChange={toggleAvailable} style={{marginBottom: '10px'}}>Available</ToggleButton>
             <ToggleButton selected={!availability} onChange={toggleUnavailable}>Unavailable</ToggleButton>
             </div>
-
         </div>
 
     )

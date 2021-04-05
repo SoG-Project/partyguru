@@ -46,13 +46,8 @@ const GuruPage = (props)=> {
             <GuruVideo video={userProfile.video} guruID={userProfile._id}/>
             <div>Calendar goes here</div>
             <GuruAvailability id={userProfile._id} availability={userProfile.availability}/>
+            <div className="upcomingParties">Upcoming Parties</div>
 
-            <div>
-                <Link to = "/partypage">Go to party page</Link>
-            </div>
-            <div>
-                <Link to = "/">Back</Link>
-            </div>
         </div>
     )
 }

@@ -34,7 +34,7 @@ const GuruImage = (props) =>{
 
     const confirmChanges = (event) => {
         setGuruImage(newGuruImageAddress)
-        axios.put(`/api/gurus/${parseInt(props.guruID)}`, {image: newGuruImageAddress}).then(response => {
+        axios.put(`/api/gurus/${(props.guruID)}`, {image: newGuruImageAddress}).then(response => {
             console.log(response.data)
         })
         setDialogOpen(false)
@@ -45,7 +45,7 @@ const GuruImage = (props) =>{
     }
 
    return (
-        <div>
+        <div className="gImage">
             <img className="profilePic" src={guruImage} alt={"profilePic"}   />
             <button onClick={handleClick}>Change Pic</button>
             <GuruImageDialog confirmChanges={confirmChanges} newAddress={newGuruImageAddress} dialogOpen={dialogOpen}

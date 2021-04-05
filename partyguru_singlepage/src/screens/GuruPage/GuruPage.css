@@ -2,7 +2,18 @@
     display:grid;
     grid-template-columns: repeat(2, minmax(300px, 400px));
     justify-content: center;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "gImage info"
+    "pPackages video"
+    "calendar availability"
+    "upcomingParties upcomingParties";
 
+}
+
+
+.upcomingParties {
+    grid-area:upcomingParties;
 }
 
 .profilePic {
@@ -18,8 +29,9 @@
 
 .guruGrid > div{
     border-style: groove;
+    border-color: orange;
     display:flex;
-    background:#D3D3D3;
+    background:#FAF0E6;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -27,14 +39,7 @@
     gap:10px;
 }
 
-.guruGrid > div.info{
 
-    justify-content: flex-start;
-    align-items: flex-start;
-
-
-
-}
 
 
 .guruGrid > div.infoEdit{

@@ -31,7 +31,7 @@ const GuruVideo = (props) =>{
 
     const confirmChanges = (event) => {
         setGuruVideo(newGuruVideoAddress)
-        axios.put(`/api/gurus/${parseInt(props.guruID)}`, {video: newGuruVideoAddress}).then(response => {
+        axios.put(`/api/gurus/${(props.guruID)}`, {video: newGuruVideoAddress}).then(response => {
             console.log(response.data)
         })
         setDialogOpen(false)
