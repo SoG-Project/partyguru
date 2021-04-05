@@ -365,10 +365,11 @@ app.get('/api/gurus', (req, res) => {
     Guru.find({})
     .then(result => {
       res.json(result);
-      result.forEach(note => {
-        console.log('Guru fetched:');
-        console.log(note)
+      var count=0;
+      result.forEach(item => {
+        count++;
       })
+      console.log(count + "gurus fetched.");
     }).catch(error => {
       console.log('Guru not fetched, error:');
       console.log(error.message);
@@ -391,14 +392,11 @@ app.get('/api/gurus/:id', (req, res) => {
   const id = req.params.id;
   Guru.find({_id:id})
   .then(result => {
+    console.log('Guru fetched ID:' + id);
     res.json(result);
-    result.forEach(note => {
-      console.log('Guru fetched:');
-      console.log(note);
-    })
   })
   .catch(error => {
-    console.log('Guru not fetched, error:');
+    console.log('Gurus not fetched, error:');
     console.log(error.message);
     res.status(400);
     res.send(error.message);});

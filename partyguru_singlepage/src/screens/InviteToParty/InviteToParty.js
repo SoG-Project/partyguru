@@ -82,7 +82,7 @@ const handleInviteTheme=(e)=>{
     //not in the .then() {} brackets will be executed before we get a response from the server. How far in the code we
     //get depends on the execution time of the get function.
     const getData = () => {
-        let id=1;
+        let id="605f8a595b54c3088fc44d14";
         //axios gets the partypack
         axios.get(`/api/parties/${id}`).then(response => {
 
