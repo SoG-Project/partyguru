@@ -128,7 +128,7 @@ const RSVP = () => {
                 <Paper style={{ margin: "5px", paddingLeft: "5px" }}>
                   <FormControlLabel
                     value="true"
-                    control={<Radio />}
+                    control={<Radio color="secondary" />}
                     label={
                       <Typography className={classes.radioFont}>
                         I can attend
@@ -140,7 +140,7 @@ const RSVP = () => {
                 <Paper style={{ margin: "5px", paddingLeft: "5px" }}>
                   <FormControlLabel
                     value="false"
-                    control={<Radio />}
+                    control={<Radio color="secondary" />}
                     label={
                       <Typography className={classes.radioFont}>
                         I cannot attend
@@ -375,6 +375,7 @@ const RSVP = () => {
         style={{ paddingTop: "20px", width: "60%" }}
       >
         <Grid item xs={12}>
+          <Divider/>
           <Typography variant="h3" paragraph>
             Frequently Asked Questions
           </Typography>
