@@ -810,7 +810,7 @@ app.put('/api/packages/:id/gurus', (req, res) => {
 })
 */
 
-app.delete('/api/partypack/:id/gurus', function (req, res) {
+app.delete('/api/packages/:id/gurus', function (req, res) {
   const id = req.params.id;
   try{
     if(req.body.guruid===undefined){
