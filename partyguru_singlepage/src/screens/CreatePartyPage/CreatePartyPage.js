@@ -52,11 +52,18 @@ const CreatePartyPage = () => {
       ...emailfields,
       { id: emailfields.length, name: "Teppo", email: "@tapani.com" },
     ]);*/
+    console.log(name, value)
     console.log(emailfields);
   };
 
   const handlePlusButtonClick = () => {
     changeEmailfields([...emailfields, { clientName:"", clientEmail:""}])
+  }
+
+  const handleEmailfieldDelete = (index) => {
+    const emailfieldscopy = [...emailfields]
+    emailfieldscopy.splice(index, 1)
+    changeEmailfields(emailfieldscopy)
   }
 
   const onMakeMoreEmailBoxesEvent = () => {
@@ -148,88 +155,14 @@ const CreatePartyPage = () => {
         </div>
       </div>
 
-      <div style={{ padding: "20px" }}>
-        <h2>Guest contacts</h2>
-
-        {/* This is the add email Grid done with materialui Grid. See more at:
-                https://material-ui.com/components/grid/
-
-            Add email boxes:
-                https://github.com/SoG-Project/partyguru/commit/bd1b714af6549ea97ce3194624717537be7587f3
-            
-              */}
-        <Grid container spacing={3} direction="row" alignItems="center">
-          <Grid container xs={6} spacing={3} direction="column">
-            <Grid item>
-              <div className="namefieldtest">
-                <TextField
-                  className={classes.textfielderino}
-                  name="name"
-                  id="namefieldtest"
-                  fullWidth
-                  label={
-                    <Typography className={classes.textfielderino}>
-                      Name
-                    </Typography>
-                  }
-                  color="secondary"
-                  variant="outlined"
-                  InputProps={{ style: { fontSize: "2rem" } }}
-                />
-              </div>
-            </Grid>
-            <Grid item>
-              <div className="emailfieldtest">
-                <TextField
-                  className={classes.textfielderino}
-                  name="email"
-                  id="namefieldtest"
-                  fullWidth
-                  label={
-                    <Typography className={classes.textfielderino}>
-                      Email
-                    </Typography>
-                  }
-                  color="secondary"
-                  variant="outlined"
-                  inputProps={{ style: { fontSize: "2rem" } }}
-                />
-              </div>
-            </Grid>
-          </Grid>
-          <Grid item xs={1}>
-            <IconButton onClick={onMakeMoreEmailBoxesEvent}>
-              <AddCircleIcon fontSize="large" color="primary" />
-            </IconButton>
-          </Grid>
-        </Grid>
-
-        {/*<FormControl>
-              <InputLabel htmlFor="component-simple">Guest name</InputLabel>
-              <Input id="component-simple" value={guestName} onChange={changeName}></Input>
-            </FormControl>*/}
-      </div>
-      <p>
-        Lisää sekä CSS margin ja stylesillä margin estääkseen resizen
-        resizeemästä sivua
-      </p>
-      <div>
-        <IconButton className={classes.margin}>
-          <AddCircleIcon fontSize="large" color="primary" />
-        </IconButton>
-      </div>
-      <div className="test">
-        <IconButton aria-label="delete" className={classes.margin}>
-          <DeleteIcon fontSize="large" />
-        </IconButton>
-      </div>
-      <Link className="invitetopartylink" to="/invitetoparty">
-        To invitation creation
-      </Link>
+      
+      
+      
+      
 
       {emailfields.map((x, i) => {
         return (
-          <Grid container spacing={3} direction="row" alignItems="center">
+          <Grid container spacing={3} direction="row" alignItems="center" style={{ marginTop: "30px", marginBottom: "30px" }}>
             <Grid container xs={6} spacing={3} direction="column">
               <Grid item>
                 <div className="namefieldtest">
@@ -277,9 +210,17 @@ const CreatePartyPage = () => {
                 <AddCircleIcon fontSize="large" color="primary" />
               </IconButton>
             </Grid>
+            <Grid item xs={1}>
+              <IconButton onClick={handleEmailfieldDelete} aria-label="delete" className={classes.margin}>
+                <DeleteIcon fontSize="large" />
+              </IconButton>
+            </Grid>
           </Grid>
         );
       })}
+      <Link className="invitetopartylink" to="/invitetoparty">
+        To invitation creation
+      </Link>
     </div>
   );
 };
