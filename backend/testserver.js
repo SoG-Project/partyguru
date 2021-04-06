@@ -826,10 +826,9 @@ app.delete('/api/packages/:id/gurus', function (req, res) {
         throw('No party with that id found.');
         }
       for(var i=0; i<toBeUpdated.guruid.length;i++){
-        console.log(i);
         for (var k = 0; k < req.body.guruid.length; k++) {
           if (toBeUpdated.guruid[i]===req.body.guruid[k]) {
-            toBeUpdated.guru.splice(i,1);
+            toBeUpdated.guruid.splice(i,1);
           }
         }
       }
@@ -846,16 +845,19 @@ app.delete('/api/packages/:id/gurus', function (req, res) {
           res.send(result);
         }
       }).catch(error =>{
+        console.log('Error: ' + error);
         res.status(400);
         res.send('Error:' + error);
       })
   }
       ).catch(error =>{
+        console.log('Error: ' + error);
         res.status(400);
         res.send('Error:' + error);
     })
 }}
   catch(error){
+    console.log('Error: ' + error);
     res.status(400);
     res.send('Error:' + error);
   }

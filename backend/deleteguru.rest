@@ -1,6 +1,6 @@
-DELETE http://localhost:5000/api/partypack/605f8a595b54c3088fc44d14/gurus HTTP/1.1
+DELETE http://localhost:5000/api/packages/605f8a595b54c3088fc44d14/gurus HTTP/1.1
 content-type: application/json
 
         {
-            "guruid":[116]
+            "guruid":["605f83e71a24316b543c6fc8"]
         }
