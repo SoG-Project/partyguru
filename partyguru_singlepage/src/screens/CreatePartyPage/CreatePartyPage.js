@@ -9,7 +9,7 @@ import Icon from "@material-ui/core/Icon";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
-import DeleteIcon from '@material-ui/icons/Delete'
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -28,10 +28,45 @@ const useStyles = makeStyles((theme) => ({
   resize: {
     fontSize: "2rem",
   },
+  giveextraspace: {
+    marginBottom: "2rem",
+    marginTop: "2rem",
+  },
 }));
 
 const CreatePartyPage = () => {
   const [guestName, changeName] = useState("Teppo Tapani");
+  const [emailfields, changeEmailfields] = useState([
+    { clientName: "", clientEmail: "" }
+  ]);
+
+  const handleEmailfieldChange = (e, index) => {
+    const {name, value} = e.target;
+    const emailfieldscopy = [...emailfields];
+    emailfieldscopy[index][name] = value
+    changeEmailfields(emailfieldscopy)
+    
+    /*event.preventDefault();
+    const emailfieldscopy = emailfields;
+    changeEmailfields([
+      ...emailfields,
+      { id: emailfields.length, name: "Teppo", email: "@tapani.com" },
+    ]);*/
+    console.log(emailfields);
+  };
+
+  const handlePlusButtonClick = () => {
+    changeEmailfields([...emailfields, { clientName:"", clientEmail:""}])
+  }
+
+  const onMakeMoreEmailBoxesEvent = () => {
+    console.log("Adding email field...");
+    return (
+      <IconButton onClick={onMakeMoreEmailBoxesEvent}>
+        <AddCircleIcon fontSize="large" color="primary" />
+      </IconButton>
+    );
+  };
 
   const classes = useStyles();
   return (
@@ -118,13 +153,89 @@ const CreatePartyPage = () => {
 
         {/* This is the add email Grid done with materialui Grid. See more at:
                 https://material-ui.com/components/grid/
+
+            Add email boxes:
+                https://github.com/SoG-Project/partyguru/commit/bd1b714af6549ea97ce3194624717537be7587f3
+            
               */}
+        <Grid container spacing={3} direction="row" alignItems="center">
+          <Grid container xs={6} spacing={3} direction="column">
+            <Grid item>
+              <div className="namefieldtest">
+                <TextField
+                  className={classes.textfielderino}
+                  name="name"
+                  id="namefieldtest"
+                  fullWidth
+                  label={
+                    <Typography className={classes.textfielderino}>
+                      Name
+                    </Typography>
+                  }
+                  color="secondary"
+                  variant="outlined"
+                  InputProps={{ style: { fontSize: "2rem" } }}
+                />
+              </div>
+            </Grid>
+            <Grid item>
+              <div className="emailfieldtest">
+                <TextField
+                  className={classes.textfielderino}
+                  name="email"
+                  id="namefieldtest"
+                  fullWidth
+                  label={
+                    <Typography className={classes.textfielderino}>
+                      Email
+                    </Typography>
+                  }
+                  color="secondary"
+                  variant="outlined"
+                  inputProps={{ style: { fontSize: "2rem" } }}
+                />
+              </div>
+            </Grid>
+          </Grid>
+          <Grid item xs={1}>
+            <IconButton onClick={onMakeMoreEmailBoxesEvent}>
+              <AddCircleIcon fontSize="large" color="primary" />
+            </IconButton>
+          </Grid>
+        </Grid>
+
+        {/*<FormControl>
+              <InputLabel htmlFor="component-simple">Guest name</InputLabel>
+              <Input id="component-simple" value={guestName} onChange={changeName}></Input>
+            </FormControl>*/}
+      </div>
+      <p>
+        Lisää sekä CSS margin ja stylesillä margin estääkseen resizen
+        resizeemästä sivua
+      </p>
+      <div>
+        <IconButton className={classes.margin}>
+          <AddCircleIcon fontSize="large" color="primary" />
+        </IconButton>
+      </div>
+      <div className="test">
+        <IconButton aria-label="delete" className={classes.margin}>
+          <DeleteIcon fontSize="large" />
+        </IconButton>
+      </div>
+      <Link className="invitetopartylink" to="/invitetoparty">
+        To invitation creation
+      </Link>
+
+      {emailfields.map((x, i) => {
+        return (
           <Grid container spacing={3} direction="row" alignItems="center">
             <Grid container xs={6} spacing={3} direction="column">
               <Grid item>
                 <div className="namefieldtest">
                   <TextField
                     className={classes.textfielderino}
+                    name="clientName"
                     id="namefieldtest"
                     fullWidth
                     label={
@@ -135,6 +246,8 @@ const CreatePartyPage = () => {
                     color="secondary"
                     variant="outlined"
                     InputProps={{ style: { fontSize: "2rem" } }}
+                    value={x.clientName}
+                    onChange={e => handleEmailfieldChange(e, i)}
                   />
                 </div>
               </Grid>
@@ -142,6 +255,7 @@ const CreatePartyPage = () => {
                 <div className="emailfieldtest">
                   <TextField
                     className={classes.textfielderino}
+                    name="clientEmail"
                     id="namefieldtest"
                     fullWidth
                     label={
@@ -152,36 +266,20 @@ const CreatePartyPage = () => {
                     color="secondary"
                     variant="outlined"
                     inputProps={{ style: { fontSize: "2rem" } }}
+                    onChange={e => handleEmailfieldChange(e, i)}
+                    value={x.clientEmail}
                   />
                 </div>
               </Grid>
             </Grid>
             <Grid item xs={1}>
-              <IconButton>
+              <IconButton className={classes.giveextraspace} onClick={handlePlusButtonClick} >
                 <AddCircleIcon fontSize="large" color="primary" />
               </IconButton>
             </Grid>
           </Grid>
-
-        {/*<FormControl>
-              <InputLabel htmlFor="component-simple">Guest name</InputLabel>
-              <Input id="component-simple" value={guestName} onChange={changeName}></Input>
-            </FormControl>*/}
-      </div>
-      <p>Lisää sekä CSS margin ja stylesillä margin estääkseen resizen resizeemästä sivua</p>
-      <div>
-      <IconButton className={classes.margin}>
-        <AddCircleIcon fontSize="large" color="primary" />
-      </IconButton>
-      </div>
-      <div className="test">
-        <IconButton aria-label="delete" className={classes.margin}>
-          <DeleteIcon fontSize="large" />
-        </IconButton>
-      </div>
-      <Link className="invitetopartylink" to="/invitetoparty">
-        To invitation creation
-      </Link>
+        );
+      })}
     </div>
   );
 };
