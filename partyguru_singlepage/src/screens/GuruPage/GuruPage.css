@@ -1,6 +1,6 @@
 .guruGrid{
     display:grid;
-    grid-template-columns: repeat(2, minmax(300px, 400px));
+    grid-template-columns: repeat(2, 430px);
     justify-content: center;
     grid-template-rows: auto;
     grid-template-areas:
@@ -8,6 +8,21 @@
     "pPackages video"
     "calendar availability"
     "upcomingParties upcomingParties";
+}
+
+@media (max-width: 600px) {
+    .guruGrid { grid-template-columns: repeat(1, 320px);
+        grid-template-areas:
+        "gImage"
+        "info"
+        "pPackages"
+        "video"
+        "calendar"
+        "availability"
+        "upcomingParties"
+        "upcomingParties";
+    }
+
 
 }
 
@@ -46,8 +61,6 @@
 
     justify-content: flex-start;
     align-items: stretch;
-
-
 }
 
 .buttonGrid {
@@ -55,9 +68,8 @@
     display:flex;
     flex-direction: column;
     border-style:groove;
+    border-color: orange;
     padding: 10px;
-
-
 
 }
 
@@ -69,7 +81,4 @@
 
 
 
-
-p {
-    font-family: "Helvetica", "Arial";}
 

@@ -1,15 +1,27 @@
 import React, {useEffect, useState} from 'react'
 import {ToggleButton} from "@material-ui/lab";
 import axios from "axios";
+import {makeStyles} from "@material-ui/core";
+
+
+// Styling for togglebutton color when selected
+const useStyles = makeStyles({
+    buttonColor: {
+        "&.Mui-selected": {
+            backgroundColor: "orange"
+        }
+    }
+});
 
 
 const GuruAvailability = (props) => {
 
+    const classes = useStyles()
     const [availability, setAvailability] = useState(false)
 
     // Set the availability on render based on what was retrieved from the DB
     useEffect(() => {
-        props.availability && setAvailability(props.availability[0])
+        props.availability && setAvailability(props.availability)
     }, [props]);
 
 
@@ -36,8 +48,8 @@ const GuruAvailability = (props) => {
         <div className="availability">
             <h2>Toggle your availability:</h2>
             <div className="buttonGrid">
-            <ToggleButton selected={availability} onChange={toggleAvailable} style={{marginBottom: '10px'}}>Available</ToggleButton>
-            <ToggleButton selected={!availability} onChange={toggleUnavailable}>Unavailable</ToggleButton>
+            <ToggleButton className={classes.buttonColor} selected={availability} onChange={toggleAvailable} style={{marginBottom: '10px'}}>Available</ToggleButton>
+            <ToggleButton className={classes.buttonColor} selected={!availability} onChange={toggleUnavailable}>Unavailable</ToggleButton>
             </div>
         </div>
 
