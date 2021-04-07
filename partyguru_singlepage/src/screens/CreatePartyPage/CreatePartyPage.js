@@ -10,6 +10,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import DeleteIcon from "@material-ui/icons/Delete";
+import HelpIcon from '@material-ui/icons/Help'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -64,6 +65,42 @@ const CreatePartyPage = () => {
     const emailfieldscopy = [...emailfields]
     emailfieldscopy.splice(index, 1)
     changeEmailfields(emailfieldscopy)
+  }
+
+  /*const hideDeleteForFirstEmailfield = (index) => {
+    if (index === 0) {
+      return (
+        <IconButton aria-label="delete" className={classes.margin}>
+          <HelpIcon fontSize="large" />
+        </IconButton>
+      )
+    }
+    else{
+      return(
+        <IconButton onClick={e => handleEmailfieldDelete(index)} aria-label="delete" className={classes.margin}>
+          <DeleteIcon fontSize="large" />
+        </IconButton>
+      )
+    }
+  }*/
+
+  function hideDeleteForFirstEmailfield(props) {
+    const index = props.i
+    
+    if (index === 0) {
+      return (
+        <IconButton aria-label="delete" className={classes.margin}>
+          <HelpIcon fontSize="large" />
+        </IconButton>
+      )
+    }
+    else{
+      return(
+        <IconButton onClick={e => handleEmailfieldDelete(index)} aria-label="delete" className={classes.margin}>
+          <DeleteIcon fontSize="large" />
+        </IconButton>
+      )
+    }
   }
 
   const onMakeMoreEmailBoxesEvent = () => {
@@ -211,9 +248,13 @@ const CreatePartyPage = () => {
               </IconButton>
             </Grid>
             <Grid item xs={1}>
-              <IconButton onClick={e => handleEmailfieldDelete(i)} aria-label="delete" className={classes.margin}>
-                <DeleteIcon fontSize="large" />
-              </IconButton>
+              {/*Inline if with Logical && operator: https://reactjs.org/docs/conditional-rendering.html#inline-if-with-logical--operator*/}
+              {i !== 0 &&
+                <IconButton onClick={e => handleEmailfieldDelete(i)} aria-label="delete" className={classes.margin}>
+                  <DeleteIcon fontSize="large" />
+                </IconButton>
+              }
+              {/*<hideDeleteForFirstEmailfield props={i}/>*/}
             </Grid>
           </Grid>
         );
