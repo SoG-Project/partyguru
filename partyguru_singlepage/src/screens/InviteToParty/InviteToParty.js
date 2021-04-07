@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import AddIcon from '@material-ui/icons/Add';
 import Radio from '@material-ui/core/Radio';
 import Image from 'material-ui-image';
+import {render} from "react-dom"
 
 
 
@@ -185,7 +186,8 @@ const handleInviteTheme=(e)=>{
         onChange={handleInviteTheme}
         />
         </div>
-        </div>     
+        </div>
+ 
     </div>
     
     )
