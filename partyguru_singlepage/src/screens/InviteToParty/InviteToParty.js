@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, Component } from "react"
 import {Link} from "react-router-dom"
 import "./InviteToParty.css"
 import axios from 'axios'
@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Radio from '@material-ui/core/Radio';
 import Image from 'material-ui-image';
 import {render} from "react-dom"
+import Theme1 from "./components/theme1";
 
 
 
@@ -105,7 +106,46 @@ const handleInviteTheme=(e)=>{
     })
     
     }
-
+    /*Trying to get components to work, putting as comment so it won't make errors
+    class App extends Component {
+      constructor() {
+        super();
+        this.state = {
+          name: "React",
+          showHideTheme1: false,
+    
+        };
+        this.hideComponent = this.hideComponent.bind(this);
+      }
+    
+      hideComponent(name) {
+        console.log(name);
+        switch (name) {
+          case "showHideDemo1":
+            this.setState({ showHideTheme1: !this.state.showHideTheme1 });
+            break;
+          default:
+            
+        }
+      }
+    
+      render() {
+        const { showHideTheme1} = this.state;
+        return (
+          <div>
+            {showHideTheme1 && <Theme1 />}
+            <hr />
+            <div>
+              <button onClick={() => this.hideComponent("showHideTheme1")}>
+                Click to hide Demo1 component
+              </button>
+            </div>
+          </div>
+        );
+      }
+    }
+    */
+    
     //Handles changes to the form. The text changes will be rendered because changing useState rerenders
     //the description (the changed text)
     const handleChange = (event) => {
@@ -141,6 +181,8 @@ const handleInviteTheme=(e)=>{
             </div>
         </div>
         <Link to="/partypage">Send Invites and go to party page</Link>
+        
+
         
         {/*Preview feature in progress
         this will preview the users input with an invitation letter layout
