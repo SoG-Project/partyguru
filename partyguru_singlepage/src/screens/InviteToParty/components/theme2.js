@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Theme2 extends Component {
   constructor() {
     super();
-    this.state = {display= 'none'};
+    this.state = false;
   }
 
   render() {

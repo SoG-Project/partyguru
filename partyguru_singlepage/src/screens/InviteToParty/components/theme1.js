@@ -3,11 +3,11 @@ import React, { Component } from "react";
 class Theme1 extends Component {
   constructor() {
     super();
-    this.state = {display= 'none'};
+    this.state = false;
   }
 
   render() {
-    return <div>{/*return the copy of the preview*/}</div>;
+    return <div>Onnistunut vaihto</div>;
   }
 }
 
