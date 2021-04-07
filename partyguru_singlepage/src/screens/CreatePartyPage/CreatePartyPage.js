@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     fontSize: "1.7rem",
-    margin: theme.spacing(1),
     marginTop: "2rem",
     marginBottom: "2rem",
   },
@@ -61,11 +60,14 @@ const CreatePartyPage = () => {
     console.log(emailfields);
   };
 
+  //This will update the emailfields array, which in turn will cause the emailfields.map((x, i) => function inside the HTML
+  //part of the code to "update" the amount of the emailfields. We add empty strings because the client will fill out this information.
   const handlePlusButtonClick = () => {
     changeEmailfields([...emailfields, { clientName:"", clientEmail:""}])
   }
 
-  //This will delete the emailfield at the given index of emailfields array
+  //This will delete the emailfield at the given index of emailfields array. Updating the array will change the useState and then in the
+  //HTML part of the code the emailfields.map((x, i) => function will "update" the amount of the emailfields. 
   const handleEmailfieldDelete = (index) => {
     const emailfieldscopy = [...emailfields]
     //Splice removes something at the given index. It will delete x items. Currently we only want to delete 1 item.
