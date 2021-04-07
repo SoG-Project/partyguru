@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   partyGuruInfo: {
-    backgroundColor: "purple",
+    backgroundColor: "#8f00e2",
     color: "white",
     padding: "10px",
     marginBottom: "10px",

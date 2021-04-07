@@ -2,7 +2,15 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./CreatePartyPage.css";
-import { makeStyles, TextField, Typography, Button } from "@material-ui/core";
+import {
+  makeStyles,
+  TextField,
+  Typography,
+  Button,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+} from "@material-ui/core";
 /*import InputAdornment from '@material-ui/core/InputAdornment'
 import AccountCircle from '@material-ui/icons/AccountCircle'*/
 import Icon from "@material-ui/core/Icon";
@@ -36,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
   mainContainer: {
     padding: "1rem",
     margin: "1rem",
+  },
+  checkBoxText:{
+    color: "white",
+    fontSize: "1.2rem",
   },
   button: {
     fontSize: "1.7rem",
@@ -132,6 +144,44 @@ const CreatePartyPage = () => {
           {/*Checkboxes for what the child likes
             CHECK TUTORIAL: https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
             */}
+
+          <Grid
+            container
+            direction="column"
+            style={{
+              backgroundColor: "#8f00e2",
+              padding: "2rem",
+              margin: "10px",
+            }}
+          >
+            <Grid item>
+              <Typography variant="h4" style={{color:"white"}}>Likes about Minecraft</Typography>
+            </Grid>
+            <Grid item>
+              <FormGroup column>
+                <FormControlLabel
+                  control={<Checkbox color="primary" name="Checkboxtest" />}
+                  label={<Typography className={classes.checkBoxText}>TNT</Typography>}
+                />
+                <FormControlLabel
+                  control={<Checkbox color="primary" name="Checkboxtest" />}
+                  label={<Typography className={classes.checkBoxText}>Cats</Typography>}
+                />
+                <FormControlLabel
+                  control={<Checkbox color="primary" name="Checkboxtest" />}
+                  label={<Typography className={classes.checkBoxText}>Dogs</Typography>}
+                />
+                <FormControlLabel
+                  control={<Checkbox color="primary" name="Checkboxtest" />}
+                  label={<Typography className={classes.checkBoxText}>Griefing</Typography>}
+                />
+                <FormControlLabel
+                  control={<Checkbox color="primary" name="Checkboxtest" />}
+                  label={<Typography className={classes.checkBoxText}>Co-op</Typography>}
+                />
+              </FormGroup>
+            </Grid>
+          </Grid>
           <div className="checkboxarea">
             <h2 className="checkboxtitle">Likes about Minecraft</h2>
             <label className="container">
@@ -211,23 +261,6 @@ const CreatePartyPage = () => {
                       value={x.clientEmail}
                     />
                   </div>
-                </Grid>
-                <Grid item xs={1}>
-                  <IconButton
-                    className={classes.giveextraspace}
-                    onClick={handlePlusButtonClick}
-                  >
-                    <AddCircleIcon fontSize="large" color="primary" />
-                  </IconButton>
-                </Grid>
-                <Grid item xs={1}>
-                  <IconButton
-                    onClick={(e) => handleEmailfieldDelete(i)}
-                    aria-label="delete"
-                    className={classes.margin}
-                  >
-                    <DeleteIcon fontSize="large" />
-                  </IconButton>
                 </Grid>
               </Grid>
               <Grid item xs={1}>
