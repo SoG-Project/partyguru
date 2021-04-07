@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
-import {TextField} from "@material-ui/core";
-import {Dialog} from "@material-ui/core";
-import {DialogTitle, DialogContent, DialogContentText, DialogActions} from "@material-ui/core";
-import {flexbox} from '@material-ui/system';
+
 import GuruImageDialog from "./GuruImageDialog";
+
 
 
 
@@ -52,7 +50,9 @@ const GuruImage = (props) =>{
                         handleChange={handleChange} handleClose={handleClose}
                         text={"Enter the new image URL"}/>
         </div>
-    )
+
+            )
+
 
 
 

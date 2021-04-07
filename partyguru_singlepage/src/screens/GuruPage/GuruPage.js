@@ -9,6 +9,7 @@ import GuruPartyPackages from "./components/GuruPartyPackages";
 import GuruVideo from "./components/GuruVideo";
 import { ToggleButton } from '@material-ui/lab';
 import GuruAvailability from "./components/GuruAvailability";
+import UpcomingParties from "./components/UpcomingParties";
 
 
 
@@ -47,7 +48,7 @@ const GuruPage = (props)=> {
                 <GuruVideo video={userProfile.video} guruID={userProfile._id}/>
                 <div>Calendar goes here</div>
                 <GuruAvailability id={userProfile._id} availability={userProfile.availability}/>
-                <div className="upcomingParties">Upcoming Parties</div>
+                <UpcomingParties guruID={userProfile._id}/>
             </div>
         </div>
     )
