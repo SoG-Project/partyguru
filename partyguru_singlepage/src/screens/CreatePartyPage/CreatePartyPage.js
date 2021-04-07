@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./CreatePartyPage.css";
-import { makeStyles, TextField, Typography } from "@material-ui/core";
+import { makeStyles, TextField, Typography, Button } from "@material-ui/core";
 /*import InputAdornment from '@material-ui/core/InputAdornment'
 import AccountCircle from '@material-ui/icons/AccountCircle'*/
 import Icon from "@material-ui/core/Icon";
@@ -33,26 +33,30 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "2rem",
     marginTop: "2rem",
   },
+  button: {
+    fontSize: "1.7rem",
+    margin: theme.spacing(1),
+    marginTop: "2rem",
+    marginBottom: "2rem",
+  },
 }));
 
 const CreatePartyPage = () => {
   const [guestName, changeName] = useState("Teppo Tapani");
+  //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
+  //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
+  //and email. 
   const [emailfields, changeEmailfields] = useState([
     { clientName: "", clientEmail: "" }
   ]);
 
+  //This updates the state with the up-to-date name+email fields. 
   const handleEmailfieldChange = (e, index) => {
     const {name, value} = e.target;
     const emailfieldscopy = [...emailfields];
     emailfieldscopy[index][name] = value
     changeEmailfields(emailfieldscopy)
     
-    /*event.preventDefault();
-    const emailfieldscopy = emailfields;
-    changeEmailfields([
-      ...emailfields,
-      { id: emailfields.length, name: "Teppo", email: "@tapani.com" },
-    ]);*/
     console.log(name, value)
     console.log(emailfields);
   };
@@ -61,56 +65,15 @@ const CreatePartyPage = () => {
     changeEmailfields([...emailfields, { clientName:"", clientEmail:""}])
   }
 
+  //This will delete the emailfield at the given index of emailfields array
   const handleEmailfieldDelete = (index) => {
     const emailfieldscopy = [...emailfields]
+    //Splice removes something at the given index. It will delete x items. Currently we only want to delete 1 item.
     emailfieldscopy.splice(index, 1)
     changeEmailfields(emailfieldscopy)
   }
 
-  /*const hideDeleteForFirstEmailfield = (index) => {
-    if (index === 0) {
-      return (
-        <IconButton aria-label="delete" className={classes.margin}>
-          <HelpIcon fontSize="large" />
-        </IconButton>
-      )
-    }
-    else{
-      return(
-        <IconButton onClick={e => handleEmailfieldDelete(index)} aria-label="delete" className={classes.margin}>
-          <DeleteIcon fontSize="large" />
-        </IconButton>
-      )
-    }
-  }*/
-
-  function hideDeleteForFirstEmailfield(props) {
-    const index = props.i
-    
-    if (index === 0) {
-      return (
-        <IconButton aria-label="delete" className={classes.margin}>
-          <HelpIcon fontSize="large" />
-        </IconButton>
-      )
-    }
-    else{
-      return(
-        <IconButton onClick={e => handleEmailfieldDelete(index)} aria-label="delete" className={classes.margin}>
-          <DeleteIcon fontSize="large" />
-        </IconButton>
-      )
-    }
-  }
-
-  const onMakeMoreEmailBoxesEvent = () => {
-    console.log("Adding email field...");
-    return (
-      <IconButton onClick={onMakeMoreEmailBoxesEvent}>
-        <AddCircleIcon fontSize="large" color="primary" />
-      </IconButton>
-    );
-  };
+  
 
   const classes = useStyles();
   return (
@@ -248,20 +211,21 @@ const CreatePartyPage = () => {
               </IconButton>
             </Grid>
             <Grid item xs={1}>
-              {/*Inline if with Logical && operator: https://reactjs.org/docs/conditional-rendering.html#inline-if-with-logical--operator*/}
+              {/*Inline if with Logical && operator: https://reactjs.org/docs/conditional-rendering.html#inline-if-with-logical--operator
+                 This will allow us to hide the delete button on the first item so at least one emailbox is "visible" at all times.
+              */}
               {i !== 0 &&
                 <IconButton onClick={e => handleEmailfieldDelete(i)} aria-label="delete" className={classes.margin}>
                   <DeleteIcon fontSize="large" />
                 </IconButton>
               }
-              {/*<hideDeleteForFirstEmailfield props={i}/>*/}
             </Grid>
           </Grid>
         );
       })}
-      <Link className="invitetopartylink" to="/invitetoparty">
+      <Button className={classes.button} variant="contained" color="primary">
         To invitation creation
-      </Link>
+      </Button>
     </div>
   );
 };
