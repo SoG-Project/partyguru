@@ -10,6 +10,11 @@
     "upcomingParties upcomingParties";
 }
 
+.mainContainer{
+    padding:1rem;
+    margin:1rem;
+}
+
 @media (max-width: 600px) {
     .guruGrid { grid-template-columns: repeat(1, 320px);
         grid-template-areas:

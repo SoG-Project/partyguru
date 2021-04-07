@@ -27,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: "1rem",
     paddingRight: "1rem",
+    paddingBottom: "1rem",
+    marginLeft: "1rem",
+    marginRight: "1rem",
+    marginBottom: "1rem"
   },
   bigButtons: {
     margin: "10px",

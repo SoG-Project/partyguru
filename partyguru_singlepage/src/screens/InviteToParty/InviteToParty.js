@@ -21,6 +21,8 @@ import { Button } from "@material-ui/core";
 //Function to set style for the email description box (https://material-ui.com/styles/basics/)
 const useStyles = makeStyles((theme) => ({
     root: {
+      padding:"1rem",
+      margin:"1rem",
       '& .MuiTextField-root': {
         //margin: theme.spacing(1),
         //This does not handle resizing of the window. Consider adding a hook to handle resize events. 

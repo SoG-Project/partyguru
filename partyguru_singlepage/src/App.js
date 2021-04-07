@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 //Import Material-ui components here
-import { colors, Toolbar, AppBar } from '@material-ui/core';
+import { colors, Toolbar, AppBar, responsiveFontSizes } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid'
 
@@ -31,19 +31,17 @@ const App = () => {
     <Router>
       <div className="grid-container">
         <Header/>
-        <main>
-          <Switch>
-            <Route path="/createpartypage"> <CreatePartyPage/> </Route>
-            <Route path="/cart"> <CartPage/> </Route>
-            <Route path="/gurupage/"> <GuruPage/> </Route>
-            <Route path="/product/:id"> <PartyPackage/> </Route>
-            <Route path="/login"><LoginPage/></Route>
-            <Route path="/invitetoparty"><InviteToParty/></Route>
-            <Route path="/partypage"><PartyPage/></Route>
-            <Route path="/RSVP"><RSVP/></Route>
-            <Route path="/"> <LandingPage/> </Route>
-          </Switch>
-        </main>
+        <Switch>
+          <Route path="/createpartypage"> <CreatePartyPage/> </Route>
+          <Route path="/cart"> <CartPage/> </Route>
+          <Route path="/gurupage/"> <GuruPage/> </Route>
+          <Route path="/product/:id"> <PartyPackage/> </Route>
+          <Route path="/login"><LoginPage/></Route>
+          <Route path="/invitetoparty"><InviteToParty/></Route>
+          <Route path="/partypage"><PartyPage/></Route>
+          <Route path="/RSVP"><RSVP/></Route>
+          <Route path="/"> <LandingPage/> </Route>
+        </Switch>
         <footer>
           <p className="footer-text">
           <Link href="/createpartypage">Createpartypage </Link>
