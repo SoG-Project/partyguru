@@ -211,7 +211,7 @@ const CreatePartyPage = () => {
               </IconButton>
             </Grid>
             <Grid item xs={1}>
-              <IconButton onClick={handleEmailfieldDelete} aria-label="delete" className={classes.margin}>
+              <IconButton onClick={e => handleEmailfieldDelete(i)} aria-label="delete" className={classes.margin}>
                 <DeleteIcon fontSize="large" />
               </IconButton>
             </Grid>
