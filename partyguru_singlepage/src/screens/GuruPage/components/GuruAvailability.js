@@ -48,8 +48,8 @@ const GuruAvailability = (props) => {
         <div className="availability">
             <h2>Toggle your availability:</h2>
             <div className="buttonGrid">
-            <ToggleButton className={classes.buttonColor} selected={availability} onChange={toggleAvailable} style={{marginBottom: '10px'}}>Available</ToggleButton>
-            <ToggleButton className={classes.buttonColor} selected={!availability} onChange={toggleUnavailable}>Unavailable</ToggleButton>
+            <ToggleButton className={classes.buttonColor} selected={availability} value={1} onChange={toggleAvailable} style={{marginBottom: '10px'}}>Available</ToggleButton>
+            <ToggleButton className={classes.buttonColor} selected={!availability} value={2} onChange={toggleUnavailable}>Unavailable</ToggleButton>
             </div>
         </div>
 

@@ -12,13 +12,10 @@ const UpcomingParties = (props) => {
 
 
     useEffect(() => {
-
-
         axios.get('/api/parties').then(response => {
            setParties(response.data.filter(party => party.guruid === props.guruID))
+
         })
-
-
     }, [props.guruID]);
 
 
@@ -28,7 +25,7 @@ const UpcomingParties = (props) => {
         <div className="upcomingParties">
             <ul>
                 {parties.map((party, index) => <li key={party._id}>  Date:{party.datetime}
-                    Package: {(party.packageid)} Guests: {party.num_attendees} </li>
+                    Package: {party.packageid} Guests: {party.num_attendees} </li>
                 )}
             </ul>
         </div>

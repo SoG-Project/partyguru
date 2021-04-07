@@ -83,7 +83,7 @@ const GuruPartyPackages = ({guruID}) =>{
             <div className="buttonGrid">
             <ul>
             {pPackages && pPackages.map((pPackage, index) =>
-                <li><FormControlLabel key={pPackage._id}  control=
+                <li key={pPackage._id}><FormControlLabel  control=
                     {<Checkbox onChange={() => handleChange(index, pPackage.guruid.includes((guruID)))} name={pPackage.name} disabled={!editMode}
                                checked={pPackage.guruid.includes((guruID)) || false}/>} label={<span style={{fontSize: '2rem'}}>{pPackage.name}</span>} /></li> )}
             </ul>
