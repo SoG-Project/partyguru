@@ -72,7 +72,7 @@ const Product = (props) => {
       <Card variant="outlined" className={classes.cardStyle}>
         {/*Whole card is a CardActionArea. This makes the card look clickable and creates ripples when you click it */}
         <CardActionArea style={{height:"100%"}} centerRipple href={`/product/${product._id}`}>
-          {/*CardMedia loads our image. Most likely the easiest way to have a resizing image */}
+          {/*CardMedia loads our image. Most likely the easiest way to have a responsive image */}
           <CardMedia
             image={product.image}
             title={product.name}
