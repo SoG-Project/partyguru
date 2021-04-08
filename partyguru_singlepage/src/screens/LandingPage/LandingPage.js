@@ -21,18 +21,20 @@ import { Typography } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    padding: "1rem",
+    margin: "1rem",
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
   },
-  partyGuruInfo:{
-    backgroundColor:"purple",
-    color:"white",
-    padding:"10px",
-    marginBottom:"10px"
-  }
+  partyGuruInfo: {
+    backgroundColor: "#8f00e2",
+    color: "white",
+    padding: "10px",
+    marginBottom: "10px",
+  },
 }));
 
 const LandingPage = () => {
@@ -101,109 +103,109 @@ const LandingPage = () => {
   const classes = useStyles();
   return (
     <div>
-    <div className={classes.partyGuruInfo}>
-    <Typography variant="h3">Party Guru</Typography>
-    <p>
-      Our Party Gurus host the most awesome parties for partiers of any age.
-      <br />
-      Parties are hosted on the Discord voice application and in various
-      games <br />
-      available in our selection. <br />
-      Choose your package and get partying. Do it now!
-      <br />
-      <br />
-    </p>
-  </div>
-    <div className={classes.root}>
+      <div className={classes.partyGuruInfo}>
+        <Grid container direction="column" alignItems="center">
+        <Typography gutterBottom variant="h3">Party Guru</Typography>
+        <Typography variant="subtitle">
+          Our Party Gurus host the most awesome parties for partiers of any age.
+          <br />
+          Parties are hosted on the Discord voice application and in various
+          games <br />
+          available in our selection. <br />
+          Choose your package and get partying. Do it now!
+          <br />
+          <br />
+        </Typography>
+        </Grid>
+      </div>
+      <div className={classes.root}>
+        <Grid container spacing={3} justify="center">
+          {products.map((product) => (
+            <Product key={product._id} product={product}></Product>
+          ))}
+        </Grid>
+        {/*<div className="row">uusi rivi</div>*/}
 
+        <div className="break"></div>
 
-      <Grid container spacing={3} justify="center">
-        {products.map((product) => (
-          <Product key={product._id} product={product}></Product>
-        ))}
-      </Grid>
-      {/*<div className="row">uusi rivi</div>*/}
-
-      <div className="break"></div>
-
-      {/*Tavoitteena sisäkkäiset gridit.
+        {/*Tavoitteena sisäkkäiset gridit.
     Vasemmalla näkymässä Scheduler, oikealla formeja tms (ks. Figma etusivua)
     Tässä määritellään uloin grid container, jossa elementtien pitäisi mennä vas -> oik*/}
-      <Grid
-        container
-        direction="row"
-        justify="space-around"
-        alignItems="center"
-        spacing={4}
-        style={{ marginTop: "10px", marginBottom: "10px" }}
-      >
-        <Grid item xs={12}>
-          <Divider style={{ marginBottom: "2rem" }} />
-        </Grid>
-        {/*Ensimmmäisen gridin sisälle grid item, jossa on scheduler*/}
         <Grid
           container
-          item
-          spacing={2}
-          xs={8}
-          direction="column"
-          justify="flex-start"
+          direction="row"
+          justify="space-around"
           alignItems="center"
-          style={{
-            borderStyle: "solid",
-            borderColor: "grey",
-            marginBottom: "10px",
-            marginTop: "10px",
-          }}
-        >
-          <Grid item>
-            <SchedulerTest />
-          </Grid>
-        </Grid>
-
-        {/*Toinen Grid, jonka sisään on tarkoitus tulla email, yms */}
-        <Grid
-          container
-          item
-          xs={3}
           spacing={4}
-          direction="column"
-          justify="flex-start"
-          alignItems="stretch"
-          style={{
-            borderStyle: "dotted",
-            borderColor: "grey",
-            textAlign: "center",
-            height: "690px",
-          }}
+          style={{ marginTop: "10px", marginBottom: "10px" }}
         >
-          <Grid item xs>
-            <ContactInfoFields />
+          <Grid item xs={12}>
+            <Divider style={{ marginBottom: "2rem" }} />
           </Grid>
-          <Grid item xs>
-            <AttendeeNumberSelector />
+          {/*Ensimmmäisen gridin sisälle grid item, jossa on scheduler*/}
+          <Grid
+            container
+            item
+            spacing={2}
+            xs={8}
+            direction="column"
+            justify="flex-start"
+            alignItems="center"
+            style={{
+              borderStyle: "solid",
+              borderColor: "grey",
+              marginBottom: "10px",
+              marginTop: "10px",
+            }}
+          >
+            <Grid item>
+              <SchedulerTest />
+            </Grid>
           </Grid>
-          <Grid item xs>
-            <CostCalculator />
-          </Grid>
-          <Grid item xs>
-            <Button
-              variant="contained"
-              color="primary"
-              href="/cart"
-              style={{
-                margin: "10px",
-                minWidth: "80px",
-                minHeight: "40px",
-                fontSize: "1.2rem",
-              }}
-            >
-              Link to Cart
-            </Button>
+
+          {/*Toinen Grid, jonka sisään on tarkoitus tulla email, yms */}
+          <Grid
+            container
+            item
+            xs={3}
+            spacing={4}
+            direction="column"
+            justify="flex-start"
+            alignItems="stretch"
+            style={{
+              borderStyle: "dotted",
+              borderColor: "grey",
+              textAlign: "center",
+              height: "690px",
+            }}
+          >
+            <Grid item xs>
+              <ContactInfoFields />
+            </Grid>
+            <Grid item xs>
+              <AttendeeNumberSelector />
+            </Grid>
+            <Grid item xs>
+              <CostCalculator />
+            </Grid>
+            <Grid item xs>
+              <Button
+                variant="contained"
+                color="primary"
+                href="/cart"
+                style={{
+                  margin: "10px",
+                  minWidth: "80px",
+                  minHeight: "40px",
+                  fontSize: "1.2rem",
+                }}
+              >
+                Link to Cart
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </div>
     </div>
   );
 };

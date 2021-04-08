@@ -58,7 +58,7 @@ const Product = (props) => {
 
     //guruID && guruIDs check ensures that the map is not done if guruIDs is undefined -> prevents a crash
     axios.get('api/gurus').then((response) => {
-      const guruArray = guruIDs && response.data.filter(guru => guruIDs.includes(guru._id))
+      const guruArray = guruIDs && response.data.filter(guru => guruIDs.includes(guru._id) && guru.availability===true)
       console.log("täs guruarray (Product.js):", guruArray)
       setProductGurus(guruArray)
     })

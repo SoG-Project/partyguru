@@ -9,6 +9,7 @@ import GuruPartyPackages from "./components/GuruPartyPackages";
 import GuruVideo from "./components/GuruVideo";
 import { ToggleButton } from '@material-ui/lab';
 import GuruAvailability from "./components/GuruAvailability";
+import UpcomingParties from "./components/UpcomingParties";
 
 
 
@@ -39,15 +40,16 @@ const GuruPage = (props)=> {
 
 
     return (
-        <div className="guruGrid">
-            <GuruImage guruImage={userProfile.image} guruID={userProfile._id}/>
-            <GuruInfo  id={userProfile._id} bio={userProfile.bio} name={userProfile.name} nick={userProfile.nick} />
-            <GuruPartyPackages guruID={userProfile._id}/>
-            <GuruVideo video={userProfile.video} guruID={userProfile._id}/>
-            <div>Calendar goes here</div>
-            <GuruAvailability id={userProfile._id} availability={userProfile.availability}/>
-            <div className="upcomingParties">Upcoming Parties</div>
-
+        <div className="mainContainer">
+            <div className="guruGrid">
+                <GuruImage guruImage={userProfile.image} guruID={userProfile._id}/>
+                <GuruInfo  id={userProfile._id} bio={userProfile.bio} name={userProfile.name} nick={userProfile.nick} />
+                <GuruPartyPackages guruID={userProfile._id}/>
+                <GuruVideo video={userProfile.video} guruID={userProfile._id}/>
+                <div>Calendar goes here</div>
+                <GuruAvailability id={userProfile._id} availability={userProfile.availability}/>
+                <UpcomingParties guruID={userProfile._id}/>
+            </div>
         </div>
     )
 }

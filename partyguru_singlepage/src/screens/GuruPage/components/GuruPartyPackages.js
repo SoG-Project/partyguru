@@ -19,7 +19,6 @@ const GuruPartyPackages = ({guruID}) =>{
 
 
             //sorting the packages by ID using an inline compare function
-            console.log("gurupaketit", response.data)
             setPPackages(response.data.sort((a,b) => (a._id > b._id) ? 1 : ((b._id > a._id) ? -1 : 0))
             )
         })
@@ -33,6 +32,8 @@ const GuruPartyPackages = ({guruID}) =>{
         console.log(pPackages)
     }
 
+
+    // Change local state of checkboxes on click
 
     const handleChange = (id, isChecked) => {
 
@@ -50,7 +51,7 @@ const GuruPartyPackages = ({guruID}) =>{
         if (isChecked === true) {
 
 
-             tempPackages[id].guruid.splice(tempPackages[id].guruid.indexOf((guruID)), 1)
+            tempPackages[id].guruid.splice(tempPackages[id].guruid.indexOf((guruID)), 1)
             setPPackages(tempPackages)
         }
 
@@ -58,11 +59,16 @@ const GuruPartyPackages = ({guruID}) =>{
 
     }
 
+    // Apply changes to party packages.
     const submitPackages = () => {
 
         pPackages.map(pPackage => {
-               if (pPackage.guruid.includes((guruID))) axios.put('/api/packages/' + (pPackage._id) + '/gurus', {guruid: pPackage.guruid}).then(response => {
-                })
+                if (pPackage.guruid.includes((guruID))) axios.put('/api/packages/' + (pPackage._id) + '/gurus', {guruid: [guruID]}).then(response => {
+                    console.log(response.data)
+                    })
+                if (!pPackage.guruid.includes((guruID))) axios.delete('/api/packages/' + (pPackage._id) + '/gurus', {data:{guruid: [guruID]}}).then(response => {
+                    console.log(response.data)
+                    })
             }
         )
         setEditMode(!editMode)
@@ -77,7 +83,7 @@ const GuruPartyPackages = ({guruID}) =>{
             <div className="buttonGrid">
             <ul>
             {pPackages && pPackages.map((pPackage, index) =>
-                <li><FormControlLabel key={pPackage._id}  control=
+                <li key={pPackage._id}><FormControlLabel  control=
                     {<Checkbox onChange={() => handleChange(index, pPackage.guruid.includes((guruID)))} name={pPackage.name} disabled={!editMode}
                                checked={pPackage.guruid.includes((guruID)) || false}/>} label={<span style={{fontSize: '2rem'}}>{pPackage.name}</span>} /></li> )}
             </ul>

@@ -50,8 +50,10 @@
 
 .partyheroinfo {
     background-color:#8f00e2;
+    color: white;
     margin-right:5%;
     padding: 0px 10px 0px 10px;
+    margin-top: 1rem;
 }
 
 .checkboxarea{

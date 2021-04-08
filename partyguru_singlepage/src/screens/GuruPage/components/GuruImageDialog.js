@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react'
 import {makeStyles, TextField} from "@material-ui/core";
 import {Dialog} from "@material-ui/core";
-import {DialogTitle, DialogContent, DialogContentText, DialogActions} from "@material-ui/core";
+import {DialogTitle, DialogContentText, DialogActions} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -37,9 +36,9 @@ const GuruImageDialog = (props) => {
 
             <DialogTitle className={classes.dialogTitle}>{props.text}</DialogTitle>
                 <TextField maxWidth value={props.newAddress || ''} label="url" onChange={props.handleChange}  variant="outlined" />
-               <DialogContentText>preview</DialogContentText>
+                <DialogContentText>preview</DialogContentText>
                 <img className={classes.previewPic} src={props.newAddress} alt={"preview"}  />
-            <DialogActions className={classes.dialogActions}>
+                <DialogActions className={classes.dialogActions}>
                 <button onClick={props.confirmChanges}>Save</button>
             </DialogActions>
 

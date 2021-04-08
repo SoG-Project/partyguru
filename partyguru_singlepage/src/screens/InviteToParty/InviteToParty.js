@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, Component } from "react"
 import {Link} from "react-router-dom"
 import "./InviteToParty.css"
 import axios from 'axios'
@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography'
 import AddIcon from '@material-ui/icons/Add';
 import Radio from '@material-ui/core/Radio';
 import Image from 'material-ui-image';
+import {render} from "react-dom"
+import Demo4 from "./components/theme1";
 
 
 
@@ -20,6 +22,8 @@ import { Button } from "@material-ui/core";
 //Function to set style for the email description box (https://material-ui.com/styles/basics/)
 const useStyles = makeStyles((theme) => ({
     root: {
+      padding:"1rem",
+      margin:"1rem",
       '& .MuiTextField-root': {
         //margin: theme.spacing(1),
         //This does not handle resizing of the window. Consider adding a hook to handle resize events. 
@@ -139,6 +143,8 @@ const handleInviteTheme=(e)=>{
         </div>
         <Link to="/partypage">Send Invites and go to party page</Link>
         
+
+        
         {/*Preview feature in progress
         this will preview the users input with an invitation letter layout
         not relative positioned anymore so doesn't break when using different resolution or zooming
@@ -184,8 +190,12 @@ const handleInviteTheme=(e)=>{
         color="primary"
         onChange={handleInviteTheme}
         />
+        <div>
+          <Demo4/>
         </div>
-        </div>     
+        </div>
+        </div>
+        
     </div>
     
     )
