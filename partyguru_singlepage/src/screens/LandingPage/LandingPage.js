@@ -3,6 +3,7 @@ import Product from "../../components/Product";
 import ContactInfoFields from "./components/ContactInfoFields";
 import AttendeeNumberSelector from "./components/AttendeeNumberSelector";
 import CostCalculator from "./components/CostCalculator";
+import Calendar from "../../components/Calendar/Calendar";
 
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -105,21 +106,38 @@ const LandingPage = () => {
     <div>
       <div className={classes.partyGuruInfo}>
         <Grid container direction="column" alignItems="center">
-        <Typography gutterBottom variant="h3">Party Guru</Typography>
-        <Typography variant="subtitle">
-          Our Party Gurus host the most awesome parties for partiers of any age.
-          <br />
-          Parties are hosted on the Discord voice application and in various
-          games <br />
-          available in our selection. <br />
-          Choose your package and get partying. Do it now!
-          <br />
-          <br />
-        </Typography>
+          <Typography gutterBottom variant="h3">
+            Party Guru
+          </Typography>
+          <Typography variant="h5">
+            Our Party Gurus host the most awesome parties for partiers of any
+            age.
+            <br />
+            Parties are hosted on the Discord voice application and in various
+            games <br />
+            available in our selection. <br />
+            You can get started by selecting either the date or the game first.
+            <br />
+            <br />
+          </Typography>
         </Grid>
       </div>
+
       <div className={classes.root}>
-        <Grid container spacing={3} justify="center">
+        <Grid container spacing={3} justify="center" alignItems="center">
+          <Grid item xs={7}>
+            <Paper
+              style={{
+                height: "50vh",
+                padding: "1rem",
+                margin: "1rem",
+                alignContent:"center"
+              }}
+            >
+              <Calendar />
+            </Paper>
+          </Grid>
+
           {products.map((product) => (
             <Product key={product._id} product={product}></Product>
           ))}
