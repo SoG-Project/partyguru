@@ -725,6 +725,7 @@ app.put('/api/packages/:id/gurus', (req, res) => {
         updatedPackage.guruid.push(req.body.guruid[i])
       }
     }
+    
     //Save the updated list
     Partypack.updateOne({_id:id }, { $set: updatedPackage}, (error, result) => {
        try{
