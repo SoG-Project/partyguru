@@ -8,7 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Radio from '@material-ui/core/Radio';
 import Image from 'material-ui-image';
 import {render} from "react-dom"
-import Theme1 from "./components/theme1";
+import Demo4 from "./components/theme1";
 
 
 
@@ -106,46 +106,7 @@ const handleInviteTheme=(e)=>{
     })
     
     }
-    /*Trying to get components to work, putting as comment so it won't make errors
-    class App extends Component {
-      constructor() {
-        super();
-        this.state = {
-          name: "React",
-          showHideTheme1: false,
-    
-        };
-        this.hideComponent = this.hideComponent.bind(this);
-      }
-    
-      hideComponent(name) {
-        console.log(name);
-        switch (name) {
-          case "showHideDemo1":
-            this.setState({ showHideTheme1: !this.state.showHideTheme1 });
-            break;
-          default:
-            
-        }
-      }
-    
-      render() {
-        const { showHideTheme1} = this.state;
-        return (
-          <div>
-            {showHideTheme1 && <Theme1 />}
-            <hr />
-            <div>
-              <button onClick={() => this.hideComponent("showHideTheme1")}>
-                Click to hide Demo1 component
-              </button>
-            </div>
-          </div>
-        );
-      }
-    }
-    */
-    
+
     //Handles changes to the form. The text changes will be rendered because changing useState rerenders
     //the description (the changed text)
     const handleChange = (event) => {
@@ -229,9 +190,12 @@ const handleInviteTheme=(e)=>{
         color="primary"
         onChange={handleInviteTheme}
         />
+        <div>
+          <Demo4/>
         </div>
         </div>
- 
+        </div>
+        
     </div>
     
     )
