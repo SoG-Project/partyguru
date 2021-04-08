@@ -38,7 +38,7 @@ const UpcomingParties = (props) => {
     return (
         <div className="upcomingParties">
             <ul>
-                {parties.map((party, index) => <li key={party._id}>  Date:{party.datetime.slice6}
+                {parties.map((party, index) => <li key={party._id}>  Date:{Date(party.datetime)}
                     Package: {nameArray[index]} Guests: {party.num_attendees} </li>
                 )}
             </ul>
