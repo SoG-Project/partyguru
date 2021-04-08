@@ -12,6 +12,7 @@ const UpcomingParties = (props) => {
 
 
     useEffect(() => {
+
         axios.get('/api/parties').then(response => {
            setParties(response.data.filter(party => party.guruid === props.guruID))
 
@@ -19,13 +20,26 @@ const UpcomingParties = (props) => {
     }, [props.guruID]);
 
 
+    // Hook to get the names of the packages associated with the upcoming parties
+    useEffect(() => {
+
+
+        let namedParties = []
+        parties.map(party =>
+        axios.get(`/api/packages/${party.packageid}`).then(response => {
+            namedParties = namedParties.concat(response.data.name)
+            setNameArray(namedParties)
+        })
+        )
+
+    }, [parties]);
 
 
     return (
         <div className="upcomingParties">
             <ul>
-                {parties.map((party, index) => <li key={party._id}>  Date:{party.datetime}
-                    Package: {party.packageid} Guests: {party.num_attendees} </li>
+                {parties.map((party, index) => <li key={party._id}>  Date:{party.datetime.slice6}
+                    Package: {nameArray[index]} Guests: {party.num_attendees} </li>
                 )}
             </ul>
         </div>
