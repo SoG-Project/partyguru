@@ -11,8 +11,6 @@ import { ToggleButton } from '@material-ui/lab';
 import GuruAvailability from "./components/GuruAvailability";
 import UpcomingParties from "./components/UpcomingParties";
 
-
-
 const GuruPage = (props)=> {
 
     const [userProfile, setUserProfile] = useState({})
@@ -34,10 +32,6 @@ const GuruPage = (props)=> {
             //
         };
     }, [userID]);
-
-
-
-
 
     return (
         <div className="mainContainer">

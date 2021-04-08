@@ -1,0 +1,11 @@
+.guruGrid{
+    display:grid;
+    grid-template-columns: repeat(2, 430px);
+    justify-content: center;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "gImage info"
+    "pPackages video"
+    "calendar availability"
+    "upcomingParties upcomingParties";
+}
