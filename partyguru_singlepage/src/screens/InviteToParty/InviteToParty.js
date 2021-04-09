@@ -3,11 +3,7 @@ import {Link} from "react-router-dom"
 import "./InviteToParty.css"
 import axios from 'axios'
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography'
-import AddIcon from '@material-ui/icons/Add';
 import Radio from '@material-ui/core/Radio';
-import Image from 'material-ui-image';
-import {render} from "react-dom"
 import Demo4 from "./components/theme1";
 
 
@@ -17,7 +13,6 @@ import Demo4 from "./components/theme1";
 //import { response } from "express"
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from "@material-ui/core";
 
 //Function to set style for the email description box (https://material-ui.com/styles/basics/)
 const useStyles = makeStyles((theme) => ({
