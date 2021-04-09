@@ -71,7 +71,6 @@ const CreatePartyPage = () => {
     const emailfieldscopy = [...emailfields];
     emailfieldscopy[index][name] = value;
     changeEmailfields(emailfieldscopy);
-
     console.log(name, value);
     console.log(emailfields);
   };

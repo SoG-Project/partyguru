@@ -369,9 +369,9 @@ app.get('/api/gurus', (req, res) => {
       result.forEach(item => {
         count++;
       })
-      console.log(count + "gurus fetched.");
+      console.log(count + " gurus fetched.");
     }).catch(error => {
-      console.log('Guru not fetched, error:');
+      console.log('Gurus not fetched, error:');
       console.log(error.message);
       res.status(400);
       res.send(error.message);});
@@ -396,8 +396,7 @@ app.get('/api/gurus/:id', (req, res) => {
     res.json(result);
   })
   .catch(error => {
-    console.log('Gurus not fetched, error:');
-    console.log(error.message);
+    console.log('Gurus not fetched, error:' + error.message);
     res.status(400);
     res.send(error.message);});
 })
@@ -498,6 +497,20 @@ app.put('/api/gurus/:id', function (req, res) {
                 game: Boolean}]
   } 
   */
+
+// REQUEST: GET all attendees
+ app.get("/api/attendees", (req, res) => {
+  Attendees.find()
+  .then(result => {
+    console.log('All attendees fetched.')
+    res.json(result);
+  })
+  .catch(error => {
+    console.log(error.message);
+    res.status(400);
+    res.send(error.message);});
+});
+
 
 //REQUEST: GET attendees by party id
 //Parameters: party id in URL
