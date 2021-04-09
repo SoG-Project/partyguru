@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom"
-import React, {useState, useEffect} from 'react';
-import {makeStyles, Typography} from '@material-ui/core';
-import axios from 'axios';
+import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { makeStyles, Typography } from "@material-ui/core";
+import axios from "axios";
 import "./PartyPage.css";
-import ContactCard from "./ContactCard"
+import ContactCard from "./ContactCard";
 import {
   TextField,
   Button,
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "1rem",
     margin: "1rem",
   },
-  checkBoxText:{
+  checkBoxText: {
     color: "white",
     fontSize: "1.2rem",
   },
@@ -62,43 +62,46 @@ const useStyles = makeStyles((theme) => ({
  */
 
 //Screen for party page and it's contents
-const PartyPage= () => {
+const PartyPage = () => {
+  const [emailFields, setEmailFields] = useState([
+    { clientName: "", clientEmail: "" },
+  ]);
+  const [attendees, setAttendees] = useState([{}]);
+  const [partyState, setPartyState] = useState({});
+  let partyID = "605f8bcd8dfd970aa770584a";
+  // Initial useEffect on page load that gets the details of the correct party
+  useEffect(() => {
+    const fetchData = async () => {
+      axios.get(`/api/parties/`).then((response) => {
+        console.log(response.data);
+        const allParties = response.data;
+        setPartyState(allParties.find((party) => party._id === partyID));
+      });
+      axios.get(`/api/attendees/`).then((response) => {
+        console.log(response.data);
+        const allAttendees = response.data;
+        setAttendees(
+          allAttendees.find((attendee) => attendee.partyid === partyID)
+        );
+        console.log(
+          allAttendees.find((attendee) => attendee.partyid === partyID)
+        );
+      });
+    };
+    fetchData();
+    return () => {
+      //
+    };
+  }, []);
 
-      const [emailFields, setEmailFields] = useState([
-        { clientName: "", clientEmail: "" },
-      ]);
-      const[attendees, setAttendees] = useState([{}])
-    const [partyState, setPartyState] = useState({})
-    let partyID="605f8bcd8dfd970aa770584a"
-    // Initial useEffect on page load that gets the details of the correct party
-    useEffect(() => {
-        const fetchData = async () => {
-            axios.get(`/api/parties/`).then(response => {
-                console.log(response.data)
-                const allParties = response.data
-                setPartyState(allParties.find(party => party._id === partyID))
-            })
-            axios.get(`/api/attendees/`).then(response => {
-              console.log(response.data)
-              const allAttendees = response.data
-              setAttendees(allAttendees.find(attendee => attendee.partyid === partyID))
-              console.log(allAttendees.find(attendee => attendee.partyid === partyID))
-          })
-          }
-        fetchData();
-        return () => {
-            //
-        };
-    }, []);
-
-/*
+  /*
     useEffect(() => {
         setGuruImage(props.guruImage)
         setNewGuruImageAddress(props.guruImage)
     }, [props]);
 */
 
-/*
+  /*
     //This will delete the emailfield at the given index of emailfields array. Updating the array will change the useState and then in the
     //HTML part of the code the emailfields.map((x, i) => function will "update" the amount of the emailfields.
     const handleEmailfieldDelete = (index) => {
@@ -108,30 +111,32 @@ const PartyPage= () => {
       changeEmailfields(emailfieldscopy);
     };
 */
-    const classes = useStyles();
-    return(
-        <div className={classes.mainContainer}>
-            <Typography variant="subtitle">Page for party page: details, timetable, guru info etc.</Typography>
-          <Grid
-            container
-            spacing={3}
-            direction="row"
-            alignItems="center"
-            style={{ marginTop: "30px", marginBottom: "30px" }}
-            >
-            <Grid container xs={6} spacing={3} direction="column">
-            <Grid>
-{/*
+  const classes = useStyles();
+  return (
+    <div className={classes.mainContainer}>
+      {/* Subtitle is not a valid variant for Typography, this causes a red error */}
+      <Typography variant="subtitle">
+        Page for party page: details, timetable, guru info etc.
+      </Typography>
+      <Grid
+        container
+        spacing={3}
+        direction="row"
+        alignItems="center"
+        style={{ marginTop: "30px", marginBottom: "30px" }}
+      >
+        <Grid container xs={6} spacing={3} direction="column">
+          {/*This should probably be a <Grid item>*/}
+          <Grid>
+            {/*
             {attendees.attendees.map(item=>{
               return <ContactCard x={item}></ContactCard>
             })}
           */}
-            </Grid>
-            </Grid>
           </Grid>
-        
-      
-        </div>
-    )
-        }
-export default PartyPage
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
+export default PartyPage;
