@@ -124,8 +124,8 @@ const LandingPage = () => {
       </div>
 
       <div className={classes.root}>
-        <Grid container spacing={3} justify="center" alignItems="center">
-          <Grid item xs={7}>
+        <Grid container spacing={3} direction="row-reverse" justify="center" alignItems="center">
+          <Grid item xs={12}>
             <Paper
               style={{
                 height: "50vh",
