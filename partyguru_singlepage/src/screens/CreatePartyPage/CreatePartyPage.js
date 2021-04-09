@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import "./CreatePartyPage.css";
 import {
   makeStyles,
@@ -11,14 +10,10 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core";
-/*import InputAdornment from '@material-ui/core/InputAdornment'
-import AccountCircle from '@material-ui/icons/AccountCircle'*/
-import Icon from "@material-ui/core/Icon";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import DeleteIcon from "@material-ui/icons/Delete";
-import HelpIcon from "@material-ui/icons/Help";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -57,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreatePartyPage = () => {
-  const [guestName, changeName] = useState("Teppo Tapani");
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
   //and email.
