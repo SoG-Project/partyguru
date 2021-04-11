@@ -57,34 +57,7 @@ const CreatePartyPage = () => {
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
   //and email.
-  const [emailfields, changeEmailfields] = useState([
-    { clientName: "", clientEmail: "" },
-  ]);
-
-  //This updates the state with the up-to-date name+email fields.
-  const handleEmailfieldChange = (e, index) => {
-    const { name, value } = e.target;
-    const emailfieldscopy = [...emailfields];
-    emailfieldscopy[index][name] = value;
-    changeEmailfields(emailfieldscopy);
-    console.log(name, value);
-    console.log(emailfields);
-  };
-
-  //This will update the emailfields array, which in turn will cause the emailfields.map((x, i) => function inside the HTML
-  //part of the code to "update" the amount of the emailfields. We add empty strings because the client will fill out this information.
-  const handlePlusButtonClick = () => {
-    changeEmailfields([...emailfields, { clientName: "", clientEmail: "" }]);
-  };
-
-  //This will delete the emailfield at the given index of emailfields array. Updating the array will change the useState and then in the
-  //HTML part of the code the emailfields.map((x, i) => function will "update" the amount of the emailfields.
-  const handleEmailfieldDelete = (index) => {
-    const emailfieldscopy = [...emailfields];
-    //Splice removes something at the given index. It will delete x items. Currently we only want to delete 1 item.
-    emailfieldscopy.splice(index, 1);
-    changeEmailfields(emailfieldscopy);
-  };
+  
 
   const saveAttendees = ()=>{
     //Construct array out of the names and emails
@@ -226,82 +199,7 @@ const CreatePartyPage = () => {
           </div>
         </div>
 
-        {emailfields.map((x, i) => {
-          return (
-            <Grid
-              container
-              spacing={3}
-              direction="row"
-              alignItems="center"
-              style={{ marginTop: "30px", marginBottom: "30px" }}
-            >
-              <Grid container xs={6} spacing={3} direction="column">
-                <Grid item>
-                  <div className="namefieldtest">
-                    <TextField
-                      className={classes.textfielderino}
-                      name="clientName"
-                      id="namefieldtest"
-                      fullWidth
-                      label={
-                        <Typography className={classes.textfielderino}>
-                          Name
-                        </Typography>
-                      }
-                      color="secondary"
-                      variant="outlined"
-                      InputProps={{ style: { fontSize: "2rem" } }}
-                      value={x.clientName}
-                      onChange={(e) => handleEmailfieldChange(e, i)}
-                    />
-                  </div>
-                </Grid>
-                <Grid item>
-                  <div className="emailfieldtest">
-                    <TextField
-                      className={classes.textfielderino}
-                      name="clientEmail"
-                      id="namefieldtest"
-                      fullWidth
-                      label={
-                        <Typography className={classes.textfielderino}>
-                          Email
-                        </Typography>
-                      }
-                      color="secondary"
-                      variant="outlined"
-                      inputProps={{ style: { fontSize: "2rem" } }}
-                      onChange={(e) => handleEmailfieldChange(e, i)}
-                      value={x.clientEmail}
-                    />
-                  </div>
-                </Grid>
-              </Grid>
-              <Grid item xs={1}>
-                <IconButton
-                  className={classes.giveextraspace}
-                  onClick={handlePlusButtonClick}
-                >
-                  <AddCircleIcon fontSize="large" color="primary" />
-                </IconButton>
-              </Grid>
-              <Grid item xs={1}>
-                {/*Inline if with Logical && operator: https://reactjs.org/docs/conditional-rendering.html#inline-if-with-logical--operator
-                 This will allow us to hide the delete button on the first item so at least one emailbox is "visible" at all times.
-              */}
-                {i !== 0 && (
-                  <IconButton
-                    onClick={(e) => handleEmailfieldDelete(i)}
-                    aria-label="delete"
-                    className={classes.margin}
-                  >
-                    <DeleteIcon fontSize="large" />
-                  </IconButton>
-                )}
-              </Grid>
-            </Grid>
-          );
-        })}
+       
         <Button className={classes.button} variant="contained" color="primary">
           To invitation creation
         </Button>
