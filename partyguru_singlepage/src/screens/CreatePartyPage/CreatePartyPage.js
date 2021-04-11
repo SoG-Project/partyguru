@@ -59,7 +59,7 @@ const CreatePartyPage = () => {
   //and email.
   
 
-  const saveAttendees = ()=>{
+ /* const saveAttendees = ()=>{
     //Construct array out of the names and emails
     var attendeeArray=[];
     emailfields.map(attendee =>{
@@ -77,7 +77,7 @@ const CreatePartyPage = () => {
       console.log(response.data);
     })
   }
-
+*/
   const classes = useStyles();
   return (
     <div>
@@ -203,10 +203,10 @@ const CreatePartyPage = () => {
         <Button className={classes.button} variant="contained" color="primary">
           To invitation creation
         </Button>
-        <Button className={classes.button} variant="contained" color="primary" onClick={()=>{saveAttendees()}}>
+        {/*<Button className={classes.button} variant="contained" color="primary" onClick={()=>{saveAttendees()}}>
           Save attendees
         </Button>
-
+          */}
 
 
       </div>
