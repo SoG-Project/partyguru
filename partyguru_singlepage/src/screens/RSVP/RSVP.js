@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import { useState } from "react";
 import {
   makeStyles,
@@ -60,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RSVP = () => {
+  const partyID="605f8bcd8dfd970aa770584a";
   //This state controls the attending/not attending radio buttons.
   const [value, setValue] = useState("true");
 
@@ -100,6 +102,20 @@ const RSVP = () => {
 
   const classes = useStyles();
 
+  const saveInformation = ()=>{
+    var attending=false;
+    if(value==="true"){
+      attending=true;
+    }
+    var sendableJSON={
+      game: gamingspecs.gameinstalled,
+      discord: gamingspecs.discordinstalled,
+      attends: attending
+    };
+    axios.put(`http://localhost:5000/api/attendees/`,sendableJSON).then(response => {
+      console.log(response.data);
+    })
+  }
   return (
     <div className={classes.root}>
       <Typography variant="h1">Invitation</Typography>
@@ -359,6 +375,7 @@ const RSVP = () => {
         variant="contained"
         color="primary"
         href="/"
+        onClick={()=>{saveInformation()}}
       >
         Send
       </Button>
@@ -371,6 +388,8 @@ const RSVP = () => {
       >
         More information
       </Button>
+
+      <Button onClick={()=>{console.log(gamingspecs)}}>Show specs</Button>
 
       <Grid
         container

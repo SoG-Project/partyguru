@@ -14,6 +14,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import DeleteIcon from "@material-ui/icons/Delete";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -52,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreatePartyPage = () => {
+  const partyID="605f8bcd8dfd970aa770584a";
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
   //and email.
@@ -83,6 +85,25 @@ const CreatePartyPage = () => {
     emailfieldscopy.splice(index, 1);
     changeEmailfields(emailfieldscopy);
   };
+
+  const saveAttendees = ()=>{
+    //Construct array out of the names and emails
+    var attendeeArray=[];
+    emailfields.map(attendee =>{
+      var singleAttendee={
+        name:attendee.clientName,
+        email:attendee.clientEmail
+      };
+      attendeeArray.push(singleAttendee);
+    })
+    var sendableJSON={
+      partyid: partyID,
+      attendees: attendeeArray
+    };
+    axios.post(`http://localhost:5000/api/attendees`,sendableJSON).then(response => {
+      console.log(response.data);
+    })
+  }
 
   const classes = useStyles();
   return (
@@ -284,6 +305,12 @@ const CreatePartyPage = () => {
         <Button className={classes.button} variant="contained" color="primary">
           To invitation creation
         </Button>
+        <Button className={classes.button} variant="contained" color="primary" onClick={()=>{saveAttendees()}}>
+          Save attendees
+        </Button>
+
+
+
       </div>
     </div>
   );

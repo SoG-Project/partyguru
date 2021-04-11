@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { makeStyles, Typography } from "@material-ui/core";
+import { makeStyles, Typography} from "@material-ui/core";
 import axios from "axios";
 import "./PartyPage.css";
 import ContactCard from "./ContactCard";
@@ -58,21 +58,43 @@ const useStyles = makeStyles((theme) => ({
 
 /**
  
-
  */
 
 //Screen for party page and it's contents
 const PartyPage = () => {
-  const [emailFields, setEmailFields] = useState([
-    { clientName: "", clientEmail: "" },
+  const [attendees, setAttendees] = useState([
+    {
+      "_id": "605f8d013778d70b51e26a1c",
+      "attendees": [
+        {
+          "_id": "605f8d013778d70b51e26a1d",
+          "name": "tommi erkkilä",
+          "email": "erkkilan.tomppa@gmail.com",
+          "attends": true,
+          "discord": true,
+          "game": true
+        },
+        {
+          "_id": "605f8d013778d70b51e26a1e",
+          "name": "Simo Small-Dip",
+          "email": "jonne@web.com",
+          "attends": false,
+          "discord": true,
+          "game": true
+        }
+      ],
+      "partyid": "605f8bcd8dfd970aa770584a",
+      "__v": 0
+    }
   ]);
-  const [attendees, setAttendees] = useState([{}]);
   const [partyState, setPartyState] = useState({});
   let partyID = "605f8bcd8dfd970aa770584a";
-  // Initial useEffect on page load that gets the details of the correct party
+  const [paske, setPaske] = useState(1);
+
   useEffect(() => {
     const fetchData = async () => {
       axios.get(`/api/parties/`).then((response) => {
+        console.log("API attendees:")
         console.log(response.data);
         const allParties = response.data;
         setPartyState(allParties.find((party) => party._id === partyID));
@@ -80,9 +102,31 @@ const PartyPage = () => {
       axios.get(`/api/attendees/`).then((response) => {
         console.log(response.data);
         const allAttendees = response.data;
-        setAttendees(
-          allAttendees.find((attendee) => attendee.partyid === partyID)
-        );
+        setAttendees(([
+          {
+            "_id": "605f8d013778d70b51e26a1c",
+            "attendees": [
+              {
+                "_id": "605f8d013778d70b51e26a1d",
+                "name": "tommi erkkilä",
+                "email": "erkkilan.tomppa@gmail.com",
+                "attends": true,
+                "discord": true,
+                "game": true
+              },
+              {
+                "_id": "605f8d013778d70b51e26a1e",
+                "name": "Simo Small-Dip",
+                "email": "jonne@web.com",
+                "attends": false,
+                "discord": true,
+                "game": true
+              }
+            ],
+            "partyid": "605f8bcd8dfd970aa770584a",
+            "__v": 0
+          }
+        ]));
         console.log(
           allAttendees.find((attendee) => attendee.partyid === partyID)
         );
@@ -94,6 +138,92 @@ const PartyPage = () => {
     };
   }, []);
 
+
+  const classes = useStyles();
+  return (
+    <div className={classes.mainContainer}>
+      {/* Subtitle is not a valid variant for Typography, this causes a red error */}
+      <Typography>
+        Page for party page: details, timetable, guru info etc.
+      </Typography>
+      <Button onClick={()=>{setPaske(paske+2)}}>Press me</Button>
+      <Grid
+        container
+        spacing={3}
+        direction="row"
+        alignItems="center"
+        style={{ marginTop: "30px", marginBottom: "30px" }}
+      >
+
+          <Grid container xs={6} spacing={3} direction="column">
+          {/*This should probably be a <Grid item>*/}
+          <Grid item>
+            {console.log("state attendees: " + attendees.attendees)}
+            {attendees.attendees&&attendees.attendees.map(item=>{
+              return <ContactCard x={item}></ContactCard>
+            })}
+ 
+          </Grid>
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
+export default PartyPage;
+
+
+/**
+const attendeeJSON=[
+  {
+    "_id": "605f8d013778d70b51e26a1c",
+    "attendees": [
+      {
+        "_id": "605f8d013778d70b51e26a1d",
+        "name": "tommi erkkilä",
+        "email": "erkkilan.tomppa@gmail.com",
+        "attends": true,
+        "discord": true,
+        "game": true
+      },
+      {
+        "_id": "605f8d013778d70b51e26a1e",
+        "name": "Simo Small-Dip",
+        "email": "jonne@web.com",
+        "attends": false,
+        "discord": true,
+        "game": true
+      }
+    ],
+    "partyid": "605f8bcd8dfd970aa770584a",
+    "__v": 0
+  }
+];
+ */
+
+  // Initial useEffect on page load that gets the details of the correct party
+  /*
+   useEffect(() => {
+    const fetchData = async () => {
+      axios.get(`/api/parties/`).then((response) => {
+        console.log(response.data);
+        const allParties = response.data;
+        setPartyState(allParties.find((party) => party._id === partyID));
+      });
+      axios.get(`/api/attendees/`).then((response) => {
+        console.log(response.data);
+        const allAttendees = response.data;
+        setAttendees(attendeeJSON);
+        console.log(
+          allAttendees.find((attendee) => attendee.partyid === partyID)
+        );
+      });
+    };
+    fetchData();
+    return () => {
+      //
+    };
+  }, []);
+*/
   /*
     useEffect(() => {
         setGuruImage(props.guruImage)
@@ -111,32 +241,3 @@ const PartyPage = () => {
       changeEmailfields(emailfieldscopy);
     };
 */
-  const classes = useStyles();
-  return (
-    <div className={classes.mainContainer}>
-      {/* Subtitle is not a valid variant for Typography, this causes a red error */}
-      <Typography variant="subtitle">
-        Page for party page: details, timetable, guru info etc.
-      </Typography>
-      <Grid
-        container
-        spacing={3}
-        direction="row"
-        alignItems="center"
-        style={{ marginTop: "30px", marginBottom: "30px" }}
-      >
-        <Grid container xs={6} spacing={3} direction="column">
-          {/*This should probably be a <Grid item>*/}
-          <Grid>
-            {/*
-            {attendees.attendees.map(item=>{
-              return <ContactCard x={item}></ContactCard>
-            })}
-          */}
-          </Grid>
-        </Grid>
-      </Grid>
-    </div>
-  );
-};
-export default PartyPage;

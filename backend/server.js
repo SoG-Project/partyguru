@@ -293,7 +293,7 @@ app.post('/api/parties', (req, res) => {
     entry.duration=req.body.duration;
     entry._id=newID;
     partyinfo.parties.push(entry);
-    res.send('Succéss' + entry.guruid)
+    res.send('Succéss' + entry.guruid);
   }
 });
 //REQUEST: post uusi juhlijalista

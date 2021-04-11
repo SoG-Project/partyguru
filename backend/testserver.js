@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import require from 'requirejs';
+import { v4 as uuidv4 } from 'uuid';
 const app = express();
 app.use(express.static('build'));
 app.use(bodyParser.json());
@@ -26,8 +27,11 @@ const Guru= new mongoose.model('Guru',guruSchema);
 //Attendee list schema and model
 const attendeesSchema = new mongoose.Schema({
     partyid:String,
-    attendees: [{name: String, 
+    attendees: [{
+                attendeeid: String,
+                name: String, 
                 email: String, 
+                considerations: String,
                 attends: Boolean, 
                 discord: Boolean, 
                 game: Boolean}]
@@ -555,6 +559,10 @@ app.get('/api/attendees/:id', (req, res) => {
 })
 */
 app.post('/api/attendees', (req, res) => {
+  //Add an attendee id to the attendee object
+  //const aid= uuidv4().toString();
+  var attendeeObject=req.body.attendees;
+  //attendeeObject.attendeeid=aid;
   if(req.body.partyid===undefined){
    throw new Error('Error. no party id');
  }
@@ -562,7 +570,7 @@ app.post('/api/attendees', (req, res) => {
    //Construct Attendees object
    var entry = new Attendees({
      partyid: req.body.partyid,
-     attendees: req.body.attendees
+     attendees: attendeeObject
    });
    //Save Attendees object
    entry.save()
@@ -577,13 +585,13 @@ app.post('/api/attendees', (req, res) => {
  }
 });
 
-// REQUEST: PUT update attendee information / add new attendees
+// REQUEST: PUT update attendee information 
 // The request checks whether the attendees in the JSON-body were already in the database.
 // If they were, their entry is replaced with the entry in the JSON-body.
 // If no such attendee was found, their entry is added to the attendee array.
 // Parameters: 1. id in the url corresponds to the party id whose attendees are updated
-//             2. JSON-body with key "attendees", formatted like in the Schema above
-// If the attendee with the same email is found in the same party's attendees, their information will be replaced with the new information
+//             2. JSON-body with key "attendees", formatted like in the Schema above, with UUIDs added
+// If the attendee with the same uuid is found in the same party's attendees, their information will be replaced with the new information
 //Returns status code 200 (successful) or 400 with error message (unsuccessful)
 /*
   let id=1; 
@@ -601,22 +609,15 @@ app.put('/api/attendees/:id', function (req, res) {
     //Iterate over the json-body and the fetched list, trying to match emails 
     var updatedAttendee=false;
     for(var i=0;i<req.body.attendees.length;i++){
-      var changed=false;
       for (var k = 0; k < attendeeList.attendees.length; k++) {
         console.log(attendeeList.attendees[k]);
         //If the same email is found, insert the entry in the request body in the place of the fetched entry
-        if (attendeeList.attendees[k].email === req.body.attendees[i].email) {
+        if (attendeeList.attendees[k]._id === req.body.attendees[i]._id) {
           attendeeList.attendees.splice(k,1,req.body.attendees[i]);
-          changed=true;
           updatedAttendee=true;
           console.log('Attendee updated with this email:' + req.body.attendees[i].email);
         }
        }
-       //If the same email isn't found, push the entry into the list
-       if(changed===false){
-        attendeeList.attendees.push(req.body.attendees[i]);
-        console.log('Attendee added to the list as a new entry. Attendee email: ' + req.body.attendees[i].email);
-      }
     }
     if(updatedAttendee===false){
       throw('Nothing got modified by your request');
