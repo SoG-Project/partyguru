@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import {ToggleButton} from "@material-ui/lab";
 import axios from "axios";
-import {makeStyles} from "@material-ui/core";
+import {DataGrid, GridRowsProp} from '@material-ui/data-grid';
+import {GridColDef} from "@material-ui/data-grid";
+import Button from "@material-ui/core/Button";
 
 
 // Styling for togglebutton color when selected
@@ -9,7 +10,29 @@ const UpcomingParties = (props) => {
 
     const [parties, setParties] = useState([])
     const [nameArray, setNameArray] = useState([])
+    const [rows, setRows] = useState([])
 
+    const newParties = []
+
+
+    const columns = [
+        { field: 'date', headerName: 'Date and time', width: 250 },
+        { field: 'pPackage', headerName: 'Package', width: 150 },
+        { field: 'guestAmount', headerName: '# of guests', width: 150 },
+        { field: 'ppLink', headerName: 'Party Page', width: 150,
+            renderCell: (params) => (
+                <strong>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        onClick={()=>console.log(params.value)}
+                    >
+                        Open
+                    </Button>
+                </strong>
+            ),  },
+    ]
 
     useEffect(() => {
 
@@ -20,31 +43,49 @@ const UpcomingParties = (props) => {
     }, [props.guruID]);
 
 
-    // Hook to get the names of the packages associated with the upcoming parties
+    // Hook that gets the names of the party packages based on id
     useEffect(() => {
 
-
         let namedParties = []
-        parties.map(party =>
-        axios.get(`/api/packages/${party.packageid}`).then(response => {
-            namedParties = namedParties.concat(response.data.name)
-            setNameArray(namedParties)
-        })
+        parties.map((party, index) =>
+            axios.get(`/api/packages/${party.packageid}`).then(response => {
+                namedParties = namedParties.concat(response.data.name)
+                console.log(namedParties)
+                 setNameArray(namedParties)
+            })
         )
 
     }, [parties]);
 
 
+
+    // Hook to fill the data grid with party details
+    useEffect(() => {
+        parties.map((party, index) => {
+                newParties.push({id: index, date: new Date(party.datetime).toString().split('(')[0], pPackage:
+                        (nameArray[index]), guestAmount: party.num_attendees, ppLink: ("Clicky click" + index)})
+
+            if (index===parties.length-1)
+                setRows(newParties)
+        }
+    )
+
+    }, [nameArray]);
+
+
+
     return (
         <div className="upcomingParties">
-            <ul>
-                {parties.map((party, index) => <li key={party._id}>  Date:{Date(party.datetime)}
-                    Package: {nameArray[index]} Guests: {party.num_attendees} </li>
-                )}
-            </ul>
+            <h2>Your upcoming parties:</h2>
+            <div style={{height:400, width: '80%', backgroundColor:"#F0FFFF"}}>
+            <DataGrid rows={rows} columns={columns} />
+            </div>
+
         </div>
     )
 
 }
+
+
 
 export default UpcomingParties

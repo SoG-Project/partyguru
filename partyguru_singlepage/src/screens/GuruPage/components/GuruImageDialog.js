@@ -37,7 +37,7 @@ const GuruImageDialog = (props) => {
             <DialogTitle className={classes.dialogTitle}>{props.text}</DialogTitle>
                 <TextField maxWidth value={props.newAddress || ''} label="url" onChange={props.handleChange}  variant="outlined" />
                 <DialogContentText>preview</DialogContentText>
-                <img className={classes.previewPic} src={props.newAddress} alt={"preview"}  />
+                <img className="profilePic" src={props.newAddress} alt={"preview"}  />
                 <DialogActions className={classes.dialogActions}>
                 <button onClick={props.confirmChanges}>Save</button>
             </DialogActions>

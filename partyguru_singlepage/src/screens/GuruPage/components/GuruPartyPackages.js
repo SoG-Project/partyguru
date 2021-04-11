@@ -75,9 +75,7 @@ const GuruPartyPackages = ({guruID}) =>{
     }
 
 
-
     return (
-
         <div className="checkBoxes">
             <h2>Party packages you can host:</h2>
             <div className="buttonGrid">
@@ -88,7 +86,6 @@ const GuruPartyPackages = ({guruID}) =>{
                                checked={pPackage.guruid.includes((guruID)) || false}/>} label={<span style={{fontSize: '2rem'}}>{pPackage.name}</span>} /></li> )}
             </ul>
             </div>
-
             {editMode ? <button className="flexAlignThis" onClick={submitPackages}>Save</button> : <button className="flexAlignThis" onClick={handleEditChange}>Edit</button>}
         </div>
     )

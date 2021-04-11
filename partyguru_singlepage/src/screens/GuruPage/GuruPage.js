@@ -23,7 +23,6 @@ const GuruPage = (props)=> {
 
         const fetchData = async () => {
             axios.get(`/api/gurus/`).then(response => {
-                console.log(response.data)
                 const allGurus = response.data
                 setUserProfile(allGurus.find(guru => guru._id === userID))
             })}

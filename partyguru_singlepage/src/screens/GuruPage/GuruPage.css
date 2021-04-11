@@ -1,8 +1,9 @@
 .guruGrid{
     display:grid;
-    grid-template-columns: repeat(2, 430px);
+    grid-template-columns: repeat(2, 450px);
     justify-content: center;
     grid-template-rows: auto;
+    grid-gap:1px;
     grid-template-areas:
     "gImage info"
     "pPackages video"

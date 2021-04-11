@@ -44,7 +44,7 @@ const GuruVideo = (props) =>{
             <button className="orangeButton" onClick={handleClick}>Change Video URL</button>
             <Dialog maxWidth={'xs'} open={dialogOpen} onClose={handleClose}>
                 <DialogTitle>{"Enter the new video url"}</DialogTitle>
-                <TextField maxWidth value={newGuruVideoAddress || ''} label="url" onChange={handleChange}  variant="outlined" />
+                <TextField style={{marginBottom: '15px', marginRight:'5px', marginLeft:'5px'}} maxWidth value={newGuruVideoAddress || ''} label="url" onChange={handleChange}  variant="outlined" />
                 <button onClick={confirmChanges}>Save</button>
 
             </Dialog>
