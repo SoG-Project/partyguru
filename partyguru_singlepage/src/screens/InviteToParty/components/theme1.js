@@ -1,63 +1,36 @@
 import React, { Component } from "react";
 
-class Demo4 extends Component {
+class Theme1 extends Component {
   constructor() {
     super();
     this.state = {
-      showHideFName: true,
-      showHideLName: true
+      showHideTheme: false,
     };
     this.hideComponent = this.hideComponent.bind(this);
   }
 
   hideComponent(name) {
     switch (name) {
-      case "showHideFName":
-        this.setState({ showHideFName: !this.state.showHideFName });
-        break;
-      case "showHideLName":
-        this.setState({ showHideLName: !this.state.showHideLName });
+      case "showHideTheme":
+        this.setState({ showHideTheme: !this.state.showHideTheme });
         break;
     }
   }
 
   render() {
-    const { showHideFName, showHideLName } = this.state;
+    const { showHideTheme} = this.state;
     return (
       <div>
         <table>
-          {showHideFName && (
-            <tr>
-              <td>First Name :</td>
-              <td>
-                <input type="text" id="fName" />
-              </td>
-            </tr>
-          )}
-          {showHideLName && (
-            <tr>
-              <td>Last Name :</td>
-              <td>
-                <input type="text" id="lName" />
-              </td>
-            </tr>
-          )}
-          {showHideFName && showHideLName && (
-            <tr>
-              <td>
-                <button>Submit</button>
-              </td>
-            </tr>
+          {showHideTheme && (
+            /*Struggling to get my preview from the InviteToParty here,
+            have to use props I think */
+            <div>Tähän tulee siisti teema</div>
           )}
           <tr>
             <td>
-              <button onClick={() => this.hideComponent("showHideFName")}>
-                Hide First Name
-              </button>
-            </td>
-            <td>
-              <button onClick={() => this.hideComponent("showHideLName")}>
-                Hide Last Name
+              <button onClick={() => this.hideComponent("showHideTheme")}>
+                Show this theme
               </button>
             </td>
           </tr>
@@ -67,4 +40,4 @@ class Demo4 extends Component {
   }
 }
 
-export default Demo4;
+export default Theme1;

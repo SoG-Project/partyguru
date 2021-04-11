@@ -18,6 +18,7 @@ import Demo4 from "./components/theme1";
 //import { response } from "express"
 
 import { makeStyles } from '@material-ui/core/styles';
+import Theme1 from "./components/theme1";
 
 //Function to set style for the email description box (https://material-ui.com/styles/basics/)
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-
+  
 
 const InviteToParty = () => {
     
@@ -220,13 +221,11 @@ const handleEmailfieldDelete = (index) => {
         color="primary"
         onChange={handleInviteTheme}
         />
-        {/*Maybe later
-        <div>
-          <Demo4  />
-        </div>
-        */}
         </div>
         </div>
+        
+        {/*This is on top of the invite preview for some reason
+        dunno how to fix it atm */}
         {emailfields.map((x, i) => {
           return (
             <Grid
@@ -303,6 +302,10 @@ const handleEmailfieldDelete = (index) => {
             </Grid>
           );
         })}
+        {/*The preview theme */}
+        <div>
+          <Theme1  />
+        </div>
     </div>
     
     )
