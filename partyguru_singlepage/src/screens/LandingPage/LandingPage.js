@@ -128,7 +128,7 @@ const LandingPage = () => {
           <Grid item xs={12}>
             <Paper
               style={{
-                height: "50vh",
+                height: "80vh",
                 padding: "1rem",
                 margin: "1rem",
                 alignContent:"center"
