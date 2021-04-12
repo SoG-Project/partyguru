@@ -10,6 +10,19 @@ import allLocales from "@fullcalendar/core/locales-all";
 const Calendar = () => {
   let eventGuid = 0;
 
+  const createEventId = () => {
+    return String(eventGuid++);
+  };
+
+  const [events, setEvents] = React.useState([
+    {
+      id: createEventId(),
+      title: "Testitapahtuma",
+      start: "2021-04-12T10:00",
+      end: "2021-04-12T12:00",
+    },
+  ]);
+
   const handleDateSelect = (selectInfo) => {
     let title = prompt("Please enter a new title for your event");
     let calendarApi = selectInfo.view.calendar;
@@ -27,20 +40,45 @@ const Calendar = () => {
     }
   };
 
-  const createEventId = () => {
-    return String(eventGuid++);
+  const handleEventButton = (selectInfo) => {
+    console.log("HandleEventButton clicked");
+    let title = prompt("Please enter a title for your event");
+    let startDate = prompt(
+      "Please enter event start date (in format YYYY-MM-DDTXX:XX)"
+    );
+    let endDate = prompt(
+      "Please enter event end date (in format YYYY-MM-DDTXX:XX)"
+    );
+    let calendarApi = selectInfo.view.calendar;
+
+    console.log(startDate, endDate);
+
+    if (title && startDate && endDate && endDate > startDate) {
+      alert("Promptit täytetty oikein");
+      let newEvent = {
+        id: createEventId(),
+        title,
+        start: startDate,
+        end: endDate,
+      };
+      calendarApi.addEvent(newEvent);
+      setEvents((events) => [...events, newEvent]);
+    } else {
+      alert("Promptit täytetty väärin");
+    }
   };
 
   return (
     <FullCalendar
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
       initialView="timeGridWeek"
-      initialDate="2021-04-08"
+      initialEvents={events}
       height="100%"
       locale="fi"
       selectable
       slotMinTime="08:00:00"
       slotMaxTime="22:00:00"
+      nowIndicator
       allDaySlot={false}
       firstDay="1"
       select={handleDateSelect}
@@ -52,14 +90,11 @@ const Calendar = () => {
         center: "title myCustomButton",
         right: "timeGridWeek timeGridDay",
       }}
-
       customButtons={{
-        myCustomButton:{
-          text:'custom button',
-          click: function() {
-            alert('Custom button clicked!')
-          }
-        }
+        myCustomButton: {
+          text: "Add event",
+          click: handleEventButton,
+        },
       }}
     />
   );
