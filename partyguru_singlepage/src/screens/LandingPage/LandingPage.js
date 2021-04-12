@@ -215,7 +215,7 @@ const LandingPage = () => {
                   margin: "10px",
                   minWidth: "80px",
                   minHeight: "40px",
-                  fontSize: "1.2rem",
+                  fontSize: "1.2rem,"
                 }}
               >
                 Link to Cart

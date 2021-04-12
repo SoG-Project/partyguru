@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from "axios";
 import { Checkbox } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from "@material-ui/core/Button";
 
 
 const GuruPartyPackages = ({guruID}) =>{
@@ -86,7 +87,7 @@ const GuruPartyPackages = ({guruID}) =>{
                                checked={pPackage.guruid.includes((guruID)) || false}/>} label={<span style={{fontSize: '2rem'}}>{pPackage.name}</span>} /></li> )}
             </ul>
             </div>
-            {editMode ? <button className="flexAlignThis" onClick={submitPackages}>Save</button> : <button className="flexAlignThis" onClick={handleEditChange}>Edit</button>}
+            {editMode ? <Button style={{minWidth: "80px", minHeight: "40px"}} variant="contained" color="primary" className="flexAlignThis" onClick={submitPackages}>Save</Button> : <Button style={{minWidth: "80px", minHeight: "40px"}} variant="contained" color="primary" className="flexAlignThis" onClick={handleEditChange}>Edit</Button>}
         </div>
     )
 

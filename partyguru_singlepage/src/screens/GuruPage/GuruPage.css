@@ -38,13 +38,20 @@
 }
 
 .profilePic {
-    width:80%;
-    height: 80%;
-    border-style:solid;
+    width:300px;
+    height:300px;
     align-self:center;
+    margin-right:10px;
+    margin-left:10px;
 
 }
 
+@media (max-width: 600px) {
+    .profilePic {
+        width: 250px;
+        height: 250px;
+    }
+}
 
 
 .guruGrid > div{

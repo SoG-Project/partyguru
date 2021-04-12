@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import axios from "axios";
 
 import GuruImageDialog from "./GuruImageDialog";
+import Button from "@material-ui/core/Button";
 
 
 
@@ -28,6 +29,7 @@ const GuruImage = (props) =>{
 
     const handleClose = () => {
         setDialogOpen(false)
+        setNewGuruImageAddress(guruImage)
     }
 
     const confirmChanges = (event) => {
@@ -38,6 +40,8 @@ const GuruImage = (props) =>{
         setDialogOpen(false)
     }
 
+
+
     const handleChange = (event) => {
         setNewGuruImageAddress(event.target.value)
     }
@@ -45,7 +49,7 @@ const GuruImage = (props) =>{
    return (
         <div className="gImage">
             <img className="profilePic" src={guruImage} alt={"profilePic"}   />
-            <button onClick={handleClick}>Change Pic</button>
+            <Button style={{minWidth: "80px", minHeight: "40px"}} variant="contained" color="primary" onClick={handleClick}>Change Pic</Button>
             <GuruImageDialog confirmChanges={confirmChanges} newAddress={newGuruImageAddress} dialogOpen={dialogOpen}
                         handleChange={handleChange} handleClose={handleClose}
                         text={"Enter the new image URL"}/>
