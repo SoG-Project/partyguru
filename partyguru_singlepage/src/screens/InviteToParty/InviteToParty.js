@@ -19,6 +19,7 @@ import Demo4 from "./components/theme1";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Theme1 from "./components/theme1";
+import nodemailer from "nodemailer";
 
 //Function to set style for the email description box (https://material-ui.com/styles/basics/)
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 /*Email sending thingy, didn't work yet when tried but will work on it*/
- var nodemailer = require('nodemailer');
+  /*var nodemailer = require('nodemailer') */
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',

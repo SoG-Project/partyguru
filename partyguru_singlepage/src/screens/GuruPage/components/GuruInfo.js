@@ -68,7 +68,7 @@ const GuruInfo = (props) =>{
             <form>
                 <TextField style={{marginBottom: '15px'}} InputLabelProps={{style: {fontSize: 15}}} inputProps={{style: {fontSize: 12}}} value={guruInfo.name || ''} label="Name" onChange={handleNameChange}  variant="outlined" disabled/>   <br/>
                 <TextField style={{marginBottom: '15px'}} InputLabelProps={{style: {fontSize: 15}}} inputProps={{style: {fontSize: 12}}} value={guruInfo.nick || ''} label="Nick" onChange={handleNickChange} variant="outlined" disabled/>  <br/>
-                <TextField style={{marginBottom: '1px'}} InputLabelProps={{style: {fontSize: 15}}} inputProps={{style: {fontSize: 12}}} value={guruInfo.bio || ''} multiline rows="12" fullWidth label="Bio" onChange={handleBioChange} variant="outlined" disabled/>   <br/>
+                <TextField style={{marginBottom: '1px'}} InputLabelProps={{style: {fontSize: 15}}} inputProps={{style: {fontSize: 12}}} value={guruInfo.bio || ''} multiline rows="14" fullWidth label="Bio" onChange={handleBioChange} variant="outlined" disabled/>   <br/>
             </form>
             <button className="flexAlignThis" onClick={handleClick}>Edit</button>
         </div>
@@ -82,7 +82,7 @@ const GuruInfo = (props) =>{
             <form onSubmit={handleSubmit}>
             <TextField style={{marginBottom: '15px'}} InputLabelProps={{style: {fontSize: 15}}} inputProps={{style: {fontSize: 12}}} value={editedGuruInfo.name || '' } label="Name" onChange={handleNameChange}  variant="outlined"/> <br/>
             <TextField style={{marginBottom: '15px'}} InputLabelProps={{style: {fontSize: 15}}} inputProps={{style: {fontSize: 12}}} value={editedGuruInfo.nick || ''} label="Nick" onChange={handleNickChange} variant="outlined"/>  <br/>
-            <TextField style={{marginBottom: '1px'}}  InputLabelProps={{style: {fontSize: 15}}} inputProps={{style: {fontSize: 12}}} value={editedGuruInfo.bio || ''} multiline rows="12" fullWidth label="Bio" onChange={handleBioChange} variant="outlined"/>   <br/>
+            <TextField style={{marginBottom: '1px'}}  InputLabelProps={{style: {fontSize: 15}}} inputProps={{style: {fontSize: 12}}} value={editedGuruInfo.bio || ''} multiline rows="14" fullWidth label="Bio" onChange={handleBioChange} variant="outlined"/>   <br/>
             </form>
             <button className="flexAlignThis" onClick={handleSubmit}>Save</button>
 

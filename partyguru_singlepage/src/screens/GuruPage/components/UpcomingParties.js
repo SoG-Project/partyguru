@@ -14,7 +14,7 @@ const UpcomingParties = (props) => {
 
     const newParties = []
 
-
+    // Setting up the columns for the Data Grid
     const columns = [
         { field: 'date', headerName: 'Date and time', width: 250 },
         { field: 'pPackage', headerName: 'Package', width: 150 },
