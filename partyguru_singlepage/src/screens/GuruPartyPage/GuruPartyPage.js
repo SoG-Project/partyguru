@@ -85,87 +85,98 @@ const GuruPartyPage = () => {
           Please input information about the party hero so the Party Guru can
           provide a customized experience
         </p>*/}
-      <Grid
-        container
-        direction="row"
-      >
-        <Grid item xs={4} >
-          <Box style={{padding:"20px"}}>
-          <Typography className={classes.bigtext} variant="h2">
-            Party hero info
-          </Typography>
-          <Box boxShadow={5} >
-          
-          <TextField
-            id="phitext"
-            fullWidth 
-            multiline 
-            rows={6}
-            value={partyheroinfo} 
-            inputProps={{style: {fontSize:"2rem", lineHeight:"150%"}}}
-            //variant="outlined"
-            onChange={handlePartyHeroInfoChange}
-          />
-          </Box>
-          </Box>
-        </Grid>
-      <Grid item xs={8}>
-      <Grid
-        className={classes.grid}
-        container
-        direction="column"
-        style={{
-          padding: "2rem",
-          margin: "10px",
-        }}
-      >
-        <Box boxShadow={5} style={{padding:"20px"}}>
-        <Grid item>
-          <Typography variant="h4" >
-            Likes about Minecraft
-          </Typography>
-        </Grid>
-        <Grid item>
-          
-          <FormGroup column>
-            <FormControlLabel
-              control={<Checkbox name="Checkboxtest" />}
-              label={
-                <Typography className={classes.checkBoxText}>TNT</Typography>
-              }
-            />
-            <FormControlLabel
-              control={<Checkbox name="Checkboxtest" />}
-              label={
-                <Typography className={classes.checkBoxText}>Cats</Typography>
-              }
-            />
-            <FormControlLabel
-              control={<Checkbox name="Checkboxtest" />}
-              label={
-                <Typography className={classes.checkBoxText}>Dogs</Typography>
-              }
-            />
-            <FormControlLabel
-              control={<Checkbox  name="Checkboxtest" />}
-              label={
-                <Typography className={classes.checkBoxText}>
-                  Griefing
+        <Grid container direction="column" >
+          <Grid item>
+            <Grid container direction="row">
+              <Grid item xs={4} style={{ paddingTop: "20px", paddingLeft: "20px"}}>
+                <Typography className={classes.bigtext} variant="h2">
+                  Party hero info
                 </Typography>
-              }
-            />
-            <FormControlLabel
-              control={<Checkbox name="Checkboxtest" />}
-              label={
-                <Typography className={classes.checkBoxText}>Co-op</Typography>
-              }
-            />
-          </FormGroup>
+              </Grid>
+              <Grid item xs={8} style={{ paddingTop: "20px", paddingLeft:"20px"}}>
+                <Typography variant="h4">Likes about Minecraft</Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Grid container direction="row" style={{border:"3px solid cyan"}}>
+              <Grid item xs={4}>
+                <Box boxShadow={5}>
+                  <TextField
+                    id="phitext"
+                    fullWidth
+                    multiline
+                    rows={6}
+                    value={partyheroinfo}
+                    inputProps={{
+                      style: { fontSize: "2rem", lineHeight: "150%" },
+                    }}
+                    //variant="outlined"
+                    onChange={handlePartyHeroInfoChange}
+                  />
+                </Box>
+              </Grid>
+              <Grid item xs={8}>
+                <Grid
+                  container
+                  direction="column"
+                  style={{
+                    marginLeft: "30px",
+                    width: "30%",
+                  }}
+                >
+                  <Box boxShadow={6} style={{ padding: "20px" }}>
+                    <Grid item></Grid>
+                    <Grid item>
+                      <FormGroup column>
+                        <FormControlLabel
+                          control={<Checkbox name="Checkboxtest" />}
+                          label={
+                            <Typography className={classes.checkBoxText}>
+                              TNT
+                            </Typography>
+                          }
+                        />
+                        <FormControlLabel
+                          control={<Checkbox name="Checkboxtest" />}
+                          label={
+                            <Typography className={classes.checkBoxText}>
+                              Cats
+                            </Typography>
+                          }
+                        />
+                        <FormControlLabel
+                          control={<Checkbox name="Checkboxtest" />}
+                          label={
+                            <Typography className={classes.checkBoxText}>
+                              Dogs
+                            </Typography>
+                          }
+                        />
+                        <FormControlLabel
+                          control={<Checkbox name="Checkboxtest" />}
+                          label={
+                            <Typography className={classes.checkBoxText}>
+                              Griefing
+                            </Typography>
+                          }
+                        />
+                        <FormControlLabel
+                          control={<Checkbox name="Checkboxtest" />}
+                          label={
+                            <Typography className={classes.checkBoxText}>
+                              Co-op
+                            </Typography>
+                          }
+                        />
+                      </FormGroup>
+                    </Grid>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
-        </Box>
-      </Grid>
-      </Grid>
-      </Grid>
       </div>
     </div>
   );
