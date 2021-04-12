@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "2rem",
     marginBottom: "2rem",
   },
+  giveheight: {
+    height: "50%",
+  },
 }));
 
 const GuruPartyPage = () => {
@@ -86,11 +89,12 @@ const GuruPartyPage = () => {
         container
         direction="row"
       >
-        <Grid item xs={4}>
+        <Grid item xs={4} >
+          <Box style={{padding:"20px"}}>
           <Typography className={classes.bigtext} variant="h2">
             Party hero info
           </Typography>
-          <Box boxShadow={5}>
+          <Box boxShadow={5} >
           
           <TextField
             id="phitext"
@@ -99,9 +103,10 @@ const GuruPartyPage = () => {
             rows={6}
             value={partyheroinfo} 
             inputProps={{style: {fontSize:"2rem", lineHeight:"150%"}}}
-            variant="outlined"
+            //variant="outlined"
             onChange={handlePartyHeroInfoChange}
           />
+          </Box>
           </Box>
         </Grid>
       <Grid item xs={8}>
@@ -114,13 +119,14 @@ const GuruPartyPage = () => {
           margin: "10px",
         }}
       >
-        
+        <Box boxShadow={5} style={{padding:"20px"}}>
         <Grid item>
           <Typography variant="h4" >
             Likes about Minecraft
           </Typography>
         </Grid>
         <Grid item>
+          
           <FormGroup column>
             <FormControlLabel
               control={<Checkbox name="Checkboxtest" />}
@@ -156,6 +162,7 @@ const GuruPartyPage = () => {
             />
           </FormGroup>
         </Grid>
+        </Box>
       </Grid>
       </Grid>
       </Grid>
