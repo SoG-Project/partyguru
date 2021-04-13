@@ -9,6 +9,9 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
+  Paper,
+  Box,
+  Divider,
 } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
@@ -21,14 +24,8 @@ const useStyles = makeStyles((theme) => ({
     margin: "theme.spacing(2)",
     borderRadius: 35,
   },
-  grid: {
+  root: {
     flexGrow: 1,
-  },
-  textfielderino: {
-    padding: "",
-    /*minWidth: "20%",
-    maxWidth: "20%",*/
-    fontSize: "2rem",
   },
   resize: {
     fontSize: "2rem",
@@ -41,8 +38,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "1rem",
     margin: "1rem",
   },
-  checkBoxText:{
-    color: "white",
+  checkBoxText: {
     fontSize: "1.2rem",
   },
   button: {
@@ -53,13 +49,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreatePartyPage = () => {
-  const partyID="605f8bcd8dfd970aa770584a";
+  const partyID = "605f8bcd8dfd970aa770584a";
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
   //and email.
-  
 
- /* const saveAttendees = ()=>{
+  /* const saveAttendees = ()=>{
     //Construct array out of the names and emails
     var attendeeArray=[];
     emailfields.map(attendee =>{
@@ -80,11 +75,11 @@ const CreatePartyPage = () => {
 */
   const classes = useStyles();
   return (
-    <div>
+    <div className="root">
       <div className="partyguruinfobox">
         <Grid container direction="column" alignItems="center">
           <Typography variant="h2">Party Guru</Typography>
-          <Typography variant="subtitle" gutterBottom>
+          <Typography variant="h5" gutterBottom>
             Our Party Gurus host the most awesome parties for partiers of any
             age.
             <br />
@@ -102,113 +97,170 @@ const CreatePartyPage = () => {
           Schedule displays things that are meant to be done 
           at the party like "Brithday Cheer", "Eat cake", 
           "Play Minecraft"*/}
-        <div>Schedule</div>
-        <div className="schedulebox">
-          <div className="schedulecomponent">Minecraft</div>
-          <div>Birthday Cheer</div>
-          <div>Minecraft mod 1</div>
-          <div>Eat cake</div>
-          <div>Minecraft mod 2</div>
-        </div>
-        {/*Available activities for the party package*/}
-        <div>Available activities</div>
-        <div className="schedulebox">
-          <div>Minecraft</div>
-          <div>Birthday Cheer</div>
-          <div>Minecraft mod 1</div>
-          <div>Eat cake</div>
-          <div>Minecraft mod 2</div>
-        </div>
-
-        <div className="infoGrid">
-          <div className="partyheroinfo">
-            <h2>Party Hero info</h2>
-            <p>
-              Please input information about the party hero so the Party Guru
-              can provide a customized experience
-            </p>
-          </div>
-          {/*Checkboxes for what the child likes
-            CHECK TUTORIAL: https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
-            */}
-
-          <Grid
-            container
-            direction="column"
-            style={{
-              backgroundColor: "#8f00e2",
-              padding: "2rem",
-              margin: "10px",
-            }}
-          >
-            <Grid item>
-              <Typography variant="h4" style={{color:"white"}}>Likes about Minecraft</Typography>
-            </Grid>
-            <Grid item>
-              <FormGroup column>
-                <FormControlLabel
-                  control={<Checkbox color="primary" name="Checkboxtest" />}
-                  label={<Typography className={classes.checkBoxText}>TNT</Typography>}
-                />
-                <FormControlLabel
-                  control={<Checkbox color="primary" name="Checkboxtest" />}
-                  label={<Typography className={classes.checkBoxText}>Cats</Typography>}
-                />
-                <FormControlLabel
-                  control={<Checkbox color="primary" name="Checkboxtest" />}
-                  label={<Typography className={classes.checkBoxText}>Dogs</Typography>}
-                />
-                <FormControlLabel
-                  control={<Checkbox color="primary" name="Checkboxtest" />}
-                  label={<Typography className={classes.checkBoxText}>Griefing</Typography>}
-                />
-                <FormControlLabel
-                  control={<Checkbox color="primary" name="Checkboxtest" />}
-                  label={<Typography className={classes.checkBoxText}>Co-op</Typography>}
-                />
-              </FormGroup>
-            </Grid>
+        <Typography variant="h5">Schedule</Typography>
+        <Grid container justify="space-around" direction="row" style={{backgroundColor:"orange", marginBottom:"1rem"}}>
+          <Grid item>
+            <Typography style={{fontSize:"1.5rem"}}>Minecraft</Typography>
           </Grid>
-          <div className="checkboxarea">
-            <h2 className="checkboxtitle">Likes about Minecraft</h2>
-            <label className="container">
-              TNT
-              <input type="checkbox"></input>
-              <span className="checkmark"></span>
-            </label>
-            <label className="container">
-              Cats
-              <input type="checkbox"></input>
-              <span className="checkmark"></span>
-            </label>
-            <label className="container">
-              Dogs
-              <input type="checkbox"></input>
-              <span className="checkmark"></span>
-            </label>
-            <label className="container">
-              Griefing
-              <input type="checkbox"></input>
-              <span className="checkmark"></span>
-            </label>
-            <label className="container">
-              CO-OP
-              <input type="checkbox"></input>
-              <span className="checkmark"></span>
-            </label>
-          </div>
-        </div>
+          <Grid item>
+            <Typography style={{fontSize:"1.5rem"}}>Birthday Cheer</Typography>
+          </Grid>
+          <Grid item>
+            <Typography style={{fontSize:"1.5rem"}}>Minecraft Mod 1</Typography>
+          </Grid>
+          <Grid item>
+            <Typography style={{fontSize:"1.5rem"}}>Eat Cake</Typography>
+          </Grid>
+          <Grid item>
+            <Typography style={{fontSize:"1.5rem"}}>Minecraft Mod 2</Typography>
+          </Grid>
+        </Grid>
 
-       
-        <Button className={classes.button} variant="contained" color="primary">
+        {/*Available activities for this party pack*/}
+        <Typography variant="h5">Available activities</Typography>
+        <Grid container justify="space-around" direction="row" style={{backgroundColor:"orange"}}>
+        <Grid item>
+            <Typography style={{fontSize:"1.5rem"}}>Minecraft</Typography>
+          </Grid>
+          <Grid item>
+            <Typography style={{fontSize:"1.5rem"}}>Birthday Cheer</Typography>
+          </Grid>
+          <Grid item>
+            <Typography style={{fontSize:"1.5rem"}}>Minecraft mod 1</Typography>
+          </Grid>
+          <Grid item>
+            <Typography style={{fontSize:"1.5rem"}}>Eat cake</Typography>
+          </Grid>
+          <Grid item>
+            <Typography style={{fontSize:"1.5rem"}}>Minecraft Mod 2</Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          justify="space-around"
+          direction="row"
+          alignItems="stretch"
+          style={{ marginTop: "2rem", marginBottom: "1rem" }}
+        >
+          <Grid item xs={5}>
+            <Paper elevation={4} style={{ height: "100%" }}>
+              <Grid
+                container
+                item
+                direction="column"
+                style={{
+                  padding: "2rem",
+                }}
+              >
+                <Grid item xs={12}>
+                  <Typography gutterBottom paragraph variant="h4">
+                    Special considerations about your child
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    color="primary"
+                    multiline
+                    fullWidth
+                    rows={4}
+                    rowsMax={5}
+                    id="namefield"
+                    label={
+                      <Typography style={{ fontSize: "2rem" }}>
+                        Enter info here
+                      </Typography>
+                    }
+                    variant="outlined"
+                    inputProps={{
+                      maxLength: 300,
+                      style: { fontSize: "2rem", lineHeight: "150%" },
+                    }}
+                  />
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+
+          <Grid item xs={5}>
+            <Paper elevation={4} style={{ height: "100%" }}>
+              {/*Checkboxes for what the child likes*/}
+              <Grid
+                item
+                container
+                direction="column"
+                style={{
+                  padding: "2rem",
+                }}
+              >
+                <Grid item>
+                  <Typography paragraph gutterBottom variant="h4">
+                    Likes about Minecraft
+                  </Typography>
+                  <Divider />
+                </Grid>
+                <Grid item>
+                  <FormGroup direction="column">
+                    <FormControlLabel
+                      control={<Checkbox color="primary" name="Checkboxtest" />}
+                      label={
+                        <Typography className={classes.checkBoxText}>
+                          TNT
+                        </Typography>
+                      }
+                    />
+                    <FormControlLabel
+                      control={<Checkbox color="primary" name="Checkboxtest" />}
+                      label={
+                        <Typography className={classes.checkBoxText}>
+                          Cats
+                        </Typography>
+                      }
+                    />
+                    <FormControlLabel
+                      control={<Checkbox color="primary" name="Checkboxtest" />}
+                      label={
+                        <Typography className={classes.checkBoxText}>
+                          Dogs
+                        </Typography>
+                      }
+                    />
+                    <FormControlLabel
+                      control={<Checkbox color="primary" name="Checkboxtest" />}
+                      label={
+                        <Typography className={classes.checkBoxText}>
+                          Griefing
+                        </Typography>
+                      }
+                    />
+                    <FormControlLabel
+                      control={<Checkbox color="primary" name="Checkboxtest" />}
+                      label={
+                        <Typography className={classes.checkBoxText}>
+                          Co-op
+                        </Typography>
+                      }
+                    />
+                  </FormGroup>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+        </Grid>
+
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          href="/invitetoparty"
+        >
           To invitation creation
         </Button>
         {/*<Button className={classes.button} variant="contained" color="primary" onClick={()=>{saveAttendees()}}>
           Save attendees
         </Button>
           */}
-
-
       </div>
     </div>
   );
