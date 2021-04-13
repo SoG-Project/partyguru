@@ -33,11 +33,39 @@ const useStyles = makeStyles((theme) => ({
         //OR do it with vh (viewheight)
         width: 0.9*window.innerWidth,
       },
-    //https://material-ui.com/customization/typography/#responsive-font-sizes
-    //Doesn't work: not sure why
-    typography: {
-        fontSize: '60rem',
-    }
+    },
+    margin: {
+      margin: "theme.spacing(2)",
+      borderRadius: 35,
+    },
+    grid: {
+      flexGrow: 1,
+    },
+    textfielderino: {
+      padding: "",
+      minWidth: "30%",
+      maxWidth: "50%",
+      fontSize: "2rem",
+    },
+    resize: {
+      fontSize: "2rem",
+    },
+    giveextraspace: {
+      marginBottom: "2rem",
+      marginTop: "2rem",
+    },
+    mainContainer: {
+      padding: "1rem",
+      margin: "1rem",
+    },
+    checkBoxText:{
+      color: "white",
+      fontSize: "1.2rem",
+    },
+    button: {
+      fontSize: "1.7rem",
+      marginTop: "2rem",
+      marginBottom: "2rem",
     },
   }));
 
@@ -204,7 +232,7 @@ const handleEmailfieldDelete = (index) => {
             <div className="emaildescription">
                 <form >
                     <TextField className="test" id="outlined-basic" placeholder="Please input a party description that will be included in the party invitations by email." 
-                    defaultValue={description} inputProps={{maxLength:180}} multiline variant="outlined" onChange={(e) => changeDescription2(e.target.value)}
+                    defaultValue={description} inputProps={{maxLength:180, style:{ fontSize: "2rem", lineHeight: "150%"}}} multiline variant="outlined" onChange={(e) => changeDescription2(e.target.value)}
                     />
                 </form>
                 
