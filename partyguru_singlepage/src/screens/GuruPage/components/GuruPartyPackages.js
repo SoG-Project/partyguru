@@ -48,16 +48,12 @@ const GuruPartyPackages = ({guruID}) =>{
          }
 
 
-
         if (isChecked === true) {
 
 
             tempPackages[id].guruid.splice(tempPackages[id].guruid.indexOf((guruID)), 1)
             setPPackages(tempPackages)
         }
-
-
-
     }
 
     // Apply changes to party packages.
@@ -84,10 +80,11 @@ const GuruPartyPackages = ({guruID}) =>{
             {pPackages && pPackages.map((pPackage, index) =>
                 <li key={pPackage._id}><FormControlLabel  control=
                     {<Checkbox onChange={() => handleChange(index, pPackage.guruid.includes((guruID)))} name={pPackage.name} disabled={!editMode}
-                               checked={pPackage.guruid.includes((guruID)) || false}/>} label={<span style={{fontSize: '2rem'}}>{pPackage.name}</span>} /></li> )}
+                               checked={pPackage.guruid.includes((guruID)) || false}/>} label={<span style={{fontSize: '2rem', fontWeight: 'bold'}}>{pPackage.name}</span>} /></li> )}
             </ul>
             </div>
-            {editMode ? <Button style={{minWidth: "80px", minHeight: "40px"}} variant="contained" color="primary" className="flexAlignThis" onClick={submitPackages}>Save</Button> : <Button style={{minWidth: "80px", minHeight: "40px"}} variant="contained" color="primary" className="flexAlignThis" onClick={handleEditChange}>Edit</Button>}
+            {editMode ? <Button style={{minWidth: "80px", minHeight: "40px"}} variant="contained" color="primary" className="flexAlignThis" onClick={submitPackages}>Save</Button>
+                : <Button style={{minWidth: "80px", minHeight: "40px"}} variant="contained" color="primary" className="flexAlignThis" onClick={handleEditChange}>Edit</Button>}
         </div>
     )
 
