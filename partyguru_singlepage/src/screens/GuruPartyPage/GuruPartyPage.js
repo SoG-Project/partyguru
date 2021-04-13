@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
   giveheight: {
     height: "50%",
   },
+  test: {
+    height: "100%"
+  },
 }));
 
 const GuruPartyPage = () => {
@@ -64,7 +67,7 @@ const GuruPartyPage = () => {
   return (
     <div className="maindiv">
       <div className="partyguruinfobox">
-        <Grid container direction="column" alignItems="center">
+        <Grid container direction="column" alignItems="center" >
           <Typography variant="h2">Party Guru</Typography>
           <Typography variant="subtitle" gutterBottom>
             Our Party Gurus host the most awesome parties for partiers of any
@@ -99,8 +102,8 @@ const GuruPartyPage = () => {
             </Grid>
           </Grid>
           <Grid item>
-            <Grid container direction="row" style={{border:"3px solid cyan"}}>
-              <Grid item xs={4}>
+            <Grid  container direction="row" alignItems="stretch" /*style={{border:"3px solid cyan"}}*/>
+              <Grid item xs={4} className={classes.test}>
                 <Box boxShadow={5}>
                   <TextField
                     id="phitext"
@@ -116,7 +119,7 @@ const GuruPartyPage = () => {
                   />
                 </Box>
               </Grid>
-              <Grid item xs={8}>
+              <Grid item xs={8} className={classes.test}>
                 <Grid
                   container
                   direction="column"
