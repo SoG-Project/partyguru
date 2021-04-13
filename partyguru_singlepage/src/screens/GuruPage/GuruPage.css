@@ -40,6 +40,7 @@
 .profilePic {
     width:300px;
     height:300px;
+    border-style: solid;
     align-self:center;
     margin-right:10px;
     margin-left:10px;

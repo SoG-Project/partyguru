@@ -16,7 +16,7 @@ const theme = createMuiTheme({
         /*Secondary color. SoG purple here */
         secondary: {
             main: '#8f00e2',
-        }
+        },
     },
     breakpoints: {
         values:{
@@ -26,7 +26,7 @@ const theme = createMuiTheme({
             lg: 1400,
             xl: 1920,
         }
-    },
+    },   
 });
 
 export default theme;

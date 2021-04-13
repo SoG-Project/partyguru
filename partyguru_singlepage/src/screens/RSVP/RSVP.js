@@ -233,9 +233,10 @@ const RSVP = () => {
           style={{
             backgroundColor: "orange",
             width: "75%",
-            borderStyle: "solid",
+            borderTopStyle: "solid",
+            borderLeftStyle: "solid",
+            borderRightStyle: "solid",
             borderWidth: "2px",
-            borderBottomColor: "white",
           }}
         >
           <Grid item xs={4}>
@@ -261,19 +262,15 @@ const RSVP = () => {
           justify="space-around"
           alignItems="center"
           style={{
-            backgroundColor: "purple",
             width: "75%",
-            borderLeftStyle: "solid",
-            borderBottomStyle: "solid",
-            borderRightStyle: "solid",
+            borderStyle: "solid",
             borderWidth: "2px",
-            borderBottomColor: "white",
           }}
         >
           <Grid item xs={4}>
             <Typography
               align="center"
-              style={{ fontSize: "2rem", color: "white" }}
+              style={{ fontSize: "2rem" }}
             >
               Among Us
             </Typography>
@@ -283,7 +280,6 @@ const RSVP = () => {
               <FormControlLabel
                 label={
                   <Typography
-                    style={{ color: "white" }}
                     className={classes.radioFont}
                   >
                     Game installed
@@ -306,7 +302,6 @@ const RSVP = () => {
                 className="gamenotinstalledcheckbox"
                 label={
                   <Typography
-                    style={{ color: "white" }}
                     className={classes.radioFont}
                   >
                     Not installed
@@ -331,7 +326,6 @@ const RSVP = () => {
           justify="space-around"
           alignItems="center"
           style={{
-            backgroundColor: "orange",
             width: "75%",
             borderLeftStyle: "solid",
             borderBottomStyle: "solid",

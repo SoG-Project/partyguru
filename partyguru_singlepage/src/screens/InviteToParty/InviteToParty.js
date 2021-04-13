@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Component } from "react"
+import ReactDOM from 'react-dom';
 import {Link} from "react-router-dom"
 import "./InviteToParty.css"
 import axios from 'axios'
@@ -9,7 +10,8 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Demo4 from "./components/theme1";
+
+
 
 
 
@@ -18,7 +20,6 @@ import Demo4 from "./components/theme1";
 //import { response } from "express"
 
 import { makeStyles } from '@material-ui/core/styles';
-import Theme1 from "./components/theme1";
 import nodemailer from "nodemailer";
 
 //Function to set style for the email description box (https://material-ui.com/styles/basics/)
@@ -32,16 +33,56 @@ const useStyles = makeStyles((theme) => ({
         //OR do it with vh (viewheight)
         width: 0.9*window.innerWidth,
       },
-    //https://material-ui.com/customization/typography/#responsive-font-sizes
-    //Doesn't work: not sure why
-    typography: {
-        fontSize: '60rem',
-    }
+    },
+    margin: {
+      margin: "theme.spacing(2)",
+      borderRadius: 35,
+    },
+    grid: {
+      flexGrow: 1,
+    },
+    textfielderino: {
+      padding: "",
+      minWidth: "30%",
+      maxWidth: "50%",
+      fontSize: "2rem",
+    },
+    resize: {
+      fontSize: "2rem",
+    },
+    giveextraspace: {
+      marginBottom: "2rem",
+      marginTop: "2rem",
+    },
+    mainContainer: {
+      padding: "1rem",
+      margin: "1rem",
+    },
+    checkBoxText:{
+      color: "white",
+      fontSize: "1.2rem",
+    },
+    button: {
+      fontSize: "1.7rem",
+      marginTop: "2rem",
+      marginBottom: "2rem",
     },
   }));
 
+  function PerusTeema(props) {
+   return <img src={"https://i.pinimg.com/originals/59/2e/81/592e812f43f66758178347430b992436.png"} />
+  }
+
+  function AvaruusTeema(props) {
+   return <img src={"https://kjeh.fi/gLuYo"} />
+  }
+
+function LiekkiTeema(props) {
+  return <img src={"https://kjeh.fi/iKTpb"} />
+}
+
 /*Email sending thingy, didn't work yet when tried but will work on it*/
-  /*var nodemailer = require('nodemailer') */
+  /*var nodemailer = require('nodemailer') 
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -65,7 +106,7 @@ transporter.sendMail(mailOptions, function(error, info){
     console.log('Email sent: ' + info.response);
   }
 }); 
-
+*/
 const InviteToParty = () => {
     
   //This enables materialsUI styles. Normall CSS won't work for materialsUI elements.
@@ -162,6 +203,7 @@ const handleEmailfieldDelete = (index) => {
     
     }
 
+
     //Handles changes to the form. The text changes will be rendered because changing useState rerenders
     //the description (the changed text)
     const handleChange = (event) => {
@@ -190,7 +232,7 @@ const handleEmailfieldDelete = (index) => {
             <div className="emaildescription">
                 <form >
                     <TextField className="test" id="outlined-basic" placeholder="Please input a party description that will be included in the party invitations by email." 
-                    defaultValue={description} inputProps={{maxLength:180}} multiline variant="outlined" onChange={(e) => changeDescription2(e.target.value)}
+                    defaultValue={description} inputProps={{maxLength:180, style:{ fontSize: "2rem", lineHeight: "150%"}}} multiline variant="outlined" onChange={(e) => changeDescription2(e.target.value)}
                     />
                 </form>
                 
@@ -208,8 +250,9 @@ const handleEmailfieldDelete = (index) => {
         <h2>Preview testing</h2>
         <div className="preview">
           <div className="invitelayout">
-           <img src={"https://i.pinimg.com/originals/59/2e/81/592e812f43f66758178347430b992436.png"} />
+            {/*Tässä pitäisi renderöidä teema*/}
 
+          <LiekkiTeema></LiekkiTeema>
            <div className="invitetitle">
              Kutsu Make Viljami-Macklemoren syntymäpäiväjuhliin
            </div>
@@ -326,13 +369,11 @@ const handleEmailfieldDelete = (index) => {
             </Grid>
           );
         })}
-        {/*The preview theme */}
-        <div>
-          <Theme1  />
-        </div>
+
     </div>
     
     )
+    
 }
 
 export default InviteToParty
