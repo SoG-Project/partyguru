@@ -86,7 +86,7 @@ const CreatePartyPage = () => {
           <Typography variant="h2">Party Guru</Typography>
           <Typography variant="subtitle" gutterBottom>
             Our Party Gurus host the most awesome parties for partiers of any
-            age.
+            age. 
             <br />
             Parties are hosted on the Discord voice application and in various
             games <br />

@@ -5,6 +5,7 @@
   "description": "party guru",
   "main": "index.js",
   "dependencies": {
+    "@auth0/auth0-react": "^1.4.0",
     "@devexpress/dx-react-core": "^2.7.5",
     "@devexpress/dx-react-scheduler": "^2.7.5",
     "@devexpress/dx-react-scheduler-material-ui": "^2.7.5",

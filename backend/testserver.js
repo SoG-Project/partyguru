@@ -28,7 +28,6 @@ const Guru= new mongoose.model('Guru',guruSchema);
 const attendeesSchema = new mongoose.Schema({
     partyid:String,
     attendees: [{
-                attendeeid: String,
                 name: String, 
                 email: String, 
                 considerations: String,
@@ -601,42 +600,51 @@ app.post('/api/attendees', (req, res) => {
 */
 app.put('/api/attendees/:id', function (req, res) {
   const id = req.params.id;
+  console.log("Starting RSVP...");
   //Attendee list to be updated
   Attendees.find({partyid:id}).then(returnedItems=>{
+    console.log(returnedItems);
     const attendeeList=returnedItems[0];
+    console.log(attendeeList);
     //Check whether the fetched list is empty
+    console.log("Party with this id found:" + id);
     if(!returnedItems.length) throw new Error("No attendee information found with that partyid. ID:" + id + ". Perhaps send a POST instead of PUT?");
     //Iterate over the json-body and the fetched list, trying to match emails 
-    var updatedAttendee=false;
-    for(var i=0;i<req.body.attendees.length;i++){
-      for (var k = 0; k < attendeeList.attendees.length; k++) {
-        console.log(attendeeList.attendees[k]);
+    console.log(req.body.attendees.length + "<-to be sent attendee length");
+    console.log(attendeeList.attendees.length + "<--fetched list length");
+    console.log(req.body.attendees[0]._id + "<----reqbodyattendees0 id");
+    for(var i=0;i<attendeeList.attendees.length;i++){
+      console.log("AttendeeList.attendees[i]:");
+        console.log(attendeeList.attendees[i]);
         //If the same email is found, insert the entry in the request body in the place of the fetched entry
-        if (attendeeList.attendees[k]._id === req.body.attendees[i]._id) {
-          attendeeList.attendees.splice(k,1,req.body.attendees[i]);
-          updatedAttendee=true;
-          console.log('Attendee updated with this email:' + req.body.attendees[i].email);
+        if (attendeeList.attendees[i]._id.toString() === req.body.attendees[0]._id.toString()) {
+          var spliceJSON=req.body.attendees[0];
+          spliceJSON.email=attendeeList.attendees[i].email;
+          spliceJSON.name=attendeeList.attendees[i].name;
+          attendeeList.attendees.splice(i,1,spliceJSON);
+          console.log('Attendee updated with this email:' + req.body.attendees[0].email);
         }
-       }
-    }
-    if(updatedAttendee===false){
-      throw('Nothing got modified by your request');
     }
     //Save the updated list
     Attendees.updateOne({partyid: id }, { $set: attendeeList})
     .then(result=>{
-      if(result.nModified===0){
+      if(result.nModified===1){
         console.log('Attendee list saved to cloud.');
         res.status(200);
         res.send(result);
     }
+      else{
+        throw new Error('Attendee list wasnt modified by this request');
+      }
   })
   .catch(error => {
-    console.log('Attendees not updated. Error:')
-    console.log(error.message);
+    console.log('Attendees not updated. Error:' + error.message);
     res.status(400);
     res.send(error.message);});
-})
+}).catch(error => {
+  console.log('Attendees not updated. Error:' + error.message);
+  res.status(400);
+  res.send(error.message);});
 })
 //REQUEST: DELETE attendees
 //Parametrit: partyid-string in URL, email-field in the JSON-body. Any entrants with that email will be deleted.

@@ -61,10 +61,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RSVP = () => {
-  const partyID="605f8bcd8dfd970aa770584a";
+  const partyID="605f8bcd8dfd970aa770584b";
+  const attendeeID="605f8d013778d70b51e26a20";
   //This state controls the attending/not attending radio buttons.
   const [value, setValue] = useState("true");
-
+  const [specialConsiderations, setSpecialConsiderations]= useState("");
   //This state controls checkbox states. Example: if game (e.g. Minecraft) is installed, then user clicks on the game is installed checkbox.
   //This checkbox method is to guide the client to installing what they need to prepare for a smooth party experience. Preferably,
   //the checkboxes should not allow checking both installed and not installed on the same property (e.g. discord). Also, it would
@@ -75,7 +76,11 @@ const RSVP = () => {
     discordinstalled: false,
     discordnotinstalled: false,
   });
-
+/*
+  const onChangeHandler = (event) = {
+    setSpecialConsiderations()
+  }
+*/
   //This changes the state of the gaming specs checkboxes
   const handleGamingSpecChange = (event) => {
     console.log(
@@ -103,18 +108,28 @@ const RSVP = () => {
   const classes = useStyles();
 
   const saveInformation = ()=>{
+    console.log("Starting saveinformation");
     var attending=false;
+    var string="http://localhost:5000/api/attendees";
+    string+=partyID;
     if(value==="true"){
       attending=true;
     }
-    var sendableJSON={
+    const attendeeJSON={
+      attendees:[
+       { 
+      _id:attendeeID,
       game: gamingspecs.gameinstalled,
       discord: gamingspecs.discordinstalled,
-      attends: attending
+      attends: attending,
+      considerations: specialConsiderations
+}      ]
     };
-    axios.put(`http://localhost:5000/api/attendees/`,sendableJSON).then(response => {
-      console.log(response.data);
-    })
+    console.log(attendeeJSON);
+    axios.put('http://localhost:5000/api/attendees/'+partyID, attendeeJSON).then(response => {
+      console.log(response.data)
+      })
+    
   }
   return (
     <div className={classes.root}>
@@ -186,6 +201,7 @@ const RSVP = () => {
         <Grid item xs={6} lg={4}>
           <TextField
             className={classes.textField}
+            onChange={e => setSpecialConsiderations(e.target.value)}
             multiline
             fullWidth
             rows={3}
@@ -259,7 +275,7 @@ const RSVP = () => {
               align="center"
               style={{ fontSize: "2rem", color: "white" }}
             >
-              Amogus
+              Among Us
             </Typography>
           </Grid>
           <Grid item xs={4}>
@@ -374,7 +390,7 @@ const RSVP = () => {
         className={classes.bigButtons}
         variant="contained"
         color="primary"
-        href="/"
+        //href="/"
         onClick={()=>{saveInformation()}}
       >
         Send
