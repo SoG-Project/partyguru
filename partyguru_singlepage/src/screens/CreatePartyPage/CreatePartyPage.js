@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import ContactInfoFieldsPartyPage from './components/ContactInfoFieldsPartyPage'
+import Attendees from './components/Attendees'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -88,6 +89,7 @@ const CreatePartyPage = () => {
           </Typography>
         </Grid>
       </div>
+      <Attendees/>
       <div className={classes.mainContainer}>
         {/*Creates a grid to display the schedule for the party
           Schedule displays things that are meant to be done 
