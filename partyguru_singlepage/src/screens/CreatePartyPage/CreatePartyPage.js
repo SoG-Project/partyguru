@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import "./CreatePartyPage.css";
 import {
   makeStyles,
@@ -13,11 +12,7 @@ import {
   Box,
   Divider,
 } from "@material-ui/core";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
-import DeleteIcon from "@material-ui/icons/Delete";
-import axios from "axios";
 import ContactInfoFieldsPartyPage from './components/ContactInfoFieldsPartyPage'
 
 const useStyles = makeStyles((theme) => ({
