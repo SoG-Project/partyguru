@@ -84,11 +84,7 @@ const GuruPartyPage = () => {
         </Grid>
       </div>
       <div>
-        {/*<h2>Party Hero info</h2>
-        <p>
-          Please input information about the party hero so the Party Guru can
-          provide a customized experience
-        </p>*/}
+        
         <PartyHeroInfo/>
         
       </div>
