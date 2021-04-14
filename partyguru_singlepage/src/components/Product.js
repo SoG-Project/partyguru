@@ -58,6 +58,7 @@ const Product = (props) => {
   //Put all information of these gurus in the productGuru state
 
   useEffect(() => {
+
     //guruID && guruIDs check ensures that the map is not done if guruIDs is undefined -> prevents a crash
     axios.get("api/gurus").then((response) => {
       const guruArray =
@@ -86,7 +87,7 @@ const Product = (props) => {
             paddingRight: "7%",
           }}
           centerRipple
-          href={`/product/${product._id}` + product.id}
+          href={`/product/${product._id}`}
         >
           {/*CardMedia loads our image. Most likely the easiest way to have a responsive image
           top padding is necessary to display the image, and gives the image a certain amount of space */}

@@ -3,6 +3,8 @@ import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import './GuruCalendar.css';
+
 
 
 const GuruCalendar = () => {
@@ -18,6 +20,8 @@ return (
                    slotMinTime="08:00:00"
                    slotMaxTime="22:00:00"
                    allDaySlot={false}
+                   nowIndicator
+
 
                    headerToolbar={{left: 'title', center:'', right: 'prev,next' }}
                    titleFormat={{year: 'numeric', month:'2-digit', day: '2-digit'}}

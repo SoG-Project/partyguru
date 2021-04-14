@@ -35,7 +35,7 @@ const App = () => {
           <Route path="/createpartypage"> <CreatePartyPage/> </Route>
           <Route path="/cart"> <CartPage/> </Route>
           <Route path="/gurupage/"> <GuruPage/> </Route>
-          <Route path="/product/:id"> <PartyPackage/> </Route>
+          <Route path="/product/"> <PartyPackage/> </Route>
           <Route path="/login"><LoginPage/></Route>
           <Route path="/invitetoparty"><InviteToParty/></Route>
           <Route path="/partypage"><PartyPage/></Route>
@@ -48,7 +48,7 @@ const App = () => {
           <Link href="/createpartypage">Createpartypage </Link>
           <Link href="/cart">Cart </Link>
           <Link href="/gurupage">gurupage </Link>
-          <Link href="/product/1">Product id 1 </Link>
+          <Link href="/product/:id">Product id 1 </Link>
           <Link href="/login">Login </Link>
           <Link href="/invitetoparty">Invitetoparty </Link>
           <Link href="/partypage">Partypage </Link>
