@@ -15,7 +15,7 @@ import InviteToParty from "./screens/InviteToParty/InviteToParty"
 import PartyPage from "./screens/PartyPage/PartyPage";
 import RSVP from "./screens/RSVP/RSVP";
 import GuruPartyPage from "./screens/GuruPartyPage/GuruPartyPage"
-
+import Profile from "./screens/ProfilePage/ProfilePage"
 //Import components
 import Header from "./components/Header";
 
@@ -41,6 +41,7 @@ const App = () => {
           <Route path="/partypage"><PartyPage/></Route>
           <Route path="/RSVP"><RSVP/></Route>
           <Route path="/"> <LandingPage/> </Route>
+          <Route path="/profilepage"><Profile/></Route>
         </Switch>
         <footer>
           <p className="footer-text">
@@ -53,6 +54,7 @@ const App = () => {
           <Link href="/invitetoparty">Invitetoparty </Link>
           <Link href="/partypage">Partypage </Link>
           <Link href="/RSVP">RSVP</Link>
+          <Link href="/profilepage">Profile Page</Link>
           </p>
         </footer>
       </div>

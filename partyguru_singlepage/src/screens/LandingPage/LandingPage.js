@@ -4,7 +4,8 @@ import ContactInfoFields from "./components/ContactInfoFields";
 import AttendeeNumberSelector from "./components/AttendeeNumberSelector";
 import CostCalculator from "./components/CostCalculator";
 import Calendar from "../../components/Calendar/Calendar";
-import LoginButton from
+import LoginButton from "./components/LoginButton"
+import LogoutButton from "./components/LogoutButton"
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -104,6 +105,8 @@ const LandingPage = () => {
   const classes = useStyles();
   return (
     <div>
+      <LoginButton></LoginButton>
+      <LogoutButton></LogoutButton>
       <div className={classes.partyGuruInfo}>
         <Grid container direction="column" alignItems="center">
           <Typography gutterBottom variant="h3">
