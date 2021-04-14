@@ -20,20 +20,14 @@ const useStyles = makeStyles((theme) => ({
   cardHeader: {
     textAlign: "center",
     fontWeight: "bold",
-    marginBottom: "2px",
+    marginBottom: "1rem",
   },
   cost: {
-    backgroundColor: "lightgrey",
-    width: "30%",
+    width: "50%",
     textAlign: "center",
-    marginTop: "1rem",
     fontSize: "2rem",
-    color: "purple",
-    outline: "dashed",
-    outlineWidth: "1px",
     bottom: "2px",
     position: "static",
-    alignSelf: "center",
   },
 
   cardStyle: {
@@ -46,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     paddingLeft: "0",
     paddingRight: "0",
+    paddingBottom: "0",
   },
 }));
 
@@ -81,16 +76,17 @@ const Product = (props) => {
       This component uses 'cardStyle' defined earlier in useStyles. It is taken into use with className={classes.cardStyle}
       */}
       <Card raised className={classes.cardStyle}>
-        {/*Whole card is a CardActionArea. This makes the card look clickable and creates ripples when you click it */}
+        {/*Whole card is a CardActionArea. This makes the card clickable and creates ripples when clicked 
+        href is the link clicking the card will lead to. "+ product.id" should pass the id of that product to PartyPackage-page*/}
         <CardActionArea
           style={{
             paddingTop: "4%",
-            paddingBottom: "4%",
+            paddingBottom: "7%",
             paddingLeft: "7%",
             paddingRight: "7%",
           }}
           centerRipple
-          href={`/product/${product._id}`}
+          href={`/product/${product._id}` + product.id}
         >
           {/*CardMedia loads our image. Most likely the easiest way to have a responsive image
           top padding is necessary to display the image, and gives the image a certain amount of space */}
@@ -110,11 +106,15 @@ const Product = (props) => {
               {product.name}
             </Typography>
             {/*Divider line under header of card and gurus*/}
-            <Divider style={{ marginTop: "1rem" }} />
+            <div style={{borderBottom:"dashed", borderColor:"orange"}}/>
             {/*Typography containers for gurus*/}
             <Typography gutterBottom variant="h4" style={{ marginTop: "7px" }}>
               Gurus:
             </Typography>
+            {/*To enable there to be X number of Gurus all the names should be put inside a single Typography
+            This typography should then have overflow="hidden", textOverflow="ellipsis"
+            This can be done by creating a single string that contains all guru names (somehow) 
+            and adding linebreaks to put them on different lines */}
             <div style={{ height: "10rem"}}>
               {productGuru &&
                 productGuru.map((guru) => (
@@ -124,7 +124,7 @@ const Product = (props) => {
                 ))}
             </div>
             {/*Another typography to contain the price of the product*/}
-            {/*<Typography className={classes.cost}>{product.price}€</Typography>*/}
+            <Typography className={classes.cost}>Starting at {product.price}€</Typography>
           </CardContent>
         </CardActionArea>
       </Card>

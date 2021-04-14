@@ -1,5 +1,4 @@
 import React from "react";
-import data from "../../data";
 import {makeStyles} from '@material-ui/core';
 //package kortit linkkaa tänne
 //jätin tän vaan siksi että näkyisi miten eri screenejä voi tehä browserroutella, oikeasti varmaan meillä ei oo mitään tällaista screeniä
@@ -11,9 +10,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const PartyPackage = (props) => {
   const classes = useStyles();
+  const {product} = props;
+  console.log(product)
   return (
     <div className={classes.mainContainer}>
         <div className="row center">

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import Product from "../../components/Product";
-import ContactInfoFields from "./components/ContactInfoFields";
-import AttendeeNumberSelector from "./components/AttendeeNumberSelector";
-import CostCalculator from "./components/CostCalculator";
+import ContactInfoFields from "../../components/ContactInfoFields";
+import AttendeeNumberSelector from "../../components/AttendeeNumberSelector";
+import CostCalculator from "../../components/CostCalculator";
 import Calendar from "../../components/Calendar/Calendar";
 /* this causes crash so commenting this out for now
 import LoginButton from
@@ -145,8 +145,14 @@ const LandingPage = () => {
             <Product key={product._id} product={product}></Product>
           ))}
 
-          <Grid item xs={12}>
+          <Grid item xs={12} style={{paddingBottom:"0"}}>
+            <Typography align="center" variant="h2" style={{paddingBottom:"0"}}>
+              Date Selection
+            </Typography>
+          </Grid>
+          <Grid item xs={12} style={{paddingTop:"0"}}>
             <Paper
+              elevation={5}
               style={{
                 height: "80vh",
                 padding: "1rem",
