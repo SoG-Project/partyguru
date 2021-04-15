@@ -156,11 +156,10 @@ const LandingPage = () => {
             </Paper>
           </Grid>
         </Grid>
-        {/*<div className="row">uusi rivi</div>*/}
 
         <div className="break"></div>
 
-        {/*Tavoitteena sisäkkäiset gridit.
+        {/*Nested grids to create proper layout
     Vasemmalla näkymässä Scheduler, oikealla formeja tms (ks. Figma etusivua)
     Tässä määritellään uloin grid container, jossa elementtien pitäisi mennä vas -> oik*/}
         <Grid
