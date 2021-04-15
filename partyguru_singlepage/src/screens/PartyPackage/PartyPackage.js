@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, makeStyles, Typography } from "@material-ui/core";
+import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import Image from 'material-ui-image';
 import axios from "axios";
 import Product from "../../components/Product";
@@ -49,20 +49,26 @@ const PartyPackage = () => {
 
   return (
     <div className={classes.mainContainer}>
-      <div className="row center">
+      <Grid container>
+        <Grid item xs={12}>
         {product && product.image ? (
-        <Image src={product.image}/>)
+        <Image src={product.image} style={{height:"20vh", width:"16vw"}}/>)
           :
           <Typography variant="h3">Image loading...</Typography>}
+          </Grid>
+          <Grid item>
         <Button variant="contained" color="primary" onClick={() => console.log(product)}>
           Testaa onko meillä producti
         </Button>
+        </Grid>
+        <Grid item>
         <p>
           Party package description comes here.
           <br /> Package info, availability calendar, gurus, contact + add to
           cart
         </p>
-      </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };
