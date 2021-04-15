@@ -96,14 +96,6 @@ const LandingPage = () => {
     };
   }, [products, singleid]);
 
-  //Nappi mikä vaihtaa partypackagekorttia, sen klikinhändlääjä
-  //klikkauksessa vaan kasvatetaan singleid:tä, mikä triggeröi ylläolevan hookin^
-  const handleClick = () => {
-    let __sid = singleid;
-    __sid += 1;
-    setSingleid(__sid);
-  };
-
   const classes = useStyles();
   return (
     <div>
