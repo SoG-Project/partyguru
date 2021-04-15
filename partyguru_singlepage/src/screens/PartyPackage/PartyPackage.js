@@ -12,13 +12,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const PartyPackage = () => {
   const classes = useStyles();
   //contains product, initialized empty to prevent errors
   const [product, setProduct] = useState();
+  const [productGuru, setProductGurus] = useState([]);
 
   //useState for the guruIDs of this product, used to get info on these gurus from the backend
-  const [guruIDs, setProductGurus] = useState([]);
 
   //get ID of product from address of site
   //Needed to show name of product, gurus attached to it, and so on
@@ -26,22 +27,23 @@ const PartyPackage = () => {
     const productID = window.location.href.split("product/").pop();
     axios.get(`/api/packages/${productID}`).then((response) => {
       setProduct(response.data);
-      console.log(response.data)
+      console.log(response.data.guruid)
     });
 
   }, []);
 
   //get gurus of this product from backend
   useEffect(() => {
+    console.log(product)
     //guruID && guruIDs check ensures that the map is not done if guruIDs is undefined -> prevents a crash
     axios.get("/api/gurus").then((response) => {
       const guruArray =
-        guruIDs &&
+        product &&
         response.data.filter(
-          (guru) => guruIDs.includes(guru._id) && guru.availability === true
+          (guru) => product.guruid.includes(guru._id) && guru.availability === true
         );
-      console.log("täs guruarray (Product.js):", guruArray);
       setProductGurus(guruArray);
+      console.log("guruarray (Product.js):", guruArray);
     });
   }, [product]);
 
