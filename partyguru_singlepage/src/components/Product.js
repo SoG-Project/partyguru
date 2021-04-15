@@ -56,8 +56,9 @@ const Product = (props) => {
   //Put all information of these gurus in the productGuru state
 
   useEffect(() => {
+    console.log(props.product)
     //guruID && guruIDs check ensures that the map is not done if guruIDs is undefined -> prevents a crash
-    axios.get("api/gurus").then((response) => {
+    axios.get(`/api/gurus`).then((response) => {
       const guruArray =
         guruIDs &&
         response.data.filter(
@@ -66,7 +67,7 @@ const Product = (props) => {
       console.log("täs guruarray (Product.js):", guruArray);
       setProductGurus(guruArray);
     });
-  }, []);
+  }, [props.product]);
 
   return (
     <Grid item xs={12} sm={6} md={4}>

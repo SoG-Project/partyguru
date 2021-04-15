@@ -20,6 +20,7 @@ const PartyPackage = () => {
     axios.get(`/api/packages/${productID}`).then((response) => {
       setProduct(response.data);
     });
+
   }, []);
 
   return (
