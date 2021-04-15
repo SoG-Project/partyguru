@@ -17,7 +17,7 @@ const PartyPackage = () => {
   const classes = useStyles();
   //contains product, initialized empty to prevent errors
   const [product, setProduct] = useState();
-  const [productGuru, setProductGurus] = useState([]);
+  const [productGurus, setProductGurus] = useState([]);
 
   //useState for the guruIDs of this product, used to get info on these gurus from the backend
 
@@ -35,7 +35,7 @@ const PartyPackage = () => {
   //get gurus of this product from backend
   useEffect(() => {
     console.log(product)
-    //guruID && guruIDs check ensures that the map is not done if guruIDs is undefined -> prevents a crash
+    //product && guruIDs check ensures that the map is not done if guruIDs is undefined -> prevents a crash
     axios.get("/api/gurus").then((response) => {
       const guruArray =
         product &&
@@ -67,8 +67,8 @@ const PartyPackage = () => {
           cart
         </p>
           <div style={{ height: "10rem" }}>
-            {productGuru &&
-            productGuru.map((guru) => (
+            {productGurus &&
+            productGurus.map((guru) => (
                 <Typography style={{ fontSize: "1.5rem" }} key={guru._id}>
                   {guru.name}
                 </Typography>

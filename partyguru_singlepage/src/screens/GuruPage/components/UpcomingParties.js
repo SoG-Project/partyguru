@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
-import {DataGrid, GridRowsProp} from '@material-ui/data-grid';
-import {GridColDef} from "@material-ui/data-grid";
+import {DataGrid} from '@material-ui/data-grid';
 import Button from "@material-ui/core/Button";
 
 
@@ -12,7 +11,6 @@ const UpcomingParties = (props) => {
     const [nameArray, setNameArray] = useState([])
     const [rows, setRows] = useState([])
 
-    const newParties = []
 
     // Setting up the columns for the Data Grid
     const columns = [
@@ -61,16 +59,18 @@ const UpcomingParties = (props) => {
 
     // Hook to fill the data grid with party details
     useEffect(() => {
-        parties.map((party, index) => {
+        const newParties = []
+        parties.forEach((party, index) => {
                 newParties.push({id: index, date: new Date(party.datetime).toString().split('(')[0], pPackage:
-                        (nameArray[index]), guestAmount: party.num_attendees, ppLink: ("Clicky click" + index)})
+                        (nameArray[index]), guestAmount: party.num_attendees, ppLink: ("Clicky click" + index)
+                })
 
             if (index===parties.length-1)
                 setRows(newParties)
         }
     )
 
-    }, [nameArray]);
+    }, [nameArray, parties]);
 
 
 
