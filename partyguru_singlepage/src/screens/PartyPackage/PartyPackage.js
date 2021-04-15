@@ -43,7 +43,6 @@ const PartyPackage = () => {
           (guru) => product.guruid.includes(guru._id) && guru.availability === true
         );
       setProductGurus(guruArray);
-      console.log("guruarray (Product.js):", guruArray);
     });
   }, [product]);
 
@@ -67,6 +66,14 @@ const PartyPackage = () => {
           <br /> Package info, availability calendar, gurus, contact + add to
           cart
         </p>
+          <div style={{ height: "10rem" }}>
+            {productGuru &&
+            productGuru.map((guru) => (
+                <Typography style={{ fontSize: "1.5rem" }} key={guru._id}>
+                  {guru.name}
+                </Typography>
+            ))}
+          </div>
         </Grid>
       </Grid>
     </div>
