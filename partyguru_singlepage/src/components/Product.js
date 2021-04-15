@@ -10,8 +10,6 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  Divider,
-  Box,
 } from "@material-ui/core";
 //Party package product cards
 //The information in the cards comes as props from LandingPage.js
@@ -58,7 +56,6 @@ const Product = (props) => {
   //Put all information of these gurus in the productGuru state
 
   useEffect(() => {
-
     //guruID && guruIDs check ensures that the map is not done if guruIDs is undefined -> prevents a crash
     axios.get("api/gurus").then((response) => {
       const guruArray =
@@ -92,9 +89,10 @@ const Product = (props) => {
           {/*CardMedia loads our image. Most likely the easiest way to have a responsive image
           top padding is necessary to display the image, and gives the image a certain amount of space */}
           <CardMedia
+            component="img"
             image={product.image}
             title={product.name}
-            style={{ paddingTop: "50%" }}
+            alt={product.name}
           />
           {/*
           CardContent contains the 'header' of the card (name of product), names of gurus, and the price info
@@ -107,7 +105,7 @@ const Product = (props) => {
               {product.name}
             </Typography>
             {/*Divider line under header of card and gurus*/}
-            <div style={{borderBottom:"dashed", borderColor:"orange"}}/>
+            <div style={{ borderBottom: "dashed", borderColor: "orange" }} />
             {/*Typography containers for gurus*/}
             <Typography gutterBottom variant="h4" style={{ marginTop: "7px" }}>
               Gurus:
@@ -116,7 +114,7 @@ const Product = (props) => {
             This typography should then have overflow="hidden", textOverflow="ellipsis"
             This can be done by creating a single string that contains all guru names (somehow) 
             and adding linebreaks to put them on different lines */}
-            <div style={{ height: "10rem"}}>
+            <div style={{ height: "10rem" }}>
               {productGuru &&
                 productGuru.map((guru) => (
                   <Typography style={{ fontSize: "1.5rem" }} key={guru._id}>
@@ -125,7 +123,9 @@ const Product = (props) => {
                 ))}
             </div>
             {/*Another typography to contain the price of the product*/}
-            <Typography className={classes.cost}>Starting at {product.price}€</Typography>
+            <Typography className={classes.cost}>
+              Starting at {product.price}€
+            </Typography>
           </CardContent>
         </CardActionArea>
       </Card>

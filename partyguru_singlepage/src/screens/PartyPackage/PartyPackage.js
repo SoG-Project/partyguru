@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {makeStyles} from '@material-ui/core';
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core";
 import axios from "axios";
+import Product from "../../components/Product";
 //package kortit linkkaa tänne
-//jätin tän vaan siksi että näkyisi miten eri screenejä voi tehä browserroutella, oikeasti varmaan meillä ei oo mitään tällaista screeniä
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -11,30 +11,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-
 const PartyPackage = () => {
   const classes = useStyles();
-  const [product, setProduct] = useState()
+  const [product, setProduct] = useState({});
 
+  useEffect(() => {
+    const productID = window.location.href.split("product/").pop();
+    axios.get(`/api/packages/${productID}`).then((response) => {
+      setProduct(response.data);
+    });
+  }, []);
 
-    useEffect(() => {
-        const productID = window.location.href.split('product/').pop()
-        axios.get(`/api/packages/${productID}`).then(response => {
-        setProduct(response.data)
-    })
-    }, []);
-
-
-
-
-    return (
+  return (
     <div className={classes.mainContainer}>
-        <div className="row center">
-            <button onClick={()=>console.log(product)}>Testaa onko meillä producti</button>
-        <p>Party package description comes here.<br /> Package info, availability calendar, gurus, contact + add to cart</p>
-        </div>
+      <div className="row center">
+        <button onClick={() => console.log(product)}>
+          Testaa onko meillä producti
+        </button>
+        <p>
+          Party package description comes here.
+          <br /> Package info, availability calendar, gurus, contact + add to
+          cart
+        </p>
+        <Product product={product} />
+      </div>
     </div>
   );
 };
