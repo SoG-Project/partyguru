@@ -25,11 +25,11 @@ const Attendees = () => {
   const classes = useStyles();
 
   const [attendees, changeAttendees] = useState([
-    { name: "Jarkko", attends: "unknown" },
-    { name: "Jarkko", attends: "attending" },
-    { name: "Jarkko", attends: "notattending" },
-    { name: "Jarkko", attends: "attending" },
-    { name: "Jarkko", attends: "notattending" },
+    { name: "Alvari", attends: "unknown" },
+    { name: "Juho G", attends: "attending" },
+    { name: "Juho V", attends: "notattending" },
+    { name: "Joonas", attends: "attending" },
+    { name: "Pauli", attends: "notattending" },
   ]);
 
   return (
@@ -55,7 +55,7 @@ const Attendees = () => {
                 {x.attends === "attending" && (
                 <Typography className="tooltip" style={{ marginTop: "4px"}}>
                     <CheckCircleIcon fontSize="large" />
-                    <span className="tooltiptext">Unknown</span>
+                    <span className="tooltiptext">Attending</span>
                   </Typography>
                 )}
                 {x.attends === "notattending" && (
