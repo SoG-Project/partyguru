@@ -6,13 +6,18 @@ import HelpIcon from "@material-ui/icons/Help";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import "./Attendees.css";
+import {positions} from '@material-ui/system'
 
 const useStyles = makeStyles((theme) => ({
   attendeeText: {
     fontSize: "2rem",
+    marginLeft: "10px",
   },
   attendeeBox: {
     width: "20%",
+    margin: "1%",
+    flex: "1",
+    right: "auto",
   },
 }));
 
@@ -21,30 +26,49 @@ const Attendees = () => {
 
   const [attendees, changeAttendees] = useState([
     { name: "Jarkko", attends: "unknown" },
-    { name: "Jarkko", attends: "unknown" },
-    { name: "Jarkko", attends: "unknown" },
-    { name: "Jarkko", attends: "unknown" },
-    { name: "Jarkko", attends: "unknown" },
+    { name: "Jarkko", attends: "attending" },
+    { name: "Jarkko", attends: "notattending" },
+    { name: "Jarkko", attends: "attending" },
+    { name: "Jarkko", attends: "notattending" },
   ]);
 
   return (
     <div>
-      <Paper elevation={4} className={classes.attendeeBox}>
-        <Grid container direction="row">
-          <Grid item xs={8}>
-            <Typography className={classes.attendeeText}>
-              {attendees[attendees.length - 1].name}
-            </Typography>
-          </Grid>
-          <Grid item xs={4}>
-            {/*VerticalAlign doesn't work atm!*/}
-            <Typography className="tooltip" style={{ verticalAlign : "center", marginTop: "4px"}}>
-              <HelpIcon fontSize="large" />
-              <span className="tooltiptext">Unknown</span>
-            </Typography>
-          </Grid>
-        </Grid>
-      </Paper>
+      <Typography className={classes.attendeeBox} variant="h2">Attendees:</Typography>
+      {attendees.map((x, i) => {
+          return(
+            <Paper elevation={4} className={classes.attendeeBox}>
+            <Grid container direction="row">
+              <Grid item xs={10}>
+                <Typography className={classes.attendeeText}>
+                  {attendees[attendees.length - 1].name}
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                {/*Hide overflowing text?? https://material-ui.com/system/display/#text-overflow*/}
+                {x.attends === "unknown" && (
+                <Typography className="tooltip" style={{ marginTop: "4px"}}>
+                    <HelpIcon fontSize="large" />
+                    <span className="tooltiptext">Unknown</span>
+                  </Typography>
+                )}
+                {x.attends === "attending" && (
+                <Typography className="tooltip" style={{ marginTop: "4px"}}>
+                    <CheckCircleIcon fontSize="large" />
+                    <span className="tooltiptext">Unknown</span>
+                  </Typography>
+                )}
+                {x.attends === "notattending" && (
+                <Typography className="tooltip" style={{ marginTop: "4px"}}>
+                    <HighlightOffIcon fontSize="large" />
+                    <span className="tooltiptext">Not Attending</span>
+                  </Typography>
+                )}
+              </Grid>
+            </Grid>
+          </Paper>
+          )
+      })}
     </div>
   );
 };
