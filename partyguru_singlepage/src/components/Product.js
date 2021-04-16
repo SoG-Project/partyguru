@@ -67,7 +67,7 @@ const Product = (props) => {
       console.log("täs guruarray (Product.js):", guruArray);
       setProductGurus(guruArray);
     });
-  }, [props.product]);
+  }, [props.product, guruIDs]);
 
   return (
     <Grid item xs={12} sm={6} md={4}>
