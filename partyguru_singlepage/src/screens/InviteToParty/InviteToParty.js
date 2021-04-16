@@ -244,7 +244,10 @@ const handleEmailfieldDelete = (index) => {
             </div>
         </div>
         <Link to="/partypage">Send Invites and go to party page</Link>
-        
+        <h1>
+        Click the invitation picture to switch between the normal theme 
+        and an epic flame theme
+       </h1>
 
         
         {/*Preview feature in progress
@@ -252,7 +255,7 @@ const handleEmailfieldDelete = (index) => {
         not relative positioned anymore so doesn't break when using different resolution or zooming
         though it's currently standing on top of the bottom bar, making it unclickable, fix this soon
         ADDED PLACEHOLDER FOR THE TIME BEING^*/}
-        <h2>Contact field</h2>
+        
         <div className="preview">
           <div className="invitelayout">
             {/*Tässä pitäisi renderöidä teema*/}
@@ -264,7 +267,7 @@ const handleEmailfieldDelete = (index) => {
            <div className="subtitle">{description2}</div>
           </div>
         </div>
-        
+        <h1>Contact field</h1>
         {/* Radio buttons for the theme selection, don't do anything atm
         made into a comment so they won't clutter the page while working
 
@@ -378,10 +381,8 @@ const handleEmailfieldDelete = (index) => {
             </Grid>
           );
         })}
-        <h1>
-      Click the invitation picture to switch the normal theme 
-      and an epic flame theme
-       </h1>
+        
+
     </div>
     )
     

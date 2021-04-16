@@ -25,17 +25,15 @@
 
 .invitelayout{
     text-align: center;
-    position:absolute;
+    position:relative;
     justify-content: center;
     border-style: solid;
     border-color: green;
     border-width: thick;
+    height: 507px;
+    width: 353px;
+    top:20%;
     
-    top: 20%;
-    left: 25%;
-    transform: translate(-40%, -50%);
-    margin-top: 20%;
-    margin-left: 20%;
     
     
 }
