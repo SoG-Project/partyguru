@@ -13,8 +13,9 @@ import {
   Divider,
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import ContactInfoFieldsPartyPage from './components/ContactInfoFieldsPartyPage'
-import Attendees from './components/Attendees'
+import ContactInfoFieldsPartyPage from "./components/ContactInfoFieldsPartyPage";
+import Attendees from "./components/Attendees";
+import GameInfo from "./components/GameInfo";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -78,7 +79,7 @@ const CreatePartyPage = () => {
           <Typography variant="h2">Party Guru</Typography>
           <Typography variant="h5" gutterBottom>
             Our Party Gurus host the most awesome parties for partiers of any
-            age. 
+            age.
             <br />
             Parties are hosted on the Discord voice application and in various
             games <br />
@@ -89,48 +90,78 @@ const CreatePartyPage = () => {
           </Typography>
         </Grid>
       </div>
-      <Attendees/>
+
+      <Grid container direction="row">
+        <Grid item xs={5}>
+          <GameInfo />
+        </Grid>
+        <Grid item xs={5}>
+          <Attendees />
+        </Grid>
+      </Grid>
       <div className={classes.mainContainer}>
         {/*Creates a grid to display the schedule for the party
           Schedule displays things that are meant to be done 
           at the party like "Brithday Cheer", "Eat cake", 
           "Play Minecraft"*/}
         <Typography variant="h5">Schedule</Typography>
-        <Grid container justify="space-around" direction="row" style={{backgroundColor:"orange", marginBottom:"1rem"}}>
+        <Grid
+          container
+          justify="space-around"
+          direction="row"
+          style={{ backgroundColor: "orange", marginBottom: "1rem" }}
+        >
           <Grid item>
-            <Typography style={{fontSize:"1.5rem"}}>Minecraft</Typography>
+            <Typography style={{ fontSize: "1.5rem" }}>Minecraft</Typography>
           </Grid>
           <Grid item>
-            <Typography style={{fontSize:"1.5rem"}}>Birthday Cheer</Typography>
+            <Typography style={{ fontSize: "1.5rem" }}>
+              Birthday Cheer
+            </Typography>
           </Grid>
           <Grid item>
-            <Typography style={{fontSize:"1.5rem"}}>Minecraft Mod 1</Typography>
+            <Typography style={{ fontSize: "1.5rem" }}>
+              Minecraft Mod 1
+            </Typography>
           </Grid>
           <Grid item>
-            <Typography style={{fontSize:"1.5rem"}}>Eat Cake</Typography>
+            <Typography style={{ fontSize: "1.5rem" }}>Eat Cake</Typography>
           </Grid>
           <Grid item>
-            <Typography style={{fontSize:"1.5rem"}}>Minecraft Mod 2</Typography>
+            <Typography style={{ fontSize: "1.5rem" }}>
+              Minecraft Mod 2
+            </Typography>
           </Grid>
         </Grid>
 
         {/*Available activities for this party pack*/}
         <Typography variant="h5">Available activities</Typography>
-        <Grid container justify="space-around" direction="row" style={{backgroundColor:"orange"}}>
-        <Grid item>
-            <Typography style={{fontSize:"1.5rem"}}>Minecraft</Typography>
+        <Grid
+          container
+          justify="space-around"
+          direction="row"
+          style={{ backgroundColor: "orange" }}
+        >
+          <Grid item>
+            <Typography style={{ fontSize: "1.5rem" }}>Minecraft</Typography>
           </Grid>
           <Grid item>
-            <Typography style={{fontSize:"1.5rem"}}>Birthday Cheer</Typography>
+            <Typography style={{ fontSize: "1.5rem" }}>
+              Birthday Cheer
+            </Typography>
           </Grid>
           <Grid item>
-            <Typography style={{fontSize:"1.5rem"}}>Minecraft mod 1</Typography>
+            <Typography style={{ fontSize: "1.5rem" }}>
+              Minecraft mod 1
+            </Typography>
           </Grid>
           <Grid item>
-            <Typography style={{fontSize:"1.5rem"}}>Eat cake</Typography>
+            <Typography style={{ fontSize: "1.5rem" }}>Eat cake</Typography>
           </Grid>
           <Grid item>
-            <Typography style={{fontSize:"1.5rem"}}>Minecraft Mod 2</Typography>
+            <Typography style={{ fontSize: "1.5rem" }}>
+              Minecraft Mod 2
+            </Typography>
           </Grid>
         </Grid>
 
@@ -246,8 +277,8 @@ const CreatePartyPage = () => {
             </Paper>
           </Grid>
         </Grid>
-        
-        <ContactInfoFieldsPartyPage/>
+
+        <ContactInfoFieldsPartyPage />
 
         <Button
           className={classes.button}
