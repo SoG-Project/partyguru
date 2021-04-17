@@ -22,14 +22,15 @@ const GuruCalendar = () => {
 
             let newEvent = {
                 id: "kolme",
-                title:"jeah",
+                title:"Unavailable",
                 start: selectInfo.startStr,
                 end: selectInfo.endStr,
             }
 
             //add to calendar, then add to useState
+        if (window.confirm("Are you unavailable from " + selectInfo.startStr + ' to ' + selectInfo.endStr + '?'))
                 setEvents([...events, newEvent])
-        console.log(events)
+                console.log(events)
 
         }
 
