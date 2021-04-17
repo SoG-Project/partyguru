@@ -1,4 +1,8 @@
+//Former component for hiding the component, not needed atm
 import React, { Component } from "react";
+import defaulttheme from './Images/defaulttheme.png';
+import flametheme from './Images/flametheme.png';
+import spacetheme from './Images/spacetheme.png';
 
 class Theme1 extends Component {
   constructor() {
@@ -23,9 +27,8 @@ class Theme1 extends Component {
       <div>
         <table>
           {showHideTheme && (
-            /*Struggling to get my preview from the InviteToParty here,
-            have to use props I think */
-            <div>Tähän tulee siisti teema</div>
+            <img src={defaulttheme}/>
+            
           )}
           <tr>
             <td>

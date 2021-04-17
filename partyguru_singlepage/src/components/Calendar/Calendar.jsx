@@ -91,6 +91,8 @@ const Calendar = () => {
       //Time when calendar starts and ends
       slotMinTime="08:00:00"
       slotMaxTime="22:00:00"
+      //Change format title date is displayed in
+      titleFormat={{year: 'numeric', month:'2-digit', day: '2-digit'}}
       //Red pointer that indicates what time it is now
       nowIndicator
       //Extra top bar that has slots for allDay events

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import Product from "../../components/Product";
-import ContactInfoFields from "./components/ContactInfoFields";
-import AttendeeNumberSelector from "./components/AttendeeNumberSelector";
-import CostCalculator from "./components/CostCalculator";
+import ContactInfoFields from "../../components/ContactInfoFields";
+import AttendeeNumberSelector from "../../components/AttendeeNumberSelector";
+import CostCalculator from "../../components/CostCalculator";
 import Calendar from "../../components/Calendar/Calendar";
+
 import LoginButton from "./components/LoginButton"
 import LogoutButton from "./components/LogoutButton"
 import Button from "@material-ui/core/Button";
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: "1rem",
     margin: "1rem",
+    justifyContent: "center",
   },
   paper: {
     padding: theme.spacing(2),
@@ -127,23 +129,42 @@ const LandingPage = () => {
       </div>
 
       <div className={classes.root}>
-        <Grid container spacing={3} direction="row-reverse" justify="center" alignItems="center">
+        <Grid
+          container
+          spacing={5}
+          direction="row"
+          justify="center"
+          alignItems="center"
+          style={{ width: "80%", maxWidth: "1600px", margin: "auto" }}
+        >
           <Grid item xs={12}>
-            <Paper
-              style={{
-                height: "80vh",
-                padding: "1rem",
-                margin: "1rem",
-                alignContent:"center"
-              }}
-            >
-              <Calendar />
-            </Paper>
+            <Typography align="center" variant="h2">
+              Party Package Selection
+            </Typography>
           </Grid>
 
           {products.map((product) => (
             <Product key={product._id} product={product}></Product>
           ))}
+
+          <Grid item xs={12} style={{paddingBottom:"0"}}>
+            <Typography align="center" variant="h2" style={{paddingBottom:"0"}}>
+              Date Selection
+            </Typography>
+          </Grid>
+          <Grid item xs={12} style={{paddingTop:"0"}}>
+            <Paper
+              elevation={5}
+              style={{
+                height: "80vh",
+                padding: "1rem",
+                margin: "1rem",
+                alignContent: "center",
+              }}
+            >
+              <Calendar />
+            </Paper>
+          </Grid>
         </Grid>
         {/*<div className="row">uusi rivi</div>*/}
 
@@ -218,7 +239,7 @@ const LandingPage = () => {
                   margin: "10px",
                   minWidth: "80px",
                   minHeight: "40px",
-                  fontSize: "1.2rem,"
+                  fontSize: "1.2rem,",
                 }}
               >
                 Link to Cart

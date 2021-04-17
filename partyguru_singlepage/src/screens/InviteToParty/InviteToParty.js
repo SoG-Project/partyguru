@@ -10,6 +10,9 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Themeswap from "./components/theme3"
+
+
 
 
 
@@ -69,17 +72,19 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-  function PerusTeema(props) {
-   return <img src={"https://i.pinimg.com/originals/59/2e/81/592e812f43f66758178347430b992436.png"} />
+  function Themes(props) {
+  const { currenttheme } = props
+  switch(currenttheme) {
+    case ' liekkiteema':
+      return <img src={"https://kjeh.fi/iKTpb"} />
+    case 'avaruusteema':
+      return <img src={"https://kjeh.fi/gLuYo"} />
+    default:
+      return <img src={"https://i.pinimg.com/originals/59/2e/81/592e812f43f66758178347430b992436.png"} />
   }
-
-  function AvaruusTeema(props) {
-   return <img src={"https://kjeh.fi/gLuYo"} />
-  }
-
-function LiekkiTeema(props) {
-  return <img src={"https://kjeh.fi/iKTpb"} />
 }
+      
+
 
 /*Email sending thingy, didn't work yet when tried but will work on it*/
   /*var nodemailer = require('nodemailer') 
@@ -247,19 +252,22 @@ const handleEmailfieldDelete = (index) => {
         not relative positioned anymore so doesn't break when using different resolution or zooming
         though it's currently standing on top of the bottom bar, making it unclickable, fix this soon
         ADDED PLACEHOLDER FOR THE TIME BEING^*/}
-        <h2>Preview testing</h2>
+        <h2>Contact field</h2>
         <div className="preview">
           <div className="invitelayout">
             {/*Tässä pitäisi renderöidä teema*/}
-
-          <LiekkiTeema></LiekkiTeema>
+            <Themeswap></Themeswap>
+          
            <div className="invitetitle">
              Kutsu Make Viljami-Macklemoren syntymäpäiväjuhliin
            </div>
            <div className="subtitle">{description2}</div>
           </div>
         </div>
-        {/* Radio buttons for the theme selection, don't do anything atm*/}
+        
+        {/* Radio buttons for the theme selection, don't do anything atm
+        made into a comment so they won't clutter the page while working
+
         <div className="ThemeSelect">
         <h1>Valitse teemasi:</h1>
         <div>
@@ -290,6 +298,7 @@ const handleEmailfieldDelete = (index) => {
         />
         </div>
         </div>
+      */}
         
         {/*This is on top of the invite preview for some reason
         dunno how to fix it atm */}
@@ -369,9 +378,11 @@ const handleEmailfieldDelete = (index) => {
             </Grid>
           );
         })}
-
+        <h1>
+      Click the invitation picture to switch the normal theme 
+      and an epic flame theme
+       </h1>
     </div>
-    
     )
     
 }
@@ -380,4 +391,5 @@ export default InviteToParty
 
 /*todo:
 make the theme selection
+done (kinda) but this really needs some improving
 */
