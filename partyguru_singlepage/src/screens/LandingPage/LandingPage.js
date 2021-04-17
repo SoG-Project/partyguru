@@ -96,14 +96,6 @@ const LandingPage = () => {
     };
   }, [products, singleid]);
 
-  //Nappi mikä vaihtaa partypackagekorttia, sen klikinhändlääjä
-  //klikkauksessa vaan kasvatetaan singleid:tä, mikä triggeröi ylläolevan hookin^
-  const handleClick = () => {
-    let __sid = singleid;
-    __sid += 1;
-    setSingleid(__sid);
-  };
-
   const classes = useStyles();
   return (
     <div>
@@ -164,87 +156,6 @@ const LandingPage = () => {
             >
               <Calendar />
             </Paper>
-          </Grid>
-        </Grid>
-        {/*<div className="row">uusi rivi</div>*/}
-
-        <div className="break"></div>
-
-        {/*Tavoitteena sisäkkäiset gridit.
-    Vasemmalla näkymässä Scheduler, oikealla formeja tms (ks. Figma etusivua)
-    Tässä määritellään uloin grid container, jossa elementtien pitäisi mennä vas -> oik*/}
-        <Grid
-          container
-          direction="row"
-          justify="space-around"
-          alignItems="center"
-          spacing={4}
-          style={{ marginTop: "10px", marginBottom: "10px" }}
-        >
-          <Grid item xs={12}>
-            <Divider style={{ marginBottom: "2rem" }} />
-          </Grid>
-          {/*Ensimmmäisen gridin sisälle grid item, jossa on scheduler*/}
-          <Grid
-            container
-            item
-            spacing={2}
-            xs={8}
-            direction="column"
-            justify="flex-start"
-            alignItems="center"
-            style={{
-              borderStyle: "solid",
-              borderColor: "grey",
-              marginBottom: "10px",
-              marginTop: "10px",
-            }}
-          >
-            <Grid item>
-              <SchedulerTest />
-            </Grid>
-          </Grid>
-
-          {/*Toinen Grid, jonka sisään on tarkoitus tulla email, yms */}
-          <Grid
-            container
-            item
-            xs={3}
-            spacing={4}
-            direction="column"
-            justify="flex-start"
-            alignItems="stretch"
-            style={{
-              borderStyle: "dotted",
-              borderColor: "grey",
-              textAlign: "center",
-              height: "690px",
-            }}
-          >
-            <Grid item xs>
-              <ContactInfoFields />
-            </Grid>
-            <Grid item xs>
-              <AttendeeNumberSelector />
-            </Grid>
-            <Grid item xs>
-              <CostCalculator />
-            </Grid>
-            <Grid item xs>
-              <Button
-                variant="contained"
-                color="primary"
-                href="/cart"
-                style={{
-                  margin: "10px",
-                  minWidth: "80px",
-                  minHeight: "40px",
-                  fontSize: "1.2rem,",
-                }}
-              >
-                Link to Cart
-              </Button>
-            </Grid>
           </Grid>
         </Grid>
       </div>

@@ -22,8 +22,8 @@ const Calendar = () => {
     {
       id: createEventId(),
       title: "Testitapahtuma",
-      start: "2021-04-12T10:00",
-      end: "2021-04-12T12:00",
+      start: "2021-04-18T10:00",
+      end: "2021-04-18T12:00",
     },
   ]);
 

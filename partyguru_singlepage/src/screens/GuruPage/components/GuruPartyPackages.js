@@ -59,12 +59,13 @@ const GuruPartyPackages = ({guruID}) =>{
     // Apply changes to party packages.
     const submitPackages = () => {
 
-        pPackages.map(pPackage => {
+        pPackages.forEach(pPackage => {
                 if (pPackage.guruid.includes((guruID))) axios.put('/api/packages/' + (pPackage._id) + '/gurus', {guruid: [guruID]}).then(response => {
                     console.log(response.data)
                     })
                 if (!pPackage.guruid.includes((guruID))) axios.delete('/api/packages/' + (pPackage._id) + '/gurus', {data:{guruid: [guruID]}}).then(response => {
                     console.log(response.data)
+
                     })
             }
         )
