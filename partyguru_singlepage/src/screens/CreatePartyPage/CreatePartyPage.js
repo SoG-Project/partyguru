@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./CreatePartyPage.css";
 import {
   makeStyles,
@@ -9,13 +9,13 @@ import {
   FormControlLabel,
   Checkbox,
   Paper,
-  Box,
   Divider,
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import ContactInfoFieldsPartyPage from "./components/ContactInfoFieldsPartyPage";
 import Attendees from "./components/Attendees";
 import GameInfo from "./components/GameInfo";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CreatePartyPage = () => {
   const partyID = "605f8bcd8dfd970aa770584a";
+  const [thisParty, setThisParty] = useState([])
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
   //and email.
@@ -71,6 +72,14 @@ const CreatePartyPage = () => {
     })
   }
 */
+  useEffect(() => {
+    axios.get(`/api/parties/${partyID}`).then((response) => {
+      setThisParty(response.data);
+      console.log(response.data)
+    });
+  }, []);
+
+
   const classes = useStyles();
   return (
     <div className="root">
