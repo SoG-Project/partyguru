@@ -4,36 +4,39 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import './GuruCalendar.css';
+import axios from "axios";
 
 
 
-const GuruCalendar = () => {
+const GuruCalendar = (props) => {
 
     const [events, setEvents] = React.useState([
         {
-            id: "yeah",
-            title: "Guru ei ole täällä tänään",
-            start: "2021-04-18T10:00",
-            end: "2021-04-18T12:00",
+
         },
     ]);
 
     const handleDateSelect = (selectInfo) => {
 
-            let newEvent = {
-                id: "kolme",
-                title:"Unavailable",
-                start: selectInfo.startStr,
-                end: selectInfo.endStr,
-            }
-
-            //add to calendar, then add to useState
-        if (window.confirm("Are you unavailable from " + selectInfo.startStr + ' to ' + selectInfo.endStr + '?'))
-                setEvents([...events, newEvent])
-                console.log(events)
-
+        let newEvent = {
+            title: "Unavailable",
+            start: selectInfo.startStr,
+            end: selectInfo.endStr,
         }
 
+        //add to calendar, then add to useState
+        if (window.confirm("Are you unavailable from " + selectInfo.startStr + ' to ' + selectInfo.endStr + '?'))
+            setEvents([...events, newEvent])
+            console.log(events)
+    }
+
+    const handleSubmit = () => {
+
+        console.log(props.guruID)
+        axios.put(`/api/gurus/${props.guruID}`, {timeswhenunavailable: ["huomenna"]} ).then(response => {
+            console.log(response.data)
+        })
+    }
 
 
 
@@ -53,8 +56,15 @@ return (
                    allDaySlot={false}
                    nowIndicator
                    select={handleDateSelect}
-                   headerToolbar={{left: 'title', center:'', right: 'prev,next' }}
+                   headerToolbar={{left: 'title', center:'submitButton', right: 'prev,next' }}
                    titleFormat={{year: 'numeric', month:'2-digit', day: '2-digit'}}
+
+                   customButtons={{
+                       submitButton: {
+                           text: "Submit",
+                           click: handleSubmit,
+                       },
+                   }}
 
 
     />

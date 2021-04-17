@@ -20,6 +20,7 @@ const guruSchema = new mongoose.Schema({
   video: String,
   image: String,
   availability:Boolean,
+    timeswhenunavailable:[String],
   bio: String
 });
 const Guru= new mongoose.model('Guru',guruSchema);
@@ -466,6 +467,9 @@ app.put('/api/gurus/:id', function (req, res) {
     }
     if(req.body.video!==undefined){
       foundGuru[0].video=req.body.video;
+    }
+    if(req.body.timeswhenunavailable!==undefined) {
+      foundGuru[0].timeswhenunavailable=req.body.timeswhenunavailable;
     }
     if(req.body.image!==undefined){
       foundGuru[0].image=req.body.image;

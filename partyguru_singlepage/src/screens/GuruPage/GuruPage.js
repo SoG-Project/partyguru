@@ -40,7 +40,7 @@ const GuruPage = (props)=> {
                 <GuruInfo  id={userProfile._id} bio={userProfile.bio} name={userProfile.name} nick={userProfile.nick} />
                 <GuruPartyPackages guruID={userProfile._id}/>
                 <GuruVideo video={userProfile.video} guruID={userProfile._id}/>
-                <GuruCalendar/>
+                <GuruCalendar guruID={userProfile._id}/>
                 <GuruAvailability id={userProfile._id} availability={userProfile.availability}/>
                 <UpcomingParties guruID={userProfile._id}/>
             </div>
