@@ -6,12 +6,15 @@ import theme from './theme';
 import App from './App';
 import 'fontsource-roboto';
 import { Auth0Provider } from "@auth0/auth0-react";
+import { BrowserRouter } from 'react-router-dom';
+import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
 
 ReactDOM.render(
-  <Auth0Provider
+  <BrowserRouter>
+  <Auth0ProviderWithHistory
   domain="dev-721af4og.eu.auth0.com"
   clientId="DGNR4tVH0Vb99jJwzzFIfzXwQ5nqILPk"
-  redirectUri={window.location.origin}
+  redirectUri="http://localhost:3000"
 >
   <React.StrictMode>
     
@@ -19,6 +22,7 @@ ReactDOM.render(
       <App />
     </ThemeProvider>
   </React.StrictMode>
-  </Auth0Provider>,
+  </Auth0ProviderWithHistory>
+  </BrowserRouter>,
   document.getElementById('root')
 );

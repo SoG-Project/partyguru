@@ -6,7 +6,6 @@ import HelpIcon from "@material-ui/icons/Help";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import "./Attendees.css";
-import {positions} from '@material-ui/system'
 
 const useStyles = makeStyles((theme) => ({
   attendeeText: {
@@ -14,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "10px",
   },
   attendeeBox: {
-    width: "20%",
+    width: "40%",
     margin: "1%",
     flex: "1",
     right: "auto",
