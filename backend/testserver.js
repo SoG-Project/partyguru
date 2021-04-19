@@ -20,7 +20,7 @@ const guruSchema = new mongoose.Schema({
   video: String,
   image: String,
   availability:Boolean,
-    timeswhenunavailable:[String],
+    timeswhenunavailable:[],
   bio: String
 });
 const Guru= new mongoose.model('Guru',guruSchema);
