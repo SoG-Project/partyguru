@@ -15,9 +15,10 @@ import Grid from "@material-ui/core/Grid";
 import ContactInfoFieldsPartyPage from "./components/ContactInfoFieldsPartyPage";
 import Attendees from "./components/Attendees";
 import GameInfo from "./components/GameInfo";
+import CheckBoxes from "./components/CheckBoxes"
 import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   margin: {
     margin: "theme.spacing(2)",
     borderRadius: 35,
@@ -222,68 +223,7 @@ const CreatePartyPage = () => {
           </Grid>
 
           <Grid item xs={5}>
-            <Paper elevation={4} style={{ height: "100%" }}>
-              {/*Checkboxes for what the child likes*/}
-              <Grid
-                item
-                container
-                direction="column"
-                style={{
-                  padding: "2rem",
-                }}
-              >
-                <Grid item>
-                  <Typography paragraph gutterBottom variant="h4">
-                    Likes about Minecraft
-                  </Typography>
-                  <Divider />
-                </Grid>
-                <Grid item>
-                  <FormGroup direction="column">
-                    <FormControlLabel
-                      control={<Checkbox color="primary" name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          TNT
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      control={<Checkbox color="primary" name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          Cats
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      control={<Checkbox color="primary" name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          Dogs
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      control={<Checkbox color="primary" name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          Griefing
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      control={<Checkbox color="primary" name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          Co-op
-                        </Typography>
-                      }
-                    />
-                  </FormGroup>
-                </Grid>
-              </Grid>
-            </Paper>
+            <CheckBoxes/>
           </Grid>
         </Grid>
 
