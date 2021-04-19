@@ -3,10 +3,21 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import { Button, makeStyles, Paper } from "@material-ui/core";
 //Hyvä demo : https://codesandbox.io/s/github/fullcalendar/fullcalendar-example-projects/tree/master/react?file=/src/DemoApp.jsx
 //Dokumentaatio: https://fullcalendar.io/docs
-const Calendar = () => {
 
+const useStyles = makeStyles((theme) => ({
+  bigButton: {
+    margin: "10px",
+    minWidth: "80px",
+    minHeight: "40px",
+    fontSize: "1.2rem",
+  },
+}));
+
+const Calendar = () => {
+  const classes = useStyles();
   //eventGuid is used to create IDs for events
   let eventGuid = 0;
 
@@ -15,15 +26,22 @@ const Calendar = () => {
     return String(eventGuid++);
   };
 
+  const getSelectedDate = () =>{
+    const picked = document.getElementById("partyDate").value;
+    console.log(picked);
+  };
+
   //useState to contain all events, this should be sent to backend and recovered from there somehow
   const [events, setEvents] = React.useState([
     {
       id: createEventId(),
       title: "Testitapahtuma",
-      start: "2021-04-18T10:00",
-      end: "2021-04-18T12:00",
+      start: "2021-04-23T10:00",
+      end: "2021-04-24T12:00",
     },
   ]);
+
+  const [pickedDate, setPickedDate] = React.useState(new Date())
 
   //This is called when you paint squares in the calendar and it creates an event
   //Not necessary, calendar will probably not be "clickable" and will instead be filled through text fields etc
@@ -35,7 +53,7 @@ const Calendar = () => {
       title,
       start: selectInfo.startStr,
       end: selectInfo.endStr,
-    }
+    };
     calendarApi.unselect(); // clear date selection
 
     //add to calendar, then add to useState
@@ -50,10 +68,10 @@ const Calendar = () => {
   const handleEventButton = () => {
     console.log("HandleEventButton clicked");
     let title = prompt("Please enter a title for your event");
-      //Format is awkward, only temp solution
-      //Example valid date: '2021-04-12T10:00' -> 10am on 12.04.2021
+    //Format is awkward, only temp solution
+    //Example valid date: '2021-04-12T10:00' -> 10am on 12.04.2021
     let startDate = prompt(
-      "Please enter event start date & time (in format YYYY-MM-DDTHH:MM)" 
+      "Please enter event start date & time (in format YYYY-MM-DDTHH:MM)"
     );
     let endDate = prompt(
       "Please enter event end date & time (in format YYYY-MM-DDTXX:XX)"
@@ -70,51 +88,64 @@ const Calendar = () => {
       };
       //calendarApi.addEvent(newEvent);
       setEvents((events) => [...events, newEvent]);
-
     } else {
       alert("Prompts filled wrong");
     }
   };
   return (
-    <FullCalendar
-      plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-      //initialView: what view is open by default
-      initialView="timeGridWeek"
-      //events taken from useState
-      events = {events}
-      height="100%"
-      locale="fi"
-      //Can the calendar be painted to create events, default true, change with selectable={false}
-      selectable
-      //Time when calendar starts and ends
-      slotMinTime="08:00:00"
-      slotMaxTime="22:00:00"
-      //Change format title date is displayed in
-      titleFormat={{year: 'numeric', month:'2-digit', day: '2-digit'}}
-      //Red pointer that indicates what time it is now
-      nowIndicator
-      //Extra top bar that has slots for allDay events
-      allDaySlot={false}
-      //Change first day to monday
-      firstDay="1"
-      //What happens when the calender is "selected", aka a section is painted to create an event
-      select={handleDateSelect}
-      /* HeaderToolbar toimii hauskasti, jos elementtien välissä on space, tulee kalenteriin tyhjä väli, jos pilkku ne yhdistyvät
+    <Paper
+      elevation={5}
+      style={{
+        width: "90%",
+        padding: "1rem",
+        flexDirection: "column",
+      }}
+    >
+      <FullCalendar
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        //initialView: what view is open by default
+        initialView="timeGridWeek"
+        //events taken from useState
+        events={events}
+        locale="fi"
+        //Can the calendar be painted to create events, default true, change with selectable={false}
+        selectable
+        //Time when calendar starts and ends
+        slotMinTime="08:00:00"
+        slotMaxTime="22:00:00"
+        //Change format title date is displayed in
+        titleFormat={{ year: "numeric", month: "2-digit", day: "2-digit" }}
+        //Red pointer that indicates what time it is now
+        nowIndicator
+        //Extra top bar that has slots for allDay events
+        allDaySlot={false}
+        //Change first day to monday
+        firstDay="1"
+        //What happens when the calender is "selected", aka a section is painted to create an event
+        select={handleDateSelect}
+        /* HeaderToolbar toimii hauskasti, jos elementtien välissä on space, tulee kalenteriin tyhjä väli, jos pilkku ne yhdistyvät
         Kokeile esim left:'prev,next today'
         */
-      headerToolbar={{
-        left: "prev next today",
-        center: "title myCustomButton",
-        right: "timeGridWeek timeGridDay",
-      }}
-      //For defining custom buttons, pretty simple as you can see
-      customButtons={{
-        myCustomButton: {
-          text: "Add event",
-          click: handleEventButton,
-        },
-      }}
-    />
+        headerToolbar={{
+          left: "prev next today",
+          center: "title myCustomButton",
+          right: "timeGridWeek timeGridDay",
+        }}
+        //For defining custom buttons, pretty simple as you can see
+        customButtons={{
+          myCustomButton: {
+            text: "Add event",
+            click: handleEventButton,
+          },
+        }}
+      />
+      <label for="partyDate">Select date:</label>
+      <input type="date" id="partyDate" name="partyDate"/>
+      <input type="time" id="partyTime" name="partyTime"/>
+      <Button variant="contained" color="primary" onClick={getSelectedDate} className={classes.bigButton}>
+        Get selected date
+      </Button>
+    </Paper>
   );
 };
 export default Calendar;

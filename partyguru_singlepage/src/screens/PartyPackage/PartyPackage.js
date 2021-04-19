@@ -67,13 +67,7 @@ const PartyPackage = () => {
       {product ? (
         <Grid container direction="row" justify="center">
           {/*Start of Image grid */}
-          <Grid
-            container
-            item
-            xs={3}
-            direction="column"
-            align="center"
-          >
+          <Grid container item xs={3} direction="column" align="center">
             <Grid item style={{ width: "100%" }}>
               <Paper style={{ width: "100%", marginBottom: "6%" }}>
                 <Image src={product.image} />
@@ -83,7 +77,7 @@ const PartyPackage = () => {
               <div style={{ borderBottom: "dashed", borderColor: "orange" }} />
             </Grid>
             <Grid item>
-              <Typography variant="h4" style={{ marginTop: "5%" }}>
+              <Typography variant="h3" style={{ marginTop: "5%" }}>
                 Gurus:
               </Typography>
               {productGurus &&
@@ -118,46 +112,41 @@ const PartyPackage = () => {
             </Grid>
           </Grid>
           {/*Grid container for input fields */}
-          <Grid
-            container
-            style={{ height: "100%", marginTop: "3rem" }}
-          >
+          <Grid container style={{ height: "100%", marginTop: "3rem" }}>
+            <Grid item xs={12}>
+              <div
+                style={{
+                  borderTop: "dashed",
+                  borderColor: "orange",
+                  marginBottom: "2rem",
+                }}
+              />
+            </Grid>
             <Grid container item xs={7} direction="column">
-              <Grid item align="center">
-                <Paper
-                  elevation={5}
-                  style={{
-                    height: "80vh",
-                    width: "90%",
-                    padding:"1rem"
-                  }}
-                >
-                  <Calendar />
-                </Paper>
+              <Grid xs={12} align="center">
+                <Calendar />
               </Grid>
             </Grid>
             <Grid container item xs={3} direction="column">
-            <Grid item>
-              <AttendeeNumberSelector />
+              <Grid item>
+                <AttendeeNumberSelector />
+              </Grid>
+              <Grid item>
+                <ContactInfoFields />
+              </Grid>
+              <Grid item>
+                <CostCalculator />
+              </Grid>
+              <Grid item align="center">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.bigButton}
+                >
+                  Add to cart and invite guests!
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item>
-              <ContactInfoFields />
-            </Grid>
-            <Grid item>
-              <CostCalculator />
-            </Grid>
-            <Grid item align="center">
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.bigButton}
-              >
-                Add to cart and invite guests!
-              </Button>
-            </Grid>
-            </Grid>
-
-            
           </Grid>
         </Grid>
       ) : (
