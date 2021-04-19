@@ -8,7 +8,6 @@ const useStyles = makeStyles({
     headerLink:{
         fontSize: "2rem",
         color:"white",
-        
     }
 })
 
@@ -16,7 +15,7 @@ const Header = () => {
     const classes = useStyles();
     
     return (
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Toolbar variant="dense">
                 <Grid container 
                 direction="row" 

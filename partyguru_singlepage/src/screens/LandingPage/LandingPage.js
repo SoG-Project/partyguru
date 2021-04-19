@@ -99,8 +99,8 @@ const LandingPage = () => {
   const classes = useStyles();
   return (
     <div>
-      <LoginButton></LoginButton>
-      <LogoutButton></LogoutButton>
+      <LoginButton/>
+      <LogoutButton/>
       <div className={classes.partyGuruInfo}>
         <Grid container direction="column" alignItems="center">
           <Typography gutterBottom variant="h3">

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,6 +7,7 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  Button,
   Typography,
 } from "@material-ui/core";
 //Party package product cards
@@ -39,6 +38,13 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "0",
     paddingRight: "0",
     paddingBottom: "0",
+  },
+  bigButton: {
+    margin: "10px",
+    minWidth: "80px",
+    minHeight: "40px",
+    fontSize: "1.2rem",
+    maxWidth:"50%"
   },
 }));
 
@@ -75,7 +81,7 @@ const Product = (props) => {
       This component uses 'cardStyle' defined earlier in useStyles. It is taken into use with className={classes.cardStyle}
       */}
       <Card raised className={classes.cardStyle}>
-        {/*Whole card is a CardActionArea. This makes the card clickable and creates ripples when clicked 
+        {/*Whole card is a CardActionArea. This makes the card clickable, ripples are disabled with disableRipple
         href is the link clicking the card will lead to. "+ product.id" should pass the id of that product to PartyPackage-page*/}
         <CardActionArea
           style={{
@@ -84,7 +90,7 @@ const Product = (props) => {
             paddingLeft: "7%",
             paddingRight: "7%",
           }}
-          centerRipple
+          disableRipple
           href={`/product/${product._id}`}
         >
           {/*CardMedia loads our image. Most likely the easiest way to have a responsive image
@@ -127,6 +133,7 @@ const Product = (props) => {
             <Typography className={classes.cost}>
               Starting at {product.price}€
             </Typography>
+            <Button className={classes.bigButton} variant="contained" color="primary" href={`/product/${product._id}`}>More Information</Button>
           </CardContent>
         </CardActionArea>
       </Card>

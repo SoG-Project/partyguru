@@ -3,10 +3,10 @@ import { Button, Grid, makeStyles, Typography, Paper } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Image from "material-ui-image";
 import axios from "axios";
-import Product from "../../components/Product";
 import AttendeeNumberSelector from "../../components/AttendeeNumberSelector";
 import ContactInfoFields from "../../components/ContactInfoFields";
 import CostCalculator from "../../components/CostCalculator";
+import Calendar from "../../components/Calendar/Calendar";
 //package kortit linkkaa tänne
 
 const useStyles = makeStyles((theme) => ({
@@ -65,12 +65,7 @@ const PartyPackage = () => {
       like product.img or product.name 
       While product is not fetched a simple loading page will display*/}
       {product ? (
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          style={{ height: "100vh" }}
-        >
+        <Grid container direction="row" justify="center">
           {/*Start of Image grid */}
           <Grid
             container
@@ -78,7 +73,6 @@ const PartyPackage = () => {
             xs={3}
             direction="column"
             align="center"
-            style={{ borderStyle: "solid" }}
           >
             <Grid item style={{ width: "100%" }}>
               <Paper style={{ width: "100%", marginBottom: "6%" }}>
@@ -106,9 +100,8 @@ const PartyPackage = () => {
             container
             item
             xs={7}
-            spacing={3}
             direction="column"
-            style={{ borderStyle: "dotted", marginLeft: "5%", padding: "1rem" }}
+            style={{ marginLeft: "5%", padding: "1rem" }}
           >
             <Grid item>
               <Typography variant="h1">{product.name} Party Pack</Typography>
@@ -123,11 +116,35 @@ const PartyPackage = () => {
                 qui officia deserunt mollit anim id est laborum.
               </Typography>
             </Grid>
+          </Grid>
+          {/*Grid container for input fields */}
+          <Grid
+            container
+            style={{ height: "100%", marginTop: "3rem" }}
+          >
+            <Grid container item xs={7} direction="column">
+              <Grid item align="center">
+                <Paper
+                  elevation={5}
+                  style={{
+                    height: "80vh",
+                    width: "90%",
+                    padding:"1rem"
+                  }}
+                >
+                  <Calendar />
+                </Paper>
+              </Grid>
+            </Grid>
+            <Grid container item xs={3} direction="column">
             <Grid item>
               <AttendeeNumberSelector />
             </Grid>
             <Grid item>
               <ContactInfoFields />
+            </Grid>
+            <Grid item>
+              <CostCalculator />
             </Grid>
             <Grid item align="center">
               <Button
@@ -138,6 +155,9 @@ const PartyPackage = () => {
                 Add to cart and invite guests!
               </Button>
             </Grid>
+            </Grid>
+
+            
           </Grid>
         </Grid>
       ) : (

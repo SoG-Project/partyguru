@@ -48,7 +48,7 @@ const CostCalculator = (props) => {
           InputProps={{
               readOnly:true
           }}
-          style={{width:"60%"}}
+          style={{width:"6rem"}}
         />
       </Grid>
     </Grid>
