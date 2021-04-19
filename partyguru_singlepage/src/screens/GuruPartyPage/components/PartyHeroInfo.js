@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
     makeStyles,
     TextField,
@@ -54,11 +54,19 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const PartyHeroInfo = () => {
+const PartyHeroInfo = (props) => {
 
-    const classes = useStyles()
+    const classes = useStyles()  
 
-    const [partyheroinfo, changePartyHeroInfo] = useState("Display information about the Party hero here")
+    const [partyheroinfo, changePartyHeroInfo] = useState("Couldn't fetch party description");
+
+    useEffect(() => {
+        changePartyHeroInfo(props.partydescription)
+      return () => {
+        //
+      };
+    }, []);
+
 
     const handlePartyHeroInfoChange = (event) => {
         let info = event.target.value

@@ -1,4 +1,6 @@
-import {React, useState} from "react";
+import {React, useState, useEffect} from "react";
+import Axios from "axios";
+
 import {
   makeStyles,
   TextField,
@@ -11,6 +13,8 @@ import {
 import Grid from "@material-ui/core/Grid";
 import {shadows} from '@material-ui/system'
 import PartyHeroInfo from './components/PartyHeroInfo'
+import axios from "axios";
+import { isPropsEqual } from "@fullcalendar/react";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -55,10 +59,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GuruPartyPage = () => {
+const GuruPartyPage = (props) => {
+  const partyID="6058fdaed720d11ca1c6cf6e";
   const classes = useStyles();
-
+  const [party, setParty]=useState({});
   const [partyheroinfo, changePartyHeroInfo] = useState("Display information about the Party hero here")
+
+
+  useEffect(() => {
+    if(props.partydescription!==undefined){
+      changePartyHeroInfo(props.partydescription);
+    }
+    return () => {
+      //
+    };
+  }, [partyheroinfo]);
+
 
   const handlePartyHeroInfoChange = (event) => {
     let info = event.target.value
@@ -85,7 +101,7 @@ const GuruPartyPage = () => {
       </div>
       <div>
         
-        <PartyHeroInfo/>
+        <PartyHeroInfo description={PartyHeroInfo}/>
         
       </div>
     </div>
