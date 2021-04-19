@@ -14,9 +14,12 @@ const useStyles = makeStyles((theme) => ({
   },
   attendeeBox: {
     width: "40%",
-    margin: "1%",
+    margin: "2%",
     flex: "1",
     right: "auto",
+    //marginLeft makes it so that the element is not right next to the party info.
+    //Change this however you will.
+    marginLeft: "30%",
   },
 }));
 
