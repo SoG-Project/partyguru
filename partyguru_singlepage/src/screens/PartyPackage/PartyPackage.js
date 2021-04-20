@@ -65,7 +65,7 @@ const PartyPackage = () => {
       like product.img or product.name 
       While product is not fetched a simple loading page will display*/}
       {product ? (
-        <Grid container direction="row" justify="center">
+        <Grid container direction="row" justify="center" style={{width:"100%"}}>
           {/*Start of Image grid */}
           <Grid container item xs={3} direction="column" align="center">
             <Grid item style={{ width: "100%" }}>
