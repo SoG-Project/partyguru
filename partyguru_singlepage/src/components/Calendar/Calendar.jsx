@@ -4,6 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { Button, makeStyles, Paper, Grid, TextField, Typography, Input } from "@material-ui/core";
+import { AlarmRounded } from "@material-ui/icons";
 //Hyvä demo : https://codesandbox.io/s/github/fullcalendar/fullcalendar-example-projects/tree/master/react?file=/src/DemoApp.jsx
 //Dokumentaatio: https://fullcalendar.io/docs
 
@@ -45,8 +46,9 @@ const Calendar = () => {
     event.preventDefault();
     let start = pickedDate + "T" + startTime;
     let end = pickedDate + "T" + endTime;
+    let form = document.getElementById("partyForm");
     console.log(start, end, title);
-    if (start < end) {
+    if (start < end && start!=null && end!=null && title!=null) {
       console.log("start pienempi kuin end");
       let newEvent = {
         id: createEventId(),
@@ -55,6 +57,9 @@ const Calendar = () => {
         end: end,
       };
       setEvents((events) => [...events, newEvent]);
+      form.reset();
+    } else{
+      alert("All required fields are not filled or they are filled incorrectly!");
     }
   };
 
@@ -136,7 +141,7 @@ const Calendar = () => {
           right: "timeGridWeek timeGridDay",
         }}
       />
-      <form style={{ width: "100%", marginTop:"2%" }}>
+      <form id="partyForm" name="partyForm" style={{ width: "100%", marginTop:"2%" }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="h3">Create party reservation</Typography>
@@ -206,5 +211,3 @@ const Calendar = () => {
   );
 };
 export default Calendar;
-
-//Material UI form, tarkista submittien arvot mui buttonilla?
