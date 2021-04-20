@@ -17,6 +17,7 @@ import SchedulerTest from "../../components/Scheduler/SchedulerTest";
 import Divider from "@material-ui/core/Divider";
 import EditableScheduler from "../../components/Scheduler/EditableScheduler";
 import { Typography } from "@material-ui/core";
+import { useAuth0 } from '@auth0/auth0-react'
 //splash sivu
 //map funktio looppaa datan läpi ja tekee niistä kortteja
 //Product.js tekee ne kortit viime kädessä
@@ -96,11 +97,20 @@ const LandingPage = () => {
     };
   }, [products, singleid]);
 
+  const AuthNav = () => {
+    const { isAuthenticated } = useAuth0()
+
+    return(
+      <div>
+        {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+      </div>
+    )
+  }
+
   const classes = useStyles();
   return (
     <div>
-      <LoginButton />
-      <LogoutButton />
+      <AuthNav />
       <div className={classes.partyGuruInfo}>
         <Grid container direction="column" alignItems="center">
           <Typography gutterBottom variant="h3">
