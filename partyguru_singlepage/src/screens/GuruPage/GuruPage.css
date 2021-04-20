@@ -78,7 +78,7 @@
     align-items: stretch;
 }
 
-.buttonGrid {
+.guruFlexDiv {
     justify-content: center;
     display:flex;
     flex-direction: column;
