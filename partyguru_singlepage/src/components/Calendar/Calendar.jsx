@@ -3,7 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { Button, makeStyles, Paper, Grid } from "@material-ui/core";
+import { Button, makeStyles, Paper, Grid, TextField, Typography, Input } from "@material-ui/core";
 //Hyvä demo : https://codesandbox.io/s/github/fullcalendar/fullcalendar-example-projects/tree/master/react?file=/src/DemoApp.jsx
 //Dokumentaatio: https://fullcalendar.io/docs
 
@@ -26,26 +26,36 @@ const Calendar = () => {
     return String(eventGuid++);
   };
 
-  const getSelectedDate = () => {
-    const picked = document.getElementById("partyDate").value;
-    console.log(picked);
-  };
-
   //useState to contain all events, this should be sent to backend and recovered from there somehow
   const [events, setEvents] = React.useState([
     {
       id: createEventId(),
       title: "Testitapahtuma",
       start: "2021-04-23T10:00",
-      end: "2021-04-24T12:00",
+      end: "2021-04-23T12:00",
     },
   ]);
 
   const [pickedDate, setPickedDate] = React.useState(null);
-  const [pickedTime, setPickedTime] = React.useState(null);
+  const [startTime, setStartTime] = React.useState(null);
+  const [title, setTitle] = React.useState(null);
+  const [endTime, setEndTime] = React.useState(null);
 
-  const printUseState = () => {
-    console.log(pickedDate, pickedTime);
+  const handleEventAddButton = (event) => {
+    event.preventDefault();
+    let start = pickedDate + "T" + startTime;
+    let end = pickedDate + "T" + endTime;
+    console.log(start, end, title);
+    if (start < end) {
+      console.log("start pienempi kuin end");
+      let newEvent = {
+        id: createEventId(),
+        title,
+        start: start,
+        end: end,
+      };
+      setEvents((events) => [...events, newEvent]);
+    }
   };
 
   const handleDateChange = () => {
@@ -53,9 +63,18 @@ const Calendar = () => {
     setPickedDate(picked);
   };
 
-  const handleTimeChange = () => {
-    const picked = document.getElementById("partyTime").value;
-    setPickedTime(picked);
+  const handleStartChange = () => {
+    const picked = document.getElementById("partyStart").value;
+    setStartTime(picked);
+  };
+
+  const handleTitleChange = () => {
+    const title = document.getElementById("eventTitle").value;
+    setTitle(title);
+  };
+  const handleEndChange = () => {
+    const picked = document.getElementById("partyEnd").value;
+    setEndTime(picked);
   };
 
   //This is called when you paint squares in the calendar and it creates an event
@@ -86,70 +105,106 @@ const Calendar = () => {
         padding: "1rem",
       }}
     >
-      <Grid container direction="column">
-        <Grid item>
-          <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            //initialView: what view is open by default
-            initialView="timeGridWeek"
-            //events taken from useState
-            events={events}
-            locale="fi"
-            //Can the calendar be painted to create events, default true, change with selectable={false}
-            selectable
-            //Time when calendar starts and ends
-            slotMinTime="08:00:00"
-            slotMaxTime="22:00:00"
-            //Change format title date is displayed in
-            titleFormat={{ year: "numeric", month: "2-digit", day: "2-digit" }}
-            //Red pointer that indicates what time it is now
-            nowIndicator
-            //Extra top bar that has slots for allDay events
-            allDaySlot={false}
-            //Change first day to monday
-            firstDay="1"
-            //What happens when the calender is "selected", aka a section is painted to create an event
-            select={handleDateSelect}
-            /* HeaderToolbar toimii hauskasti, jos elementtien välissä on space, tulee kalenteriin tyhjä väli, jos pilkku ne yhdistyvät
+      <FullCalendar
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        //initialView: what view is open by default
+        initialView="timeGridWeek"
+        //events taken from useState
+        events={events}
+        locale="fi"
+        //Can the calendar be painted to create events, default true, change with selectable={false}
+        selectable={false}
+        //Time when calendar starts and ends
+        slotMinTime="08:00:00"
+        slotMaxTime="22:00:00"
+        //Change format title date is displayed in
+        titleFormat={{ year: "numeric", month: "2-digit", day: "2-digit" }}
+        //Red pointer that indicates what time it is now
+        nowIndicator
+        //Extra top bar that has slots for allDay events
+        allDaySlot={false}
+        //Change first day to monday
+        firstDay="1"
+        //What happens when the calender is "selected", aka a section is painted to create an event
+        select={handleDateSelect}
+        /* HeaderToolbar toimii hauskasti, jos elementtien välissä on space, tulee kalenteriin tyhjä väli, jos pilkku ne yhdistyvät
         Kokeile esim left:'prev,next today'
         */
-            headerToolbar={{
-              left: "prev next today",
-              center: "title",
-              right: "timeGridWeek timeGridDay",
-            }}
-          />
+        headerToolbar={{
+          left: "prev next today",
+          center: "title",
+          right: "timeGridWeek timeGridDay",
+        }}
+      />
+      <form style={{ width: "100%", marginTop:"2%" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography variant="h3">Create party reservation</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <label htmlFor="eventTitle">Enter event title: </label>
+            <Input
+              required
+              type="text"
+              id="eventTitle"
+              name="eventTitle"
+              placeholder="Enter title here..."
+              onChange={handleTitleChange}
+              inputProps={{style:{fontSize:16}}}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <label>Select party date: </label>
+            <Input
+              required
+              type="date"
+              id="partyDate"
+              name="partyDate"
+              onChange={handleDateChange}
+              inputProps={{style:{fontSize:16}}}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <label htmlFor="partyStart">Select party start time: </label>
+            <Input
+              required
+              type="time"
+              min="08:00"
+              max="22:00"
+              id="partyStart"
+              name="partyStart"
+              onChange={handleStartChange}
+              inputProps={{style:{fontSize:16}}}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <label htmlFor="partyEnd">Select party ending time: </label>
+            <Input
+              required
+              type="time"
+              min="08:00"
+              max="22:00"
+              id="partyEnd"
+              name="partyEnd"
+              onChange={handleEndChange}
+              inputProps={{style:{fontSize:16}}}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleEventAddButton}
+              className={classes.bigButton}
+            >
+              Add event + print selections to console
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item style={{marginTop:"2%"}}>
-          <label>Select date:</label>
-          <input
-            type="date"
-            id="partyDate"
-            name="partyDate"
-            onChange={handleDateChange}
-          />
-        </Grid>
-        <Grid item style={{marginTop:"1%"}}>
-          <label>Select start time:</label>
-          <input
-            type="time"
-            id="partyTime"
-            name="partyTime"
-            onChange={handleTimeChange}
-          />
-        </Grid>
-        <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={printUseState}
-            className={classes.bigButton}
-          >
-            Print selections to console
-          </Button>
-        </Grid>
-      </Grid>
+      </form>
     </Paper>
   );
 };
 export default Calendar;
+
+//Material UI form, tarkista submittien arvot mui buttonilla?

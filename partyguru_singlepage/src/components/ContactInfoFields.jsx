@@ -21,7 +21,7 @@ const ContactInfoFields = () => {
       <Grid container direction="column" spacing={1}>
           <Grid item>
             <Typography variant="h4">
-              Please enter contact information
+              Please enter your contact information
             </Typography>
           </Grid>
           <Grid item>

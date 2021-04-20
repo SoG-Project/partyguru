@@ -5,8 +5,8 @@ import AttendeeNumberSelector from "../../components/AttendeeNumberSelector";
 import CostCalculator from "../../components/CostCalculator";
 import Calendar from "../../components/Calendar/Calendar";
 
-import LoginButton from "./components/LoginButton"
-import LogoutButton from "./components/LogoutButton"
+import LoginButton from "./components/LoginButton";
+import LogoutButton from "./components/LogoutButton";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -99,8 +99,8 @@ const LandingPage = () => {
   const classes = useStyles();
   return (
     <div>
-      <LoginButton/>
-      <LogoutButton/>
+      <LoginButton />
+      <LogoutButton />
       <div className={classes.partyGuruInfo}>
         <Grid container direction="column" alignItems="center">
           <Typography gutterBottom variant="h3">
@@ -113,7 +113,7 @@ const LandingPage = () => {
             Parties are hosted on the Discord voice application and in various
             games <br />
             available in our selection. <br />
-            You can get started by selecting either the date or the game first.
+            You can get started by selecting a party package below.
             <br />
             <br />
           </Typography>
@@ -138,25 +138,6 @@ const LandingPage = () => {
           {products.map((product) => (
             <Product key={product._id} product={product}></Product>
           ))}
-
-          <Grid item xs={12} style={{paddingBottom:"0"}}>
-            <Typography align="center" variant="h2" style={{paddingBottom:"0"}}>
-              Date Selection
-            </Typography>
-          </Grid>
-          <Grid item xs={12} style={{paddingTop:"0"}}>
-            <Paper
-              elevation={5}
-              style={{
-                height: "80vh",
-                padding: "1rem",
-                margin: "1rem",
-                alignContent: "center",
-              }}
-            >
-              <Calendar />
-            </Paper>
-          </Grid>
         </Grid>
       </div>
     </div>

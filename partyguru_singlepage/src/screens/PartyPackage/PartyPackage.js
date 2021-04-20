@@ -127,7 +127,7 @@ const PartyPackage = () => {
                 <Calendar />
               </Grid>
             </Grid>
-            <Grid container item xs={3} direction="column">
+            <Grid container item spacing={4} xs={3} direction="column" justify="center">
               <Grid item>
                 <AttendeeNumberSelector />
               </Grid>
