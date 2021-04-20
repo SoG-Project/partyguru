@@ -1,5 +1,5 @@
 import { Grid, Typography, makeStyles, TextField } from "@material-ui/core";
-import React from "react";
+import React, {useEffect} from "react";
 
 //Create material ui styles
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +28,15 @@ const CostCalculator = (props) => {
     setPrice(event.target.value);
   };
 
+  // When amount of participants changes, readjust price accordingly
+  useEffect(() => {
+    let newPrice = 0
+    for(let i=0; i < props.participants; i++) {
+      newPrice += 10
+    }
+    setPrice(newPrice)
+  }, [props.participants]);
+
   //Return grid container with a header text and a readOnly TextField that contains the current price
   return (
     <Grid container justify="center">
@@ -35,7 +44,7 @@ const CostCalculator = (props) => {
         <Typography variant="h4">Price of party</Typography>
         <TextField
           id="priceField"
-          defaultValue={price + " €"}
+          value={price + " €"}
           label={
             <Typography style={{ fontSize: "1.5rem"}}>
               Cost

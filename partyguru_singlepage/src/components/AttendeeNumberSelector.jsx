@@ -21,24 +21,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AttendeeNumberSelector = () => {
+const AttendeeNumberSelector = (props) => {
   //Utilize material ui styles created in makeStyles
   const classes = useStyles();
   //State for number of party participants
-  const [participants, setParticipants] = React.useState(1);
+  /* const [participants, setParticipants] = React.useState(1); */
 
   //Blur happens if you input a value less than 0 or greater than 30 in the selection field
   //Blur will set the value to the minimum (0) or maximum (30), depending on where the limit was overlapped
-  const handleBlur = () => {
-    if (participants < 1) {
+  /*const handleBlur = () => {
+    if participants < 1) {
       setParticipants(1);
     } else if (participants > 30) {
       setParticipants(30);
     }
-  };
+  }; */
+
+  const handleBlur = () => {
+    if (props.participants < 1) {
+    props.setParticipantAmount(1);
+  } else if (props.participants > 30) {
+    props.setParticipantAmount(30);
+  }
+}
 
   const handleChange = (event) => {
-    setParticipants(event.target.value);
+    props.setParticipantAmount(event.target.value);
   };
   return (
     <Grid container justify="center" direction="column">
@@ -50,7 +58,7 @@ const AttendeeNumberSelector = () => {
           </Typography>
         </InputLabel>
         <Input
-          value={participants}
+          value={props.participants}
           margin="dense"
           onChange={handleChange}
           onBlur={handleBlur}

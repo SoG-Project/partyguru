@@ -29,6 +29,13 @@ const PartyPackage = () => {
   //contains product, initialized empty to prevent errors
   const [product, setProduct] = useState();
   const [productGurus, setProductGurus] = useState([]);
+  const [participants, setParticipants] = useState(1);
+
+
+  // This function will set the participant amount and is usable in child components
+  const setParticipantAmount = (amount) => {
+    setParticipants(amount)
+  }
 
   //useState for the guruIDs of this product, used to get info on these gurus from the backend
 
@@ -129,13 +136,13 @@ const PartyPackage = () => {
             </Grid>
             <Grid container item spacing={4} xs={3} direction="column" justify="center">
               <Grid item>
-                <AttendeeNumberSelector />
+                <AttendeeNumberSelector participants={participants} setParticipantAmount={setParticipantAmount}/>
               </Grid>
               <Grid item>
                 <ContactInfoFields />
               </Grid>
               <Grid item>
-                <CostCalculator />
+                <CostCalculator participants={participants} />
               </Grid>
               <Grid item align="center">
                 <Button
