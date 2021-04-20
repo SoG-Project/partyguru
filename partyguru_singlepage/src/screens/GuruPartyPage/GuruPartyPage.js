@@ -5,6 +5,7 @@ import {
   makeStyles,
   TextField,
   Typography,
+  Paper,
   FormGroup,
   FormControlLabel,
   Checkbox,
@@ -13,6 +14,7 @@ import {
 import Grid from "@material-ui/core/Grid";
 import {shadows} from '@material-ui/system'
 import PartyHeroInfo from './components/PartyHeroInfo'
+import Attendees from './components/Attendees'
 import axios from "axios";
 import { isPropsEqual } from "@fullcalendar/react";
 
@@ -83,6 +85,7 @@ const GuruPartyPage = (props) => {
 
   return (
     <div className="maindiv">
+      
       <div className="partyguruinfobox">
         <Grid container direction="column" alignItems="center" >
           <Typography variant="h2">Party Guru</Typography>
@@ -99,6 +102,54 @@ const GuruPartyPage = (props) => {
           </Typography>
         </Grid>
       </div>
+      <Grid
+          container
+          justify="space-around"
+          direction="row"
+          alignItems="stretch"
+          style={{ marginTop: "2rem", marginBottom: "1rem" }}
+        >
+          <Grid item xs={5}>
+      <Paper elevation={4} style={{ height: "100%" }}>
+              <Grid
+                container
+                item
+                direction="column"
+                style={{
+                  padding: "2rem",
+                }}
+              >
+                <Grid item xs={12}>
+                  <Typography gutterBottom paragraph variant="h4">
+                    Special considerations about your child
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    color="primary"
+                    multiline
+                    fullWidth
+                    rows={4}
+                    rowsMax={5}
+                    id="namefield"
+                    label={
+                      <Typography style={{ fontSize: "2rem" }}>
+                        Enter info here
+                      </Typography>
+                    }
+                    variant="outlined"
+                    inputProps={{
+                      maxLength: 300,
+                      style: { fontSize: "2rem", lineHeight: "150%" },
+                    }}
+                  />
+                </Grid>
+              </Grid>
+            </Paper>
+            </Grid>
+            </Grid>
+      <Attendees/>
       <div>
         
         <PartyHeroInfo description={PartyHeroInfo}/>
