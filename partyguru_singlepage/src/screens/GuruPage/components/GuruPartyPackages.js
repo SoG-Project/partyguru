@@ -76,7 +76,7 @@ const GuruPartyPackages = ({guruID}) =>{
     return (
         <div className="checkBoxes">
             <h2>Party packages you can host:</h2>
-            <div className="buttonGrid">
+            <div className="guruFlexDiv">
             <ul>
             {pPackages && pPackages.map((pPackage, index) =>
                 <li key={pPackage._id}><FormControlLabel  control=

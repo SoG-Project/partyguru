@@ -5,7 +5,9 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import './GuruCalendar.css';
 import axios from "axios";
-import GuruLargeCalendar from "./GuruLargeCalendar";
+import GuruLargeCalendar from "./GuruCalendarComponents/GuruLargeCalendar";
+import {Dialog} from "@material-ui/core";
+import GuruCalendarEventAdder from "./GuruCalendarComponents/GuruCalendarEventAdder";
 
 
 
@@ -13,6 +15,11 @@ const GuruSmallCalendar = (props) => {
 
     const [events, setEvents] = useState([{}])
     const [largeCalendarOpen, setLargeCalendarOpen] = useState(false)
+    const [eventAdderOpen, setEventAdderOpen] =useState(false)
+    const [eventStart, setEventStart] = useState(new Date())
+    const [eventEnd, setEventEnd] = useState(new Date())
+
+
 
     useEffect(() => {
         setEvents(props.UnavailableDates)
@@ -20,17 +27,24 @@ const GuruSmallCalendar = (props) => {
 
     const handleDateSelect = (selectInfo) => {
 
-            let newEvent = {
-            title: "Unavailable",
-            start: selectInfo.startStr,
-            end: selectInfo.endStr,
-        }
-
-        //add to calendar, then add to useState
-        if (window.confirm("Are you unavailable from " + selectInfo.startStr + ' to ' + selectInfo.endStr + '?'))
+        setEventStart(selectInfo.startStr)
+        setEventEnd(selectInfo.endStr)
+        setEventAdderOpen(true)
+       /* if (window.confirm("Are you unavailable from " + selectInfo.startStr + ' to ' + selectInfo.endStr + '?'))
             setEvents([...events, newEvent])
-            console.log(events)
+            console.log(events) */
     }
+
+    const saveNewEvent = () => {
+        let newEvent = {
+            title: "Unavailable",
+            start: eventStart,
+            end: eventEnd
+        }
+        setEvents([...events, newEvent])
+        setEventAdderOpen(false)
+    }
+    
 
      const submitData = () => {
 
@@ -45,8 +59,12 @@ const GuruSmallCalendar = (props) => {
         setLargeCalendarOpen(!largeCalendarOpen)
         }
 
-    const handleClose = () => {
+    const handleCalendarClose = () => {
         setLargeCalendarOpen(false)
+    }
+
+    const handleEventAdderClose = () => {
+        setEventAdderOpen(false)
     }
 
 
@@ -76,7 +94,8 @@ const GuruSmallCalendar = (props) => {
                        },
                    }}/>
 
-        <GuruLargeCalendar  handleDateSelect={handleDateSelect} submitData={submitData} events={events} handleClose={handleClose} open={largeCalendarOpen}/>
+        <GuruLargeCalendar  handleDateSelect={handleDateSelect} submitData={submitData} events={events} handleClose={handleCalendarClose} open={largeCalendarOpen}/>
+        <GuruCalendarEventAdder open={eventAdderOpen} onClose={handleEventAdderClose} addEvent={saveNewEvent} eventStart={eventStart} eventEnd={eventEnd}/>
         </div>
 )
 

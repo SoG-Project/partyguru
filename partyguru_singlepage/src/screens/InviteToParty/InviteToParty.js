@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Component } from "react"
+import emailjs from 'emailjs-com';
 import ReactDOM from 'react-dom';
 import {Link} from "react-router-dom"
 import "./InviteToParty.css"
@@ -10,7 +11,8 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Themeswap from "./components/theme3"
+import Themeswap from "./components/theme3";
+import ContactUs from "./components/Form";
 
 
 
@@ -86,32 +88,6 @@ const useStyles = makeStyles((theme) => ({
       
 
 
-/*Email sending thingy, didn't work yet when tried but will work on it*/
-  /*var nodemailer = require('nodemailer') 
-
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'youremail@gmail.com',
-    pass: 'yourpassword'
-  }
-});
-
-var mailOptions = {
-  from: 'youremail@gmail.com',
-  to: 'myfriend@yahoo.com',
-  subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
-};
-
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-}); 
-*/
 const InviteToParty = () => {
     
   //This enables materialsUI styles. Normall CSS won't work for materialsUI elements.
@@ -251,10 +227,7 @@ const handleEmailfieldDelete = (index) => {
 
         
         {/*Preview feature in progress
-        this will preview the users input with an invitation letter layout
-        not relative positioned anymore so doesn't break when using different resolution or zooming
-        though it's currently standing on top of the bottom bar, making it unclickable, fix this soon
-        ADDED PLACEHOLDER FOR THE TIME BEING^*/}
+        this will preview the users input with an invitation letter layout*/}
         
         <div className="preview">
           <div className="invitelayout">
@@ -303,8 +276,7 @@ const handleEmailfieldDelete = (index) => {
         </div>
       */}
         
-        {/*This is on top of the invite preview for some reason
-        dunno how to fix it atm */}
+
         {emailfields.map((x, i) => {
           return (
             <Grid
@@ -381,8 +353,8 @@ const handleEmailfieldDelete = (index) => {
             </Grid>
           );
         })}
-        
-
+        {/*This is the form component that can send emails, kinda lidl atm but at least it works*/}
+        <ContactUs></ContactUs>
     </div>
     )
     

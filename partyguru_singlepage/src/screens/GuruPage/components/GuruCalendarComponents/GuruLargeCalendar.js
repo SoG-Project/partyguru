@@ -3,7 +3,7 @@ import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import './GuruCalendar.css';
+import '../GuruCalendar.css';
 import axios from "axios";
 import {Dialog} from "@material-ui/core";
 
@@ -11,24 +11,13 @@ import {Dialog} from "@material-ui/core";
 
 const GuruLargeCalendar = (props) => {
 
-    const [events, setEvents] = useState([{
-    },
-    ]);
-
-
-    const handleSubmit = () => {
-
-
-    }
-
     return (
 
-        
         <Dialog maxWidth='md' fullWidth={true} open={props.open} onClose={props.handleClose}>
         <div className="calendar">
             <FullCalendar  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin] }
                            width="100%"
-                           height="400px"
+                           height="600px"
                            initialView="timeGridWeek"
                            locale="fi"
                            events={props.events}
@@ -39,14 +28,19 @@ const GuruLargeCalendar = (props) => {
                            allDaySlot={false}
                            select={props.handleDateSelect}
                            nowIndicator
-                           headerToolbar={{left: 'title', center:'prev,next', right: 'submitButton' }}
+                           headerToolbar={{left: 'title', center:'prev,next', right: 'submitButton, closeButton' }}
                            titleFormat={{year: 'numeric', month:'2-digit', day: '2-digit'}}
 
                            customButtons={{
                                submitButton: {
-                                   text: "Submit",
+                                   text: "Save",
                                    click: props.submitData,
                                },
+                               closeButton: {
+                                   text:"Close",
+                                   click: props.handleClose
+
+                               }
                            }}
 
 

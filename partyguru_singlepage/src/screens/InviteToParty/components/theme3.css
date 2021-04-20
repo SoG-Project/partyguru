@@ -1,3 +1,4 @@
+/*Define the invitation image's size in this, not sure if necessary but it works now*/
 div.comptheme > img {
 max-width:353px;
 max-height:507px;
