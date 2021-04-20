@@ -25,7 +25,7 @@ import ContactUs from "./components/Form";
 //import { response } from "express"
 
 import { makeStyles } from '@material-ui/core/styles';
-import nodemailer from "nodemailer";
+
 
 //Function to set style for the email description box (https://material-ui.com/styles/basics/)
 const useStyles = makeStyles((theme) => ({
@@ -354,6 +354,10 @@ const handleEmailfieldDelete = (index) => {
           );
         })}
         {/*This is the form component that can send emails, kinda lidl atm but at least it works*/}
+        {/*It works as following (for now): The name field is for entering the recipient's name.
+        Email field is where you put the recipient's email, as of now you can put anyone's email into it and it will send it.
+        Into the message field you can put whatever you want to say to the recipient*/
+        }
         <ContactUs></ContactUs>
     </div>
     )
