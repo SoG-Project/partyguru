@@ -180,19 +180,9 @@ const PartyPackage = () => {
                   variant="contained"
                   color="primary"
                   className={classes.bigButton}
+                  href="/cart"
                 >
                   Add to cart and invite guests!
-                </Button>
-                <Button
-                  onClick={() => {
-                    console.log(partyReservation);
-                    console.log(isWeekend);
-                  }}
-                  variant="contained"
-                  color="primary"
-                  className={classes.bigButton}
-                >
-                  Print reservation
                 </Button>
               </Grid>
             </Grid>
@@ -202,7 +192,7 @@ const PartyPackage = () => {
         <div className={classes.mainContainer} style={{textAlign:"center", justifyContent:"center", alignItems:"center"}} >
           {/*This area is rendered while the package has not been fetched, usually for a very brief amount of time*/}
           <Typography variant="h4">
-            Page loading... (PartyPackage.js)
+            Page loading...
           </Typography>
           <CircularProgress color="secondary" disableShrink size="15vh" style={{margin:"3%"}} />
           <Typography variant="h4">

@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: "80px",
     minHeight: "40px",
     fontSize: "1.2rem",
-    maxWidth:"50%"
+    maxWidth: "50%",
   },
 }));
 
@@ -62,7 +62,7 @@ const Product = (props) => {
   //Put all information of these gurus in the productGuru state
 
   useEffect(() => {
-    console.log(props.product)
+    console.log(props.product);
     //guruID && guruIDs check ensures that the map is not done if guruIDs is undefined -> prevents a crash
     axios.get(`/api/gurus`).then((response) => {
       const guruArray =
@@ -121,19 +121,24 @@ const Product = (props) => {
             This typography should then have overflow="hidden", textOverflow="ellipsis"
             This can be done by creating a single string that contains all guru names (somehow) 
             and adding linebreaks to put them on different lines */}
-            <div style={{ height: "10rem" }}>
+            <div style={{ height: "10rem", width:"100%", whiteSpace:"pre-wrap", overflow:"hidden", textOverflow:"ellipsis" }}>
               {productGuru &&
                 productGuru.map((guru) => (
-                  <Typography style={{ fontSize: "1.5rem" }} key={guru._id}>
-                    {guru.name}
-                  </Typography>
+                  guru.name + ', '
                 ))}
             </div>
             {/*Another typography to contain the price of the product*/}
             <Typography className={classes.cost}>
               Starting at {product.price}€
             </Typography>
-            <Button className={classes.bigButton} variant="contained" color="primary" href={`/product/${product._id}`}>More Information</Button>
+            <Button
+              className={classes.bigButton}
+              variant="contained"
+              color="primary"
+              href={`/product/${product._id}`}
+            >
+              More Information
+            </Button>
           </CardContent>
         </CardActionArea>
       </Card>
