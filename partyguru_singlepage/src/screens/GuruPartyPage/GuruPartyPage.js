@@ -62,20 +62,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GuruPartyPage = (props) => {
-  const partyID="6058fdaed720d11ca1c6cf6e";
+  const partyID="605f8bcd8dfd970aa770584b";
   const classes = useStyles();
   const [party, setParty]=useState({});
   const [partyheroinfo, changePartyHeroInfo] = useState("Display information about the Party hero here")
 
-
   useEffect(() => {
-    if(props.partydescription!==undefined){
-      changePartyHeroInfo(props.partydescription);
-    }
-    return () => {
-      //
-    };
-  }, [partyheroinfo]);
+    //getData gets partypack in question.
+    getData()
+    //If you console.log here, it will not display the response gotten from the server since further code is being executed
+    //already since code is async. That means console log here is pointless. Try console.log in .then() function in getData()
+    //console.log(description, " is the description")
+  }, [])
+
+//getData gets the partypack in question from the server. axios.get() is an asynchronous function, so anything
+//not in the .then() {} brackets will be executed before we get a response from the server. How far in the code we
+//get depends on the execution time of the get function.
+const getData = () => {
+    //axios gets the partypack
+    axios.get(`/api/parties/${partyID}`).then(response => {
+
+    setParty(response.data);
+    changePartyHeroInfo(response.data.partyheroinfo);
+    console.log(response.data.partyheroinfo)
+
+})
+
+}
 
 
   const handlePartyHeroInfoChange = (event) => {
@@ -152,7 +165,7 @@ const GuruPartyPage = (props) => {
       <Attendees/>
       <div>
         
-        <PartyHeroInfo description={PartyHeroInfo}/>
+        <PartyHeroInfo description={partyheroinfo}/>
         
       </div>
     </div>

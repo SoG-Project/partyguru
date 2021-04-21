@@ -49,7 +49,8 @@ const attendeesSchema = new mongoose.Schema({
       num_attendees: Number,
       schedule: [String],
       likes: [String],
-      description: String
+      description: String,
+      partyheroinfo: String
   });
   const Partyinfo= new mongoose.model('Partyinfo',partyinfoSchema);
   
@@ -200,7 +201,8 @@ try{
    num_attendees: req.body.num_attendees,
    schedule: req.body.schedule,
    likes: req.body.likes,
-   description: req.body.description
+   description: req.body.description,
+   partyheroinfo: req.body.partyheroinfo
 });
    newParty.save()
    .then(result=>{

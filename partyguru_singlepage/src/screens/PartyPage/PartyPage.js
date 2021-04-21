@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   textfielderino: {
     padding: "",
     /*minWidth: "20%",
-    maxWidth: "20%",*/
+    maxWidth: "20%",*/ 
     fontSize: "2rem",
   },
   resize: {
