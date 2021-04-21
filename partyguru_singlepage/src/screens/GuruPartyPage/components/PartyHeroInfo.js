@@ -58,20 +58,18 @@ const PartyHeroInfo = (props) => {
 
     const classes = useStyles()  
 
-    const [partyheroinfo, changePartyHeroInfo] = useState("Couldn't fetch party description");
+    const [partyheroinfo, changePartyHeroInfo] = useState("props.description");
 
-    useEffect(() => {
-        changePartyHeroInfo(props.partydescription)
-      return () => {
-        //
-      };
-    }, []);
-
-
+  
     const handlePartyHeroInfoChange = (event) => {
         let info = event.target.value
         changePartyHeroInfo(info)
     }
+
+    useEffect(() => {
+        changePartyHeroInfo(props.description);
+    }, [props])
+  
 
     return(
         <Grid container direction="column" >
