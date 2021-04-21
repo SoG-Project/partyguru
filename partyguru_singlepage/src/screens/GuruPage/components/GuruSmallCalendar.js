@@ -7,7 +7,8 @@ import './GuruCalendar.css';
 import axios from "axios";
 import GuruLargeCalendar from "./GuruCalendarComponents/GuruLargeCalendar";
 import {Dialog} from "@material-ui/core";
-import GuruCalendarEventAdder from "./GuruCalendarComponents/GuruCalendarEventAdder";
+import GuruCalendarEventAdder from "./GuruCalendarComponents/GuruCalendarEventAdder.js";
+import GuruCalendarEventDeleter from "./GuruCalendarComponents/GuruCalendarEventDeleter";
 
 
 
@@ -15,10 +16,10 @@ const GuruSmallCalendar = (props) => {
 
     const [events, setEvents] = useState([{}])
     const [largeCalendarOpen, setLargeCalendarOpen] = useState(false)
-    const [eventAdderOpen, setEventAdderOpen] =useState(false)
-    const [eventStart, setEventStart] = useState(new Date())
-    const [eventEnd, setEventEnd] = useState(new Date())
-
+    const [eventAdderOpen, setEventAdderOpen] = useState(false)
+    const [eventDeleterOpen, setEventDeleterOpen] =useState(false)
+    const [currentEvent, setCurrentEvent] = useState({start:(new Date), end:(new Date), id:''})
+    const [dialogText, setDialogText] = useState('')
 
 
     useEffect(() => {
@@ -27,23 +28,38 @@ const GuruSmallCalendar = (props) => {
 
     const handleDateSelect = (selectInfo) => {
 
-        setEventStart(selectInfo.startStr)
-        setEventEnd(selectInfo.endStr)
+        setCurrentEvent({start:selectInfo.startStr, end:selectInfo.endStr, id:selectInfo.id})
         setEventAdderOpen(true)
        /* if (window.confirm("Are you unavailable from " + selectInfo.startStr + ' to ' + selectInfo.endStr + '?'))
             setEvents([...events, newEvent])
             console.log(events) */
     }
 
+    const handleEventSelect = (event) => {
+        setCurrentEvent({start:event.event.startStr, end:event.event.endStr, id: event.event.id})
+        setEventDeleterOpen(true)
+    }
+
+    const deleteEvent = (event) => {
+        let newEvents = events.filter(calendarEvent =>
+            calendarEvent.id !== currentEvent.id )
+        setEvents(newEvents)
+        setEventDeleterOpen(false)
+    }
+
+
     const saveNewEvent = () => {
+
         let newEvent = {
+            id: Math.floor(Math.random() * 1000).toString(),
             title: "Unavailable",
-            start: eventStart,
-            end: eventEnd
+            start: currentEvent.start,
+            end: currentEvent.end
         }
         setEvents([...events, newEvent])
         setEventAdderOpen(false)
     }
+
     
 
      const submitData = () => {
@@ -65,6 +81,7 @@ const GuruSmallCalendar = (props) => {
 
     const handleEventAdderClose = () => {
         setEventAdderOpen(false)
+        setEventDeleterOpen(false)
     }
 
 
@@ -78,7 +95,7 @@ const GuruSmallCalendar = (props) => {
                    locale="fi"
                    events={events}
                    eventOverlap={false}
-                   selectable={true}
+                   selectable={false}
                    slotMinTime="08:00:00"
                    slotMaxTime="22:00:00"
                    allDaySlot={false}
@@ -94,8 +111,12 @@ const GuruSmallCalendar = (props) => {
                        },
                    }}/>
 
-        <GuruLargeCalendar  handleDateSelect={handleDateSelect} submitData={submitData} events={events} handleClose={handleCalendarClose} open={largeCalendarOpen}/>
-        <GuruCalendarEventAdder open={eventAdderOpen} onClose={handleEventAdderClose} addEvent={saveNewEvent} eventStart={eventStart} eventEnd={eventEnd}/>
+        <GuruLargeCalendar  handleDateSelect={handleDateSelect} submitData={submitData} events={events} handleEventSelect={handleEventSelect} handleClose={handleCalendarClose} open={largeCalendarOpen}/>
+        <GuruCalendarEventAdder text={dialogText} open={eventAdderOpen} onClose={handleEventAdderClose} addEvent={saveNewEvent}  eventStart={currentEvent.start} eventEnd={currentEvent.end}/>
+        <GuruCalendarEventDeleter  open={eventDeleterOpen} onClose={handleEventAdderClose} deleteEvent={deleteEvent}  eventStart={currentEvent.start} eventEnd={currentEvent.end}/>
+
+
+
         </div>
 )
 

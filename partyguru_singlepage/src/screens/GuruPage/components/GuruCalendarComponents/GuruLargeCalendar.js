@@ -4,12 +4,12 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import '../GuruCalendar.css';
-import axios from "axios";
 import {Dialog} from "@material-ui/core";
 
 
 
 const GuruLargeCalendar = (props) => {
+
 
     return (
 
@@ -25,6 +25,8 @@ const GuruLargeCalendar = (props) => {
                            selectable
                            slotMinTime="08:00:00"
                            slotMaxTime="22:00:00"
+                           slotEventOverlap={false}
+                           eventClick={props.handleEventSelect}
                            allDaySlot={false}
                            select={props.handleDateSelect}
                            nowIndicator
@@ -39,7 +41,6 @@ const GuruLargeCalendar = (props) => {
                                closeButton: {
                                    text:"Close",
                                    click: props.handleClose
-
                                }
                            }}
 

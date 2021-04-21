@@ -20,21 +20,21 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const GuruCalendarEventAdder = (props) => {
+const GuruCalendarEventDeleter = (props) => {
 
     const classes = useStyles()
 
     return(
         <div>
         <Dialog open={props.open} onClose={props.onClose}>
-            <DialogTitle disableTypography={true} className={classes.dialogTitle}>Confirm unavailability</DialogTitle>
+            <DialogTitle disableTypography={true} className={classes.dialogTitle}>Confirm delete</DialogTitle>
             <DialogContent>
                 <DialogContentText className={classes.dialogContentText}>
-            {props.text + props.eventStart + ' to ' + props.eventEnd + '?'}
+            {"Delete this event?"}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={props.addEvent} variant="contained" color="primary">
+                <Button onClick={props.deleteEvent} variant="contained" color="primary">
                     Save
                 </Button>
             </DialogActions>
@@ -44,4 +44,4 @@ const GuruCalendarEventAdder = (props) => {
 
 
 };
-export default GuruCalendarEventAdder
+export default GuruCalendarEventDeleter
