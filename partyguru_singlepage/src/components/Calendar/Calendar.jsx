@@ -1,11 +1,17 @@
 import React from "react";
-import FullCalendar from "@fullcalendar/react";
+import FullCalendar, { ElementScrollController } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { Button, makeStyles, Paper, Grid, TextField, Typography, Input } from "@material-ui/core";
-import { AlarmRounded } from "@material-ui/icons";
-import CostCalculator from "../CostCalculator";
+import {
+  Button,
+  makeStyles,
+  Paper,
+  Grid,
+  TextField,
+  Typography,
+  Input,
+} from "@material-ui/core";
 //Hyvä demo : https://codesandbox.io/s/github/fullcalendar/fullcalendar-example-projects/tree/master/react?file=/src/DemoApp.jsx
 //Dokumentaatio: https://fullcalendar.io/docs
 
@@ -38,51 +44,84 @@ const Calendar = (props) => {
     },
   ]);
 
+  //UseState for the previous event managed with Calendar
+  //this is so we can delete previously created event if it's date or such is changed.
+  const [prevEvent, setPrevEvent] = React.useState({
+    id: null,
+    title: null,
+    start: null,
+    end: null,
+  });
+
+  //states to help build new party events
   const [pickedDate, setPickedDate] = React.useState(null);
   const [startTime, setStartTime] = React.useState(null);
   const [title, setTitle] = React.useState(null);
   const [endTime, setEndTime] = React.useState(null);
 
+  //to Handle pushing the add event button at the bottom of the calendar
+  //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
   const handleEventAddButton = (event) => {
     event.preventDefault();
     let start = pickedDate + "T" + startTime;
     let end = pickedDate + "T" + endTime;
     console.log(start, end, title);
-    if (start < end && start!=null && end!=null && title!=null) {
+    if (start < end && start != null && end != null && title != null) {
       let newEvent = {
         id: createEventId(),
         title,
         start: start,
         end: end,
       };
+      let tempEvents = events;
+      for(var i = 0; i < tempEvents.length; i++){
+        if (tempEvents[i].id === prevEvent.id){
+          console.log("Hääjetää elementti", tempEvents[i]);
+          tempEvents.splice(i, 1);
+          setEvents(tempEvents);
+          break;
+        }
+        
+      }
+      setPrevEvent(newEvent);
       setEvents((events) => [...events, newEvent]);
       let weekendCheck = new Date(newEvent.start);
       checkIsWeekend(weekendCheck);
       props.setNewPartyReservation(newEvent);
-    } else{
-      alert("All required fields are not filled or they are filled incorrectly!");
+    } else {
+      alert(
+        "All required fields are not filled or they are filled incorrectly!"
+      );
     }
   };
 
+  //Handle changing the date of the party by changing value of pickedState to match
   const handleDateChange = () => {
     const picked = document.getElementById("partyDate").value;
     setPickedDate(picked);
   };
 
+  //Handle changing the party starting time field by changing value of startTime state
   const handleStartChange = () => {
     const picked = document.getElementById("partyStart").value;
     setStartTime(picked);
   };
 
+  //Handle changing the title field of the party by changing value of title state
   const handleTitleChange = () => {
     const title = document.getElementById("eventTitle").value;
     setTitle(title);
   };
+
+  //Handle changing the ending time field of the party by changing value of endTime state
   const handleEndChange = () => {
     const picked = document.getElementById("partyEnd").value;
     setEndTime(picked);
   };
 
+  //Check if date of party is on weekend (Saturday or Sunday)
+  //If on weekend, set isWeekend to true in PartyPackage.js, if not, set to false
+  //isWeekend is used to calculate the total cost of the party in CostCalculator
   const checkIsWeekend = (partyDate) => {
     let partyDay = partyDate.getDay();
     console.log("Checking", partyDay);
@@ -155,7 +194,11 @@ const Calendar = (props) => {
           right: "timeGridWeek timeGridDay",
         }}
       />
-      <form id="partyForm" name="partyForm" style={{ width: "100%", marginTop:"2%" }}>
+      <form
+        id="partyForm"
+        name="partyForm"
+        style={{ width: "100%", marginTop: "2%" }}
+      >
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="h3">Create party reservation</Typography>
@@ -169,7 +212,7 @@ const Calendar = (props) => {
               name="eventTitle"
               placeholder="Enter title here..."
               onChange={handleTitleChange}
-              inputProps={{style:{fontSize:16}}}
+              inputProps={{ style: { fontSize: 16 } }}
             />
           </Grid>
           <Grid item xs={6}>
@@ -180,7 +223,7 @@ const Calendar = (props) => {
               id="partyDate"
               name="partyDate"
               onChange={handleDateChange}
-              inputProps={{style:{fontSize:16}}}
+              inputProps={{ style: { fontSize: 16 } }}
             />
           </Grid>
           <Grid item xs={6}>
@@ -193,7 +236,7 @@ const Calendar = (props) => {
               id="partyStart"
               name="partyStart"
               onChange={handleStartChange}
-              inputProps={{style:{fontSize:16}}}
+              inputProps={{ style: { fontSize: 16 } }}
             />
           </Grid>
           <Grid item xs={6}>
@@ -206,7 +249,7 @@ const Calendar = (props) => {
               id="partyEnd"
               name="partyEnd"
               onChange={handleEndChange}
-              inputProps={{style:{fontSize:16}}}
+              inputProps={{ style: { fontSize: 16 } }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -216,7 +259,7 @@ const Calendar = (props) => {
               onClick={handleEventAddButton}
               className={classes.bigButton}
             >
-              Add event + print selections to console
+              Add event + spam console for debug
             </Button>
           </Grid>
         </Grid>

@@ -199,14 +199,14 @@ const PartyPackage = () => {
           </Grid>
         </Grid>
       ) : (
-        <div className={classes.mainContainer} style={{ marginLeft: "45%" }}>
+        <div className={classes.mainContainer} style={{textAlign:"center", justifyContent:"center", alignItems:"center"}} >
           {/*This area is rendered while the package has not been fetched, usually for a very brief amount of time*/}
           <Typography variant="h4">
             Page loading... (PartyPackage.js)
           </Typography>
-          <CircularProgress color="secondary" disableShrink size="15vh" />
+          <CircularProgress color="secondary" disableShrink size="15vh" style={{margin:"3%"}} />
           <Typography variant="h4">
-            If you see this page for an extended duration of time something has
+            If you see this page for an extended period of time something has
             likely gone wrong.
           </Typography>
         </div>
