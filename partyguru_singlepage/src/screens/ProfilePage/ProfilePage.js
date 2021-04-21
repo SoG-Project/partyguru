@@ -7,14 +7,16 @@ import LoginButton from "../LandingPage/components/LoginButton";
 import LogoutButton from "../LandingPage/components/LogoutButton";
 
 const Profile = () => {
+  //Let's extract these functions/booleans from auth0
   const { user, isAuthenticated, isLoading } = useAuth0();
-  //const { name, picture, email } = user;
 
+  //isLoading simply sees if auth0 is still loading elements.
   if (isLoading) {
     return <div>Loading...</div>
   }
 
   return (
+    {/*"Simple" if-statement: if user is authenticated through auth0, then the following will be rendered.*/},
     isAuthenticated && (<div>
       <div className="row align-items-center profile-header">
         <div className="col-md-2 mb-3">
