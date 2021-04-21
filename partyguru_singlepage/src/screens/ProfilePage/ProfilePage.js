@@ -3,6 +3,8 @@
 import React from "react";
 
 import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "../LandingPage/components/LoginButton";
+import LogoutButton from "../LandingPage/components/LogoutButton";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -31,6 +33,9 @@ const Profile = () => {
         <pre className="col-12 text-light bg-dark p-4">
           {JSON.stringify(user, null, 2)}
         </pre>
+      </div>
+      <div style={{ marginTop: "1%", marginBottom: "1%"}}>
+        <LogoutButton />
       </div>
     </div>)
   );

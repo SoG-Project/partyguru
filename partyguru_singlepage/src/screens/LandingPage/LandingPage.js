@@ -110,7 +110,7 @@ const LandingPage = () => {
   const classes = useStyles();
   return (
     <div>
-      <AuthNav />
+      
       <div className={classes.partyGuruInfo}>
         <Grid container direction="column" alignItems="center">
           <Typography gutterBottom variant="h3">
@@ -129,7 +129,7 @@ const LandingPage = () => {
           </Typography>
         </Grid>
       </div>
-
+      <AuthNav />
       <div className={classes.root}>
         <Grid
           container
