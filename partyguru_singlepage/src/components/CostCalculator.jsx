@@ -1,5 +1,5 @@
 import { Grid, Typography, makeStyles, TextField } from "@material-ui/core";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 
 //Create material ui styles
 const useStyles = makeStyles((theme) => ({
@@ -23,42 +23,44 @@ const CostCalculator = (props) => {
   //State for number of party participants
   const [price, setPrice] = React.useState(0);
 
-  //Handle changing of current price
-  const handleChange = (event) => {
-    setPrice(event.target.value);
-  };
-
+  useEffect(() => {
+    if (props.isWeekend) {
+      let newPrice = price * 2;
+      setPrice(newPrice);
+      console.log("Juhlat viikonloppuna, hinta nyt ", price);
+      return;
+    } else {
+      let newPrice = price / 2;
+      setPrice(newPrice);
+      console.log("Juhlat arkena, hinta nyt ", price)
+      return;
+    }
+  }, [props.isWeekend, props.participants]);
   // When amount of participants changes, readjust price accordingly
   useEffect(() => {
-    let newPrice = 0
-    for(let i=0; i < props.participants; i++) {
-      newPrice += 10
+    let newPrice = 0;
+    for (let i = 0; i < props.participants; i++) {
+      newPrice += 10;
     }
-    setPrice(newPrice)
+    setPrice(newPrice);
   }, [props.participants]);
 
   //Return grid container with a header text and a readOnly TextField that contains the current price
   return (
     <Grid container justify="center">
       <Grid item xs={12}>
-        <Typography variant="h4">Price of party</Typography>
-        <TextField
-          id="priceField"
-          value={price + " €"}
-          label={
-            <Typography style={{ fontSize: "1.5rem"}}>
-              Cost
-            </Typography>
-          }
+        <Typography variant="h4">Total sum</Typography>
+        <Typography
           color="primary"
-          inputProps={{
-            style: { fontSize: "2rem", marginLeft:"1vw"},
+          style={{
+            fontSize: "3rem",
+            fontWeight: "600",
+            marginLeft: "1vw",
+            color: "#f1961d",
           }}
-          InputProps={{
-              readOnly:true
-          }}
-          style={{width:"6rem"}}
-        />
+        >
+          {price} €
+        </Typography>
       </Grid>
     </Grid>
   );

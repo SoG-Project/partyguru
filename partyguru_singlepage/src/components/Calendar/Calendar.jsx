@@ -5,6 +5,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { Button, makeStyles, Paper, Grid, TextField, Typography, Input } from "@material-ui/core";
 import { AlarmRounded } from "@material-ui/icons";
+import CostCalculator from "../CostCalculator";
 //Hyvä demo : https://codesandbox.io/s/github/fullcalendar/fullcalendar-example-projects/tree/master/react?file=/src/DemoApp.jsx
 //Dokumentaatio: https://fullcalendar.io/docs
 
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Calendar = () => {
+const Calendar = (props) => {
   const classes = useStyles();
   //eventGuid is used to create IDs for events
   let eventGuid = 0;
@@ -46,10 +47,8 @@ const Calendar = () => {
     event.preventDefault();
     let start = pickedDate + "T" + startTime;
     let end = pickedDate + "T" + endTime;
-    let form = document.getElementById("partyForm");
     console.log(start, end, title);
     if (start < end && start!=null && end!=null && title!=null) {
-      console.log("start pienempi kuin end");
       let newEvent = {
         id: createEventId(),
         title,
@@ -57,7 +56,9 @@ const Calendar = () => {
         end: end,
       };
       setEvents((events) => [...events, newEvent]);
-      form.reset();
+      let weekendCheck = new Date(newEvent.start);
+      checkIsWeekend(weekendCheck);
+      props.setNewPartyReservation(newEvent);
     } else{
       alert("All required fields are not filled or they are filled incorrectly!");
     }
@@ -80,6 +81,19 @@ const Calendar = () => {
   const handleEndChange = () => {
     const picked = document.getElementById("partyEnd").value;
     setEndTime(picked);
+  };
+
+  const checkIsWeekend = (partyDate) => {
+    let partyDay = partyDate.getDay();
+    console.log("Checking", partyDay);
+    if (partyDay === 6 || partyDay === 0) {
+      console.log(partyDay, "is weekend");
+      props.setIsWeekend(true);
+    } else {
+      console.log(partyDay, "is not weekend");
+      props.setIsWeekend(false);
+      return;
+    }
   };
 
   //This is called when you paint squares in the calendar and it creates an event

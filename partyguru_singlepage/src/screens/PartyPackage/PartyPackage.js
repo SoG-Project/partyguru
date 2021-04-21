@@ -7,7 +7,6 @@ import AttendeeNumberSelector from "../../components/AttendeeNumberSelector";
 import ContactInfoFields from "../../components/ContactInfoFields";
 import CostCalculator from "../../components/CostCalculator";
 import Calendar from "../../components/Calendar/Calendar";
-//package kortit linkkaa tänne
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -26,18 +25,31 @@ const useStyles = makeStyles((theme) => ({
 
 const PartyPackage = () => {
   const classes = useStyles();
-  //contains product, initialized empty to prevent errors
+  //contains product (the one clicked in LandingPage to access this page)
   const [product, setProduct] = useState();
+  //useState for the guruIDs of this product, used to get info on these gurus from the backend
   const [productGurus, setProductGurus] = useState([]);
+  //useState for number of participants, used for example to calculate cost of party
   const [participants, setParticipants] = useState(1);
-
+  //useState for new calendar event, this will be sent from here to backend
+  const [partyReservation, setPartyReservation] = useState({
+    id: null,
+    title: "",
+    start: null,
+    end: null,
+  });
+  //useState to check if date is weekend or not
+  const [isWeekend, setIsWeekend] = useState(false);
 
   // This function will set the participant amount and is usable in child components
   const setParticipantAmount = (amount) => {
-    setParticipants(amount)
-  }
+    setParticipants(amount);
+  };
 
-  //useState for the guruIDs of this product, used to get info on these gurus from the backend
+  //Function to set new partyReservation, usable by Calendar to bring event data here
+  const setNewPartyReservation = (partyData) => {
+    setPartyReservation(partyData);
+  };
 
   //get ID of product from address of site
   //Needed to show name of product, gurus attached to it, and so on
@@ -72,8 +84,13 @@ const PartyPackage = () => {
       like product.img or product.name 
       While product is not fetched a simple loading page will display*/}
       {product ? (
-        <Grid container direction="row" justify="center" style={{width:"100%"}}>
-          {/*Start of Image grid */}
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          style={{ width: "100%" }}
+        >
+          {/*Start of Image grid top level container for containers of calendar and input fields */}
           <Grid container item xs={3} direction="column" align="center">
             <Grid item style={{ width: "100%" }}>
               <Paper style={{ width: "100%", marginBottom: "6%" }}>
@@ -87,6 +104,7 @@ const PartyPackage = () => {
               <Typography variant="h3" style={{ marginTop: "5%" }}>
                 Gurus:
               </Typography>
+              {/*Map through gurus of this product and print their names */}
               {productGurus &&
                 productGurus.map((guru) => (
                   <Typography style={{ fontSize: "1.5rem" }} key={guru._id}>
@@ -96,7 +114,7 @@ const PartyPackage = () => {
             </Grid>
           </Grid>
 
-          {/* Start of information and options grid */}
+          {/* Start of information grid*/}
           <Grid
             container
             item
@@ -131,18 +149,31 @@ const PartyPackage = () => {
             </Grid>
             <Grid container item xs={7} direction="column">
               <Grid xs={12} align="center">
-                <Calendar />
+                <Calendar
+                  setIsWeekend={setIsWeekend}
+                  setNewPartyReservation={setNewPartyReservation}
+                />
               </Grid>
             </Grid>
-            <Grid container item spacing={4} xs={3} direction="column" justify="center">
+            <Grid
+              container
+              item
+              spacing={4}
+              xs={3}
+              direction="column"
+              justify="center"
+            >
               <Grid item>
-                <AttendeeNumberSelector participants={participants} setParticipantAmount={setParticipantAmount}/>
+                <AttendeeNumberSelector
+                  participants={participants}
+                  setParticipantAmount={setParticipantAmount}
+                />
               </Grid>
               <Grid item>
                 <ContactInfoFields />
               </Grid>
               <Grid item>
-                <CostCalculator participants={participants} />
+                <CostCalculator participants={participants} isWeekend={isWeekend} />
               </Grid>
               <Grid item align="center">
                 <Button
@@ -151,6 +182,17 @@ const PartyPackage = () => {
                   className={classes.bigButton}
                 >
                   Add to cart and invite guests!
+                </Button>
+                <Button
+                  onClick={() => {
+                    console.log(partyReservation);
+                    console.log(isWeekend);
+                  }}
+                  variant="contained"
+                  color="primary"
+                  className={classes.bigButton}
+                >
+                  Print reservation
                 </Button>
               </Grid>
             </Grid>
