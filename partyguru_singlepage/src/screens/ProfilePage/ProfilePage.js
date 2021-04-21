@@ -5,11 +5,15 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Profile = () => {
-  const { user } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
   //const { name, picture, email } = user;
 
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
   return (
-    <div>
+    isAuthenticated && (<div>
       <div className="row align-items-center profile-header">
         <div className="col-md-2 mb-3">
           <img
@@ -28,7 +32,7 @@ const Profile = () => {
           {JSON.stringify(user, null, 2)}
         </pre>
       </div>
-    </div>
+    </div>)
   );
 };
 
