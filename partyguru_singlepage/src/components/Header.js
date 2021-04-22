@@ -6,6 +6,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import { withRouter } from 'react-router-dom'
 import { Theme } from '@fullcalendar/common';
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useTheme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
     headerLink:{
@@ -30,11 +32,15 @@ const Header = (props) => {
     //is not visible yet! Setting it to other than null will open the menu.
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
+    //anchorEl is set to null, therefore not visible.
     const handleClose = () => {
         setAnchorEl(null)
     }
 
+    //anchorEl is now applied to current event location, therefore visible.
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget)
     }
@@ -44,6 +50,8 @@ const Header = (props) => {
         history.push(url)
         setAnchorEl(null)
     }
+
+
     
     return (
         <AppBar position="sticky" title={<img src="https://sog.gg/wp-content/uploads/2019/08/SOG_logo_black-01.png" />} >
@@ -81,7 +89,7 @@ const Header = (props) => {
                             anchorEl={anchorEl}
                             anchorOrigin={{
                                 vertical: 'bottom',
-                                horizontal: 'right',
+                                horizontal: 'bottom',
                             }}
                             keepMounted
                             transformOrigin={{
@@ -91,7 +99,8 @@ const Header = (props) => {
                             open={open}
                             onClose={() => setAnchorEl(null)}
                         >
-                            <MenuItem onClick={() => handleMenuClick("/login")}>Login </MenuItem>
+                            <MenuItem onClick={() => handleMenuClick("/login")}> Login </MenuItem>
+                            <MenuItem onClick={()=> handleMenuClick("/gurupage")}> Guru Page </MenuItem>
                         </Menu>
                     </Grid>
                 </Grid>
