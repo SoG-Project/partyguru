@@ -63,7 +63,6 @@ const AttendeeNumberSelector = (props) => {
             min: 1,
             max: 30,
             type: "number",
-            "aria-labelledby": "input-slider",
             style: { fontSize: "2rem", marginLeft:"1vw" },
           }}
         />

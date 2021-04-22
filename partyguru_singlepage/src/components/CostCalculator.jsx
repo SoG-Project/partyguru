@@ -23,6 +23,9 @@ const CostCalculator = (props) => {
   //State for number of party participants
   const [price, setPrice] = React.useState(0);
 
+  //When the state of isWeekend or participants is changed in PartyPackage.js this fires
+  //First we check isWeekend, if true double price and set it as new price
+  //if not weekend halve price and set it as new price
   useEffect(() => {
     if (props.isWeekend) {
       let newPrice = price * 2;
@@ -32,15 +35,20 @@ const CostCalculator = (props) => {
     } else {
       let newPrice = price / 2;
       setPrice(newPrice);
-      console.log("Juhlat arkena, hinta nyt ", price)
+      console.log("Juhlat arkena, hinta nyt ", price);
       return;
-    }
-  }, [props.isWeekend, props.participants]);
+    };
+  }, [props.isWeekend]);
+  
   // When amount of participants changes, readjust price accordingly
   useEffect(() => {
     let newPrice = 0;
     for (let i = 0; i < props.participants; i++) {
       newPrice += 10;
+    };
+    if(props.isWeekend){
+      newPrice = newPrice * 2;
+      console.log("Osallistujia muutettu viikonloppuna");
     }
     setPrice(newPrice);
   }, [props.participants]);
