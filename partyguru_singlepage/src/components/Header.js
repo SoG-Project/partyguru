@@ -5,7 +5,6 @@ import Link from '@material-ui/core/Link';
 import {makeStyles} from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import { withRouter } from 'react-router-dom'
-import { Theme } from '@fullcalendar/common';
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
 import LoginButton from "../screens/LandingPage/components/LoginButton";
@@ -30,6 +29,7 @@ const useStyles = makeStyles({
     },
 })
 
+//props gives access to history, which is explained below.
 const Header = (props) => {
     //history is from withRouter. withRouter gives you access to props, which in turn contains, for example,
     //the history element. If you want to move to a different page, then it is done with history.push(url of page)
@@ -38,6 +38,8 @@ const Header = (props) => {
     //anchorEl defines where the pop-up menu when clicking on a menu icon should open. null means that it
     //is not visible yet! Setting it to other than null will open the menu.
     const [anchorEl, setAnchorEl] = useState(null)
+    //If the menu is open, then that means that anchorEl is true. Therefore, we can determine whether
+    //the menu is open or not.
     const open = Boolean(anchorEl)
     //We need the theme to access MediaQuery
     const theme = useTheme()
@@ -60,6 +62,11 @@ const Header = (props) => {
         setAnchorEl(null)
     }
 
+    //AuthNav function decides should we render the login button or the logout button.
+    //Since auth0 takes a sec to load, the login button might flash on the screen
+    //even though you are logged in. This can be prevented by using a "isLoading"
+    //variable extracted from useAuth0(). While isLoading is true, you could simply
+    //display a loading icon instead of these buttons!
     const AuthNav = () => {
         const { isAuthenticated } = useAuth0()
     
