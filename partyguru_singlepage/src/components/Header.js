@@ -15,8 +15,9 @@ const useStyles = makeStyles({
     menuElement: {
         padding: "2vh",
     },
-    nobuttonjerk: {
-        
+    logo: {
+        width: 60,
+        marginTop: "1vh",
     },
 })
 
@@ -45,16 +46,17 @@ const Header = (props) => {
     }
     
     return (
-        <AppBar position="sticky">
+        <AppBar position="sticky" title={<img src="https://sog.gg/wp-content/uploads/2019/08/SOG_logo_black-01.png" />} >
             <Toolbar variant="dense">
                 <Grid container 
                 direction="row" 
                 justify="space-between">
-                    <Grid item>
-                        <a href="/"> <img style={{width: "10%"}} src={'https://sog.gg/wp-content/uploads/2019/08/SOG_logo_black-01.png'} /> </a>
+
+                    <Grid item >    
+                        <a href="/"> <img className={classes.logo} src={'https://sog.gg/wp-content/uploads/2019/08/SOG_logo_black-01.png'} /> </a>
                     </Grid>
 
-                    <Grid item className={classes.menuElement}>
+                    <Grid item  className={classes.menuElement}>
                         <Link  underline="none" className={classes.headerLink} href="/cart">Cart</Link>
                     </Grid>
 
@@ -65,7 +67,7 @@ const Header = (props) => {
                     <Grid item className={classes.menuElement}>
                         <Link underline="none" className={classes.headerLink} href="/login">Login</Link>
                     </Grid>
-                    <Grid item xs={1} style={{marginTop: "0.5vh", marginLeft: "2vh"}}>
+                    <Grid item style={{marginTop: "0.5vh", marginLeft: "2vh"}}>
                         <IconButton 
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
@@ -89,7 +91,7 @@ const Header = (props) => {
                             open={open}
                             onClose={() => setAnchorEl(null)}
                         >
-                            <MenuItem style={{width: "100%"}} onClick={() => handleMenuClick("/login")}>Login </MenuItem>
+                            <MenuItem onClick={() => handleMenuClick("/login")}>Login </MenuItem>
                         </Menu>
                     </Grid>
                 </Grid>
