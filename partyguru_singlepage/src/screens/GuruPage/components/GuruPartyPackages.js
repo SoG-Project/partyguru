@@ -11,13 +11,13 @@ const GuruPartyPackages = ({guruID}) =>{
 
     const [pPackages, setPPackages] = useState([])
     const [editMode, setEditMode] = useState(false)
+    const [initialPackages, setInitialPackages] = useState([])
 
 
 
     useEffect(() => {
 
         axios.get('/api/packages').then(response => {
-
 
             //sorting the packages by ID using an inline compare function
             setPPackages(response.data.sort((a,b) => (a._id > b._id) ? 1 : ((b._id > a._id) ? -1 : 0))

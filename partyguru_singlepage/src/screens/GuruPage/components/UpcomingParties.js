@@ -48,7 +48,6 @@ const UpcomingParties = (props) => {
         parties.map((party, index) =>
             axios.get(`/api/packages/${party.packageid}`).then(response => {
                 namedParties = namedParties.concat(response.data.name)
-                console.log(namedParties)
                  setNameArray(namedParties)
             })
         )

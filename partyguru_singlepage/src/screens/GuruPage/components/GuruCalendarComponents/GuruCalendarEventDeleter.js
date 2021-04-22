@@ -30,12 +30,15 @@ const GuruCalendarEventDeleter = (props) => {
             <DialogTitle disableTypography={true} className={classes.dialogTitle}>Confirm delete</DialogTitle>
             <DialogContent>
                 <DialogContentText className={classes.dialogContentText}>
-            {"Delete this event?"}
+            {"Delete this unavailability period?"}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
+                <Button onClick={props.onClose} variant="contained" color="primary">
+                    Cancel
+                </Button>
                 <Button onClick={props.deleteEvent} variant="contained" color="primary">
-                    Save
+                    Confirm
                 </Button>
             </DialogActions>
         </Dialog>

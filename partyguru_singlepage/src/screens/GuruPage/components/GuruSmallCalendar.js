@@ -18,25 +18,41 @@ const GuruSmallCalendar = (props) => {
     const [eventAdderOpen, setEventAdderOpen] = useState(false)
     const [eventDeleterOpen, setEventDeleterOpen] =useState(false)
     const [currentEvent, setCurrentEvent] = useState({start:(new Date), end:(new Date), id:''})
-    const [dialogText, setDialogText] = useState('')
 
 
     useEffect(() => {
         setEvents(props.UnavailableDates)
     }, [props.UnavailableDates]);
 
+
+    useEffect(() => {
+
+        axios.get('/api/parties').then(response => {
+            response.data.forEach(party =>{
+                if (party.guruid === props.guruID) {
+                    
+                }
+            })
+        })
+    }, [props.guruID]);
+
+    // Handle selecting a date with no event attached to it.
     const handleDateSelect = (selectInfo) => {
 
+        // Setting the state of currentEvent to reflect the selection
         setCurrentEvent({start:selectInfo.startStr, end:selectInfo.endStr, id:selectInfo.id})
         setEventAdderOpen(true)
 
     }
 
+    // Handle selecting an existing event
     const handleEventSelect = (event) => {
+
         setCurrentEvent({start:event.event.startStr, end:event.event.endStr, id: event.event.id})
         setEventDeleterOpen(true)
     }
 
+    // Filtering out the currently selected event by ID in order to remove the event from the calendar
     const deleteEvent = (event) => {
         let newEvents = events.filter(calendarEvent =>
             calendarEvent.id !== currentEvent.id )
@@ -45,11 +61,11 @@ const GuruSmallCalendar = (props) => {
     }
 
 
-    const saveNewEvent = () => {
+    const saveNewEvent = (title) => {
 
         let newEvent = {
             id: Math.floor(Math.random() * 1000).toString(),
-            title: "Unavailable",
+            title: title,
             start: currentEvent.start,
             end: currentEvent.end
         }
@@ -68,7 +84,6 @@ const GuruSmallCalendar = (props) => {
     }
 
     const openLargeCalendar = () => {
-
         setLargeCalendarOpen(!largeCalendarOpen)
         }
 
@@ -109,7 +124,7 @@ const GuruSmallCalendar = (props) => {
                    }}/>
 
         <GuruLargeCalendar  handleDateSelect={handleDateSelect} submitData={submitData} events={events} handleEventSelect={handleEventSelect} handleClose={handleCalendarClose} open={largeCalendarOpen}/>
-        <GuruCalendarEventAdder text={dialogText} open={eventAdderOpen} onClose={handleEventAdderClose} addEvent={saveNewEvent}  eventStart={currentEvent.start} eventEnd={currentEvent.end}/>
+        <GuruCalendarEventAdder  open={eventAdderOpen} onClose={handleEventAdderClose} addEvent={saveNewEvent}  eventStart={currentEvent.start} eventEnd={currentEvent.end}/>
         <GuruCalendarEventDeleter  open={eventDeleterOpen} onClose={handleEventAdderClose} deleteEvent={deleteEvent}  eventStart={currentEvent.start} eventEnd={currentEvent.end}/>
 
 
