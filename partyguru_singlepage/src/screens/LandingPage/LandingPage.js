@@ -5,8 +5,6 @@ import AttendeeNumberSelector from "../../components/AttendeeNumberSelector";
 import CostCalculator from "../../components/CostCalculator";
 import Calendar from "../../components/Calendar/Calendar";
 
-import LoginButton from "./components/LoginButton";
-import LogoutButton from "./components/LogoutButton";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -17,7 +15,6 @@ import SchedulerTest from "../../components/Scheduler/SchedulerTest";
 import Divider from "@material-ui/core/Divider";
 import EditableScheduler from "../../components/Scheduler/EditableScheduler";
 import { Typography } from "@material-ui/core";
-import { useAuth0 } from '@auth0/auth0-react'
 //splash sivu
 //map funktio looppaa datan läpi ja tekee niistä kortteja
 //Product.js tekee ne kortit viime kädessä
@@ -97,15 +94,7 @@ const LandingPage = () => {
     };
   }, [products, singleid]);
 
-  const AuthNav = () => {
-    const { isAuthenticated } = useAuth0()
-
-    return(
-      <div>
-        {isAuthenticated ? <LogoutButton /> : <LoginButton />}
-      </div>
-    )
-  }
+  
 
   const classes = useStyles();
   return (
@@ -129,7 +118,6 @@ const LandingPage = () => {
           </Typography>
         </Grid>
       </div>
-      <AuthNav />
       <div className={classes.root}>
         <Grid
           container

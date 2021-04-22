@@ -8,6 +8,9 @@ import { withRouter } from 'react-router-dom'
 import { Theme } from '@fullcalendar/common';
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
+import LoginButton from "../screens/LandingPage/components/LoginButton";
+import LogoutButton from "../screens/LandingPage/components/LogoutButton";
+import { useAuth0 } from '@auth0/auth0-react'
 
 const useStyles = makeStyles({
     headerLink:{
@@ -21,6 +24,10 @@ const useStyles = makeStyles({
         width: 60,
         marginTop: "1vh",
     },
+    loginandoutbuttons: {
+        maxHeight: "1vh",
+        marginTop: "1vh",
+    },
 })
 
 const Header = (props) => {
@@ -32,7 +39,9 @@ const Header = (props) => {
     //is not visible yet! Setting it to other than null will open the menu.
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
+    //We need the theme to access MediaQuery
     const theme = useTheme()
+    //isMobile is true, when the size of the screen is "extra small, xs" AND less
     const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
     //anchorEl is set to null, therefore not visible.
@@ -51,6 +60,15 @@ const Header = (props) => {
         setAnchorEl(null)
     }
 
+    const AuthNav = () => {
+        const { isAuthenticated } = useAuth0()
+    
+        return(
+          <div>
+            {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+          </div>
+        )
+      }
 
     
     return (
@@ -75,6 +93,11 @@ const Header = (props) => {
                     <Grid item className={classes.menuElement}>
                         <Link underline="none" className={classes.headerLink} href="/login">Login</Link>
                     </Grid>
+
+                    <Grid item className={classes.loginandoutbuttons}>
+                        <AuthNav />
+                    </Grid>
+
                     <Grid item style={{marginTop: "0.5vh", marginLeft: "2vh"}}>
                         <IconButton 
                             aria-label="account of current user"
