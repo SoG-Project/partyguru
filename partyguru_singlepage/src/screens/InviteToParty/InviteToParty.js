@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Component } from "react"
-import emailjs from 'emailjs-com';
 import ReactDOM from 'react-dom';
 import {Link} from "react-router-dom"
 import "./InviteToParty.css"
@@ -12,7 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Themeswap from "./components/theme3";
-import ContactUs from "./components/Form";
+
 
 
 
@@ -353,12 +352,6 @@ const handleEmailfieldDelete = (index) => {
             </Grid>
           );
         })}
-        {/*This is the form component that can send emails, kinda lidl atm but at least it works*/}
-        {/*It works as following (for now): The name field is for entering the recipient's name.
-        Email field is where you put the recipient's email, as of now you can put anyone's email into it and it will send it.
-        Into the message field you can put whatever you want to say to the recipient*/
-        }
-        <ContactUs></ContactUs>
     </div>
     )
     
