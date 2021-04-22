@@ -6,7 +6,6 @@ import interactionPlugin from "@fullcalendar/interaction";
 import './GuruCalendar.css';
 import axios from "axios";
 import GuruLargeCalendar from "./GuruCalendarComponents/GuruLargeCalendar";
-import {Dialog} from "@material-ui/core";
 import GuruCalendarEventAdder from "./GuruCalendarComponents/GuruCalendarEventAdder.js";
 import GuruCalendarEventDeleter from "./GuruCalendarComponents/GuruCalendarEventDeleter";
 
@@ -30,9 +29,7 @@ const GuruSmallCalendar = (props) => {
 
         setCurrentEvent({start:selectInfo.startStr, end:selectInfo.endStr, id:selectInfo.id})
         setEventAdderOpen(true)
-       /* if (window.confirm("Are you unavailable from " + selectInfo.startStr + ' to ' + selectInfo.endStr + '?'))
-            setEvents([...events, newEvent])
-            console.log(events) */
+
     }
 
     const handleEventSelect = (event) => {
@@ -101,7 +98,7 @@ const GuruSmallCalendar = (props) => {
                    allDaySlot={false}
                    nowIndicator
                    select={handleDateSelect}
-                   headerToolbar={{left: 'title,prev,next', center:'openLargeCalendar', right: '' }}
+                   headerToolbar={{left: 'title', center:'prev,next', right: 'openLargeCalendar' }}
                    titleFormat={{year: 'numeric', month:'2-digit', day: '2-digit'}}
 
                    customButtons={{
