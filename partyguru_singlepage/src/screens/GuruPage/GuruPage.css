@@ -3,7 +3,7 @@
     grid-template-columns: repeat(2, 450px);
     justify-content: center;
     grid-template-rows: auto;
-    grid-gap:3px;
+    grid-gap:5px;
     grid-template-areas:
     "gImage info"
     "pPackages video"
@@ -41,7 +41,6 @@
     width:300px;
     height:300px;
     border-style: groove;
-    border-color: orange;
     align-self:center;
     margin-right:10px;
     margin-left:10px;
@@ -56,10 +55,9 @@
 
 
 .guruGrid > div{
-    border-style: groove;
-    border-color: orange;
+
     display:flex;
-    background:#FAF0E6;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0), 0 6px 20px 0 rgba(0.19, 0.19, 0.19, 0.19);
     flex-direction: column;
     justify-content: center;
     align-items: center;
