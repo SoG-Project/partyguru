@@ -1,19 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Product from "../../components/Product";
-import ContactInfoFields from "../../components/ContactInfoFields";
-import AttendeeNumberSelector from "../../components/AttendeeNumberSelector";
-import CostCalculator from "../../components/CostCalculator";
-import Calendar from "../../components/Calendar/Calendar";
 
-import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import SchedulerTest from "../../components/Scheduler/SchedulerTest";
-import Divider from "@material-ui/core/Divider";
-import EditableScheduler from "../../components/Scheduler/EditableScheduler";
 import { Typography } from "@material-ui/core";
 //splash sivu
 //map funktio looppaa datan läpi ja tekee niistä kortteja
