@@ -1,24 +1,17 @@
 import { React, useState, useEffect } from "react";
-import Axios from "axios";
 
 import {
   makeStyles,
   TextField,
   Typography,
   Paper,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-  Box,
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import { shadows } from "@material-ui/system";
 import PartyHeroInfo from "./components/PartyHeroInfo";
 import Attendees from "./components/Attendees";
 import CheckBoxes from "./components/CheckBoxes"
 import GameInfo from "../CreatePartyPage/components/GameInfo"
 import axios from "axios";
-import { isPropsEqual } from "@fullcalendar/react";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -99,6 +92,8 @@ const GuruPartyPage = (props) => {
     let info = event.target.value;
     changePartyHeroInfo(info);
   };
+
+  console.log("GPP on ", checkBoxInfo )
 
   return (
     <div className="maindiv">

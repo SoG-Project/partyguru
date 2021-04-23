@@ -1,6 +1,14 @@
-import React from 'react'
+import React from "react";
 import { useState, useEffect } from "react";
-import { Paper, Typography, makeStyles, FormControlLabel, Checkbox, Divider, FormGroup } from "@material-ui/core";
+import {
+  Paper,
+  Typography,
+  makeStyles,
+  FormControlLabel,
+  Checkbox,
+  Divider,
+  FormGroup,
+} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,82 +41,89 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CheckBoxes = (props) => {
+  const [checkBoxInfo, changeCheckBoxInfo] = useState(props.checkboxarray);
 
-  const [checkBoxes, changeCheckBoxInfo] = useState(props.checkboxarray)
+  const classes = useStyles();
 
-  const classes = useStyles()
+  console.log("Checkboxarray on ", checkBoxInfo);
 
-  return(
+  return (
     <div>
-      
-            <Paper elevation={4} style={{ height: "100%" }}>
-              {/*Checkboxes for what the child likes*/}
-              <Grid
-                item
-                container
-                direction="column"
-                style={{
-                  padding: "2rem",
-                }}
-              >
-                <Grid item>
-                  <Typography paragraph gutterBottom variant="h4">
-                    Likes about Minecraft
+      <Paper elevation={4} style={{ height: "100%" }}>
+        {/*Checkboxes for what the child likes*/}
+        <Grid
+          item
+          container
+          direction="column"
+          style={{
+            padding: "2rem",
+          }}
+        >
+          <Grid item>
+            <Typography paragraph gutterBottom variant="h4">
+              Likes about Minecraft
+            </Typography>
+            <Divider />
+          </Grid>
+          <Grid item>
+            <FormGroup direction="column">
+              {checkBoxInfo.map((x, i) => {
+                return (
+                  <FormControlLabel
+                    disabled
+                    control={<Checkbox />}
+                    label={
+                      <Typography className={classes.checkBoxText}>
+                        {x}
+                      </Typography>
+                    }
+                  />
+                );
+              })}
+              <FormControlLabel
+                disabled
+                control={<Checkbox name="Checkboxtest" />}
+                label={
+                  <Typography className={classes.checkBoxText}>TNT</Typography>
+                }
+              />
+              <FormControlLabel
+                disabled
+                control={<Checkbox name="Checkboxtest" />}
+                label={
+                  <Typography className={classes.checkBoxText}>Cats</Typography>
+                }
+              />
+              <FormControlLabel
+                disabled
+                control={<Checkbox name="Checkboxtest" />}
+                label={
+                  <Typography className={classes.checkBoxText}>Dogs</Typography>
+                }
+              />
+              <FormControlLabel
+                disabled
+                control={<Checkbox name="Checkboxtest" />}
+                label={
+                  <Typography className={classes.checkBoxText}>
+                    Griefing
                   </Typography>
-                  <Divider />
-                </Grid>
-                <Grid item>
-                  <FormGroup direction="column">
-                    <FormControlLabel
-                      disabled
-                      control={<Checkbox name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          TNT
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      disabled
-                      control={<Checkbox name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          Cats
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      disabled
-                      control={<Checkbox name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          Dogs
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      disabled
-                      control={<Checkbox name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          Griefing
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      disabled
-                      control={<Checkbox name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          Co-op
-                        </Typography>
-                      }
-                    />
-                  </FormGroup>
-                </Grid>
-              </Grid>
-            </Paper>
+                }
+              />
+              <FormControlLabel
+                disabled
+                control={<Checkbox name="Checkboxtest" />}
+                label={
+                  <Typography className={classes.checkBoxText}>
+                    Co-op
+                  </Typography>
+                }
+              />
+            </FormGroup>
+          </Grid>
+        </Grid>
+      </Paper>
     </div>
-  )
-}
-export default CheckBoxes
+  );
+};
+export default CheckBoxes;
