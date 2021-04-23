@@ -15,7 +15,7 @@ import Grid from "@material-ui/core/Grid";
 import { shadows } from "@material-ui/system";
 import PartyHeroInfo from "./components/PartyHeroInfo";
 import Attendees from "./components/Attendees";
-import CheckBoxes from "../CreatePartyPage/components/CheckBoxes"
+import CheckBoxes from "./components/CheckBoxes"
 import GameInfo from "../CreatePartyPage/components/GameInfo"
 import axios from "axios";
 import { isPropsEqual } from "@fullcalendar/react";
@@ -70,6 +70,9 @@ const GuruPartyPage = (props) => {
   const [partyheroinfo, changePartyHeroInfo] = useState(
     "Display information about the Party hero here"
   );
+  const [checkBoxInfo, changeCheckBoxInfo] = useState([
+
+  ])
 
   useEffect(() => {
     //getData gets partypack in question.
@@ -87,6 +90,7 @@ const GuruPartyPage = (props) => {
     axios.get(`/api/parties/${partyID}`).then((response) => {
       setParty(response.data);
       changePartyHeroInfo(response.data.partyheroinfo);
+      changeCheckBoxInfo(response.data.likes)
       console.log(response.data.partyheroinfo);
     });
   };
@@ -134,7 +138,7 @@ const GuruPartyPage = (props) => {
             >
               <Grid item xs={12}>
                 <Typography gutterBottom paragraph variant="h4">
-                  Special considerations about your child
+                  Information about participants
                 </Typography>
               </Grid>
 
@@ -146,13 +150,10 @@ const GuruPartyPage = (props) => {
                   rows={4}
                   rowsMax={5}
                   id="namefield"
-                  label={
-                    <Typography style={{ fontSize: "2rem" }}>
-                      Enter info here
-                    </Typography>
-                  }
+                  value={partyheroinfo}
                   variant="outlined"
                   inputProps={{
+                    readOnly: true,
                     maxLength: 300,
                     style: { fontSize: "2rem", lineHeight: "150%" },
                   }}
@@ -162,7 +163,7 @@ const GuruPartyPage = (props) => {
           </Paper>
         </Grid>
         <Grid item xs={5}>
-          <CheckBoxes />
+          <CheckBoxes checkboxarray={checkBoxInfo}/>
         </Grid>
       </Grid>
       
