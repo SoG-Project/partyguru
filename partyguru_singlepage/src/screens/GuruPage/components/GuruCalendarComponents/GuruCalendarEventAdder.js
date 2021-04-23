@@ -52,7 +52,7 @@ const GuruCalendarEventAdder = (props) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onClose} variant="contained" color="primary">Cancel</Button>
-                <Button onClick={()=> { props.addEvent(eventTitle); setEventTitle("Unavailable")} } variant="contained" color="primary">
+                <Button onClick={()=> { props.addEvent(eventTitle, false); setEventTitle("Unavailable")} } variant="contained" color="primary">
                     Save
                 </Button>
             </DialogActions>

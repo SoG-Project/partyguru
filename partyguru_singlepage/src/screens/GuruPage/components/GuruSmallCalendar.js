@@ -16,7 +16,7 @@ const GuruSmallCalendar = (props) => {
     const [events, setEvents] = useState([{}])
     const [largeCalendarOpen, setLargeCalendarOpen] = useState(false)
     const [eventAdderOpen, setEventAdderOpen] = useState(false)
-    const [eventDeleterOpen, setEventDeleterOpen] =useState(false)
+    const [eventDeleterOpen, setEventDeleterOpen] = useState(false)
     const [currentEvent, setCurrentEvent] = useState({start:(new Date), end:(new Date), id:''})
 
 
@@ -58,6 +58,10 @@ const GuruSmallCalendar = (props) => {
     const handleEventSelect = (event) => {
 
         setCurrentEvent({start:event.event.startStr, end:event.event.endStr, id: event.event.id})
+
+        // Checking if event is deletable by color, which is used to classify user's own unavailable times from booked party events.
+        // A bit spaghetti-y but then again, pasta is delicious.
+        if (event.event.backgroundColor !== "orange")
         setEventDeleterOpen(true)
     }
 
@@ -70,23 +74,46 @@ const GuruSmallCalendar = (props) => {
     }
 
 
-    const saveNewEvent = (title) => {
+    const addNewEvent = (title, recurring) => {
 
-        let newEvent = {
-            id: Math.floor(Math.random() * 1000).toString(),
-            title: title,
-            start: currentEvent.start,
-            end: currentEvent.end,
-            color: 'red',
-            party:false
+        if (recurring===false) {
+            let newEvent = {
+                id: Math.floor(Math.random() * 10000).toString(),
+                title: title,
+                start: currentEvent.start,
+                end: currentEvent.end,
+                color: 'red',
+                party: false,
+            }
+            setEvents([...events, newEvent])
+
         }
-        console.log(newEvent)
-        setEvents([...events, newEvent])
+
+        if (recurring===true) {
+
+            let newEvents = [{}]
+            for(let i=1; i<10; i++) {
+                let newEvent = {
+                    id: Math.floor(Math.random() * 10000).toString(),
+                    title: title,
+                    start: new Date(currentEvent.start).setDate(new Date(currentEvent.start).getDate() + i*7),
+                    end: new Date(currentEvent.end).setDate(new Date(currentEvent.end).getDate() + i*7),
+                    color: 'red',
+                    party: false,
+                }
+                newEvents.push(newEvent)
+
+            }
+            setEvents(events.concat(newEvents))
+        }
+
+
         setEventAdderOpen(false)
     }
 
     
 
+    // Saving the current calendar unavailability setup to the database
      const submitData = () => {
 
         console.log(props.guruID)
@@ -136,7 +163,7 @@ const GuruSmallCalendar = (props) => {
                    }}/>
 
         <GuruLargeCalendar  handleDateSelect={handleDateSelect} submitData={submitData} events={events} handleEventSelect={handleEventSelect} handleClose={handleCalendarClose} open={largeCalendarOpen}/>
-        <GuruCalendarEventAdder  open={eventAdderOpen} onClose={handleEventAdderClose} addEvent={saveNewEvent}  eventStart={currentEvent.start} eventEnd={currentEvent.end}/>
+        <GuruCalendarEventAdder  open={eventAdderOpen} onClose={handleEventAdderClose} addEvent={addNewEvent}  eventStart={currentEvent.start} eventEnd={currentEvent.end}/>
         <GuruCalendarEventDeleter  open={eventDeleterOpen} onClose={handleEventAdderClose} deleteEvent={deleteEvent}  eventStart={currentEvent.start} eventEnd={currentEvent.end}/>
 
         </div>
