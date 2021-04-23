@@ -13,6 +13,7 @@ import Attendees from "./components/Attendees";
 import GameInfo from "./components/GameInfo";
 import CheckBoxes from "./components/CheckBoxes"
 import axios from "axios";
+import Linkki from "./components/link"
 
 const useStyles = makeStyles(() => ({
   margin: {
@@ -236,7 +237,8 @@ const CreatePartyPage = () => {
         {/*<Button className={classes.button} variant="contained" color="primary" onClick={()=>{saveAttendees()}}>
           Save attendees
         </Button>
-          */}
+          */} 
+        <Linkki></Linkki>
       </div>
     </div>
   );
