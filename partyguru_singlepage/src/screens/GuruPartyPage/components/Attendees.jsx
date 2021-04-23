@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Attendees = () => {
+const Attendees = (props) => {
   const classes = useStyles();
 
   const [attendees, changeAttendees] = useState([
