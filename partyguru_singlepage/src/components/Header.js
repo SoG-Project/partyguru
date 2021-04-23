@@ -119,7 +119,7 @@ const Header = (props) => {
                             anchorEl={anchorEl}
                             anchorOrigin={{
                                 vertical: 'bottom',
-                                horizontal: 'bottom',
+                                horizontal: 'left',
                             }}
                             keepMounted
                             transformOrigin={{

@@ -11,6 +11,8 @@ import {
   TextField,
   Typography,
   Input,
+  FormControl,
+  NativeSelect,
 } from "@material-ui/core";
 //Hyvä demo : https://codesandbox.io/s/github/fullcalendar/fullcalendar-example-projects/tree/master/react?file=/src/DemoApp.jsx
 //Dokumentaatio: https://fullcalendar.io/docs
@@ -55,18 +57,33 @@ const Calendar = (props) => {
 
   //states to help build new party events
   const [pickedDate, setPickedDate] = React.useState(null);
-  const [startTime, setStartTime] = React.useState(null);
+  const [startTime, setStartTime] = React.useState("08:00");
   const [title, setTitle] = React.useState(null);
   const [endTime, setEndTime] = React.useState(null);
+  const [duration, setDuration] = React.useState(1);
 
   //to Handle pushing the add event button at the bottom of the calendar
   //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
   const handleEventAddButton = (event) => {
     event.preventDefault();
-    let start = pickedDate + "T" + startTime;
-    let end = pickedDate + "T" + endTime;
-    console.log(start, end, title);
-    if (start < end && start != null && end != null && title != null) {
+    let dateFormatting = (pickedDate + "T" + startTime +":00Z");
+    console.log("Päivämäärä stringinä: ", dateFormatting);
+    let start = new Date(dateFormatting);
+    let end = start;
+    console.log("end muuttuja ennen tuntien lisäämistä (UTCString): ", end.toUTCString());
+    end.setHours(start.getHours() + duration);
+    console.log("end muuttuja tunnit lisättynä (UTCString) ", end.toUTCString());
+    console.log(
+      "Start time: ",
+      start.toUTCString(),
+      " End time: ",
+      end.toUTCString(),
+      " Title: ",
+      title,
+      " Duration: ",
+      duration
+    );
+    if (start < end && start != null && duration != null && title != null) {
       let newEvent = {
         id: createEventId(),
         title,
@@ -92,6 +109,8 @@ const Calendar = (props) => {
         "All required fields are not filled or they are filled incorrectly!"
       );
     }
+    start = "";
+    end = "";
   };
 
   //Handle changing the date of the party by changing value of pickedState to match
@@ -102,7 +121,7 @@ const Calendar = (props) => {
 
   //Handle changing the party starting time field by changing value of startTime state
   const handleStartChange = () => {
-    const picked = document.getElementById("partyStart").value;
+    const picked = document.getElementById("startSelector").value;
     setStartTime(picked);
   };
 
@@ -116,6 +135,11 @@ const Calendar = (props) => {
   const handleEndChange = () => {
     const picked = document.getElementById("partyEnd").value;
     setEndTime(picked);
+  };
+
+  const handleDurationChange = () => {
+    const picked = document.getElementById("durationSelector").value;
+    setDuration(picked);
   };
 
   //Check if date of party is on weekend (Saturday or Sunday)
@@ -193,11 +217,7 @@ const Calendar = (props) => {
           right: "timeGridWeek timeGridDay",
         }}
       />
-      <form
-        id="partyForm"
-        name="partyForm"
-        style={{ width: "100%", marginTop: "2%" }}
-      >
+      <form style={{ width: "100%", marginTop: "2%" }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="h3">Create party reservation</Typography>
@@ -226,44 +246,16 @@ const Calendar = (props) => {
             />
           </Grid>
           <Grid item xs={6}>
-            <label htmlFor="partyStart">Select party start time: </label>
-            <Input
-              required
-              type="time"
-              min="08:00"
-              max="22:00"
-              id="partyStart"
-              name="partyStart"
-              onChange={handleStartChange}
-              inputProps={{ style: { fontSize: 16 } }}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <label htmlFor="partyEnd">Select party ending time: </label>
-            <Input
-              required
-              type="time"
-              min="08:00"
-              max="22:00"
-              id="partyEnd"
-              name="partyEnd"
-              onChange={handleEndChange}
-              inputProps={{ style: { fontSize: 16 } }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleEventAddButton}
-              className={classes.bigButton}
-            >
-              Add event + spam console for debug
-            </Button>
-          </Grid>
-          <Grid item>
             <label htmlFor="startSelector">Select party start: </label>
-            <select name="startSelector" id="startSelector">
+            <NativeSelect
+              value={startTime}
+              onChange={handleStartChange}
+              inputProps={{
+                name: "Party start time selector",
+                id: "startSelector",
+                style: { fontSize: "large", lineHeight: "1.50rem" },
+              }}
+            >
               <option value="8:00">8:00</option>
               <option value="8:30">8:30</option>
               <option value="9:00">9:00</option>
@@ -293,16 +285,35 @@ const Calendar = (props) => {
               <option value="21:00">21:00</option>
               <option value="21:30">21:30</option>
               <option value="22:00">22:00</option>
-            </select>
+            </NativeSelect>
           </Grid>
-          <Grid item>
+
+          <Grid item xs={6}>
             <label htmlFor="duration">Select party duration: </label>
-            <select name="duration" id="duration">
-              <option value="1:00">1:00</option>
-              <option value="2:00">2:00</option>
-              <option value="3:00">3:00</option>
-              <option value="8:00">8:00</option>
-            </select>
+            <NativeSelect
+              value={duration}
+              onChange={handleDurationChange}
+              inputProps={{
+                name: "durationSelector",
+                id: "durationSelector",
+                style: { fontSize: "large", lineHeight: "1.50rem" },
+              }}
+            >
+              <option value={1}>One hour</option>
+              <option value={2}>Two hours</option>
+              <option value={3}>Three hours</option>
+              <option value={8}>Eight hours</option>
+            </NativeSelect>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleEventAddButton}
+              className={classes.bigButton}
+            >
+              Add event + spam console for debug
+            </Button>
           </Grid>
         </Grid>
       </form>
