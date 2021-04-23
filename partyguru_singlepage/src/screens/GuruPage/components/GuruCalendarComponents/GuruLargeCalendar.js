@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import '../GuruCalendar.css';
-import {Dialog} from "@material-ui/core";
+import {Dialog, DialogContent} from "@material-ui/core";
 
 
 
@@ -12,12 +12,9 @@ const GuruLargeCalendar = (props) => {
 
 
     return (
-
         <Dialog maxWidth='md' fullWidth={true} open={props.open} onClose={props.handleClose}>
-        <div className="calendar">
             <FullCalendar  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin] }
-                           width="100%"
-                           height="600px"
+                           height="800px"
                            initialView="timeGridWeek"
                            locale="fi"
                            events={props.events}
@@ -46,8 +43,7 @@ const GuruLargeCalendar = (props) => {
 
 
             />
-        </div>
-        </Dialog>
+    </Dialog>
     )
 
 

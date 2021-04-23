@@ -20,21 +20,30 @@ const GuruSmallCalendar = (props) => {
     const [currentEvent, setCurrentEvent] = useState({start:(new Date), end:(new Date), id:''})
 
 
-    useEffect(() => {
-        setEvents(props.UnavailableDates)
-    }, [props.UnavailableDates]);
 
-
+    // This hook gets the saved unavailability periods of the user & their upcoming events from the database and renders them into the calendar
     useEffect(() => {
+
+        let newEvents = props.UnavailableDates
 
         axios.get('/api/parties').then(response => {
             response.data.forEach(party =>{
                 if (party.guruid === props.guruID) {
-                    
+                    let newEvent = {
+                        id: party._id,
+                        title: party.description,
+                        start: party.datetime,
+                        end: new Date(party.datetime).setHours(new Date(party.datetime).getHours()+party.duration),
+                        color: 'orange',
+                        party: true
+                    }
+                    console.log(party.datetime)
+                    newEvents.push(newEvent)
                 }
             })
+            setEvents(newEvents)
         })
-    }, [props.guruID]);
+    }, [props]);
 
     // Handle selecting a date with no event attached to it.
     const handleDateSelect = (selectInfo) => {
@@ -67,8 +76,11 @@ const GuruSmallCalendar = (props) => {
             id: Math.floor(Math.random() * 1000).toString(),
             title: title,
             start: currentEvent.start,
-            end: currentEvent.end
+            end: currentEvent.end,
+            color: 'red',
+            party:false
         }
+        console.log(newEvent)
         setEvents([...events, newEvent])
         setEventAdderOpen(false)
     }
@@ -78,7 +90,7 @@ const GuruSmallCalendar = (props) => {
      const submitData = () => {
 
         console.log(props.guruID)
-        axios.put(`/api/gurus/${props.guruID}`, {timeswhenunavailable: events} ).then(response => {
+        axios.put(`/api/gurus/${props.guruID}`, {timeswhenunavailable: events.filter(event => event.party === false)} ).then(response => {
             console.log(response.data)
         })
     }
@@ -126,8 +138,6 @@ const GuruSmallCalendar = (props) => {
         <GuruLargeCalendar  handleDateSelect={handleDateSelect} submitData={submitData} events={events} handleEventSelect={handleEventSelect} handleClose={handleCalendarClose} open={largeCalendarOpen}/>
         <GuruCalendarEventAdder  open={eventAdderOpen} onClose={handleEventAdderClose} addEvent={saveNewEvent}  eventStart={currentEvent.start} eventEnd={currentEvent.end}/>
         <GuruCalendarEventDeleter  open={eventDeleterOpen} onClose={handleEventAdderClose} deleteEvent={deleteEvent}  eventStart={currentEvent.start} eventEnd={currentEvent.end}/>
-
-
 
         </div>
 )
