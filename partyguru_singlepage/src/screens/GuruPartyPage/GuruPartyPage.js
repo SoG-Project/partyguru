@@ -5,9 +5,10 @@ import {
   TextField,
   Typography,
   Paper,
+  Divider,
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import PartyHeroInfo from "./components/PartyHeroInfo";
+//import PartyHeroInfo from "./components/PartyHeroInfo";
 import Attendees from "./components/Attendees";
 import CheckBoxes from "./components/CheckBoxes"
 import GameInfo from "../CreatePartyPage/components/GameInfo"
@@ -54,15 +55,25 @@ const useStyles = makeStyles((theme) => ({
   test: {
     height: "100%",
   },
+  dividermargin: {
+    marginTop: "2vh",
+    marginBottom: "4vh",
+  },
 }));
 
 const GuruPartyPage = (props) => {
   const partyID = "605f8bcd8dfd970aa770584b";
   const classes = useStyles();
   const [party, setParty] = useState({});
+  //Partyheroinfo contains a string with the party hero description (e.g., I want to play Minecraft
+  //and blow up castles). This way the client can say they want to do x things and the guru can see
+  //these requests.
   const [partyheroinfo, changePartyHeroInfo] = useState(
     "Display information about the Party hero here"
   );
+  //Creates an empty array to store what the party hero aka the one who bought the
+  //party likes. Array with strings.This stores things such as liking cats or dogs
+  //in Minecraft so that the Party Guru can make the best party for them possible.
   const [checkBoxInfo, changeCheckBoxInfo] = useState([
 
   ])
@@ -89,10 +100,10 @@ const GuruPartyPage = (props) => {
     });
   };
 
-  const handlePartyHeroInfoChange = (event) => {
+  {/*const handlePartyHeroInfoChange = (event) => {
     let info = event.target.value;
     changePartyHeroInfo(info);
-  };
+  };*/}
 
   
 
@@ -114,7 +125,18 @@ const GuruPartyPage = (props) => {
           </Typography>
         </Grid>
       </div>
-      <Attendees />
+      
+      
+
+      <Grid container>
+        <Grid item xs={6}>
+          <GameInfo />
+        </Grid>
+        <Grid item xs={6}>
+          <Attendees />
+        </Grid>
+      </Grid>
+      <Divider className={classes.dividermargin} />
       <Grid
         container
         justify="space-around"
@@ -163,9 +185,9 @@ const GuruPartyPage = (props) => {
         </Grid>
       </Grid>
       
-      <div>
+      {/*<div>
         <PartyHeroInfo description={partyheroinfo} />
-      </div>
+      </div>*/}
     </div>
   );
 };
