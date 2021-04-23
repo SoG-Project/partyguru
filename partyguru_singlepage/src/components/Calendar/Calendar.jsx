@@ -1,5 +1,5 @@
 import React from "react";
-import FullCalendar, { ElementScrollController } from "@fullcalendar/react";
+import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -8,14 +8,11 @@ import {
   makeStyles,
   Paper,
   Grid,
-  TextField,
   Typography,
   Input,
-  FormControl,
   NativeSelect,
 } from "@material-ui/core";
-//Hyvä demo : https://codesandbox.io/s/github/fullcalendar/fullcalendar-example-projects/tree/master/react?file=/src/DemoApp.jsx
-//Dokumentaatio: https://fullcalendar.io/docs
+//FullCalendar documentation: https://fullcalendar.io/docs
 
 const useStyles = makeStyles((theme) => ({
   bigButton: {
@@ -59,25 +56,21 @@ const Calendar = (props) => {
   const [pickedDate, setPickedDate] = React.useState(null);
   const [startTime, setStartTime] = React.useState("08:00");
   const [title, setTitle] = React.useState(null);
-  const [endTime, setEndTime] = React.useState(null);
   const [duration, setDuration] = React.useState(1);
 
   //to Handle pushing the add event button at the bottom of the calendar
   //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
   const handleEventAddButton = (event) => {
     event.preventDefault();
-    let dateFormatting = (pickedDate + "T" + startTime +":00Z");
-    console.log("Päivämäärä stringinä: ", dateFormatting);
+    let dateFormatting = (pickedDate + "T" + startTime);
     let start = new Date(dateFormatting);
-    let end = start;
-    console.log("end muuttuja ennen tuntien lisäämistä (UTCString): ", end.toUTCString());
-    end.setHours(start.getHours() + duration);
-    console.log("end muuttuja tunnit lisättynä (UTCString) ", end.toUTCString());
+    let end = new Date(dateFormatting);
+    end.setHours(Number(end.getHours()) + Number(duration));
     console.log(
       "Start time: ",
-      start.toUTCString(),
+      start.toString(),
       " End time: ",
-      end.toUTCString(),
+      end.toString(),
       " Title: ",
       title,
       " Duration: ",
@@ -106,11 +99,9 @@ const Calendar = (props) => {
       props.setNewPartyReservation(newEvent);
     } else {
       alert(
-        "All required fields are not filled or they are filled incorrectly!"
+        "All required fields are not filled!"
       );
     }
-    start = "";
-    end = "";
   };
 
   //Handle changing the date of the party by changing value of pickedState to match
@@ -131,12 +122,7 @@ const Calendar = (props) => {
     setTitle(title);
   };
 
-  //Handle changing the ending time field of the party by changing value of endTime state
-  const handleEndChange = () => {
-    const picked = document.getElementById("partyEnd").value;
-    setEndTime(picked);
-  };
-
+  //Handle changing the duration of the party field by changing value of the duration state
   const handleDurationChange = () => {
     const picked = document.getElementById("durationSelector").value;
     setDuration(picked);
@@ -155,26 +141,6 @@ const Calendar = (props) => {
       console.log(partyDay, "is not weekend");
       props.setIsWeekend(false);
       return;
-    }
-  };
-
-  //This is called when you paint squares in the calendar and it creates an event
-  //Not necessary, calendar will probably not be "clickable" and will instead be filled through text fields etc
-  const handleDateSelect = (selectInfo) => {
-    let title = prompt("Please enter a new title for your event");
-    let calendarApi = selectInfo.view.calendar;
-    let newEvent = {
-      id: createEventId(),
-      title,
-      start: selectInfo.startStr,
-      end: selectInfo.endStr,
-    };
-    calendarApi.unselect(); // clear date selection
-
-    //add to calendar, then add to useState
-    if (title) {
-      calendarApi.addEvent(newEvent);
-      setEvents((events) => [...events, newEvent]);
     }
   };
 
@@ -206,10 +172,9 @@ const Calendar = (props) => {
         allDaySlot={false}
         //Change first day to monday
         firstDay="1"
-        //What happens when the calender is "selected", aka a section is painted to create an event
-        select={handleDateSelect}
-        /* HeaderToolbar toimii hauskasti, jos elementtien välissä on space, tulee kalenteriin tyhjä väli, jos pilkku ne yhdistyvät
-        Kokeile esim left:'prev,next today'
+        /* HeaderToolbar works in a funny way, if there is a 'space' between elements,
+        there will be a gap between them in the calendar also, if a comma they will instead touch eachother
+        Try for example: left:"prev,next today"
         */
         headerToolbar={{
           left: "prev next today",
@@ -217,6 +182,8 @@ const Calendar = (props) => {
           right: "timeGridWeek timeGridDay",
         }}
       />
+
+      {/*Data entering form to create reservations*/}
       <form style={{ width: "100%", marginTop: "2%" }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -253,7 +220,7 @@ const Calendar = (props) => {
               inputProps={{
                 name: "Party start time selector",
                 id: "startSelector",
-                style: { fontSize: "large", lineHeight: "1.50rem" },
+                style: { fontSize: "medium", lineHeight: "1.50rem" },
               }}
             >
               <option value="8:00">8:00</option>
@@ -296,7 +263,7 @@ const Calendar = (props) => {
               inputProps={{
                 name: "durationSelector",
                 id: "durationSelector",
-                style: { fontSize: "large", lineHeight: "1.50rem" },
+                style: { fontSize: "medium", lineHeight: "1.50rem" },
               }}
             >
               <option value={1}>One hour</option>
@@ -312,7 +279,7 @@ const Calendar = (props) => {
               onClick={handleEventAddButton}
               className={classes.bigButton}
             >
-              Add event + spam console for debug
+              Add event + debug
             </Button>
           </Grid>
         </Grid>
