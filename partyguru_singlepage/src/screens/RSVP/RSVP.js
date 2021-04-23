@@ -399,6 +399,15 @@ const RSVP = () => {
         More information
       </Button>
 
+      <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          href="/partyPage"
+        >
+          I've already enrolled, just show me the party info
+        </Button>
+
       <Button onClick={()=>{console.log(gamingspecs)}}>Show specs</Button>
 
       <Grid
