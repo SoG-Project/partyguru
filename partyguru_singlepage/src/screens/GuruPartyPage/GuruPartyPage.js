@@ -85,6 +85,7 @@ const GuruPartyPage = (props) => {
       changePartyHeroInfo(response.data.partyheroinfo);
       changeCheckBoxInfo(response.data.likes)
       console.log(response.data.partyheroinfo);
+      console.log("GPP checkboxinfo on ", checkBoxInfo )
     });
   };
 
@@ -93,7 +94,7 @@ const GuruPartyPage = (props) => {
     changePartyHeroInfo(info);
   };
 
-  console.log("GPP on ", checkBoxInfo )
+  
 
   return (
     <div className="maindiv">

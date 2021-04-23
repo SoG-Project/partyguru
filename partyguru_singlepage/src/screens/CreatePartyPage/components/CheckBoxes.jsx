@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState, useEffect } from "react";
 import { Paper, Typography, makeStyles, FormControlLabel, Checkbox, Divider, FormGroup } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 

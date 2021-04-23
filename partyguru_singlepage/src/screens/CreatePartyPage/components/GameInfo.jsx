@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Paper, Typography, makeStyles } from "@material-ui/core";
+import { Typography, makeStyles } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GameInfo = () => {
-  const [partyinfo, changePartyInfo] = useState("");
+  //const [partyinfo, changePartyInfo] = useState("");
 
   useEffect(() => {}, []);
 

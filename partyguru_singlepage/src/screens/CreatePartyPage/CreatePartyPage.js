@@ -5,11 +5,7 @@ import {
   TextField,
   Typography,
   Button,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
   Paper,
-  Divider,
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import ContactInfoFieldsPartyPage from "./components/ContactInfoFieldsPartyPage";
