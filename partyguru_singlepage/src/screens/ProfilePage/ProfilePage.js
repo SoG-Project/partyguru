@@ -16,10 +16,10 @@ const Profile = () => {
   }
 
   return (
-    {/*"Simple" if-statement: if user is authenticated through auth0, then the following will be rendered.*/},
-
-    isAuthenticated && (<div>
-      <div className="row align-items-center profile-header">
+    <div>
+      {isAuthenticated ? (
+        <div>
+          <div className="row align-items-center profile-header">
         <div className="col-md-2 mb-3">
           <img
             src={user.picture}
@@ -39,9 +39,15 @@ const Profile = () => {
       </div>
       <div style={{ marginTop: "1%", marginBottom: "1%"}}>
         <LogoutButton />
-      </div>
-    </div>)
+      </div></div>
+      ) 
+      :
+      <LoginButton />
+    }
+      
+      
 
+    </div>
   );
 };
 
