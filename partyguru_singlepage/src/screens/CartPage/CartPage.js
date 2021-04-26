@@ -65,7 +65,7 @@ const CartPage = (props) => {
           : 
           <div> 
             <p>Create an account to easily access your party!</p>
-            <LoginButton />
+            <LoginButton URL={"http://localhost:3000/cart"} />
           </div>}
           
         </div>
