@@ -63,8 +63,12 @@ const Calendar = (props) => {
   const handleEventAddButton = (event) => {
     event.preventDefault();
     const dateFormatting = (pickedDate + "T" + startTime);
+    console.log("pickedDate ", pickedDate, "startTime ", startTime);
+    console.log(dateFormatting);
     const start = new Date(dateFormatting);
+    console.log("Start ", start);
     const end = new Date(dateFormatting);
+    console.log("Start ", start);
     end.setHours(Number(end.getHours()) + Number(duration));
     console.log(
       "Start time: ",
@@ -84,7 +88,7 @@ const Calendar = (props) => {
         end: end,
       };
       let tempEvents = events;
-      for (var i = 0; i < tempEvents.length; i++) {
+      for (let i = 0; i < tempEvents.length; i++) {
         if (tempEvents[i].id === prevEvent.id) {
           console.log("Poistetaa elementti", tempEvents[i]);
           tempEvents.splice(i, 1);
@@ -161,18 +165,21 @@ const Calendar = (props) => {
   //Handle changing the party starting time field by changing value of startTime state
   const handleStartChange = () => {
     const picked = document.getElementById("startSelector").value;
+    console.log("Start changed to ", picked);
     setStartTime(picked);
   };
 
   //Handle changing the title field of the party by changing value of title state
   const handleTitleChange = () => {
     const title = document.getElementById("eventTitle").value;
+    console.log("Title changed to ", title);
     setTitle(title);
   };
 
   //Handle changing the duration of the party field by changing value of the duration state
   const handleDurationChange = () => {
     const picked = document.getElementById("durationSelector").value;
+    console.log("Duration changed to ", duration);
     setDuration(picked);
   };
 
@@ -266,15 +273,15 @@ const Calendar = (props) => {
               value={startTime}
               onChange={handleStartChange}
               inputProps={{
-                name: "Party start time selector",
+                name: "startSelector",
                 id: "startSelector",
                 style: { fontSize: "medium", lineHeight: "1.50rem" },
               }}
             >
-              <option value="8:00">8:00</option>
-              <option value="8:30">8:30</option>
-              <option value="9:00">9:00</option>
-              <option value="9:30">9:30</option>
+              <option value="08:00">8:00</option>
+              <option value="08:30">8:30</option>
+              <option value="09:00">9:00</option>
+              <option value="09:30">9:30</option>
               <option value="10:00">10:00</option>
               <option value="10:30">10:30</option>
               <option value="11:00">11:00</option>
