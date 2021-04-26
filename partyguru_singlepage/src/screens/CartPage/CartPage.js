@@ -48,19 +48,26 @@ const CartPage = (props) => {
       >
         Payment
       </Button>
-      {paymentStatus && <p>Payment status is true</p>}
 
       {isAuthenticated && paymentStatus ? (
         <div>
+          <h1>You're ready!</h1>
           <Button className={classes.buttons} variant="contained" onClick={handleCreateParty}>
             Let's make a party!
           </Button>
         </div>
       ) : 
         <div>
-          {isAuthenticated && (<div>
+
+          {isAuthenticated ? (<div>
             <h1>You must pay before you can make a party</h1>
-          </div>)}
+          </div>) 
+          : 
+          <div> 
+            <p>Create an account to easily access your party!</p>
+            <LoginButton />
+          </div>}
+          
         </div>
       }
     </div>
