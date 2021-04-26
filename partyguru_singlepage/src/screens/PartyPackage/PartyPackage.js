@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Grid, makeStyles, Typography, Paper } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  makeStyles,
+  Typography,
+  Paper,
+  Avatar,
+  Tooltip,
+} from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Image from "material-ui-image";
 import axios from "axios";
@@ -7,7 +15,8 @@ import AttendeeNumberSelector from "../../components/AttendeeNumberSelector";
 import ContactInfoFields from "../../components/ContactInfoFields";
 import CostCalculator from "../../components/CostCalculator";
 import Calendar from "../../components/Calendar/Calendar";
-import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0 } from "@auth0/auth0-react";
+import { AvatarGroup } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -21,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
   },
   dashed: {
     borderTop: "3px dashed #bbb",
+  },
+  guruAvatars: {
+    width: theme.spacing(8),
+    height: theme.spacing(8),
   },
 }));
 
@@ -41,8 +54,11 @@ const PartyPackage = () => {
   });
   //useState to check if date is weekend or not
   const [isWeekend, setIsWeekend] = useState(false);
+
+  //useState for duration, passed to CostCalculator to calculate costs
+  const [duration, setDuration] = useState(1);
   //Extract functions from Auth0 to see if user is logged in.
-  const { user, isAuthenticated } = useAuth0()
+  const { user, isAuthenticated } = useAuth0();
 
   // This function will set the participant amount and is usable in child components
   const setParticipantAmount = (amount) => {
@@ -85,7 +101,8 @@ const PartyPackage = () => {
       This is done to avoid "could not read undefined" errors
       These errors are usually related to reading attributes of product before it has been fetched,
       like product.img or product.name 
-      While product is not fetched a simple loading page will display*/}
+      While product is not fetched a simple loading page will display
+      Probably sort of a hack but it turned out to be a sure way for the page to work*/}
       {product ? (
         <Grid
           container
@@ -107,13 +124,23 @@ const PartyPackage = () => {
               <Typography variant="h3" style={{ marginTop: "5%" }}>
                 Gurus:
               </Typography>
-              {/*Map through gurus of this product and print their names */}
-              {productGurus &&
-                productGurus.map((guru) => (
-                  <Typography style={{ fontSize: "1.5rem" }} key={guru._id}>
-                    {guru.name}
-                  </Typography>
-                ))}
+              <Grid container>
+                {/* AvatarGroup to contain guru Avatars, max denotes how many are shown before showing a +x bubble */}
+                <AvatarGroup max={4}>
+                  {/*Map through gurus of this product and create Avatars of their profile pictures */}
+                  {productGurus &&
+                    productGurus.map((guru) => (
+                      <Tooltip title={<Typography style={{fontSize:"1.5rem"}}>{guru.name}</Typography>}>
+                        <Avatar
+                          alt={guru.name}
+                          src={guru.image}
+                          key={guru._id}
+                          className={classes.guruAvatars}
+                        />
+                      </Tooltip>
+                    ))}
+                </AvatarGroup>
+              </Grid>
             </Grid>
           </Grid>
 
@@ -125,6 +152,7 @@ const PartyPackage = () => {
             direction="column"
             style={{ marginLeft: "5%", padding: "1rem" }}
           >
+            {/*Header for name of party package and generic information about it*/}
             <Grid item>
               <Typography variant="h1">{product.name} Party Pack</Typography>
               <Typography gutterBottom paragraph style={{ fontSize: "1.5rem" }}>
@@ -140,7 +168,11 @@ const PartyPackage = () => {
             </Grid>
           </Grid>
           {/*Grid container for input fields */}
-          <Grid container style={{ height: "100%", marginTop: "3rem" }}>
+          <Grid
+            container
+            justify="space-around"
+            style={{ height: "100%", marginTop: "3rem" }}
+          >
             <Grid item xs={12}>
               <div
                 style={{
@@ -150,11 +182,14 @@ const PartyPackage = () => {
                 }}
               />
             </Grid>
+            {/*Grid to contain reservation calendar and fields for the customer to input their name and email. 
+            Also contains a selector for the number of attendees and a cost calculator */}
             <Grid container item xs={7} direction="column">
               <Grid xs={12} align="center">
                 <Calendar
                   setIsWeekend={setIsWeekend}
                   setNewPartyReservation={setNewPartyReservation}
+                  setDuration={setDuration}
                 />
               </Grid>
             </Grid>
@@ -162,10 +197,13 @@ const PartyPackage = () => {
               container
               item
               spacing={4}
-              xs={3}
+              xs={4}
               direction="column"
               justify="center"
             >
+              <Grid item>
+                <ContactInfoFields />
+              </Grid>
               <Grid item>
                 <AttendeeNumberSelector
                   participants={participants}
@@ -173,10 +211,11 @@ const PartyPackage = () => {
                 />
               </Grid>
               <Grid item>
-                <ContactInfoFields />
-              </Grid>
-              <Grid item>
-                <CostCalculator participants={participants} isWeekend={isWeekend} />
+                <CostCalculator
+                  participants={participants}
+                  isWeekend={isWeekend}
+                  duration={duration}
+                />
               </Grid>
               <Grid item align="center">
                 <Button
@@ -192,12 +231,22 @@ const PartyPackage = () => {
           </Grid>
         </Grid>
       ) : (
-        <div className={classes.mainContainer} style={{textAlign:"center", justifyContent:"center", alignItems:"center"}} >
+        <div
+          className={classes.mainContainer}
+          style={{
+            textAlign: "center",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {/*This area is rendered while the package has not been fetched, usually for a very brief amount of time*/}
-          <Typography variant="h4">
-            Page loading...
-          </Typography>
-          <CircularProgress color="secondary" disableShrink size="15vh" style={{margin:"3%"}} />
+          <Typography variant="h4">Page loading...</Typography>
+          <CircularProgress
+            color="secondary"
+            disableShrink
+            size="15vh"
+            style={{ margin: "3%" }}
+          />
           <Typography variant="h4">
             If you see this page for an extended period of time something has
             likely gone wrong.

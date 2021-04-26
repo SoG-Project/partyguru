@@ -172,12 +172,13 @@ const CreatePartyPage = () => {
           </Grid>
         </Grid>
 
+        <Typography gutterBottom variant="h4" style={{width:"60%", marginTop:"1%"}}>Enter information about what your child likes about this game and any special considerations related to them. This information will help our guru make the party the best possible experience for you.</Typography>
         <Grid
           container
           justify="space-around"
           direction="row"
           alignItems="stretch"
-          style={{ marginTop: "2rem", marginBottom: "1rem" }}
+          style={{marginBottom: "1rem" }}
         >
           <Grid item xs={5}>
             <Paper elevation={4} style={{ height: "100%" }}>
@@ -189,9 +190,10 @@ const CreatePartyPage = () => {
                   padding: "2rem",
                 }}
               >
+
                 <Grid item xs={12}>
                   <Typography gutterBottom paragraph variant="h4">
-                    Special considerations about your child
+                    Special information
                   </Typography>
                 </Grid>
 

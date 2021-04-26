@@ -1,5 +1,5 @@
 import React from "react";
-import axios from 'axios';
+import axios from "axios";
 import { useState } from "react";
 import {
   makeStyles,
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "1rem",
     marginLeft: "1rem",
     marginRight: "1rem",
-    marginBottom: "1rem"
+    marginBottom: "1rem",
   },
   bigButtons: {
     margin: "10px",
@@ -61,11 +61,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RSVP = () => {
-  const partyID="605f8bcd8dfd970aa770584b";
-  const attendeeID="605f8d013778d70b51e26a20";
+  const partyID = "605f8bcd8dfd970aa770584b";
+  const attendeeID = "605f8d013778d70b51e26a20";
   //This state controls the attending/not attending radio buttons.
   const [value, setValue] = useState("true");
-  const [specialConsiderations, setSpecialConsiderations]= useState("");
+  const [specialConsiderations, setSpecialConsiderations] = useState("");
   //This state controls checkbox states. Example: if game (e.g. Minecraft) is installed, then user clicks on the game is installed checkbox.
   //This checkbox method is to guide the client to installing what they need to prepare for a smooth party experience. Preferably,
   //the checkboxes should not allow checking both installed and not installed on the same property (e.g. discord). Also, it would
@@ -76,7 +76,7 @@ const RSVP = () => {
     discordinstalled: false,
     discordnotinstalled: false,
   });
-/*
+  /*
   const onChangeHandler = (event) = {
     setSpecialConsiderations()
   }
@@ -107,30 +107,32 @@ const RSVP = () => {
 
   const classes = useStyles();
 
-  const saveInformation = ()=>{
+  const saveInformation = () => {
     console.log("Starting saveinformation");
-    var attending=false;
-    var string="http://localhost:5000/api/attendees";
-    string+=partyID;
-    if(value==="true"){
-      attending=true;
+    var attending = false;
+    var string = "http://localhost:5000/api/attendees";
+    string += partyID;
+    if (value === "true") {
+      attending = true;
     }
-    const attendeeJSON={
-      attendees:[
-       { 
-      _id:attendeeID,
-      game: gamingspecs.gameinstalled,
-      discord: gamingspecs.discordinstalled,
-      attends: attending,
-      considerations: specialConsiderations
-}      ]
+    const attendeeJSON = {
+      attendees: [
+        {
+          _id: attendeeID,
+          game: gamingspecs.gameinstalled,
+          discord: gamingspecs.discordinstalled,
+          attends: attending,
+          considerations: specialConsiderations,
+        },
+      ],
     };
     console.log(attendeeJSON);
-    axios.put('http://localhost:5000/api/attendees/'+partyID, attendeeJSON).then(response => {
-      console.log(response.data)
-      })
-    
-  }
+    axios
+      .put("http://localhost:5000/api/attendees/" + partyID, attendeeJSON)
+      .then((response) => {
+        console.log(response.data);
+      });
+  };
   return (
     <div className={classes.root}>
       <Typography variant="h1">Invitation</Typography>
@@ -140,68 +142,61 @@ const RSVP = () => {
       </Typography>
 
       <Grid container direction="row">
-        <Grid item xs={6} md={3} lg={3}>
-          <Paper
-            elevation={3}
-            className={classes.checkBoxPaper}
-            style={{ padding: "10px" }}
-          >
-            <FormControl required component="fieldset">
-              <FormLabel
-                component="legend"
-                className={classes.radioFont}
-                style={{ marginBottom: "3px", color: "black" }}
-              >
-                Can you attend this party?
-              </FormLabel>
-              <RadioGroup
-                aria-label="attending"
-                name="attending"
-                value={value}
-                onChange={handleChange}
-              >
-                <Paper style={{ margin: "5px", paddingLeft: "5px" }}>
-                  <FormControlLabel
-                    value="true"
-                    control={<Radio color="secondary" />}
-                    label={
-                      <Typography className={classes.radioFont}>
-                        I can attend
-                      </Typography>
-                    }
-                  />
-                </Paper>
-
-                <Paper style={{ margin: "5px", paddingLeft: "5px" }}>
-                  <FormControlLabel
-                    value="false"
-                    control={<Radio color="secondary" />}
-                    label={
-                      <Typography className={classes.radioFont}>
-                        I cannot attend
-                      </Typography>
-                    }
-                  />
-                </Paper>
-              </RadioGroup>
-            </FormControl>
-          </Paper>
+        <Grid item xs={12} md={6} lg={4}>
+          <FormControl required component="fieldset">
+            <FormLabel
+              component="legend"
+              className={classes.radioFont}
+              style={{ marginBottom: "3px", color: "black" }}
+            >
+              Can you attend this party? We need to know if you're attending so our party guru can prepare properly!
+            </FormLabel>
+            <RadioGroup
+              aria-label="attending"
+              name="attending"
+              style={{width:"50%"}}
+              value={value}
+              onChange={handleChange}
+            >
+              <Paper style={{ margin: "5px", paddingLeft: "5px" }}>
+                <FormControlLabel
+                  value="true"
+                  control={<Radio color="secondary" />}
+                  label={
+                    <Typography className={classes.radioFont}>
+                      I can attend
+                    </Typography>
+                  }
+                />
+                <br/>
+                <FormControlLabel
+                  value="false"
+                  control={<Radio color="secondary" />}
+                  label={
+                    <Typography className={classes.radioFont}>
+                      I cannot attend
+                    </Typography>
+                  }
+                />
+              </Paper>
+            </RadioGroup>
+          </FormControl>
         </Grid>
         <Grid item md={9} lg={10} />
       </Grid>
 
       <Grid container direction="row">
-        <Grid item xs={6} lg={4}>
-          <Typography style={{ fontSize: "2.5rem", marginTop: "3vh" }}>
-            Special considerations about your child:
+        <Grid item xs={6} lg={6}>
+          <Typography style={{ fontSize: "2rem", marginTop: "3vh" }}>
+            Enter any special information the guru might need to know about the participant:
           </Typography>
         </Grid>
-        <Grid item xs={6} lg={8} />
+        <Grid item xs={6} lg={6} />
 
         <Grid item xs={6} lg={4}>
           <TextField
             className={classes.textField}
-            onChange={e => setSpecialConsiderations(e.target.value)}
+            onChange={(e) => setSpecialConsiderations(e.target.value)}
             multiline
             fullWidth
             rows={3}
@@ -224,7 +219,8 @@ const RSVP = () => {
         <Grid item xs={6} lg={8} />
       </Grid>
 
-      <Grid container justify="center" alignItems="center" direction="column">
+      <Grid container justify="center" alignItems="center" direction="column" style={{marginBottom:"1%"}}>
+      <Typography style={{fontSize:"2rem", width:"60%", marginTop:"1%"}}>Information about your device and installed programs is helpful to ensure a smooth party experience. If you are lacking any of the items you should install them before the party.</Typography>
         <Grid
           container
           justify="space-around"
@@ -268,10 +264,7 @@ const RSVP = () => {
           }}
         >
           <Grid item xs={4}>
-            <Typography
-              align="center"
-              style={{ fontSize: "2rem" }}
-            >
+            <Typography align="center" style={{ fontSize: "2rem" }}>
               Among Us
             </Typography>
           </Grid>
@@ -279,9 +272,7 @@ const RSVP = () => {
             <div align="center">
               <FormControlLabel
                 label={
-                  <Typography
-                    className={classes.radioFont}
-                  >
+                  <Typography className={classes.radioFont}>
                     Game installed
                   </Typography>
                 }
@@ -301,9 +292,7 @@ const RSVP = () => {
               <FormControlLabel
                 className="gamenotinstalledcheckbox"
                 label={
-                  <Typography
-                    className={classes.radioFont}
-                  >
+                  <Typography className={classes.radioFont}>
                     Not installed
                   </Typography>
                 }
@@ -385,31 +374,38 @@ const RSVP = () => {
         variant="contained"
         color="primary"
         //href="/"
-        onClick={()=>{saveInformation()}}
+        onClick={() => {
+          saveInformation();
+        }}
       >
-        Send
+        Save selections
       </Button>
 
       <Button
         className={classes.bigButtons}
         variant="contained"
         color="secondary"
-        style={{ minWidth: "60px" }}
       >
         More information
       </Button>
 
       <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          href="/partyPage"
-        >
-          I've already enrolled, just show me the party info
-        </Button>
+        className={classes.bigButtons}
+        variant="contained"
+        color="primary"
+        href="/partyPage"
+      >
+        I've already enrolled, just show me the party info
+      </Button>
 
-      <Button onClick={()=>{console.log(gamingspecs)}}>Show specs</Button>
-
+      <Button
+        onClick={() => {
+          console.log(gamingspecs);
+        }}
+      >
+        Show specs debug
+      </Button>
+      
       <Grid
         container
         direction="column"
@@ -417,7 +413,7 @@ const RSVP = () => {
         style={{ paddingTop: "20px", width: "60%" }}
       >
         <Grid item xs={12}>
-          <Divider/>
+          <Divider />
           <Typography variant="h3" paragraph>
             Frequently Asked Questions
           </Typography>

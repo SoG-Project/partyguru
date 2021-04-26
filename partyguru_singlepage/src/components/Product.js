@@ -121,12 +121,12 @@ const Product = (props) => {
             This typography should then have overflow="hidden", textOverflow="ellipsis"
             This can be done by creating a single string that contains all guru names (somehow) 
             and adding linebreaks to put them on different lines */}
-            <div style={{ height: "10rem", width:"100%", whiteSpace:"pre-wrap", overflow:"hidden", textOverflow:"ellipsis" }}>
+            <Grid container style={{ height: "10rem", width:"100%" }}>
               {productGuru &&
                 productGuru.map((guru) => (
                   guru.name + ', '
                 ))}
-            </div>
+            </Grid>
             {/*Another typography to contain the price of the product*/}
             <Typography className={classes.cost}>
               Starting at {product.price}€

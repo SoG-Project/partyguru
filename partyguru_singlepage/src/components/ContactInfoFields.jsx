@@ -38,7 +38,7 @@ const ContactInfoFields = () => {
       <Grid container direction="column" spacing={1}>
           <Grid item>
             <Typography variant="h4">
-              Please enter your contact information
+              Please enter your contact information so we can contact you in case anything regarding your party changes
             </Typography>
           </Grid>
           <Grid item>

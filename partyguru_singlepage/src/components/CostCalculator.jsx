@@ -39,19 +39,21 @@ const CostCalculator = (props) => {
       return;
     };
   }, [props.isWeekend]);
-  
+
   // When amount of participants changes, readjust price accordingly
   useEffect(() => {
     let newPrice = 0;
     for (let i = 0; i < props.participants; i++) {
       newPrice += 10;
     };
+    let durationPrice = props.duration * 10;
+    newPrice = newPrice + durationPrice;
     if(props.isWeekend){
       newPrice = newPrice * 2;
       console.log("Osallistujia muutettu viikonloppuna");
-    }
+    };
     setPrice(newPrice);
-  }, [props.participants]);
+  }, [props.participants, props.duration]);
 
   //Return grid container with a header text and a readOnly TextField that contains the current price
   return (

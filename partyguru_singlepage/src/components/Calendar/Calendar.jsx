@@ -62,13 +62,10 @@ const Calendar = (props) => {
   //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
   const handleEventAddButton = (event) => {
     event.preventDefault();
+    {/*Build correctly formed dates out of information the user has selected*/}
     const dateFormatting = (pickedDate + "T" + startTime);
-    console.log("pickedDate ", pickedDate, "startTime ", startTime);
-    console.log(dateFormatting);
     const start = new Date(dateFormatting);
-    console.log("Start ", start);
     const end = new Date(dateFormatting);
-    console.log("Start ", start);
     end.setHours(Number(end.getHours()) + Number(duration));
     console.log(
       "Start time: ",
@@ -80,6 +77,7 @@ const Calendar = (props) => {
       " Duration: ",
       duration
     );
+    {/*If no data is empty, proceed with creating the event*/}
     if (start < end && start != null && duration != null && title != null) {
       let newEvent = {
         id: createEventId(),
@@ -87,6 +85,8 @@ const Calendar = (props) => {
         start: start,
         end: end,
       };
+      {/*Delete previous event from calendar if one exists. 
+      This makes it so the customer only has one event of their own in the calendar at a time */}
       let tempEvents = events;
       for (let i = 0; i < tempEvents.length; i++) {
         if (tempEvents[i].id === prevEvent.id) {
@@ -96,13 +96,18 @@ const Calendar = (props) => {
           break;
         };
       };
+      {/*Set customers newly created event as prevEvent in case they want to change their timeslot so we can delete the old one */}
       setPrevEvent(newEvent);
+      {/*Check that this new reservation is not overlapping with other events in the calendar */}
       if(!(isOverlapping(newEvent))){
-
+        {/*If not overlapping, add to events useState (later backend)
+        Check if it is weekend for costcalculator purposes
+      set this as a new partyReservation in PartyPackage.js and set the duration in PartyPackage.js. These are used by other props. */}
         setEvents((events) => [...events, newEvent]);
         let weekendCheck = new Date(newEvent.start);
         checkIsWeekend(weekendCheck);
         props.setNewPartyReservation(newEvent);
+        props.setDuration(duration);
       } else {
         alert("New event is overlapping with another and cannot be added!");
       };
@@ -245,6 +250,7 @@ const Calendar = (props) => {
             <Typography variant="h3">Create party reservation</Typography>
           </Grid>
           <Grid item xs={6}>
+            {/*Input field for the title of the event the customer is creating */}
             <label htmlFor="eventTitle">Enter event title: </label>
             <Input
               required
@@ -269,6 +275,7 @@ const Calendar = (props) => {
           </Grid>
           <Grid item xs={6}>
             <label htmlFor="startSelector">Select party start: </label>
+            {/*Select starting time of party. Currently options are just simply hard-coded but it should be sufficient */}
             <NativeSelect
               value={startTime}
               onChange={handleStartChange}
@@ -278,6 +285,7 @@ const Calendar = (props) => {
                 style: { fontSize: "medium", lineHeight: "1.50rem" },
               }}
             >
+              {/*NOTE: VALUES MUST BE IN FORMAT 00:00. ENTERING A VALUE SUCH AS 9:00 WILL CAUSE INVALID DATES*/}
               <option value="08:00">8:00</option>
               <option value="08:30">8:30</option>
               <option value="09:00">9:00</option>
@@ -312,6 +320,7 @@ const Calendar = (props) => {
 
           <Grid item xs={6}>
             <label htmlFor="duration">Select party duration: </label>
+            {/*Selection field for the duration of the party. Hard-coded options again. Add more simply by entering another option line */}
             <NativeSelect
               value={duration}
               onChange={handleDurationChange}
@@ -328,6 +337,8 @@ const Calendar = (props) => {
             </NativeSelect>
           </Grid>
           <Grid item xs={12}>
+            {/*Button to add current event to the calendar. 
+            The calendar could probably in theory be fully responsive by updating all values constantly through for example useEffects.*/}
             <Button
               variant="contained"
               color="primary"
