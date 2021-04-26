@@ -38,8 +38,8 @@ const Calendar = (props) => {
     {
       id: createEventId(),
       title: "Testitapahtuma",
-      start: "2021-04-23T10:00",
-      end: "2021-04-23T12:00",
+      start: "2021-04-29T10:00",
+      end: "2021-04-29T12:00",
     },
   ]);
 
@@ -62,15 +62,15 @@ const Calendar = (props) => {
   //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
   const handleEventAddButton = (event) => {
     event.preventDefault();
-    let dateFormatting = (pickedDate + "T" + startTime);
-    let start = new Date(dateFormatting);
-    let end = new Date(dateFormatting);
+    const dateFormatting = (pickedDate + "T" + startTime);
+    const start = new Date(dateFormatting);
+    const end = new Date(dateFormatting);
     end.setHours(Number(end.getHours()) + Number(duration));
     console.log(
       "Start time: ",
-      start.toString(),
+      start,
       " End time: ",
-      end.toString(),
+      end,
       " Title: ",
       title,
       " Duration: ",
@@ -86,22 +86,70 @@ const Calendar = (props) => {
       let tempEvents = events;
       for (var i = 0; i < tempEvents.length; i++) {
         if (tempEvents[i].id === prevEvent.id) {
-          console.log("Hääjetää elementti", tempEvents[i]);
+          console.log("Poistetaa elementti", tempEvents[i]);
           tempEvents.splice(i, 1);
           setEvents(tempEvents);
           break;
-        }
-      }
+        };
+      };
       setPrevEvent(newEvent);
-      setEvents((events) => [...events, newEvent]);
-      let weekendCheck = new Date(newEvent.start);
-      checkIsWeekend(weekendCheck);
-      props.setNewPartyReservation(newEvent);
+      if(!(isOverlapping(newEvent))){
+
+        setEvents((events) => [...events, newEvent]);
+        let weekendCheck = new Date(newEvent.start);
+        checkIsWeekend(weekendCheck);
+        props.setNewPartyReservation(newEvent);
+      } else {
+        alert("New event is overlapping with another and cannot be added!");
+      };
     } else {
       alert(
         "All required fields are not filled!"
       );
     }
+  };
+
+  //Check if new event overlaps with any of the events already in the calendar
+  //Returns true if event would overlap, false if no overlap detected
+  //Function checks if overlapEvent overlaps with some already existing event in the events array
+  const isOverlapping = (overlapEvent) => {
+    const eventArray = events;
+
+    for(let i in eventArray){
+      //Overlap = true if overlapping event starts during existing event (ex: event from 10-12, overlap starts at 11)
+      console.log("Checking if1");
+      if(overlapEvent.start > new Date(eventArray[i].start) && overlapEvent.start < new Date(eventArray[i].end)){
+        return true;
+      };
+
+      console.log("Checking if2");
+      //Overlap = true if overlapping event ends during existing event (ex: event from 10-12, overlap ends at 11)
+      if(overlapEvent.end > new Date(eventArray[i].start) && overlapEvent.end < new Date(eventArray[i].end)){
+        return true;
+      };
+
+      console.log("Checking if3");
+      //Sama alku ja loppu OK, mutta pitää tarkistaa jos alut yhtäsuuret mutta eri loppu
+      //Overlap = true if overlapping event happens during another event (ex: event from 9-12, overlapping from 10-13)
+      if(overlapEvent.start < new Date(eventArray[i].start) && overlapEvent.end > new Date(eventArray[i].end)){
+        return true;
+      };
+
+      console.log("Checking if4");
+      //Overlap = true if overlapping event starts at exactly the same time as another event
+      if(overlapEvent.start.getTime() === (new Date(eventArray[i].start)).getTime()){
+        return true;
+      }
+
+      console.log("Checking if5");
+      //Overlap true if overlapping event stars before existing and ends during or at same time
+      if(overlapEvent.start < new Date(eventArray[i].start) && overlapEvent.end >= new Date(eventArray[i].end)){
+        return true;
+      };
+    };
+    //If nothing above true, return false. Events do not overlap.
+    console.log("Returning false");
+    return false;
   };
 
   //Handle changing the date of the party by changing value of pickedState to match

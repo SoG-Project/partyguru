@@ -33,34 +33,34 @@ const useStyles = makeStyles({
 const Header = (props) => {
     //history is from withRouter. withRouter gives you access to props, which in turn contains, for example,
     //the history element. If you want to move to a different page, then it is done with history.push(url of page)
-    const { history } = props
+    const { history } = props;
     const classes = useStyles();
     //anchorEl defines where the pop-up menu when clicking on a menu icon should open. null means that it
     //is not visible yet! Setting it to other than null will open the menu.
-    const [anchorEl, setAnchorEl] = useState(null)
+    const [anchorEl, setAnchorEl] = useState(null);
     //If the menu is open, then that means that anchorEl is true. Therefore, we can determine whether
     //the menu is open or not.
-    const open = Boolean(anchorEl)
+    const open = Boolean(anchorEl);
     //We need the theme to access MediaQuery
-    const theme = useTheme()
+    const theme = useTheme();
     //isMobile is true, when the size of the screen is "extra small, xs" AND less
-    const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+    const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
     //anchorEl is set to null, therefore not visible.
     const handleClose = () => {
-        setAnchorEl(null)
-    }
+        setAnchorEl(null);
+    };
 
     //anchorEl is now applied to current event location, therefore visible.
     const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget)
-    }
+        setAnchorEl(event.currentTarget);
+    };
 
     //history.push allows us to move to a set url. setAnchorEl(null) will hide the pop-up menu.
     const handleMenuClick = (url) => {
-        history.push(url)
-        setAnchorEl(null)
-    }
+        history.push(url);
+        setAnchorEl(null);
+    };
 
     //AuthNav function decides should we render the login button or the logout button.
     //Since auth0 takes a sec to load, the login button might flash on the screen
@@ -68,15 +68,14 @@ const Header = (props) => {
     //variable extracted from useAuth0(). While isLoading is true, you could simply
     //display a loading icon instead of these buttons!
     const AuthNav = () => {
-        const { isAuthenticated } = useAuth0()
+        const { isAuthenticated } = useAuth0();
     
         return(
           <div>
             {isAuthenticated ? <LogoutButton /> : <LoginButton />}
           </div>
-        )
-      }
-
+        );
+      };
     
     return (
         <AppBar position="sticky" title={<img src="https://sog.gg/wp-content/uploads/2019/08/SOG_logo_black-01.png" />} >
@@ -136,8 +135,8 @@ const Header = (props) => {
                 </Grid>
             </Toolbar>
         </AppBar>
-    )
-}
+    );
+};
 //withRouter allows access to the history prop, which makes us able to move
 //to the homepage with history.push.
 export default withRouter(Header);
