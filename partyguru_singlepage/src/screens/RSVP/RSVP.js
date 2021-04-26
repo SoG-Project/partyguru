@@ -66,6 +66,7 @@ const RSVP = () => {
   //This state controls the attending/not attending radio buttons.
   const [value, setValue] = useState("true");
   const [specialConsiderations, setSpecialConsiderations] = useState("");
+  const [nickName, setNickName] = useState("");
   //This state controls checkbox states. Example: if game (e.g. Minecraft) is installed, then user clicks on the game is installed checkbox.
   //This checkbox method is to guide the client to installing what they need to prepare for a smooth party experience. Preferably,
   //the checkboxes should not allow checking both installed and not installed on the same property (e.g. discord). Also, it would
@@ -123,6 +124,7 @@ const RSVP = () => {
           discord: gamingspecs.discordinstalled,
           attends: attending,
           considerations: specialConsiderations,
+          nickname: nickName, 
         },
       ],
     };
@@ -215,6 +217,44 @@ const RSVP = () => {
             }}
           />
         </Grid>
+
+        
+
+        <Grid item xs={6} lg={8} />
+      </Grid>
+
+      <Grid container direction="row">
+        <Grid item xs={6} lg={6}>
+          <Typography style={{ fontSize: "2rem", marginTop: "3vh" }}>
+            Enter your nickname that you will be using at the party:
+          </Typography>
+        </Grid>
+        <Grid item xs={6} lg={6} />
+
+        <Grid item xs={6} lg={4}>
+          <TextField
+            className={classes.textField}
+            onChange={(e) => setNickName(e.target.value)}
+            multiline
+            fullWidth
+            rows={3}
+            rowsMax={1}
+            id="namefield"
+            label={
+              <Typography className={classes.radioFont}>
+                Enter the nickname here
+              </Typography>
+            }
+            color="secondary"
+            variant="outlined"
+            inputProps={{
+              maxLength: 30,
+              style: { fontSize: "2rem", lineHeight: "150%" },
+            }}
+          />
+        </Grid>
+
+        
 
         <Grid item xs={6} lg={8} />
       </Grid>
