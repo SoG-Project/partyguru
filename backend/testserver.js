@@ -42,6 +42,7 @@ const attendeesSchema = new mongoose.Schema({
   const partyinfoSchema= new mongoose.Schema({
       packageid: String,
       guruid: String,
+      userid: String,
       datetime: {type: Date},
       duration:Number,
       email: String,
@@ -163,6 +164,9 @@ try{
   if(req.body.guruid===undefined){
    throw('Error: no guruid');
  }
+  if(req.body.userid===undefined){
+        throw('Error: no guruid');
+  }
   if(req.body.datetime===undefined){
     throw('Error: no datetime');
   }
@@ -195,6 +199,7 @@ try{
    packageid: req.body.packageid,
    guruid: req.body.guruid,
    datetime: req.body.datetime,
+   userid: req.body.userid,
    duration:req.body.duration,
    email: req.body.email,
    phone: req.body.phone,
@@ -242,6 +247,9 @@ app.put('/api/parties/:id', function (req, res) {
     }
     if(req.body.datetime!==undefined){
       updatedParty.datetime=req.body.datetime;
+    }
+    if(req.body.userid!==undefined){
+        updatedParty.userid=req.body.userid;
     }
     if(req.body.duration!==undefined){
       updatedParty.duration=req.body.duration;

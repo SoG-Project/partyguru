@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core";
 import { Button, Grid } from "@material-ui/core";
 import LoginButton from "../LandingPage/components/LoginButton";
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 //Topright link to Cart brings you here
 //Payment page where you can see what is in your cart and make your payment
 
@@ -30,6 +31,10 @@ const CartPage = (props) => {
 
   const handleCreateParty = () => {
     console.log("Käyttäjän ID on ", user.sub)
+    const testID = '605f8bcd8dfd970aa770584a'
+    axios.put(`/api/parties/${testID}`,{userid: user.sub+1}).then(response => {
+      console.log(response.data)
+    })
   }
 
   if (isLoading) {
