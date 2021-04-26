@@ -7,6 +7,7 @@ import AttendeeNumberSelector from "../../components/AttendeeNumberSelector";
 import ContactInfoFields from "../../components/ContactInfoFields";
 import CostCalculator from "../../components/CostCalculator";
 import Calendar from "../../components/Calendar/Calendar";
+import { useAuth0 } from '@auth0/auth0-react'
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -40,6 +41,8 @@ const PartyPackage = () => {
   });
   //useState to check if date is weekend or not
   const [isWeekend, setIsWeekend] = useState(false);
+  //Extract functions from Auth0 to see if user is logged in.
+  const { user, isAuthenticated } = useAuth0()
 
   // This function will set the participant amount and is usable in child components
   const setParticipantAmount = (amount) => {
