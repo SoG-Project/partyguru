@@ -107,10 +107,10 @@ const GuruPartyPage = (props) => {
       console.log("GPP checkboxinfo on ", checkBoxInfo )
     });
     axios.get(`/api/attendees/${attendeesID}`).then((response) => {
-      // setAttendeeName(response.data.attendees[1].name);
-      changeAttendeeInfo(response.data.attends);
-      // console.log(response.data.attendees[1].name);
-
+      /* setAttendeeName(response.data.attendees[0].name);
+      changeAttendeeInfo(response.data.attendees[0].attends);
+      console.log(response.data.attendees[0].name); */
+      console.log(response.data[0].attendees[0].name)
       console.log(response.data);
       console.log("GPP attendeeinfo ", attendeeInfo )
       console.log("GPP attendeenames ", attendeeName )
