@@ -9,7 +9,11 @@ import {
   CardMedia,
   Button,
   Typography,
+  Avatar,
+  Tooltip,
 } from "@material-ui/core";
+import { AvatarGroup } from "@material-ui/lab";
+import { Link } from "react-router-dom";
 //Party package product cards
 //The information in the cards comes as props from LandingPage.js
 
@@ -45,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "40px",
     fontSize: "1.2rem",
     maxWidth: "50%",
+  },
+  guruAvatars: {
+    width: theme.spacing(8),
+    height: theme.spacing(8),
   },
 }));
 
@@ -121,11 +129,27 @@ const Product = (props) => {
             This typography should then have overflow="hidden", textOverflow="ellipsis"
             This can be done by creating a single string that contains all guru names (somehow) 
             and adding linebreaks to put them on different lines */}
-            <Grid container style={{ height: "10rem", width:"100%" }}>
-              {productGuru &&
-                productGuru.map((guru) => (
-                  guru.name + ', '
-                ))}
+            <Grid container style={{ height: "10rem", width: "100%" }}>
+              <AvatarGroup max={3}>
+                {productGuru &&
+                  productGuru.map((guru) => (
+                    <Tooltip
+                    interactive
+                    key={guru._id}
+                      title={
+                        <Link to="/gurupage" style={{ fontSize: "1.5rem", color:"white" }}>
+                          {guru.name}
+                        </Link>
+                      }
+                    >
+                      <Avatar
+                        alt={guru.name}
+                        src={guru.image}
+                        className={classes.guruAvatars}
+                      />
+                    </Tooltip>
+                  ))}
+              </AvatarGroup>
             </Grid>
             {/*Another typography to contain the price of the product*/}
             <Typography className={classes.cost}>

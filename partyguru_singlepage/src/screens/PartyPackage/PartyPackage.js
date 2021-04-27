@@ -46,14 +46,12 @@ const PartyPackage = () => {
   //useState for number of participants, used for example to calculate cost of party
   const [participants, setParticipants] = useState(1);
   //useState for new calendar event, this will be sent from here to backend
-  const [partyReservation, setPartyReservation] = useState({
-    id: null,
-    title: "",
-    start: null,
-    end: null,
-  });
+  const [partyReservation, setPartyReservation] = useState();
   //useState to check if date is weekend or not
   const [isWeekend, setIsWeekend] = useState(false);
+  //useStates to contain customer contact information
+  const [customerName, setCustomerName] = useState();
+  const [customerEmail, setCustomerEmail] = useState();
 
   //useState for duration, passed to CostCalculator to calculate costs
   const [duration, setDuration] = useState(1);
@@ -63,11 +61,6 @@ const PartyPackage = () => {
   // This function will set the participant amount and is usable in child components
   const setParticipantAmount = (amount) => {
     setParticipants(amount);
-  };
-
-  //Function to set new partyReservation, usable by Calendar to bring event data here
-  const setNewPartyReservation = (partyData) => {
-    setPartyReservation(partyData);
   };
 
   //get ID of product from address of site
@@ -126,11 +119,17 @@ const PartyPackage = () => {
               </Typography>
               <Grid container>
                 {/* AvatarGroup to contain guru Avatars, max denotes how many are shown before showing a +x bubble */}
-                <AvatarGroup max={4}>
+                <AvatarGroup max={6}>
                   {/*Map through gurus of this product and create Avatars of their profile pictures */}
                   {productGurus &&
                     productGurus.map((guru) => (
-                      <Tooltip title={<Typography style={{fontSize:"1.5rem"}}>{guru.name}</Typography>}>
+                      <Tooltip
+                        title={
+                          <Typography style={{ fontSize: "1.5rem" }}>
+                            {guru.name}
+                          </Typography>
+                        }
+                      >
                         <Avatar
                           alt={guru.name}
                           src={guru.image}
@@ -188,7 +187,7 @@ const PartyPackage = () => {
               <Grid xs={12} align="center">
                 <Calendar
                   setIsWeekend={setIsWeekend}
-                  setNewPartyReservation={setNewPartyReservation}
+                  setPartyReservation={setPartyReservation}
                   setDuration={setDuration}
                 />
               </Grid>
@@ -202,7 +201,7 @@ const PartyPackage = () => {
               justify="center"
             >
               <Grid item>
-                <ContactInfoFields />
+                <ContactInfoFields setCustomerEmail={setCustomerEmail} setCustomerName={setCustomerName} />
               </Grid>
               <Grid item>
                 <AttendeeNumberSelector
@@ -218,14 +217,28 @@ const PartyPackage = () => {
                 />
               </Grid>
               <Grid item align="center">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.bigButton}
-                  href="/cart"
-                >
-                  Add to cart and invite guests!
-                </Button>
+                {partyReservation && customerEmail && customerName ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.bigButton}
+                    href="/cart"
+                  >
+                    Add to cart and invite guests!
+                  </Button>
+                ) : (
+                  <div>
+                  <Typography variant="h5">You must first select a time and date for your party and fill in your contact information above.</Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.bigButton}
+                    disabled
+                  >
+                    Add to cart and invite guests!
+                  </Button>
+                  </div>
+                )}
               </Grid>
             </Grid>
           </Grid>

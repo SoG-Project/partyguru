@@ -71,6 +71,7 @@ const CostCalculator = (props) => {
         >
           {price} €
         </Typography>
+        <Typography variant="h5">The price is increased by a longer duration, more participants, and arranging the party on a weekend.</Typography>
       </Grid>
     </Grid>
   );

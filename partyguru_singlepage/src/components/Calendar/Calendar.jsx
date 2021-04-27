@@ -61,6 +61,7 @@ const Calendar = (props) => {
   //to Handle pushing the add event button at the bottom of the calendar
   //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
   const handleEventAddButton = (event) => {
+    {/*Prevent default form submit*/}
     event.preventDefault();
     {/*Build correctly formed dates out of information the user has selected*/}
     const dateFormatting = (pickedDate + "T" + startTime);
@@ -106,7 +107,7 @@ const Calendar = (props) => {
         setEvents((events) => [...events, newEvent]);
         let weekendCheck = new Date(newEvent.start);
         checkIsWeekend(weekendCheck);
-        props.setNewPartyReservation(newEvent);
+        props.setPartyReservation(newEvent);
         props.setDuration(duration);
       } else {
         alert("New event is overlapping with another and cannot be added!");
