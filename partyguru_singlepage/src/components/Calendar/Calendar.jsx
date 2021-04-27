@@ -60,9 +60,13 @@ const Calendar = (props) => {
   const [duration, setDuration] = React.useState(1);
 
   const[currentGuru, setCurrentGuru] = React.useState(props.productGurus);
-  console.log("Product Gurus: ", props.productGurus);
-  //console.log("Product Gurus[0]: ", props.productGurus[0].timeswhenunavailable);
 
+  const printShit = () => {
+    console.log("Product Gurus: ", props.productGurus);
+    console.log("Product Gurus[0]: ", props.productGurus[0].timeswhenunavailable);
+  setEvents(props.productGurus[0].timeswhenunavailable);
+  }
+  
 
   //to Handle pushing the add event button at the bottom of the calendar
   //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
@@ -353,6 +357,14 @@ const Calendar = (props) => {
               className={classes.bigButton}
             >
               Add event + debug
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={printShit}
+              className={classes.bigButton}
+            >
+              Print shit
             </Button>
           </Grid>
         </Grid>
