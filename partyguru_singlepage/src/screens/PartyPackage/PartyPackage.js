@@ -58,11 +58,6 @@ const PartyPackage = () => {
   //Extract functions from Auth0 to see if user is logged in.
   const { user, isAuthenticated } = useAuth0();
 
-  // This function will set the participant amount and is usable in child components
-  const setParticipantAmount = (amount) => {
-    setParticipants(amount);
-  };
-
   //get ID of product from address of site
   //Needed to show name of product, gurus attached to it, and so on
   useEffect(() => {
@@ -95,8 +90,9 @@ const PartyPackage = () => {
       These errors are usually related to reading attributes of product before it has been fetched,
       like product.img or product.name 
       While product is not fetched a simple loading page will display
+      product gurus array is needed by Calendar so we wait for that too.
       Probably sort of a hack but it turned out to be a sure way for the page to work*/}
-      {product ? (
+      {product && productGurus ? (
         <Grid
           container
           direction="row"
@@ -124,6 +120,7 @@ const PartyPackage = () => {
                   {productGurus &&
                     productGurus.map((guru) => (
                       <Tooltip
+                      key={guru._id}
                         title={
                           <Typography style={{ fontSize: "1.5rem" }}>
                             {guru.name}
@@ -133,7 +130,6 @@ const PartyPackage = () => {
                         <Avatar
                           alt={guru.name}
                           src={guru.image}
-                          key={guru._id}
                           className={classes.guruAvatars}
                         />
                       </Tooltip>
@@ -185,10 +181,13 @@ const PartyPackage = () => {
             Also contains a selector for the number of attendees and a cost calculator */}
             <Grid container item xs={7} direction="column">
               <Grid xs={12} align="center">
+                {/*Pass functions to change weekend boolean, party reservation info, duration
+                 and product gurus to fetch correct gurus calendars*/}
                 <Calendar
                   setIsWeekend={setIsWeekend}
                   setPartyReservation={setPartyReservation}
                   setDuration={setDuration}
+                  productGurus={productGurus}
                 />
               </Grid>
             </Grid>
@@ -206,7 +205,7 @@ const PartyPackage = () => {
               <Grid item>
                 <AttendeeNumberSelector
                   participants={participants}
-                  setParticipantAmount={setParticipantAmount}
+                  setParticipants={setParticipants}
                 />
               </Grid>
               <Grid item>

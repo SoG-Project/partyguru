@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect} from "react";
+import axios from 'axios';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -57,6 +58,11 @@ const Calendar = (props) => {
   const [startTime, setStartTime] = React.useState("08:00");
   const [title, setTitle] = React.useState(null);
   const [duration, setDuration] = React.useState(1);
+
+  const[currentGuru, setCurrentGuru] = React.useState(props.productGurus);
+  console.log("Product Gurus: ", props.productGurus);
+  //console.log("Product Gurus[0]: ", props.productGurus[0].timeswhenunavailable);
+
 
   //to Handle pushing the add event button at the bottom of the calendar
   //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
