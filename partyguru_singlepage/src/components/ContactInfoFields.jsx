@@ -1,6 +1,5 @@
 import { Grid, TextField, Typography, makeStyles } from "@material-ui/core";
 import React from "react";
-import CostCalculator from "./CostCalculator";
 
 //Create styles with Material UI
 const useStyles = makeStyles((theme) => ({
@@ -15,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 //Creates three contact information fields: name, email, and phone number
 //All fields are TextFields contained in Grid items inside a Grid
 //Maybe need states for name, email, number?
-const ContactInfoFields = () => {
+const ContactInfoFields = (props) => {
   const classes = useStyles();
 
   const [name, setName] = React.useState("");
@@ -25,12 +24,14 @@ const ContactInfoFields = () => {
     const nameInput = document.getElementById("nameInput").value;
     console.log(nameInput);
     setName(nameInput);
+    props.setCustomerName(nameInput);
   };
 
   const handleEmailChange = () => {
     const emailInput = document.getElementById("emailInput").value;
     console.log(emailInput);
     setEmail(emailInput);
+    props.setCustomerEmail(emailInput);
   };
 
   return (
@@ -61,6 +62,7 @@ const ContactInfoFields = () => {
           <Grid item>
             <TextField
               variant="outlined"
+              type="email"
               color="primary"
               id="emailInput"
               label={

@@ -189,7 +189,8 @@ const RSVP = () => {
 
       <Grid container direction="row">
         <Grid item xs={6} lg={6}>
-          <Typography style={{ fontSize: "2rem", marginTop: "3vh" }}>
+          <Typography gutterBottom style={{ fontSize: "2rem", marginTop: "3vh" }}>
+            Any information entered here will only be seen by the Party Guru hosting this party and will not be visible to other guests.
             Enter any special information the guru might need to know about the participant:
           </Typography>
         </Grid>
@@ -225,7 +226,7 @@ const RSVP = () => {
 
       <Grid container direction="row">
         <Grid item xs={6} lg={6}>
-          <Typography style={{ fontSize: "2rem", marginTop: "3vh" }}>
+          <Typography gutterBottom style={{ fontSize: "2rem", marginTop: "3vh" }}>
             Enter your nickname that you will be using at the party:
           </Typography>
         </Grid>

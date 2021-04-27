@@ -172,7 +172,9 @@ const CreatePartyPage = () => {
           </Grid>
         </Grid>
 
-        <Typography gutterBottom variant="h4" style={{width:"60%", marginTop:"1%"}}>Enter information about what your child likes about this game and any special considerations related to them. This information will help our guru make the party the best possible experience for you.</Typography>
+        <Typography gutterBottom variant="h4" style={{width:"60%", marginTop:"1%"}}>
+        Enter information about what your child likes about this game and any special considerations related to them.
+         This information will help our guru make the party the best possible experience for you and will only be visible to the Party Guru.</Typography>
         <Grid
           container
           justify="space-around"
@@ -225,9 +227,6 @@ const CreatePartyPage = () => {
             <CheckBoxes/>
           </Grid>
         </Grid>
-
-        <ContactInfoFieldsPartyPage />
-
         <Button
           className={classes.button}
           variant="contained"

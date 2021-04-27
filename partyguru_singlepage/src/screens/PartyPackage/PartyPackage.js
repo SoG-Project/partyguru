@@ -46,29 +46,17 @@ const PartyPackage = () => {
   //useState for number of participants, used for example to calculate cost of party
   const [participants, setParticipants] = useState(1);
   //useState for new calendar event, this will be sent from here to backend
-  const [partyReservation, setPartyReservation] = useState({
-    id: null,
-    title: "",
-    start: null,
-    end: null,
-  });
+  const [partyReservation, setPartyReservation] = useState();
   //useState to check if date is weekend or not
   const [isWeekend, setIsWeekend] = useState(false);
+  //useStates to contain customer contact information
+  const [customerName, setCustomerName] = useState();
+  const [customerEmail, setCustomerEmail] = useState();
 
   //useState for duration, passed to CostCalculator to calculate costs
   const [duration, setDuration] = useState(1);
   //Extract functions from Auth0 to see if user is logged in.
   const { user, isAuthenticated } = useAuth0();
-
-  // This function will set the participant amount and is usable in child components
-  const setParticipantAmount = (amount) => {
-    setParticipants(amount);
-  };
-
-  //Function to set new partyReservation, usable by Calendar to bring event data here
-  const setNewPartyReservation = (partyData) => {
-    setPartyReservation(partyData);
-  };
 
   //get ID of product from address of site
   //Needed to show name of product, gurus attached to it, and so on
@@ -102,8 +90,9 @@ const PartyPackage = () => {
       These errors are usually related to reading attributes of product before it has been fetched,
       like product.img or product.name 
       While product is not fetched a simple loading page will display
+      product gurus array is needed by Calendar so we wait for that too.
       Probably sort of a hack but it turned out to be a sure way for the page to work*/}
-      {product ? (
+      {product && productGurus ? (
         <Grid
           container
           direction="row"
@@ -126,15 +115,21 @@ const PartyPackage = () => {
               </Typography>
               <Grid container>
                 {/* AvatarGroup to contain guru Avatars, max denotes how many are shown before showing a +x bubble */}
-                <AvatarGroup max={4}>
+                <AvatarGroup max={6}>
                   {/*Map through gurus of this product and create Avatars of their profile pictures */}
                   {productGurus &&
                     productGurus.map((guru) => (
-                      <Tooltip title={<Typography style={{fontSize:"1.5rem"}}>{guru.name}</Typography>}>
+                      <Tooltip
+                      key={guru._id}
+                        title={
+                          <Typography style={{ fontSize: "1.5rem" }}>
+                            {guru.name}
+                          </Typography>
+                        }
+                      >
                         <Avatar
                           alt={guru.name}
                           src={guru.image}
-                          key={guru._id}
                           className={classes.guruAvatars}
                         />
                       </Tooltip>
@@ -186,10 +181,13 @@ const PartyPackage = () => {
             Also contains a selector for the number of attendees and a cost calculator */}
             <Grid container item xs={7} direction="column">
               <Grid xs={12} align="center">
+                {/*Pass functions to change weekend boolean, party reservation info, duration
+                 and product gurus to fetch correct gurus calendars*/}
                 <Calendar
                   setIsWeekend={setIsWeekend}
-                  setNewPartyReservation={setNewPartyReservation}
+                  setPartyReservation={setPartyReservation}
                   setDuration={setDuration}
+                  productGurus={productGurus}
                 />
               </Grid>
             </Grid>
@@ -202,12 +200,12 @@ const PartyPackage = () => {
               justify="center"
             >
               <Grid item>
-                <ContactInfoFields />
+                <ContactInfoFields setCustomerEmail={setCustomerEmail} setCustomerName={setCustomerName} />
               </Grid>
               <Grid item>
                 <AttendeeNumberSelector
                   participants={participants}
-                  setParticipantAmount={setParticipantAmount}
+                  setParticipants={setParticipants}
                 />
               </Grid>
               <Grid item>
@@ -218,14 +216,28 @@ const PartyPackage = () => {
                 />
               </Grid>
               <Grid item align="center">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.bigButton}
-                  href="/cart"
-                >
-                  Add to cart and invite guests!
-                </Button>
+                {partyReservation && customerEmail && customerName ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.bigButton}
+                    href="/cart"
+                  >
+                    Add to cart and invite guests!
+                  </Button>
+                ) : (
+                  <div>
+                  <Typography variant="h5">You must first select a time and date for your party and fill in your contact information above.</Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.bigButton}
+                    disabled
+                  >
+                    Add to cart and invite guests!
+                  </Button>
+                  </div>
+                )}
               </Grid>
             </Grid>
           </Grid>

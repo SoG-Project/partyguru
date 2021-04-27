@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 
 const GuruPartyPage = (props) => {
   const partyID = "605f8bcd8dfd970aa770584b";
+  const attendeesID = "605f8bcd8dfd970aa770584b";
   const classes = useStyles();
   const [party, setParty] = useState({});
   //Partyheroinfo contains a string with the party hero description (e.g., I want to play Minecraft
@@ -71,12 +72,19 @@ const GuruPartyPage = (props) => {
   const [partyheroinfo, changePartyHeroInfo] = useState(
     "Display information about the Party hero here"
   );
+  const [attendeeName, setAttendeeName] = useState([]
+  );
   //Creates an empty array to store what the party hero aka the one who bought the
   //party likes. Array with strings.This stores things such as liking cats or dogs
   //in Minecraft so that the Party Guru can make the best party for them possible.
   const [checkBoxInfo, changeCheckBoxInfo] = useState([
 
   ])
+
+  const [attendeeInfo, changeAttendeeInfo] = useState([
+    
+  ])
+
 
   useEffect(() => {
     //getData gets partypack in question.
@@ -98,7 +106,18 @@ const GuruPartyPage = (props) => {
       console.log(response.data.partyheroinfo);
       console.log("GPP checkboxinfo on ", checkBoxInfo )
     });
+    axios.get(`/api/attendees/${attendeesID}`).then((response) => {
+      /* setAttendeeName(response.data.attendees[0].name);
+      changeAttendeeInfo(response.data.attendees[0].attends);
+      console.log(response.data.attendees[0].name); */
+      console.log(response.data[0].attendees[0].name)
+      console.log(response.data);
+      console.log("GPP attendeeinfo ", attendeeInfo )
+      console.log("GPP attendeenames ", attendeeName )
+    });
   };
+
+ 
 
   {/*const handlePartyHeroInfoChange = (event) => {
     let info = event.target.value;
