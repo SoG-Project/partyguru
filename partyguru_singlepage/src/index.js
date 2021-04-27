@@ -12,9 +12,6 @@ import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
 ReactDOM.render(
   <BrowserRouter>
   <Auth0ProviderWithHistory
-  domain="dev-721af4og.eu.auth0.com"
-  clientId="DGNR4tVH0Vb99jJwzzFIfzXwQ5nqILPk"
-  redirectUri="http://localhost:3000"
 >
   <React.StrictMode>
     

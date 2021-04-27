@@ -1,24 +1,15 @@
-import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { makeStyles, Typography} from "@material-ui/core";
 import axios from "axios";
 import "./PartyPage.css";
 import ContactCard from "./ContactCard";
 import {
-  TextField,
   Button,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
 } from "@material-ui/core";
-/*import InputAdornment from '@material-ui/core/InputAdornment'
-import AccountCircle from '@material-ui/icons/AccountCircle'*/
-import Icon from "@material-ui/core/Icon";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
-import DeleteIcon from "@material-ui/icons/Delete";
-import HelpIcon from "@material-ui/icons/Help";
+import GameInfo from "../CreatePartyPage/components/GameInfo"
+import Attendees from "../GuruPartyPage/components/Attendees"
+import CheckBoxes from "../GuruPartyPage/components/CheckBoxes"
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -62,182 +53,48 @@ const useStyles = makeStyles((theme) => ({
 
 //Screen for party page and it's contents
 const PartyPage = () => {
-  const [attendees, setAttendees] = useState([
-    {
-      "_id": "605f8d013778d70b51e26a1c",
-      "attendees": [
-        {
-          "_id": "605f8d013778d70b51e26a1d",
-          "name": "tommi erkkilä",
-          "email": "erkkilan.tomppa@gmail.com",
-          "attends": true,
-          "discord": true,
-          "game": true
-        },
-        {
-          "_id": "605f8d013778d70b51e26a1e",
-          "name": "Simo Small-Dip",
-          "email": "jonne@web.com",
-          "attends": false,
-          "discord": true,
-          "game": true
-        }
-      ],
-      "partyid": "605f8bcd8dfd970aa770584a",
-      "__v": 0
-    }
-  ]);
-  const [partyState, setPartyState] = useState({});
-  let partyID = "605f8bcd8dfd970aa770584a";
-  const [paske, setPaske] = useState(1);
+  
+  const [partyID, changePartyID] = useState("605f8bcd8dfd970aa770584b")
+  const [party, setParty] = useState({});
+  const [checkBoxInfo, changeCheckBoxInfo] = useState([])
+  const [attendeeInfo, changeAttendeeInfo] = useState([])
+
+
+  const getData = () => {
+    //axios gets the partypack
+    axios.get(`/api/parties/${partyID}`).then((response) => {
+      setParty(response.data);
+      changeCheckBoxInfo(response.data.likes)
+      console.log("GPP checkboxinfo on ", checkBoxInfo )
+    });
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      axios.get(`/api/parties/`).then((response) => {
-        console.log("API attendees:")
-        console.log(response.data);
-        const allParties = response.data;
-        setPartyState(allParties.find((party) => party._id === partyID));
-      });
-      axios.get(`/api/attendees/`).then((response) => {
-        console.log(response.data);
-        const allAttendees = response.data;
-        setAttendees(([
-          {
-            "_id": "605f8d013778d70b51e26a1c",
-            "attendees": [
-              {
-                "_id": "605f8d013778d70b51e26a1d",
-                "name": "tommi erkkilä",
-                "email": "erkkilan.tomppa@gmail.com",
-                "attends": true,
-                "discord": true,
-                "game": true
-              },
-              {
-                "_id": "605f8d013778d70b51e26a1e",
-                "name": "Simo Small-Dip",
-                "email": "jonne@web.com",
-                "attends": false,
-                "discord": true,
-                "game": true
-              }
-            ],
-            "partyid": "605f8bcd8dfd970aa770584a",
-            "__v": 0
-          }
-        ]));
-        console.log(
-          allAttendees.find((attendee) => attendee.partyid === partyID)
-        );
-      });
-    };
-    fetchData();
-    return () => {
-      //
-    };
+    //getData gets partypack in question.
+    getData();
+    //If you console.log here, it will not display the response gotten from the server since further code is being executed
+    //already since code is async. That means console log here is pointless. Try console.log in .then() function in getData()
+    //console.log(description, " is the description")
   }, []);
-
 
   const classes = useStyles();
   return (
     <div className={classes.mainContainer}>
-      {/* Subtitle is not a valid variant for Typography, this causes a red error */}
-      <Typography>
-        Page for party page: details, timetable, guru info etc.
-      </Typography>
-      <Button onClick={()=>{setPaske(paske+2)}}>Press me</Button>
-      <Grid
-        container
-        spacing={3}
-        direction="row"
-        alignItems="center"
-        style={{ marginTop: "30px", marginBottom: "30px" }}
-      >
-
-          <Grid container xs={6} spacing={3} direction="column">
-          {/*This should probably be a <Grid item>*/}
-          <Grid item>
-            {console.log("state attendees: " + attendees.attendees)}
-            {attendees.attendees&&attendees.attendees.map(item=>{
-              return <ContactCard x={item}></ContactCard>
-            })}
- 
-          </Grid>
+      <Grid container="row">
+        <Grid item xs={6}>
+          <GameInfo />
+        </Grid>
+        <Grid item xs={6}>
+          <Attendees attendeeinfo={attendeeInfo}/>
         </Grid>
       </Grid>
+      <Grid container direction="row">
+        <Grid item xs={6}>
+          <CheckBoxes checkboxarray={checkBoxInfo}/>
+        </Grid>
+      </Grid>
+      
     </div>
   );
 };
 export default PartyPage;
-
-
-/**
-const attendeeJSON=[
-  {
-    "_id": "605f8d013778d70b51e26a1c",
-    "attendees": [
-      {
-        "_id": "605f8d013778d70b51e26a1d",
-        "name": "tommi erkkilä",
-        "email": "erkkilan.tomppa@gmail.com",
-        "attends": true,
-        "discord": true,
-        "game": true
-      },
-      {
-        "_id": "605f8d013778d70b51e26a1e",
-        "name": "Simo Small-Dip",
-        "email": "jonne@web.com",
-        "attends": false,
-        "discord": true,
-        "game": true
-      }
-    ],
-    "partyid": "605f8bcd8dfd970aa770584a",
-    "__v": 0
-  }
-];
- */
-
-  // Initial useEffect on page load that gets the details of the correct party
-  /*
-   useEffect(() => {
-    const fetchData = async () => {
-      axios.get(`/api/parties/`).then((response) => {
-        console.log(response.data);
-        const allParties = response.data;
-        setPartyState(allParties.find((party) => party._id === partyID));
-      });
-      axios.get(`/api/attendees/`).then((response) => {
-        console.log(response.data);
-        const allAttendees = response.data;
-        setAttendees(attendeeJSON);
-        console.log(
-          allAttendees.find((attendee) => attendee.partyid === partyID)
-        );
-      });
-    };
-    fetchData();
-    return () => {
-      //
-    };
-  }, []);
-*/
-  /*
-    useEffect(() => {
-        setGuruImage(props.guruImage)
-        setNewGuruImageAddress(props.guruImage)
-    }, [props]);
-*/
-
-  /*
-    //This will delete the emailfield at the given index of emailfields array. Updating the array will change the useState and then in the
-    //HTML part of the code the emailfields.map((x, i) => function will "update" the amount of the emailfields.
-    const handleEmailfieldDelete = (index) => {
-      const emailfieldscopy = [...emailfields];
-      //Splice removes something at the given index. It will delete x items. Currently we only want to delete 1 item.
-      emailfieldscopy.splice(index, 1);
-      changeEmailfields(emailfieldscopy);
-    };
-*/
