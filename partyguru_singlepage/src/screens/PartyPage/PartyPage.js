@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import GameInfo from "../CreatePartyPage/components/GameInfo"
 import Attendees from "../GuruPartyPage/components/Attendees"
 import CheckBoxes from "../GuruPartyPage/components/CheckBoxes"
+import FAQ from "./components/FAQ"
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -93,7 +94,7 @@ const PartyPage = () => {
           <CheckBoxes checkboxarray={checkBoxInfo}/>
         </Grid>
       </Grid>
-      
+      <FAQ />
     </div>
   );
 };
