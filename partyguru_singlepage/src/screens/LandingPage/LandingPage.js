@@ -4,7 +4,7 @@ import Product from "../../components/Product";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
-import { Typography } from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
 //splash sivu
 //map funktio looppaa datan läpi ja tekee niistä kortteja
 //Product.js tekee ne kortit viime kädessä
@@ -108,6 +108,23 @@ const LandingPage = () => {
           </Typography>
         </Grid>
       </div>
+
+      <div className="searchbar">
+        <Paper style={{backgroundColor: "lightgrey"}}>
+          <Grid container direction="row">
+            <Grid item xs={4}>
+              Search by game
+            </Grid>
+            <Grid item xs={4}>
+              Search by date
+            </Grid>
+            <Grid item xs={4}>
+              Search
+            </Grid>
+          </Grid>
+        </Paper>
+      </div>
+
       <div className={classes.root}>
         <Grid
           container
