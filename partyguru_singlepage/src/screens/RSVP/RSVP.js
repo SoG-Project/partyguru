@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   makeStyles,
   Checkbox,
@@ -61,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RSVP = () => {
-  const partyID = "605f8bcd8dfd970aa770584b";
+  const [thisParty, setThisParty] = useState("")
+  const [partyPackage, setPartyPackage] = useState()
   const attendeeID = "605f8d013778d70b51e26a20";
   //This state controls the attending/not attending radio buttons.
   const [value, setValue] = useState("true");
@@ -77,6 +78,20 @@ const RSVP = () => {
     discordinstalled: false,
     discordnotinstalled: false,
   });
+
+  useEffect( () => {
+    const newPartyID = window.location.href.split("RSVP/").pop()
+    axios.get(`/api/parties/${newPartyID}`).then((response) => {
+      setThisParty(response.data)
+
+      axios.get(`/api/packages/${response.data.packageid}`).then(response => {
+        setPartyPackage(response.data)
+        console.log("pPackage" + response.data)
+      })
+
+    })
+  }, [])
+
   /*
   const onChangeHandler = (event) = {
     setSpecialConsiderations()
@@ -111,8 +126,6 @@ const RSVP = () => {
   const saveInformation = () => {
     console.log("Starting saveinformation");
     var attending = false;
-    var string = "http://localhost:5000/api/attendees";
-    string += partyID;
     if (value === "true") {
       attending = true;
     }
@@ -130,7 +143,7 @@ const RSVP = () => {
     };
     console.log(attendeeJSON);
     axios
-      .put("http://localhost:5000/api/attendees/" + partyID, attendeeJSON)
+      .put("http://localhost:5000/api/attendees/" + thisParty._id, attendeeJSON)
       .then((response) => {
         console.log(response.data);
       });
@@ -139,8 +152,7 @@ const RSVP = () => {
     <div className={classes.root}>
       <Typography variant="h1">Invitation</Typography>
       <Typography paragraph variant="body1" style={{ fontSize: "2rem" }}>
-        You’re invited to Sander Grander’s online birthday party on 26.3.21
-        16.00-18.00! We will play Among Us.
+        {thisParty.description}
       </Typography>
 
       <Grid container direction="row">
@@ -306,7 +318,7 @@ const RSVP = () => {
         >
           <Grid item xs={4}>
             <Typography align="center" style={{ fontSize: "2rem" }}>
-              Among Us
+              {partyPackage && partyPackage.name}
             </Typography>
           </Grid>
           <Grid item xs={4}>

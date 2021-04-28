@@ -13,7 +13,8 @@ import Attendees from "./components/Attendees";
 import GameInfo from "./components/GameInfo";
 import CheckBoxes from "./components/CheckBoxes"
 import axios from "axios";
-import Linkki from "./components/link"
+import Linkki from "./components/UniqueLink"
+import UniqueLink from "./components/UniqueLink";
 
 const useStyles = makeStyles(() => ({
   margin: {
@@ -45,8 +46,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 const CreatePartyPage = () => {
-  const partyID = "605f8bcd8dfd970aa770584a";
+
   const [thisParty, setThisParty] = useState([])
+  const [partyPackageName, setPartyPackageName] = useState("")
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
   //and email.
@@ -71,11 +73,17 @@ const CreatePartyPage = () => {
   }
 */
   useEffect(() => {
+
+    // PartyID is for the "Markus Nutivaara" test party, meant to represent a fresh party created on the previous page(s)
+    const partyID = "60895e79090792d987ddb8cd"
     axios.get(`/api/parties/${partyID}`).then((response) => {
-      setThisParty(response.data);
-      console.log(response.data)
-    });
-  }, []);
+      setThisParty(response.data)
+      // Also getting the party package name from its ID
+      axios.get(`/api/packages/${response.data.packageid}`).then(response => {
+        setPartyPackageName(response.data.name)
+      })
+    })
+  }, [])
 
 
   const classes = useStyles();
@@ -100,10 +108,10 @@ const CreatePartyPage = () => {
 
       <Grid container direction="row">
         <Grid item xs={5}>
-          <GameInfo />
+          <GameInfo gameName={partyPackageName} date={thisParty.datetime} duration={thisParty.duration}
+                    attendees={thisParty.num_attendees}/>
         </Grid>
         <Grid item xs={5}>
-          <Attendees />
         </Grid>
       </Grid>
       <div className={classes.mainContainer}>
@@ -224,7 +232,7 @@ const CreatePartyPage = () => {
           </Grid>
 
           <Grid item xs={5}>
-            <CheckBoxes/>
+            <CheckBoxes partyPackage = {thisParty.packageid}/>
           </Grid>
         </Grid>
         <Button
@@ -238,8 +246,9 @@ const CreatePartyPage = () => {
         {/*<Button className={classes.button} variant="contained" color="primary" onClick={()=>{saveAttendees()}}>
           Save attendees
         </Button>
-          */} 
-        <Linkki></Linkki>
+          */}
+
+        <UniqueLink partyID={thisParty._id}/>
       </div>
     </div>
   );

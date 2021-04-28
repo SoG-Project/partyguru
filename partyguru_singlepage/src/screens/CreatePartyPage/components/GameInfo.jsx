@@ -19,17 +19,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GameInfo = () => {
-  //const [partyinfo, changePartyInfo] = useState("");
+const GameInfo = (props) => {
 
-  useEffect(() => {}, []);
+  const [date, setDate] = useState("")
+  const [time, setTime] = useState("")
+
+  useEffect(() => {
+
+    const newDate = (new Date(props.date))
+
+
+    props.date && setDate(newDate.getDate() + "." + (newDate.getMonth() + 1) + "." + newDate.getFullYear())
+    props.date && setTime(newDate.getHours() + ":" + newDate.getMinutes())
+  }, [props]);
 
   const classes = useStyles();
 
   return (
     <div className={classes.maincontainer}>
-      <Typography variant="h1">Minecraft Party</Typography>
-      <Typography className={classes.gameinfotext}>Martti's BD party is on the internet this time! We're going to play Minecraft mods and sing a song</Typography>
+      <Typography variant="h1">{props.gameName} Party</Typography>
+      <Typography className={classes.gameinfotext}>Kovakoodattu deskriptioni fortnite partystä. Tähän tarttis varmaan tekstikentän, mutta ei ehkä tämän gameinfo komponentin alle?</Typography>
       <Grid className={classes.gridbox} container direction="row">
         <div>
           <Typography className={classes.boldtext}>Date:</Typography>
@@ -38,10 +47,10 @@ const GameInfo = () => {
           <Typography className={classes.boldtext}>Attendees:</Typography>
         </div>
         <div style={{marginLeft: "2%"}}>
-          <Typography className={classes.gameinfotext}>26.4.2021</Typography>
-          <Typography className={classes.gameinfotext}>14.00-16.00</Typography>
-          <Typography className={classes.gameinfotext}>Minecraft</Typography>
-          <Typography className={classes.gameinfotext}>6</Typography>
+          <Typography className={classes.gameinfotext}>{date}</Typography>
+          <Typography className={classes.gameinfotext}>{time}</Typography>
+          <Typography className={classes.gameinfotext}>{props.gameName}</Typography>
+          <Typography className={classes.gameinfotext}>{props.attendees}</Typography>
         </div>
       </Grid>
     </div>

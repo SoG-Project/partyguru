@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CheckBoxes = () => {
+const CheckBoxes = (props) => {
 
   const classes = useStyles()
 

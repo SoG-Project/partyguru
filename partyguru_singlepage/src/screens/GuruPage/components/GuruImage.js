@@ -26,7 +26,6 @@ const GuruImage = (props) =>{
         setDialogOpen(true)
     }
 
-
     const handleClose = () => {
         setDialogOpen(false)
         setNewGuruImageAddress(guruImage)

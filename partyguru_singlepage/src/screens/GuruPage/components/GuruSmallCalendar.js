@@ -38,7 +38,7 @@ const GuruSmallCalendar = (props) => {
                         party: true
                     }
                     console.log(party.datetime)
-                    newEvents.push(newEvent)
+                    newEvents && newEvents.push(newEvent)
                 }
             })
             setEvents(newEvents)

@@ -23,7 +23,7 @@ const guruSchema = new mongoose.Schema({
     timeswhenunavailable:[],
   bio: String
 });
-const Guru= new mongoose.model('Guru',guruSchema);
+const Guru = new mongoose.model('Guru',guruSchema);
 
 //Attendee list schema and model
 const attendeesSchema = new mongoose.Schema({
@@ -36,12 +36,13 @@ const attendeesSchema = new mongoose.Schema({
                 discord: Boolean, 
                 game: Boolean}]
   });
-  const Attendees= new mongoose.model('Attendees',attendeesSchema);
+  const Attendees = new mongoose.model('Attendees',attendeesSchema);
   
   //A single party's schema and model
   const partyinfoSchema= new mongoose.Schema({
       packageid: String,
       guruid: String,
+      ownername: String,
       userid: String,
       datetime: {type: Date},
       duration:Number,
@@ -165,8 +166,11 @@ try{
    throw('Error: no guruid');
  }
   if(req.body.userid===undefined){
-        throw('Error: no guruid');
+        throw('Error: no userid');
   }
+  if(req.body.ownername===undefined){
+        throw('Error: no ownername');
+    }
   if(req.body.datetime===undefined){
     throw('Error: no datetime');
   }
@@ -200,6 +204,7 @@ try{
    guruid: req.body.guruid,
    datetime: req.body.datetime,
    userid: req.body.userid,
+   ownername: req.body.ownername,
    duration:req.body.duration,
    email: req.body.email,
    phone: req.body.phone,
@@ -251,6 +256,9 @@ app.put('/api/parties/:id', function (req, res) {
     if(req.body.userid!==undefined){
         updatedParty.userid=req.body.userid;
     }
+    if(req.body.ownername!==undefined){
+          updatedParty.ownername=req.body.ownername;
+      }
     if(req.body.duration!==undefined){
       updatedParty.duration=req.body.duration;
     }
