@@ -4,7 +4,7 @@ import Product from "../../components/Product";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
-import { Paper, Typography } from "@material-ui/core";
+import { Button, Paper, TextField, Typography } from "@material-ui/core";
 //splash sivu
 //map funktio looppaa datan läpi ja tekee niistä kortteja
 //Product.js tekee ne kortit viime kädessä
@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     padding: "10px",
     marginBottom: "10px",
+  },
+  searchbarelements: {
+    margin: theme.spacing(2),
   },
 }));
 
@@ -84,12 +87,9 @@ const LandingPage = () => {
     };
   }, [products, singleid]);
 
-  
-
   const classes = useStyles();
   return (
     <div>
-      
       <div className={classes.partyGuruInfo}>
         <Grid container direction="column" alignItems="center">
           <Typography gutterBottom variant="h3">
@@ -110,16 +110,38 @@ const LandingPage = () => {
       </div>
 
       <div className="searchbar">
-        <Paper style={{backgroundColor: "lightgrey"}}>
+        <Paper style={{ backgroundColor: "lightgrey" }}>
           <Grid container direction="row">
-            <Grid item xs={4}>
-              Search by game
+            <Grid item className={classes.searchbarelements} xs={3}>
+              <TextField
+                id="seachbygame"
+                fullWidth
+                rows={1}
+                rowsMax={1}
+                label={<Typography>Search by game</Typography>}
+                inputProps={{
+                  maxLength: 20,
+                  style: { fontSize: "2rem", lineHeight: "150%" },
+                }}
+              />
             </Grid>
-            <Grid item xs={4}>
-              Search by date
+            <Grid className={classes.searchbarelements} item xs={3}>
+              <TextField
+                id="searchbydate"
+                fullWidth
+                rows={1}
+                rowsMax={1}
+                label={<Typography>Search by game</Typography>}
+                inputProps={{
+                  maxLength: 20,
+                  style: { fontSize: "2rem", lineHeight: "150%" },
+                }}
+              />
             </Grid>
-            <Grid item xs={4}>
-              Search
+            <Grid item className={classes.searchbarelements} xs={3}>
+              <Button variant="contained" color="primary">
+                Search
+              </Button>
             </Grid>
           </Grid>
         </Paper>
