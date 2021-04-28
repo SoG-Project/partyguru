@@ -59,7 +59,21 @@ const PartyPage = () => {
   const [party, setParty] = useState({});
   const [checkBoxInfo, changeCheckBoxInfo] = useState([])
   const [attendeeInfo, changeAttendeeInfo] = useState([])
-
+  const [guruid, changeGuruID] = useState("")
+  const [guru, changeGuru] = useState({name: "",
+      nick: "", email: "", partyreservations: [], video: "",
+      image: "", avalability: [], bio: ""
+      })
+  
+  const changeGuruTemp = (props) => {
+    const temporaryguru = {name: props.name, 
+      nick: props.nick, email: props.email,
+      partyreservations: props.partyreservations,
+      video: props.video, image: props.image,
+      avalability: props.avalability, bio: props.bio
+    }
+    changeGuru(temporaryguru)
+  }
 
   const getData = () => {
     //axios gets the partypack
@@ -67,6 +81,13 @@ const PartyPage = () => {
       setParty(response.data);
       changeCheckBoxInfo(response.data.likes)
       console.log("GPP checkboxinfo on ", checkBoxInfo )
+      console.log("Guruid is ", response.data.guruid)
+      changeGuruID(response.data.guruid)
+      axios.get(`/api/gurus/${guruid}`).then((response) => {
+        console.log("Backin gurun data on ", response.data)
+        changeGuruTemp(response.data)
+        console.log("useStaten gurun data ", guru, "gurulle ", guruid)
+      })
     });
   };
 
@@ -92,6 +113,9 @@ const PartyPage = () => {
       <Grid container direction="row">
         <Grid item xs={6}>
           <CheckBoxes checkboxarray={checkBoxInfo}/>
+        </Grid>
+        <Grid item xs={6}>
+          <img src={guru.image}></img>
         </Grid>
       </Grid>
       <FAQ />
