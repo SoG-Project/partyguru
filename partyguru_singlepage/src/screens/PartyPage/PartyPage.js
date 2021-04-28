@@ -125,12 +125,16 @@ const PartyPage = () => {
         <Grid item xs={6}>
           <Grid container direction="column">
             <Grid item xs={4}>
+              <Typography variant="h6">{guru.name}</Typography>
+            </Grid>
+            <Grid item xs={4}>
               <Avatar
                 alt={guru.name}
                 src={guru.image}
                 className={classes.guruAvatars}
               />
             </Grid>
+            <Grid item xs={4}>{guru.nick}</Grid>
           </Grid>
         </Grid>
       </Grid>
