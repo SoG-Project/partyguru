@@ -21,6 +21,7 @@ const UniqueLink = (props) => {
                     onClick={generateLink}>
                     Generate link</Button>
                 <TextField value={uniqueLink || ''}></TextField>
+                Voit kokeilla kans näitä ID:itä RSVP sivun urlissa: 605f8bcd8dfd970aa770584b - 605f8bcd8dfd970aa770584a - 606f3b274136e65a35f41d1d
 
             </div>
         );
