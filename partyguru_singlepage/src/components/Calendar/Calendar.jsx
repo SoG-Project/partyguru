@@ -239,9 +239,12 @@ const Calendar = (props) => {
 
   //Change currently selected guru to diplay his calendar
   const handleGuruChange = () => {
+    console.log("Product Gurus on ", productGurus);
     const guru = document.getElementById("guruSelector").value;
-    console.log("Current guru changed to ", guru);
-    setCurrentGuru(guru);
+    console.log("guru data: ", guru);
+    console.log("Current guru changed to ", guru.name);
+    setCurrentGuru(guru.name);
+    setEvents(guru.timeswhenunavailable);
   };
 
   //Check if date of party is on weekend (Saturday or Sunday)
@@ -416,13 +419,13 @@ const Calendar = (props) => {
                     value={currentGuru}
                     onChange={handleGuruChange}
                   >
-                    <option value={productGurus[0].timeswhenunavailable}>
+                    <option value={productGurus[0]}>
                       {productGurus[0].name}
                     </option>
-                    <option value={productGurus[1].timeswhenunavailable}>
+                    <option value={productGurus[1]}>
                       {productGurus[1].name}
                     </option>
-                    <option value={productGurus[2].timeswhenunavailable}>
+                    <option value={productGurus[2]}>
                       {productGurus[2].name}
                     </option>
                     {/*{productGurus && productGurus.map((guru) => {
