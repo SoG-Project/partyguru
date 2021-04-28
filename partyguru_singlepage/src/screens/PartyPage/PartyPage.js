@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles, Typography} from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 import axios from "axios";
 import "./PartyPage.css";
-import ContactCard from "./ContactCard";
-import {
-  Button,
-} from "@material-ui/core";
+//import ContactCard from "./ContactCard";
+import { Avatar } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import GameInfo from "../CreatePartyPage/components/GameInfo"
-import Attendees from "../GuruPartyPage/components/Attendees"
-import CheckBoxes from "../GuruPartyPage/components/CheckBoxes"
-import FAQ from "./components/FAQ"
+import GameInfo from "../CreatePartyPage/components/GameInfo";
+import Attendees from "../GuruPartyPage/components/Attendees";
+import CheckBoxes from "../GuruPartyPage/components/CheckBoxes";
+import FAQ from "./components/FAQ";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -23,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   textfielderino: {
     padding: "",
     /*minWidth: "20%",
-    maxWidth: "20%",*/ 
+    maxWidth: "20%",*/
     fontSize: "2rem",
   },
   resize: {
@@ -46,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "2rem",
     marginBottom: "2rem",
   },
+  guruAvatars: {
+    width: theme.spacing(8),
+    height: theme.spacing(8),
+  },
 }));
 
 /**
@@ -54,18 +56,18 @@ const useStyles = makeStyles((theme) => ({
 
 //Screen for party page and it's contents
 const PartyPage = () => {
-  
-  const [partyID, changePartyID] = useState("605f8bcd8dfd970aa770584b")
+  const [partyID, changePartyID] = useState("605f8bcd8dfd970aa770584b");
   const [party, setParty] = useState({});
-  const [checkBoxInfo, changeCheckBoxInfo] = useState([])
-  const [attendeeInfo, changeAttendeeInfo] = useState([])
-  const [guruid, changeGuruID] = useState("")
-  const [guru, changeGuru] = useState({name: "",
+  const [checkBoxInfo, changeCheckBoxInfo] = useState([]);
+  const [attendeeInfo, changeAttendeeInfo] = useState([]);
+  const [guruid, changeGuruID] = useState();
+  const [guru, changeGuru] = useState({});
+  /*({name: "",
       nick: "", email: "", partyreservations: [], video: "",
       image: "", avalability: [], bio: ""
-      })
-  
-  const changeGuruTemp = (props) => {
+      })*/
+
+  /*const changeGuruTemp = (props) => {
     const temporaryguru = {name: props.name, 
       nick: props.nick, email: props.email,
       partyreservations: props.partyreservations,
@@ -73,21 +75,16 @@ const PartyPage = () => {
       avalability: props.avalability, bio: props.bio
     }
     changeGuru(temporaryguru)
-  }
+  }*/
 
   const getData = () => {
     //axios gets the partypack
     axios.get(`/api/parties/${partyID}`).then((response) => {
       setParty(response.data);
-      changeCheckBoxInfo(response.data.likes)
-      console.log("GPP checkboxinfo on ", checkBoxInfo )
-      console.log("Guruid is ", response.data.guruid)
-      changeGuruID(response.data.guruid)
-      axios.get(`/api/gurus/${guruid}`).then((response) => {
-        console.log("Backin gurun data on ", response.data)
-        changeGuruTemp(response.data)
-        console.log("useStaten gurun data ", guru, "gurulle ", guruid)
-      })
+      changeCheckBoxInfo(response.data.likes);
+      console.log("GPP checkboxinfo on ", checkBoxInfo);
+      console.log("Guruid is ", response.data.guruid);
+      changeGuruID(response.data.guruid);
     });
   };
 
@@ -99,6 +96,17 @@ const PartyPage = () => {
     //console.log(description, " is the description")
   }, []);
 
+  //setState is asynchronous, so we need to wait for the
+  //guruid to be set.
+  useEffect(() => {
+    console.log("USEEFFECT GURUID: ", guruid);
+    axios.get(`/api/gurus/${guruid}`).then((response) => {
+      console.log("Backin gurun data on ", response.data[0]);
+      changeGuru(response.data[0]);
+      console.log("useStaten gurun data ", guru.image, "gurulle ", guruid);
+    });
+  }, [guruid]);
+
   const classes = useStyles();
   return (
     <div className={classes.mainContainer}>
@@ -107,15 +115,23 @@ const PartyPage = () => {
           <GameInfo />
         </Grid>
         <Grid item xs={6}>
-          <Attendees attendeeinfo={attendeeInfo}/>
+          <Attendees attendeeinfo={attendeeInfo} />
         </Grid>
       </Grid>
       <Grid container direction="row">
         <Grid item xs={6}>
-          <CheckBoxes checkboxarray={checkBoxInfo}/>
+          <CheckBoxes checkboxarray={checkBoxInfo} />
         </Grid>
         <Grid item xs={6}>
-          <img src={guru.image}></img>
+          <Grid container direction="column">
+            <Grid item xs={4}>
+              <Avatar
+                alt={guru.name}
+                src={guru.image}
+                className={classes.guruAvatars}
+              />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
       <FAQ />
