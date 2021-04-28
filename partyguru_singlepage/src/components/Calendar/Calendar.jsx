@@ -12,6 +12,9 @@ import {
   Typography,
   Input,
   NativeSelect,
+  InputLabel,
+  Select,
+  MenuItem
 } from "@material-ui/core";
 //FullCalendar documentation: https://fullcalendar.io/docs
 
@@ -59,13 +62,23 @@ const Calendar = (props) => {
   const [title, setTitle] = React.useState(null);
   const [duration, setDuration] = React.useState(1);
 
-  const[currentGuru, setCurrentGuru] = React.useState(props.productGurus);
+  const [productGurus, setProductGurus] = React.useState();
+  const [currentGuru, setCurrentGuru] = React.useState();
 
   const printShit = () => {
-    console.log("Product Gurus: ", props.productGurus);
-    console.log("Product Gurus[0]: ", props.productGurus[0].timeswhenunavailable);
-  setEvents(props.productGurus[0].timeswhenunavailable);
+    console.log("Product Gurus: ", productGurus);
+    console.log("Product Gurus[0]: ", productGurus[0].timeswhenunavailable);
+  setEvents(productGurus[0].timeswhenunavailable);
   }
+
+
+  //useEffect joka fireää kun props.productGuru muuttuu ja laitetaan sillä nuo vitun statet oikein
+
+  useEffect(() => {
+    console.log("propsit ", props);
+    setCurrentGuru(props.productGurus[0].name);
+    setProductGurus(props.productGurus);
+  }, []);
   
 
   //to Handle pushing the add event button at the bottom of the calendar
@@ -199,6 +212,12 @@ const Calendar = (props) => {
     setDuration(picked);
   };
 
+  const handleGuruChange = () => {
+    const guru = document.getElementById("guruSelector").value;
+    console.log("Current guru changed to ", guru);
+    setCurrentGuru(guru);
+  };
+
   //Check if date of party is on weekend (Saturday or Sunday)
   //If on weekend, set isWeekend to true in PartyPackage.js, if not, set to false
   //isWeekend is used to calculate the total cost of the party in CostCalculator
@@ -219,7 +238,6 @@ const Calendar = (props) => {
     <Paper
       elevation={5}
       style={{
-        width: "90%",
         padding: "1rem",
       }}
     >
@@ -358,6 +376,16 @@ const Calendar = (props) => {
             >
               Add event + debug
             </Button>
+            <Grid container item xs={6}>
+            <InputLabel id="guruSelectorLabel">Guru</InputLabel>
+            <Select style={{width:"10vw"}} labelId="guruSelectorLabel" id="guruSelector" value={currentGuru} onChange={handleGuruChange}>
+              <MenuItem value={productGurus[0].timeswhenunavailable}>{productGurus[0].name}</MenuItem>
+              <MenuItem value={productGurus[1].timeswhenunavailable}>{productGurus[1].name}</MenuItem>
+              <MenuItem value={productGurus[2].timeswhenunavailable}>{productGurus[2].name}</MenuItem>
+              {/*{productGurus && productGurus.map((guru) => {
+                <MenuItem key={guru.id} value={guru.timeswhenunavailable}>{guru.name}</MenuItem>
+              })}*/}
+            </Select>
             <Button
               variant="contained"
               color="primary"
@@ -366,6 +394,7 @@ const Calendar = (props) => {
             >
               Print shit
             </Button>
+            </Grid>
           </Grid>
         </Grid>
       </form>
