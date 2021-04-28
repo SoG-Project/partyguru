@@ -42,7 +42,7 @@ const PartyPackage = () => {
   //contains product (the one clicked in LandingPage to access this page)
   const [product, setProduct] = useState();
   //useState for the guruIDs of this product, used to get info on these gurus from the backend
-  const [productGurus, setProductGurus] = useState([]);
+  const [productGurus, setProductGurus] = useState();
   //useState for number of participants, used for example to calculate cost of party
   const [participants, setParticipants] = useState(1);
   //useState for new calendar event, this will be sent from here to backend
