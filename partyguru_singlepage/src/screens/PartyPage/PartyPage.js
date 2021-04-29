@@ -3,13 +3,13 @@ import { makeStyles, Typography } from "@material-ui/core";
 import axios from "axios";
 import "./PartyPage.css";
 //import ContactCard from "./ContactCard";
-import { Avatar, Paper } from "@material-ui/core";
+import { Avatar, Paper, TextField } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import GameInfo from "../CreatePartyPage/components/GameInfo";
 import Attendees from "../GuruPartyPage/components/Attendees";
 import CheckBoxes from "../GuruPartyPage/components/CheckBoxes";
 import FAQ from "./components/FAQ";
-import ContactInfoFieldsPartyPage from "../CreatePartyPage/components/ContactInfoFieldsPartyPage";
+//import ContactInfoFieldsPartyPage from "../CreatePartyPage/components/ContactInfoFieldsPartyPage";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -56,6 +56,11 @@ const useStyles = makeStyles((theme) => ({
   guruBox: {
     width: "50%",
   },
+  contactFields: {
+    fontSize: "2rem",
+    minWidth: "100%",
+    maxWidth: "100%",
+  },
 }));
 
 /**
@@ -72,21 +77,6 @@ const PartyPage = () => {
   const [guruid, changeGuruID] = useState();
   const [guru, changeGuru] = useState({});
   const [contactInfo, setContactInfo] = useState();
-
-  /*({name: "",
-      nick: "", email: "", partyreservations: [], video: "",
-      image: "", avalability: [], bio: ""
-      })*/
-
-  /*const changeGuruTemp = (props) => {
-    const temporaryguru = {name: props.name, 
-      nick: props.nick, email: props.email,
-      partyreservations: props.partyreservations,
-      video: props.video, image: props.image,
-      avalability: props.avalability, bio: props.bio
-    }
-    changeGuru(temporaryguru)
-  }*/
 
   const getData = () => {
     //axios gets the partypack
@@ -184,7 +174,55 @@ const PartyPage = () => {
           </Grid>
         </Grid>
       </Grid>
-      <ContactInfoFieldsPartyPage />
+      <Grid container direction="column" spacing={1}>
+          <Grid item>
+            <Typography variant="h4" style={{ marginTop: "2rem" }} >
+              Client Information
+            </Typography>
+          </Grid>
+          {contactInfo.name && (
+          <Grid item>
+            <Paper style={{ width: "50%" }} elevation={4}>
+            <TextField
+              variant="outlined"
+              color="primary"
+              value={contactInfo.name}
+              className={classes.contactFields}
+              inputProps={{
+                style: { fontSize: "1.5rem", lineHeight: "150%" },
+              }}
+            />
+            </Paper>
+          </Grid>)}
+          {contactInfo.email && (
+          <Grid item>
+            <Paper style={{ width: "50%" }} elevation={4}>
+            <TextField
+              variant="outlined"
+              color="primary"
+              value={contactInfo.email}
+              className={classes.contactFields}
+              inputProps={{
+                style: { fontSize: "1.5rem", lineHeight: "150%" },
+              }}
+            />
+            </Paper>
+          </Grid>)}
+          {contactInfo.phone && (
+          <Grid item>
+            <Paper style={{ width: "50%" }} elevation={4}>
+            <TextField
+              variant="outlined"
+              color="primary"
+              value={contactInfo.phone}
+              className={classes.contactFields}
+              inputProps={{
+                style: { fontSize: "1.5rem", lineHeight: "150%" },
+              }}
+            />
+            </Paper>
+          </Grid>)}
+      </Grid>
       <FAQ />
     </div>
   );
