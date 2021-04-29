@@ -10,30 +10,35 @@ import GuruAvailability from "./components/GuruAvailability";
 import UpcomingParties from "./components/UpcomingParties";
 import GuruSmallCalendar from "./components/GuruSmallCalendar";
 import { CircularProgress, Typography } from "@material-ui/core";
+import {useAuth0} from "@auth0/auth0-react";
 
 const GuruPage = (props) => {
   const [userProfile, setUserProfile] = useState({});
-  const [guruID, setGuruID] = useState();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
 
   // Initial useEffect on page load that gets the details of the correct guru
   useEffect(() => {
     const fetchData = async () => {
+
       const id = window.location.href.split("gurupage/").pop();
-      setGuruID(id);
-      axios.get(`/api/gurus/`).then((response) => {
+
+      isAuthenticated && axios.get(`/api/gurus/`).then((response) => {
         const allGurus = response.data;
-        setUserProfile(allGurus.find((guru) => guru._id === guruID));
+        if (id !== "")
+          setUserProfile(allGurus.find((guru) => guru._id === id))
+        else
+          setUserProfile(allGurus.find((guru) => guru.useauthid === user.sub));
       });
     };
     fetchData();
     return () => {
       //
     };
-  }, [guruID]);
+  }, [user]);
 
-  return (
+  if (isAuthenticated) return (
     <div className="mainContainer">
-      {userProfile ? (
         <div className="guruGrid">
           <GuruImage guruImage={userProfile.image} guruID={userProfile._id} />
           <GuruInfo
@@ -54,30 +59,32 @@ const GuruPage = (props) => {
           />
           <UpcomingParties guruID={userProfile._id} />
         </div>
-      ) : (
-        <div
-          style={{
-            textAlign: "center",
-            justifyContent: "center",
-            alignItems: "center",
-            margin:"4%",
-          }}
-        >
-          {/*This area is rendered while the package has not been fetched, usually for a very brief amount of time*/}
-          <Typography variant="h4">Page loading...</Typography>
-          <CircularProgress
-            color="secondary"
-            disableShrink
-            size="15vh"
-            style={{ margin: "3%" }}
-          />
-          <Typography variant="h4">
-            If you see this page for an extended period of time something has
-            likely gone wrong.
-          </Typography>
-        </div>
-      )}
     </div>
-  );
+  )
+      if (isLoading) return (
+          <div
+              style={{
+                textAlign: "center",
+                justifyContent: "center",
+                alignItems: "center",
+                margin:"4%",
+              }}
+          >
+            {/*This area is rendered while the package has not been fetched, usually for a very brief amount of time*/}
+            <Typography variant="h4">Page loading...</Typography>
+            <CircularProgress
+                color="secondary"
+                disableShrink
+                size="15vh"
+                style={{ margin: "3%" }}
+            />
+            <Typography variant="h4">
+              If you see this page for an extended period of time something has
+              likely gone wrong.
+            </Typography>
+          </div>
+      )
+
+
 };
 export default GuruPage;

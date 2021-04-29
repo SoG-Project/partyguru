@@ -21,7 +21,8 @@ const guruSchema = new mongoose.Schema({
   image: String,
   availability:Boolean,
     timeswhenunavailable:[],
-  bio: String
+  bio: String,
+  useauthid: String
 });
 const Guru = new mongoose.model('Guru',guruSchema);
 
@@ -340,6 +341,9 @@ app.post('/api/gurus', (req, res) => {
       if(req.body.partyreservations===undefined){
         throw('Error: no partyreservations.');
       }
+      if(req.body.useauthid===undefined) {
+          throw('Error: no useAuth ID')
+      }
       if(req.body.video===undefined){
         throw('Error: no video.');
       }
@@ -488,6 +492,9 @@ app.put('/api/gurus/:id', function (req, res) {
     }
     if(req.body.timeswhenunavailable!==undefined) {
       foundGuru[0].timeswhenunavailable=req.body.timeswhenunavailable;
+    }
+    if(req.body.useauthid!==undefined) {
+      foundGuru[0].useauthid=req.body.useauthid
     }
     if(req.body.image!==undefined){
       foundGuru[0].image=req.body.image;

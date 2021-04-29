@@ -31,7 +31,7 @@ const CartPage = (props) => {
   const handleCreateParty = () => {
     console.log("Käyttäjän ID on ", user.sub)
     const testID = '605f8bcd8dfd970aa770584a'
-    axios.put(`/api/parties/${testID}`,{userid: user.sub+1}).then(response => {
+    axios.put(`/api/parties/${testID}`,{userid: user.sub}).then(response => {
       console.log(response.data)
     })
   }
