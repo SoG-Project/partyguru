@@ -95,7 +95,7 @@ const GuruPartyPage = (props) => {
     //If you console.log here, it will not display the response gotten from the server since further code is being executed
     //already since code is async. That means console log here is pointless. Try console.log in .then() function in getData()
     //console.log(description, " is the description")
-  }, []);
+  });
 
   //getData gets the partypack in question from the server. axios.get() is an asynchronous function, so anything
   //not in the .then() {} brackets will be executed before we get a response from the server. How far in the code we
@@ -134,10 +134,10 @@ const GuruPartyPage = (props) => {
 
  
 
-  {/*const handlePartyHeroInfoChange = (event) => {
+  /*const handlePartyHeroInfoChange = (event) => {
     let info = event.target.value;
     changePartyHeroInfo(info);
-  };*/}
+  };*/
 
   
 
