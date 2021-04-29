@@ -3,12 +3,13 @@ import { makeStyles, Typography } from "@material-ui/core";
 import axios from "axios";
 import "./PartyPage.css";
 //import ContactCard from "./ContactCard";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Paper } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import GameInfo from "../CreatePartyPage/components/GameInfo";
 import Attendees from "../GuruPartyPage/components/Attendees";
 import CheckBoxes from "../GuruPartyPage/components/CheckBoxes";
 import FAQ from "./components/FAQ";
+import ContactInfoFieldsPartyPage from "../CreatePartyPage/components/ContactInfoFieldsPartyPage";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -45,8 +46,15 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "2rem",
   },
   guruAvatars: {
-    width: theme.spacing(8),
-    height: theme.spacing(8),
+    width: theme.spacing(15),
+    height: theme.spacing(15),
+  },
+  gurufont: {
+    fontSize: "2rem",
+    textAlign: "center",
+  },
+  guruBox: {
+    width: "50%"
   },
 }));
 
@@ -57,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
 //Screen for party page and it's contents
 const PartyPage = () => {
   const [partyID, changePartyID] = useState("605f8bcd8dfd970aa770584b");
+  const [attendeesID, setAttendeeID] = useState("605f8bcd8dfd970aa770584b");
   const [party, setParty] = useState({});
   const [checkBoxInfo, changeCheckBoxInfo] = useState([]);
   const [attendeeInfo, changeAttendeeInfo] = useState([]);
@@ -86,7 +95,19 @@ const PartyPage = () => {
       console.log("Guruid is ", response.data.guruid);
       changeGuruID(response.data.guruid);
     });
+    axios.get(`/api/attendees/${attendeesID}`).then((response) => {
+      /* setAttendeeName(response.data.attendees[0].name);
+      changeAttendeeInfo(response.data.attendees[0].attends);
+      console.log(response.data.attendees[0].name); */
+      changeAttendeeInfo(response.data[0].attendees); //if I change this value to anything else it will crash
+      //console.log(response.data[0].attendees[0].name)
+      console.log(response.data);
+    });
   };
+
+  useEffect(() => {
+    console.log("AttendeeInfo is: ", attendeeInfo);
+  }, [attendeeInfo]);
 
   useEffect(() => {
     //getData gets partypack in question.
@@ -115,29 +136,38 @@ const PartyPage = () => {
           <GameInfo />
         </Grid>
         <Grid item xs={6}>
-          <Attendees attendeeinfo={attendeeInfo} />
+          <Attendees attendeesArray={attendeeInfo} />
         </Grid>
       </Grid>
-      <Grid container direction="row">
+      <Grid container direction="row" >
         <Grid item xs={6}>
           <CheckBoxes checkboxarray={checkBoxInfo} />
         </Grid>
         <Grid item xs={6}>
-          <Grid container direction="column">
-            <Grid item xs={4}>
-              <Typography variant="h6">{guru.name}</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Avatar
-                alt={guru.name}
-                src={guru.image}
-                className={classes.guruAvatars}
-              />
-            </Grid>
-            <Grid item xs={4}>{guru.nick}</Grid>
+          <Grid container direction="column" justify="center" alignItems="center">
+            <Paper className={classes.gurubox}>
+              <Grid item >
+                <Typography className={classes.gurufont} variant="h6">
+                  {guru.name}
+                </Typography>
+              </Grid>
+              <Grid item >
+                <Avatar
+                  alt={guru.name}
+                  src={guru.image}
+                  className={classes.guruAvatars}
+                />
+              </Grid>
+              <Grid item >
+                <Typography className={classes.gurufont} variant="h6">
+                  {guru.nick}
+                </Typography>
+              </Grid>
+            </Paper>
           </Grid>
         </Grid>
       </Grid>
+      <ContactInfoFieldsPartyPage />
       <FAQ />
     </div>
   );
