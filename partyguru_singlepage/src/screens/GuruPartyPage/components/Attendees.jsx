@@ -41,7 +41,7 @@ const Attendees = (props) => {
             <Grid container direction="row">
               <Grid item xs={10}>
                 <Typography className={classes.attendeeText}>
-                  {attendees[attendees.length - 1].name}
+                  {attendees[i].name}
                 </Typography>
               </Grid>
               <Grid item xs={2}>
