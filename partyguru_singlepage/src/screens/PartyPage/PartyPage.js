@@ -71,6 +71,8 @@ const PartyPage = () => {
   const [attendeeInfo, changeAttendeeInfo] = useState([]);
   const [guruid, changeGuruID] = useState();
   const [guru, changeGuru] = useState({});
+  const [contactInfo, setContactInfo] = useState()
+
   /*({name: "",
       nick: "", email: "", partyreservations: [], video: "",
       image: "", avalability: [], bio: ""
@@ -91,6 +93,8 @@ const PartyPage = () => {
     axios.get(`/api/parties/${partyID}`).then((response) => {
       setParty(response.data);
       changeCheckBoxInfo(response.data.likes);
+      setContactInfo(response.data.email, response.data.phone, response.data.ownername)
+      
       console.log("GPP checkboxinfo on ", checkBoxInfo);
       console.log("Guruid is ", response.data.guruid);
       changeGuruID(response.data.guruid);
@@ -104,6 +108,10 @@ const PartyPage = () => {
       console.log(response.data);
     });
   };
+
+  useEffect(() => {
+    console.log("PP contactInfo is ", contactInfo)
+  }, [contactInfo])
 
   useEffect(() => {
     console.log("AttendeeInfo is: ", attendeeInfo);

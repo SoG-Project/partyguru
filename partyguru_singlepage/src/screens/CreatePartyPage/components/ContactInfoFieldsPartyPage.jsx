@@ -1,5 +1,6 @@
 import { Grid, TextField, Typography, makeStyles, Paper } from "@material-ui/core";
 import React from "react";
+import { useEffect } from "react";
 
 //Create styles with Material UI
 const useStyles = makeStyles((theme) => ({
@@ -10,11 +11,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 //Creates three contact information fields: name, email, and phone number
 //All fields are TextFields contained in Grid items inside a Grid
 //Maybe need states for name, email, number?
-const ContactInfoFieldsPartyPage = () => {
+const ContactInfoFieldsPartyPage = (props) => {
   const classes = useStyles();
+
+  
+
+
   return (
     <div>
       <Grid container direction="column" spacing={1}>
