@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(2),
     alignItems: "center",
+    margin: "0"
   }
 }));
 
