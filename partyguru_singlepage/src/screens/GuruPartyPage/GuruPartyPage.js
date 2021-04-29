@@ -87,28 +87,8 @@ const GuruPartyPage = (props) => {
   const [attendees, changeAttendees] = useState([
     
   ])
-
-
-  useEffect(() => {
-    //getData gets partypack in question.
-    getData();
-    //If you console.log here, it will not display the response gotten from the server since further code is being executed
-    //already since code is async. That means console log here is pointless. Try console.log in .then() function in getData()
-    //console.log(description, " is the description")
-  });
-
-  //getData gets the partypack in question from the server. axios.get() is an asynchronous function, so anything
-  //not in the .then() {} brackets will be executed before we get a response from the server. How far in the code we
-  //get depends on the execution time of the get function.
   const getData = () => {
     //axios gets the partypack
-    axios.get(`/api/parties/${partyID}`).then((response) => {
-      setParty(response.data);
-      changePartyHeroInfo(response.data.partyheroinfo);
-      changeCheckBoxInfo(response.data.likes)
-      console.log(response.data.partyheroinfo);
-      console.log("GPP checkboxinfo on ", checkBoxInfo )
-    });
     axios.get(`/api/attendees/${attendeesID}`).then((response) => {
       /* setAttendeeName(response.data.attendees[0].name);
       changeAttendeeInfo(response.data.attendees[0].attends);
@@ -122,6 +102,7 @@ const GuruPartyPage = (props) => {
     axios.get(`/api/parties/${partyID}`).then((response) => {
       setParty(response.data);
       changeCheckBoxInfo(response.data.likes);
+      changePartyHeroInfo(response.data.partyheroinfo);
       setContactInfo({
         email: response.data.email,
         phone: response.data.phone,
@@ -129,8 +110,23 @@ const GuruPartyPage = (props) => {
       });
       console.log("Guruid is ", response.data.guruid);
       changeGuruID(response.data.guruid);
+      console.log(response.data.partyheroinfo);
+      console.log("GPP checkboxinfo on ", checkBoxInfo )
     })
   };
+
+
+  useEffect(() => {
+    //getData gets partypack in question.
+    getData();
+    //If you console.log here, it will not display the response gotten from the server since further code is being executed
+    //already since code is async. That means console log here is pointless. Try console.log in .then() function in getData()
+    //console.log(description, " is the description")
+  });
+
+  //getData gets the partypack in question from the server. axios.get() is an asynchronous function, so anything
+  //not in the .then() {} brackets will be executed before we get a response from the server. How far in the code we
+  //get depends on the execution time of the get function.
 
  
 
@@ -159,7 +155,7 @@ const GuruPartyPage = (props) => {
           </Typography>
         </Grid>
       </div>
-      <div className ={classes.mainContainer}>
+    <div className ={classes.mainContainer}>
       {contactInfo && (
       <Grid container direction="column" spacing={1}>
           <Grid item>
@@ -213,7 +209,7 @@ const GuruPartyPage = (props) => {
             </Paper>
           </Grid>)}
       </Grid>)}
-</div>
+     </div>
       <Grid container>
         <Grid item xs={6}>
           <GameInfo />
