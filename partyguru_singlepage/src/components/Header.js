@@ -3,13 +3,11 @@ import Grid from '@material-ui/core/Grid';
 import {Toolbar, AppBar, IconButton, Menu, MenuItem} from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import {makeStyles} from '@material-ui/core/styles';
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import { withRouter } from 'react-router-dom'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useTheme } from '@material-ui/core/styles'
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import { withRouter } from 'react-router-dom';
 import LoginButton from "../screens/LandingPage/components/LoginButton";
 import LogoutButton from "../screens/LandingPage/components/LogoutButton";
-import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0 } from '@auth0/auth0-react';
 
 const useStyles = makeStyles({
     headerLink:{
@@ -41,15 +39,6 @@ const Header = (props) => {
     //If the menu is open, then that means that anchorEl is true. Therefore, we can determine whether
     //the menu is open or not.
     const open = Boolean(anchorEl);
-    //We need the theme to access MediaQuery
-    const theme = useTheme();
-    //isMobile is true, when the size of the screen is "extra small, xs" AND less
-    const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-
-    //anchorEl is set to null, therefore not visible.
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
     //anchorEl is now applied to current event location, therefore visible.
     const handleMenu = (event) => {
@@ -78,14 +67,14 @@ const Header = (props) => {
       };
     
     return (
-        <AppBar position="sticky" title={<img src="https://sog.gg/wp-content/uploads/2019/08/SOG_logo_black-01.png" />} >
+        <AppBar position="sticky">
             <Toolbar variant="dense">
                 <Grid container 
                 direction="row" 
                 justify="space-between">
 
                     <Grid item >    
-                        <a href="/"> <img className={classes.logo} src={'https://sog.gg/wp-content/uploads/2019/08/SOG_logo_black-01.png'} /> </a>
+                        <a href="/"> <img className={classes.logo} alt="Shool of Gaming logo" src={'https://sog.gg/wp-content/uploads/2019/08/SOG_logo_black-01.png'} /> </a>
                     </Grid>
 
                     <Grid item  className={classes.menuElement}>

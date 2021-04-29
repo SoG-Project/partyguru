@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./theme3.css";
 
 //This kind of works but I can only swap between two different themes with this
@@ -22,7 +22,7 @@ const imagesPath = {
       const imageName = this.getImageName();
       return (
         <div className="comptheme">
-          <img src={imagesPath[imageName]} onClick={this.toggleImage} />
+          <img alt="Theme 3" src={imagesPath[imageName]} onClick={this.toggleImage} />
         </div>
       );
     }

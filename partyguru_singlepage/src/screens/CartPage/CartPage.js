@@ -1,7 +1,6 @@
 import { React, useState } from "react";
-import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
-import { Button, Grid } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import LoginButton from "../LandingPage/components/LoginButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";

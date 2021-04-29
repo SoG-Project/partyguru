@@ -11,7 +11,6 @@ const GuruPartyPackages = ({guruID}) =>{
 
     const [pPackages, setPPackages] = useState([])
     const [editMode, setEditMode] = useState(false)
-    const [initialPackages, setInitialPackages] = useState([])
 
 
 
