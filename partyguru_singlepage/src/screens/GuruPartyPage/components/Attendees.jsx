@@ -1,11 +1,12 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Paper, Typography, makeStyles } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import HelpIcon from "@material-ui/icons/Help";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import "./Attendees.css";
+
 
 const useStyles = makeStyles((theme) => ({
   attendeeText: {
@@ -26,15 +27,11 @@ const useStyles = makeStyles((theme) => ({
 const Attendees = (props) => {
   const classes = useStyles();
 
-  const [attendees, changeAttendees] = useState([
-    { name: "Alvari", attends: "unknown" },
-    { name: "Juho G", attends: "attending" },
-    { name: "Juho V", attends: "notattending" },
-    { name: "Joonas", attends: "attending" },
-    { name: "Pauli", attends: "notattending" },
-  ]);
-
-  return (
+  const [attendees, changeAttendees] = useState(props.attendeesArray);
+  useEffect(() => {
+    changeAttendees(props.attendeesArray);
+  }, [props]) 
+    return (
     <div>
       <Typography className={classes.attendeeBox} variant="h2">Attendees:</Typography>
       {attendees.map((x, i) => {

@@ -81,7 +81,7 @@ const GuruPartyPage = (props) => {
 
   ])
 
-  const [attendeeInfo, changeAttendeeInfo] = useState([
+  const [attendees, changeAttendees] = useState([
     
   ])
 
@@ -110,9 +110,10 @@ const GuruPartyPage = (props) => {
       /* setAttendeeName(response.data.attendees[0].name);
       changeAttendeeInfo(response.data.attendees[0].attends);
       console.log(response.data.attendees[0].name); */
+      changeAttendees(response.data[0].attendees)  //if I change this value to anything else it will crash
       console.log(response.data[0].attendees[0].name)
       console.log(response.data);
-      console.log("GPP attendeeinfo ", attendeeInfo )
+      console.log("GPP attendeeinfo ", attendees )
       console.log("GPP attendeenames ", attendeeName )
     });
   };
@@ -152,7 +153,7 @@ const GuruPartyPage = (props) => {
           <GameInfo />
         </Grid>
         <Grid item xs={6}>
-          <Attendees />
+          <Attendees attendeesArray={attendees} />
         </Grid>
       </Grid>
       <Divider className={classes.dividermargin} />
