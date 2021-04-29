@@ -29,10 +29,15 @@ const useStyles = makeStyles((theme) => ({
   },
   searchbarelements: {
     margin: theme.spacing(2),
+    alignItems: "center",
   },
   searchbar: {
     minWidth: "85%",
     maxWidth: "85%"
+  },
+  button: {
+    margin: theme.spacing(2),
+    alignItems: "center",
   }
 }));
 
@@ -115,8 +120,8 @@ const LandingPage = () => {
 
       <div className={classes.searchbar}>
         <Paper style={{ backgroundColor: "lightgrey" }}>
-          <Grid container direction="row">
-            <Grid item className={classes.searchbarelements} xs={5}>
+          <Grid container direction="row" style={{marginBottom: "10%"}}>
+            <Grid item className={classes.searchbarelements} xs={4}>
               <TextField
                 id="seachbygame"
                 fullWidth
@@ -129,7 +134,7 @@ const LandingPage = () => {
                 }}
               />
             </Grid>
-            <Grid className={classes.searchbarelements} item xs={5}>
+            <Grid className={classes.searchbarelements} item xs={4}>
               <TextField
                 id="searchbydate"
                 fullWidth
@@ -142,8 +147,8 @@ const LandingPage = () => {
                 }}
               />
             </Grid>
-            <Grid item className={classes.searchbarelements} xs={2}>
-              <Button variant="contained" color="primary">
+            <Grid item className={classes.searchbarelements}>
+              <Button className={classes.button} variant="contained" color="primary">
                 Search
               </Button>
             </Grid>
