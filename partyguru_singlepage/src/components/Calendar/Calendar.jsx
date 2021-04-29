@@ -65,6 +65,7 @@ const Calendar = (props) => {
   const [productGurus, setProductGurus] = React.useState();
   const [currentGuru, setCurrentGuru] = React.useState();
 
+  //POISTETTAVA
   const printShit = () => {
     console.log("Product Gurus: ", productGurus);
     console.log("Product Gurus[0] timesWhenUnavailable: ", productGurus[0].timeswhenunavailable);
@@ -75,8 +76,8 @@ const Calendar = (props) => {
 
   useEffect(() => {
     console.log("propsit ", props);
-    setCurrentGuru(props.productGurus[0].name);
-    console.log("CurrentGuru set to ", props.productGurus[0].name);
+    setCurrentGuru(props.productGurus[0]);
+    console.log("CurrentGuru set to ", props.productGurus[0]);
     setProductGurus(props.productGurus);
   }, [props]);
 
@@ -233,18 +234,22 @@ const Calendar = (props) => {
   //Handle changing the duration of the party field by changing value of the duration state
   const handleDurationChange = () => {
     const picked = document.getElementById("durationSelector").value;
-    console.log("Duration changed to ", duration);
+    console.log("Duration changed to ", picked);
+    console.log("Current Guru: ", currentGuru);
     setDuration(picked);
   };
 
   //Change currently selected guru to diplay his calendar
   const handleGuruChange = () => {
     console.log("Product Gurus on ", productGurus);
-    const guru = document.getElementById("guruSelector").value;
-    console.log("guru data: ", guru);
-    console.log("Current guru changed to ", guru.name);
-    setCurrentGuru(guru.name);
-    setEvents(guru.timeswhenunavailable);
+    let index = document.getElementById("guruSelector").value;
+    console.log("Document getattu data: ", index);
+    console.log("Current guru changed to ", productGurus[index].name);
+    let guruName = productGurus[index].name;
+    setCurrentGuru(guruName);
+    console.log("Current guru set jälkeen: ", currentGuru);
+    console.log("Events set to : ", productGurus[index].timeswhenunavailable);
+    setEvents(productGurus[index].timeswhenunavailable);
   };
 
   //Check if date of party is on weekend (Saturday or Sunday)
@@ -410,23 +415,20 @@ const Calendar = (props) => {
                 <div>
                   <InputLabel id="guruSelectorLabel">Guru</InputLabel>
                   <NativeSelect
-                    style={{ width: "10vw"}}
+                    style={{ width: "auto"}}
                     inputProps={{
                       name: "guruSelector",
                       id: "guruSelector",
                       style: { fontSize: "medium", lineHeight: "1.50rem" },
                     }}
-                    value={currentGuru}
+                    value={currentGuru.name}
                     onChange={handleGuruChange}
                   >
-                    <option value={productGurus[0]}>
+                    <option value={0}>
                       {productGurus[0].name}
                     </option>
-                    <option value={productGurus[1]}>
+                    <option value={1}>
                       {productGurus[1].name}
-                    </option>
-                    <option value={productGurus[2]}>
-                      {productGurus[2].name}
                     </option>
                     {/*{productGurus && productGurus.map((guru) => {
                 <MenuItem key={guru.id} value={guru.timeswhenunavailable}>{guru.name}</MenuItem>

@@ -137,7 +137,7 @@ const Product = (props) => {
                     interactive
                     key={guru._id}
                       title={
-                        <Link to="/gurupage" style={{ fontSize: "1.5rem", color:"white" }}>
+                        <Link to={`/gurupage/${guru._id}`} style={{ fontSize: "1.5rem", color:"white" }}>
                           {guru.name}
                         </Link>
                       }

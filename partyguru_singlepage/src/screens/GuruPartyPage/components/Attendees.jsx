@@ -29,6 +29,7 @@ const Attendees = (props) => {
 
   const [attendees, changeAttendees] = useState(props.attendeesArray);
   useEffect(() => {
+    console.log("Attendeearray on ", props.attendeesArray)
     changeAttendees(props.attendeesArray);
   }, [props]) 
     return (
