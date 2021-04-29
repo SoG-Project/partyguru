@@ -45,19 +45,13 @@ const Attendees = (props) => {
               </Grid>
               <Grid item xs={2}>
                 {/*Hide overflowing text?? https://material-ui.com/system/display/#text-overflow*/}
-                {x.attends === "unknown" && (
-                <Typography className="tooltip" style={{ marginTop: "4px"}}>
-                    <HelpIcon fontSize="large" />
-                    <span className="tooltiptext">Unknown</span>
-                  </Typography>
-                )}
-                {x.attends === "attending" && (
+                {x.attends === true && (
                 <Typography className="tooltip" style={{ marginTop: "4px"}}>
                     <CheckCircleIcon fontSize="large" />
                     <span className="tooltiptext">Attending</span>
                   </Typography>
                 )}
-                {x.attends === "notattending" && (
+                {x.attends === false && (
                 <Typography className="tooltip" style={{ marginTop: "4px"}}>
                     <HighlightOffIcon fontSize="large" />
                     <span className="tooltiptext">Not Attending</span>
