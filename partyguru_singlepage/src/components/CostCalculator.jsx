@@ -28,13 +28,13 @@ const CostCalculator = (props) => {
   useEffect(() => {
     let newPrice = 0;
     for (let i = 0; i < props.participants; i++) {
-      newPrice += 10;
+      newPrice += 5;
     };
-    let durationPrice = props.duration * 10;
+    let durationPrice = props.duration * 5;
     newPrice = newPrice + durationPrice;
     if(props.isWeekend){
       newPrice = newPrice * 2;
-      console.log("Osallistujia muutettu viikonloppuna");
+      console.log("Osallistujia tai kestoa muutettu viikonloppuna");
     };
     setPrice(newPrice);
   }, [props.participants, props.duration]);

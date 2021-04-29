@@ -45,8 +45,10 @@ const PartyPackage = () => {
   const [productGurus, setProductGurus] = useState();
   //useState for number of participants, used for example to calculate cost of party
   const [participants, setParticipants] = useState(1);
-  //useState for new calendar event, this will be sent from here to backend
-  const [partyReservation, setPartyReservation] = useState();
+  //useState for events of the chosen guru + new event, these are saved to backend
+  const [guruEvents, setGuruEvents] = useState();
+  //useState for currently selected gurus ID
+  const [currentGuruID, setCurrentGuruID] = useState();
   //useState to check if date is weekend or not
   const [isWeekend, setIsWeekend] = useState(false);
   //useStates to contain customer contact information
@@ -82,6 +84,15 @@ const PartyPackage = () => {
       setProductGurus(guruArray);
     });
   }, [product]);
+
+  //Function to send current events of selected guru into backend server
+  const saveParties = () => {
+    console.log("Current guru id: ", currentGuruID);
+    axios.put(`/api/gurus/${currentGuruID}`, {timeswhenunavailable: guruEvents} ).then(response => {
+      console.log(response.data)
+  })
+
+  }
 
   return (
     <div className={classes.mainContainer}>
@@ -120,7 +131,7 @@ const PartyPackage = () => {
                   {productGurus &&
                     productGurus.map((guru) => (
                       <Tooltip
-                      key={guru._id}
+                        key={guru._id}
                         title={
                           <Typography style={{ fontSize: "1.5rem" }}>
                             {guru.name}
@@ -185,9 +196,10 @@ const PartyPackage = () => {
                  and product gurus to fetch correct gurus calendars*/}
                 <Calendar
                   setIsWeekend={setIsWeekend}
-                  setPartyReservation={setPartyReservation}
+                  setGuruEvents={setGuruEvents}
                   setDuration={setDuration}
                   productGurus={productGurus}
+                  setCurrentGuruID={setCurrentGuruID}
                 />
               </Grid>
             </Grid>
@@ -200,7 +212,10 @@ const PartyPackage = () => {
               justify="center"
             >
               <Grid item>
-                <ContactInfoFields setCustomerEmail={setCustomerEmail} setCustomerName={setCustomerName} />
+                <ContactInfoFields
+                  setCustomerEmail={setCustomerEmail}
+                  setCustomerName={setCustomerName}
+                />
               </Grid>
               <Grid item>
                 <AttendeeNumberSelector
@@ -216,7 +231,7 @@ const PartyPackage = () => {
                 />
               </Grid>
               <Grid item align="center">
-                {partyReservation && customerEmail && customerName ? (
+                {guruEvents && customerEmail && customerName ? (
                   <Button
                     variant="contained"
                     color="primary"
@@ -227,17 +242,30 @@ const PartyPackage = () => {
                   </Button>
                 ) : (
                   <div>
-                  <Typography variant="h5">You must first select a time and date for your party and fill in your contact information above.</Typography>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.bigButton}
-                    disabled
-                  >
-                    Add to cart and invite guests!
-                  </Button>
+                    <Typography variant="h5">
+                      You must first select a time and date for your party and
+                      fill in your contact information above.
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className={classes.bigButton}
+                      disabled
+                    >
+                      Add to cart and invite guests!
+                    </Button>
                   </div>
                 )}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.bigButton}
+                  onClick={() => {
+                    saveParties();
+                  }}
+                >
+                  Pistä partyt bäkkii
+                </Button>
               </Grid>
             </Grid>
           </Grid>
