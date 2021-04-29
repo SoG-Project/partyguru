@@ -184,6 +184,7 @@ const PartyPage = () => {
           <Grid item>
             <Paper style={{ width: "50%" }} elevation={4}>
             <TextField
+              disabled
               variant="outlined"
               color="primary"
               value={contactInfo.name}
@@ -198,6 +199,7 @@ const PartyPage = () => {
           <Grid item>
             <Paper style={{ width: "50%" }} elevation={4}>
             <TextField
+              disabled
               variant="outlined"
               color="primary"
               value={contactInfo.email}
@@ -212,6 +214,7 @@ const PartyPage = () => {
           <Grid item>
             <Paper style={{ width: "50%" }} elevation={4}>
             <TextField
+              disabled
               variant="outlined"
               color="primary"
               value={contactInfo.phone}
