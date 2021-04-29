@@ -1,11 +1,9 @@
-import React, { useState, useEffect, Component } from "react"
-import ReactDOM from 'react-dom';
+import React, { useState, useEffect } from "react"
 import {Link} from "react-router-dom"
 import "./InviteToParty.css"
 import axios from 'axios'
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Radio from '@material-ui/core/Radio';
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
@@ -77,11 +75,11 @@ const useStyles = makeStyles((theme) => ({
   const { currenttheme } = props
   switch(currenttheme) {
     case ' liekkiteema':
-      return <img src={"https://kjeh.fi/iKTpb"} />
+      return <img alt="Flames theme" src={"https://kjeh.fi/iKTpb"} />
     case 'avaruusteema':
-      return <img src={"https://kjeh.fi/gLuYo"} />
+      return <img alt="Space theme" src={"https://kjeh.fi/gLuYo"} />
     default:
-      return <img src={"https://i.pinimg.com/originals/59/2e/81/592e812f43f66758178347430b992436.png"} />
+      return <img alt="Default theme" src={"https://i.pinimg.com/originals/59/2e/81/592e812f43f66758178347430b992436.png"} />
   }
 }
       

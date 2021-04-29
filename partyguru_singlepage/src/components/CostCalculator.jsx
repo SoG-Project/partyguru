@@ -1,25 +1,9 @@
-import { Grid, Typography, makeStyles, TextField } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import React, { useEffect } from "react";
-
-//Create material ui styles
-const useStyles = makeStyles((theme) => ({
-  text: {
-    fontSize: "2rem",
-    margin: "3px",
-    minWidth: "80%",
-    maxWidth: "80%",
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: "60%",
-  },
-}));
 
 //Calculator to calculate cost of party based on its options
 //Props should contain information about party (like attendee number, date, etc)
 const CostCalculator = (props) => {
-  //Utilize material ui styles created in makeStyles
-  const classes = useStyles();
   //State for number of party participants
   const [price, setPrice] = React.useState(0);
 

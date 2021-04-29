@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -13,8 +12,7 @@ import {
   Input,
   NativeSelect,
   InputLabel,
-  Select,
-  MenuItem,
+  CircularProgress,
 } from "@material-ui/core";
 //FullCalendar documentation: https://fullcalendar.io/docs
 
@@ -65,13 +63,6 @@ const Calendar = (props) => {
   const [productGurus, setProductGurus] = React.useState();
   const [currentGuru, setCurrentGuru] = React.useState();
 
-  //POISTETTAVA
-  const printShit = () => {
-    console.log("Product Gurus: ", productGurus);
-    console.log("Product Gurus[0] timesWhenUnavailable: ", productGurus[0].timeswhenunavailable);
-    setEvents(productGurus[0].timeswhenunavailable);
-  };
-
   //useEffect joka fireää kun props.productGuru muuttuu ja laitetaan sillä nuo vitun statet oikein
 
   useEffect(() => {
@@ -79,18 +70,15 @@ const Calendar = (props) => {
     setCurrentGuru(props.productGurus[0]);
     console.log("CurrentGuru set to ", props.productGurus[0]);
     setProductGurus(props.productGurus);
+    setEvents(props.productGurus[0].timeswhenunavailable);
   }, [props]);
 
   //to Handle pushing the add event button at the bottom of the calendar
   //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
   const handleEventAddButton = (event) => {
-    {
-      /*Prevent default form submit*/
-    }
+    /*Prevent default form submit*/
     event.preventDefault();
-    {
-      /*Build correctly formed dates out of information the user has selected*/
-    }
+    /*Build correctly formed dates out of information the user has selected*/
     const dateFormatting = pickedDate + "T" + startTime;
     const start = new Date(dateFormatting);
     const end = new Date(dateFormatting);
@@ -105,9 +93,7 @@ const Calendar = (props) => {
       " Duration: ",
       duration
     );
-    {
-      /*If no data is empty, proceed with creating the event*/
-    }
+    /*If no data is empty, proceed with creating the event*/
     if (start < end && start != null && duration != null && title != null) {
       let newEvent = {
         id: createEventId(),
@@ -115,10 +101,8 @@ const Calendar = (props) => {
         start: start,
         end: end,
       };
-      {
         /*Delete previous event from calendar if one exists. 
       This makes it so the customer only has one event of their own in the calendar at a time */
-      }
       let tempEvents = events;
       for (let i = 0; i < tempEvents.length; i++) {
         if (tempEvents[i].id === prevEvent.id) {
@@ -128,19 +112,13 @@ const Calendar = (props) => {
           break;
         }
       }
-      {
         /*Set customers newly created event as prevEvent in case they want to change their timeslot so we can delete the old one */
-      }
       setPrevEvent(newEvent);
-      {
         /*Check that this new reservation is not overlapping with other events in the calendar */
-      }
       if (!isOverlapping(newEvent)) {
-        {
           /*If not overlapping, add to events useState (later backend)
         Check if it is weekend for costcalculator purposes
       set this as a new partyReservation in PartyPackage.js and set the duration in PartyPackage.js. These are used by other props. */
-        }
         setEvents((events) => [...events, newEvent]);
         let weekendCheck = new Date(newEvent.start);
         checkIsWeekend(weekendCheck);
@@ -240,15 +218,11 @@ const Calendar = (props) => {
   };
 
   //Change currently selected guru to diplay his calendar
+  //index is the value selected in the guru dropdown
   const handleGuruChange = () => {
-    console.log("Product Gurus on ", productGurus);
     let index = document.getElementById("guruSelector").value;
-    console.log("Document getattu data: ", index);
-    console.log("Current guru changed to ", productGurus[index].name);
     let guruName = productGurus[index].name;
     setCurrentGuru(guruName);
-    console.log("Current guru set jälkeen: ", currentGuru);
-    console.log("Events set to : ", productGurus[index].timeswhenunavailable);
     setEvents(productGurus[index].timeswhenunavailable);
   };
 
@@ -410,43 +384,42 @@ const Calendar = (props) => {
             >
               Add event + debug
             </Button>
-            <Grid container item xs={6}>
+            <Grid item xs={6}>
+              <Typography gutterBottom style={{fontSize:"1.5rem"}}>Didn't find a suitable timeslot? Below you can change the guru hosting your party here and see if someone else is available!</Typography>
+            </Grid>
+            <Grid item xs={6} style={{marginBottom:"1%"}}>
               {productGurus ? (
                 <div>
-                  <InputLabel id="guruSelectorLabel">Guru</InputLabel>
+                  <InputLabel id="guruSelectorLabel" style={{fontSize:"small"}}>Selected Guru</InputLabel>
                   <NativeSelect
-                    style={{ width: "auto"}}
+                    style={{ width: "auto" }}
                     inputProps={{
                       name: "guruSelector",
                       id: "guruSelector",
-                      style: { fontSize: "medium", lineHeight: "1.50rem" },
+                      style: { fontSize: "medium", lineHeight: "1.6rem" },
                     }}
                     value={currentGuru.name}
                     onChange={handleGuruChange}
                   >
-                    <option value={0}>
-                      {productGurus[0].name}
-                    </option>
-                    <option value={1}>
-                      {productGurus[1].name}
-                    </option>
-                    {/*{productGurus && productGurus.map((guru) => {
-                <MenuItem key={guru.id} value={guru.timeswhenunavailable}>{guru.name}</MenuItem>
-              })}*/}
+                    {productGurus.map((guru, index) => (
+                      <option key={guru._id} value={index}>
+                        {guru.name}
+                      </option>
+                    ))}
                   </NativeSelect>
                 </div>
               ) : (
-                <div>Huutista</div>
+                <div>
+                  {/*This area is rendered while the package has not been fetched, usually for a very brief amount of time*/}
+                  <Typography variant="h4">Component loading...</Typography>
+                  <CircularProgress
+                    color="secondary"
+                    disableShrink
+                    size="15vh"
+                    style={{ margin: "3%" }}
+                  />
+                </div>
               )}
-
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={printShit}
-                className={classes.bigButton}
-              >
-                Print shit
-              </Button>
             </Grid>
           </Grid>
         </Grid>

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import "./GuruPage.css";
 import "./components/GuruImage";
 import GuruImage from "./components/GuruImage";
 import GuruInfo from "./components/GuruInfo";
 import GuruPartyPackages from "./components/GuruPartyPackages";
 import GuruVideo from "./components/GuruVideo";
-import { ToggleButton } from "@material-ui/lab";
 import GuruAvailability from "./components/GuruAvailability";
 import UpcomingParties from "./components/UpcomingParties";
 import GuruSmallCalendar from "./components/GuruSmallCalendar";

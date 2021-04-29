@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
-import FullCalendar, { formatDate } from "@fullcalendar/react";
+import React from "react";
+import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import '../GuruCalendar.css';
-import {Dialog, DialogContent} from "@material-ui/core";
+import {Dialog} from "@material-ui/core";
 
 
 
@@ -13,6 +13,7 @@ const GuruLargeCalendar = (props) => {
 
     return (
         <Dialog maxWidth='md' fullWidth={true} open={props.open} onClose={props.handleClose}>
+            <div style={{padding:"1%"}}>
             <FullCalendar  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin] }
                            height="800px"
                            initialView="timeGridWeek"
@@ -29,6 +30,7 @@ const GuruLargeCalendar = (props) => {
                            nowIndicator
                            headerToolbar={{left: 'title', center:'prev,next', right: 'submitButton, closeButton' }}
                            titleFormat={{year: 'numeric', month:'2-digit', day: '2-digit'}}
+                           
 
                            customButtons={{
                                submitButton: {
@@ -43,6 +45,7 @@ const GuruLargeCalendar = (props) => {
 
 
             />
+            </div>
     </Dialog>
     )
 
