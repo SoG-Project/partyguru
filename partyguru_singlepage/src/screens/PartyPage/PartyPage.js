@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   guruBox: {
-    width: "50%"
+    width: "50%",
   },
 }));
 
@@ -71,7 +71,7 @@ const PartyPage = () => {
   const [attendeeInfo, changeAttendeeInfo] = useState([]);
   const [guruid, changeGuruID] = useState();
   const [guru, changeGuru] = useState({});
-  const [contactInfo, setContactInfo] = useState()
+  const [contactInfo, setContactInfo] = useState();
 
   /*({name: "",
       nick: "", email: "", partyreservations: [], video: "",
@@ -93,8 +93,12 @@ const PartyPage = () => {
     axios.get(`/api/parties/${partyID}`).then((response) => {
       setParty(response.data);
       changeCheckBoxInfo(response.data.likes);
-      setContactInfo(response.data.email, response.data.phone, response.data.ownername)
-      
+      setContactInfo({
+        email: response.data.email,
+        phone: response.data.phone,
+        ownername: response.data.ownername
+      });
+
       console.log("GPP checkboxinfo on ", checkBoxInfo);
       console.log("Guruid is ", response.data.guruid);
       changeGuruID(response.data.guruid);
@@ -110,8 +114,8 @@ const PartyPage = () => {
   };
 
   useEffect(() => {
-    console.log("PP contactInfo is ", contactInfo)
-  }, [contactInfo])
+    console.log("PP contactInfo is ", contactInfo);
+  }, [contactInfo]);
 
   useEffect(() => {
     console.log("AttendeeInfo is: ", attendeeInfo);
@@ -147,26 +151,31 @@ const PartyPage = () => {
           <Attendees attendeesArray={attendeeInfo} />
         </Grid>
       </Grid>
-      <Grid container direction="row" >
+      <Grid container direction="row">
         <Grid item xs={6}>
           <CheckBoxes checkboxarray={checkBoxInfo} />
         </Grid>
         <Grid item xs={6}>
-          <Grid container direction="column" justify="center" alignItems="center">
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
             <Paper className={classes.gurubox}>
-              <Grid item >
+              <Grid item>
                 <Typography className={classes.gurufont} variant="h6">
                   {guru.name}
                 </Typography>
               </Grid>
-              <Grid item >
+              <Grid item>
                 <Avatar
                   alt={guru.name}
                   src={guru.image}
                   className={classes.guruAvatars}
                 />
               </Grid>
-              <Grid item >
+              <Grid item>
                 <Typography className={classes.gurufont} variant="h6">
                   {guru.nick}
                 </Typography>
