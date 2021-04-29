@@ -66,6 +66,9 @@ const GuruPartyPage = (props) => {
   const attendeesID = "605f8bcd8dfd970aa770584b";
   const classes = useStyles();
   const [party, setParty] = useState({});
+  const [guruid, changeGuruID] = useState();
+  const [guru, changeGuru] = useState({});
+  const [contactInfo, setContactInfo] = useState();
   //Partyheroinfo contains a string with the party hero description (e.g., I want to play Minecraft
   //and blow up castles). This way the client can say they want to do x things and the guru can see
   //these requests.
@@ -116,6 +119,17 @@ const GuruPartyPage = (props) => {
       console.log("GPP attendeeinfo ", attendees )
       console.log("GPP attendeenames ", attendeeName )
     });
+    axios.get(`/api/parties/${partyID}`).then((response) => {
+      setParty(response.data);
+      changeCheckBoxInfo(response.data.likes);
+      setContactInfo({
+        email: response.data.email,
+        phone: response.data.phone,
+        ownername: response.data.ownername
+      });
+      console.log("Guruid is ", response.data.guruid);
+      changeGuruID(response.data.guruid);
+    })
   };
 
  
@@ -145,9 +159,61 @@ const GuruPartyPage = (props) => {
           </Typography>
         </Grid>
       </div>
-      
-      
-
+      <div className ={classes.mainContainer}>
+      {contactInfo && (
+      <Grid container direction="column" spacing={1}>
+          <Grid item>
+            <Typography variant="h4" style={{ marginTop: "2rem" }} >
+              Client Information
+            </Typography>
+          </Grid>
+          {contactInfo.name && (
+          <Grid item>
+            <Paper style={{ width: "50%" }} elevation={4}>
+            <TextField
+              disabled
+              variant="outlined"
+              color="primary"
+              value={contactInfo.name}
+              className={classes.contactFields}
+              inputProps={{
+                style: { fontSize: "1.5rem", lineHeight: "150%" },
+              }}
+            />
+            </Paper>
+          </Grid>)}
+          {contactInfo.email && (
+          <Grid item>
+            <Paper style={{ width: "50%" }} elevation={4}>
+            <TextField
+              disabled
+              variant="outlined"
+              color="primary"
+              value={contactInfo.email}
+              className={classes.contactFields}
+              inputProps={{
+                style: { fontSize: "1.5rem", lineHeight: "150%" },
+              }}
+            />
+            </Paper>
+          </Grid>)}
+          {contactInfo.phone && (
+          <Grid item>
+            <Paper style={{ width: "50%" }} elevation={4}>
+            <TextField
+              disabled
+              variant="outlined"
+              color="primary"
+              value={contactInfo.phone}
+              className={classes.contactFields}
+              inputProps={{
+                style: { fontSize: "1.5rem", lineHeight: "150%" },
+              }}
+            />
+            </Paper>
+          </Grid>)}
+      </Grid>)}
+</div>
       <Grid container>
         <Grid item xs={6}>
           <GameInfo />
@@ -203,11 +269,13 @@ const GuruPartyPage = (props) => {
         <Grid item xs={5}>
           <CheckBoxes checkboxarray={checkBoxInfo}/>
         </Grid>
+        
       </Grid>
       
       {/*<div>
         <PartyHeroInfo description={partyheroinfo} />
       </div>*/}
+      
     </div>
   );
 };
