@@ -148,7 +148,7 @@ const LandingPage = () => {
               />
             </Grid>
             <Grid item className={classes.searchbarelements}>
-              <Button className={classes.button} variant="contained" color="primary">
+              <Button className={classes.button} variant="outlined" color="primary">
                 Search
               </Button>
             </Grid>
