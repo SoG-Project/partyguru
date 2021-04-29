@@ -71,7 +71,8 @@ const Calendar = (props) => {
     console.log("CurrentGuru set to ", props.productGurus[0]);
     setProductGurus(props.productGurus);
     setEvents(props.productGurus[0].timeswhenunavailable);
-  }, [props]);
+    props.setCurrentGuruID(props.productGurus[0]._id);
+  }, []);
 
   //to Handle pushing the add event button at the bottom of the calendar
   //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
@@ -122,14 +123,16 @@ const Calendar = (props) => {
         setEvents((events) => [...events, newEvent]);
         let weekendCheck = new Date(newEvent.start);
         checkIsWeekend(weekendCheck);
-        props.setPartyReservation(newEvent);
+        props.setGuruEvents(events);
         props.setDuration(duration);
+        
       } else {
         alert("New event is overlapping with another and cannot be added!");
       }
     } else {
       alert("All required fields are not filled!");
     }
+    console.log("PartyPackagelle lähetetty ", events);
   };
 
   //Check if new event overlaps with any of the events already in the calendar
@@ -213,7 +216,6 @@ const Calendar = (props) => {
   const handleDurationChange = () => {
     const picked = document.getElementById("durationSelector").value;
     console.log("Duration changed to ", picked);
-    console.log("Current Guru: ", currentGuru);
     setDuration(picked);
   };
 
@@ -224,6 +226,7 @@ const Calendar = (props) => {
     let guruName = productGurus[index].name;
     setCurrentGuru(guruName);
     setEvents(productGurus[index].timeswhenunavailable);
+    props.setCurrentGuruID(productGurus[index]._id);
   };
 
   //Check if date of party is on weekend (Saturday or Sunday)

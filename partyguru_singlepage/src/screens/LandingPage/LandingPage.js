@@ -33,11 +33,13 @@ const useStyles = makeStyles((theme) => ({
   },
   searchbar: {
     minWidth: "85%",
-    maxWidth: "85%"
+    maxWidth: "85%",
+    justifyContent: "center"
   },
   button: {
     margin: theme.spacing(2),
     alignItems: "center",
+    margin: "0"
   }
 }));
 
@@ -127,7 +129,7 @@ const LandingPage = () => {
                 fullWidth
                 rows={1}
                 rowsMax={1}
-                label={<Typography>Search by game</Typography>}
+                label={<Typography style={{fontSize: "1.7rem"}}>Search by game</Typography>}
                 inputProps={{
                   maxLength: 20,
                   style: { fontSize: "2rem", lineHeight: "150%" },
@@ -140,7 +142,7 @@ const LandingPage = () => {
                 fullWidth
                 rows={1}
                 rowsMax={1}
-                label={<Typography>Search by game</Typography>}
+                label={<Typography style={{fontSize: "1.7rem"}}>Search by game</Typography>}
                 inputProps={{
                   maxLength: 20,
                   style: { fontSize: "2rem", lineHeight: "150%" },
@@ -148,7 +150,7 @@ const LandingPage = () => {
               />
             </Grid>
             <Grid item className={classes.searchbarelements}>
-              <Button className={classes.button} variant="outlined" color="primary">
+              <Button className={classes.button} variant="contained" color="primary">
                 Search
               </Button>
             </Grid>
