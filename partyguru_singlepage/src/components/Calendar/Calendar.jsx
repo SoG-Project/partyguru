@@ -96,11 +96,13 @@ const Calendar = (props) => {
     );
     /*If no data is empty, proceed with creating the event*/
     if (start < end && start != null && duration != null && title != null) {
-      let newEvent = {
+      const newEvent = {
         id: createEventId(),
         title,
         start: start,
         end: end,
+        color: "blue",
+        party: true
       };
         /*Delete previous event from calendar if one exists. 
       This makes it so the customer only has one event of their own in the calendar at a time */
@@ -111,8 +113,8 @@ const Calendar = (props) => {
           tempEvents.splice(i, 1);
           setEvents(tempEvents);
           break;
-        }
-      }
+        };
+      };
         /*Set customers newly created event as prevEvent in case they want to change their timeslot so we can delete the old one */
       setPrevEvent(newEvent);
         /*Check that this new reservation is not overlapping with other events in the calendar */
@@ -120,7 +122,11 @@ const Calendar = (props) => {
           /*If not overlapping, add to events useState (later backend)
         Check if it is weekend for costcalculator purposes
       set this as a new partyReservation in PartyPackage.js and set the duration in PartyPackage.js. These are used by other props. */
-        setEvents((events) => [...events, newEvent]);
+      tempEvents.concat(newEvent);
+      console.log("TempEvents After Concat: ", tempEvents);
+      setEvents(tempEvents);
+        console.log("newEvent: ", newEvent);
+        console.log("Eventsit lisäämisen jälkeen: ", events);
         let weekendCheck = new Date(newEvent.start);
         checkIsWeekend(weekendCheck);
         props.setGuruEvents(events);
@@ -143,24 +149,19 @@ const Calendar = (props) => {
 
     for (let i in eventArray) {
       //Overlap = true if overlapping event starts during existing event (ex: event from 10-12, overlap starts at 11)
-      console.log("Checking if1");
       if (
         overlapEvent.start > new Date(eventArray[i].start) &&
         overlapEvent.start < new Date(eventArray[i].end)
       ) {
         return true;
-      }
-
-      console.log("Checking if2");
+      };
       //Overlap = true if overlapping event ends during existing event (ex: event from 10-12, overlap ends at 11)
       if (
         overlapEvent.end > new Date(eventArray[i].start) &&
         overlapEvent.end < new Date(eventArray[i].end)
       ) {
         return true;
-      }
-
-      console.log("Checking if3");
+      };
       //Sama alku ja loppu OK, mutta pitää tarkistaa jos alut yhtäsuuret mutta eri loppu
       //Overlap = true if overlapping event happens during another event (ex: event from 9-12, overlapping from 10-13)
       if (
@@ -168,27 +169,22 @@ const Calendar = (props) => {
         overlapEvent.end > new Date(eventArray[i].end)
       ) {
         return true;
-      }
-
-      console.log("Checking if4");
+      };
       //Overlap = true if overlapping event starts at exactly the same time as another event
       if (
         overlapEvent.start.getTime() === new Date(eventArray[i].start).getTime()
       ) {
         return true;
-      }
-
-      console.log("Checking if5");
+      };
       //Overlap true if overlapping event stars before existing and ends during or at same time
       if (
         overlapEvent.start < new Date(eventArray[i].start) &&
         overlapEvent.end >= new Date(eventArray[i].end)
       ) {
         return true;
-      }
-    }
+      };
+    };
     //If nothing above true, return false. Events do not overlap.
-    console.log("Returning false");
     return false;
   };
 
@@ -234,12 +230,9 @@ const Calendar = (props) => {
   //isWeekend is used to calculate the total cost of the party in CostCalculator
   const checkIsWeekend = (partyDate) => {
     let partyDay = partyDate.getDay();
-    console.log("Checking", partyDay);
     if (partyDay === 6 || partyDay === 0) {
-      console.log(partyDay, "is weekend");
       props.setIsWeekend(true);
     } else {
-      console.log(partyDay, "is not weekend");
       props.setIsWeekend(false);
       return;
     }

@@ -140,7 +140,6 @@ const GuruSmallCalendar = (props) => {
 
         <div className="calendar">
         <FullCalendar  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin] }
-                   width="100%"
                    height="400px"
                    initialView="timeGridWeek"
                    locale="fi"

@@ -88,11 +88,20 @@ const PartyPackage = () => {
   //Function to send current events of selected guru into backend server
   const saveParties = () => {
     console.log("Current guru id: ", currentGuruID);
-    axios.put(`/api/gurus/${currentGuruID}`, {timeswhenunavailable: guruEvents} ).then(response => {
-      console.log(response.data)
-  })
-
-  }
+    console.log("Lähetetään bäkkiin: ", guruEvents);
+    axios({
+      method:'put',
+      url:`/api/gurus/${currentGuruID}`,
+      data:{
+        timeswhenunavailable: guruEvents
+      }
+    }).then(function(response) {
+      console.log(response);
+    });
+    //axios.put(`/api/gurus/${currentGuruID}`, { timeswhenunavailable: guruEvents }).then((response) => {
+      //  console.log(response.data);
+      //});
+  };
 
   return (
     <div className={classes.mainContainer}>
