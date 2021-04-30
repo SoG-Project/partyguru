@@ -81,6 +81,7 @@ const Calendar = (props) => {
     event.preventDefault();
     /*Build correctly formed dates out of information the user has selected*/
     const dateFormatting = pickedDate + "T" + startTime;
+    let startText = dateFormatting;
     const start = new Date(dateFormatting);
     const end = new Date(dateFormatting);
     end.setHours(Number(end.getHours()) + Number(duration));
@@ -96,13 +97,11 @@ const Calendar = (props) => {
     );
     /*If no data is empty, proceed with creating the event*/
     if (start < end && start != null && duration != null && title != null) {
-      const newEvent = {
+      let newEvent = {
         id: createEventId(),
         title,
         start: start,
         end: end,
-        color: "blue",
-        party: true
       };
         /*Delete previous event from calendar if one exists. 
       This makes it so the customer only has one event of their own in the calendar at a time */
@@ -122,9 +121,17 @@ const Calendar = (props) => {
           /*If not overlapping, add to events useState (later backend)
         Check if it is weekend for costcalculator purposes
       set this as a new partyReservation in PartyPackage.js and set the duration in PartyPackage.js. These are used by other props. */
-      tempEvents.concat(newEvent);
-      console.log("TempEvents After Concat: ", tempEvents);
-      setEvents(tempEvents);
+      let startString = newEvent.start.toISOString();
+      let endString = newEvent.end.toISOString();
+      console.log("Start String: ", startString);
+      console.log("End String: ", endString);
+      newEvent.start = startString;
+      newEvent.end = endString;
+
+      let allEvents = tempEvents.concat(newEvent);
+      console.log(allEvents);
+      
+      setEvents(allEvents);
         console.log("newEvent: ", newEvent);
         console.log("Eventsit lisäämisen jälkeen: ", events);
         let weekendCheck = new Date(newEvent.start);
