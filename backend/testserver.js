@@ -160,40 +160,41 @@ app.get('/api/parties/:id', (req, res) => {
 app.post('/api/parties', (req, res) => {
 
 try{
+
     if(req.body.packageid===undefined){
       throw('Error: no packageid');
  }
-  if(req.body.guruid===undefined){
+    if(req.body.guruid===undefined){
    throw('Error: no guruid');
  }
-  if(req.body.userid===undefined){
+    if(req.body.userid===undefined){
         throw('Error: no userid');
   }
-  if(req.body.ownername===undefined){
+    if(req.body.ownername===undefined){
         throw('Error: no ownername');
     }
-  if(req.body.datetime===undefined){
+    if(req.body.datetime===undefined){
     throw('Error: no datetime');
   }
-  if(req.body.duration===undefined){
+    if(req.body.duration===undefined){
     throw('Error: no duration');
  }
-  if(req.body.email===undefined){
+    if(req.body.email===undefined){
     throw('Error: no email');
  }
-  if(req.body.phone===undefined){
+    if(req.body.phone===undefined){
     throw('Error: no phone');
  }
-  if(req.body.num_attendees===undefined){
+    if(req.body.num_attendees===undefined){
     throw('Error: no attendees');
  }
-  if(req.body.schedule===undefined){
+    if(req.body.schedule===undefined){
     throw('Error: no schedule');
  }
-  if(req.body.likes===undefined){
+    if(req.body.likes===undefined){
     throw('Error: no likes');
  }
-  if(req.body.description===undefined){
+    if(req.body.description===undefined){
     throw('Error: no description');
  }}
  catch(error){

@@ -15,6 +15,7 @@ import CheckBoxes from "./components/CheckBoxes"
 import axios from "axios";
 import Linkki from "./components/UniqueLink"
 import UniqueLink from "./components/UniqueLink";
+import {useAuth0} from "@auth0/auth0-react";
 
 const useStyles = makeStyles(() => ({
   margin: {
@@ -47,43 +48,25 @@ const useStyles = makeStyles(() => ({
 
 const CreatePartyPage = () => {
 
+  const {user} = useAuth0()
   const [thisParty, setThisParty] = useState([])
   const [partyPackageName, setPartyPackageName] = useState("")
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
   //and email.
 
-  /* const saveAttendees = ()=>{
-    //Construct array out of the names and emails
-    var attendeeArray=[];
-    emailfields.map(attendee =>{
-      var singleAttendee={
-        name:attendee.clientName,
-        email:attendee.clientEmail
-      };
-      attendeeArray.push(singleAttendee);
-    })
-    var sendableJSON={
-      partyid: partyID,
-      attendees: attendeeArray
-    };
-    axios.post(`http://localhost:5000/api/attendees`,sendableJSON).then(response => {
-      console.log(response.data);
-    })
-  }
-*/
+
   useEffect(() => {
 
-    // PartyID is for the "Markus Nutivaara" test party, meant to represent a fresh party created on the previous page(s)
-    const partyID = "60895e79090792d987ddb8cd"
-    axios.get(`/api/parties/${partyID}`).then((response) => {
-      setThisParty(response.data)
+    // Finding the party with userid that matches the user's id
+    user && axios.get(`/api/parties/`).then((response) => {
+      setThisParty(response.data.find(party => party.userid === user.sub))
       // Also getting the party package name from its ID
-      axios.get(`/api/packages/${response.data.packageid}`).then(response => {
+      axios.get(`/api/packages/${response.data.find(party => party.userid === user.sub).packageid}`).then(response => {
         setPartyPackageName(response.data.name)
       })
     })
-  }, [])
+  }, [user])
 
 
   const classes = useStyles();

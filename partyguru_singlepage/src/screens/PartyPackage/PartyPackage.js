@@ -55,11 +55,12 @@ const PartyPackage = () => {
   //useStates to contain customer contact information
   const [customerName, setCustomerName] = useState();
   const [customerEmail, setCustomerEmail] = useState();
+  const {user} = useAuth0()
+  const [partyStartTime, setPartyStartTime] = useState()
 
   //useState for duration, passed to CostCalculator to calculate costs
   const [duration, setDuration] = useState(1);
   //Extract functions from Auth0 to see if user is logged in.
-  const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
 
   //get ID of product from address of site
@@ -101,6 +102,15 @@ const PartyPackage = () => {
       history.push("/createpartypage");
     });
   };
+
+  const createNewParty = () => {
+    console.log(partyStartTime)
+    axios.post(`/api/parties/`,{packageid:product._id, guruid:currentGuruID, userid: user.sub, ownername: customerName, datetime: partyStartTime, duration:duration, email:customerEmail, phone: "",
+      num_attendees: participants, schedule:[], likes:[], description:"" }).then(response => {
+        console.log(response.data)
+        history.push("/createpartypage")
+    })
+  }
 
   return (
     <div className={classes.mainContainer}>
@@ -208,6 +218,7 @@ const PartyPackage = () => {
                   setDuration={setDuration}
                   productGurus={productGurus}
                   setCurrentGuruID={setCurrentGuruID}
+                  setPartyStartTime = {setPartyStartTime}
                 />
               </Grid>
             </Grid>
@@ -244,9 +255,7 @@ const PartyPackage = () => {
                     variant="contained"
                     color="primary"
                     className={classes.bigButton}
-                    onClick={() => {
-                      saveParties();
-                    }}
+                    onClick={createNewParty}
                   >
                     Lock in party and invite guests!
                   </Button>

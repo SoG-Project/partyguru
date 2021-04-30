@@ -135,6 +135,7 @@ const Calendar = (props) => {
         checkIsWeekend(weekendCheck);
         props.setGuruEvents(events);
         props.setDuration(duration);
+        props.setPartyStartTime(newEvent.start)
       } else {
         alert("New event is overlapping with another and cannot be added!");
       }
