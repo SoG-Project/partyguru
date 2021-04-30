@@ -24,6 +24,14 @@ const GameInfo = (props) => {
   const [time, setTime] = useState("");
   const [partyDescription, setPartyDescription] = useState("");
 
+  // This little fellow adds a zero to the displayed hours/minutes when required, because JavaScript dates suck.
+  const addZero = (i) => {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+
   useEffect(() => {
     const newDate = new Date(props.date);
 
@@ -35,7 +43,7 @@ const GameInfo = (props) => {
           "." +
           newDate.getFullYear()
       );
-    props.date && setTime(newDate.getHours() + ":" + newDate.getMinutes());
+    props.date && setTime(addZero(newDate.getHours()) + ":" + addZero(newDate.getMinutes()));
   }, [props]);
 
   const classes = useStyles();

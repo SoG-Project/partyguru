@@ -50,7 +50,7 @@ const CreatePartyPage = () => {
 
   const {user} = useAuth0()
   const [thisParty, setThisParty] = useState([])
-  const [partyPackageName, setPartyPackageName] = useState("")
+  const [partyPackage, setPartyPackage] = useState()
 
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
@@ -64,7 +64,7 @@ const CreatePartyPage = () => {
       setThisParty(response.data.find(party => party.userid === user.sub))
       // Also getting the party package name from its ID
       axios.get(`/api/packages/${response.data.find(party => party.userid === user.sub).packageid}`).then(response => {
-        setPartyPackageName(response.data.name)
+        setPartyPackage(response.data)
       })
     })
   }, [user])
@@ -94,7 +94,7 @@ const CreatePartyPage = () => {
       <Grid container direction="row">
         <Grid item xs={5}>
           <GameInfo
-            gameName={partyPackageName}
+            gameName={partyPackage && partyPackage.name}
             date={thisParty.datetime}
             duration={thisParty.duration}
             attendees={thisParty.num_attendees}
@@ -114,59 +114,16 @@ const CreatePartyPage = () => {
           direction="row"
           style={{ backgroundColor: "orange", marginBottom: "1rem" }}
         >
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>Minecraft</Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>
-              Birthday Cheer
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>
-              Minecraft Mod 1
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>Eat Cake</Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>
-              Minecraft Mod 2
-            </Typography>
-          </Grid>
+          {partyPackage && partyPackage.scheduleitems.map(item =>
+                <Typography key={item} style={{ fontSize: "1.5rem" }}>
+                  {item}
+                </Typography>
+                )}
+
         </Grid>
 
-        {/*Available activities for this party pack*/}
-        <Typography variant="h5">Available activities</Typography>
-        <Grid
-          container
-          justify="space-around"
-          direction="row"
-          style={{ backgroundColor: "orange" }}
-        >
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>Minecraft</Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>
-              Birthday Cheer
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>
-              Minecraft mod 1
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>Eat cake</Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>
-              Minecraft Mod 2
-            </Typography>
-          </Grid>
-        </Grid>
+
+
 
         <Typography
           gutterBottom
