@@ -145,7 +145,7 @@ const LandingPage = () => {
                 fullWidth
                 rows={1}
                 rowsMax={1}
-                label={<Typography style={{fontSize: "1.7rem"}}>Search by game</Typography>}
+                label={<Typography style={{fontSize: "1.7rem"}}>Search by date</Typography>}
                 inputProps={{
                   maxLength: 20,
                   style: { fontSize: "2rem", lineHeight: "150%" },
