@@ -74,6 +74,12 @@ const Calendar = (props) => {
     props.setCurrentGuruID(props.productGurus[0]._id);
   }, []);
 
+  useEffect(() =>{
+    console.log("Eventsiä muutettu: ", events);
+    props.setGuruEvents(events);
+    console.log("Guru eventsit muutettu");
+  }, [events]);
+
   //to Handle pushing the add event button at the bottom of the calendar
   //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
   const handleEventAddButton = (event) => {
@@ -121,19 +127,19 @@ const Calendar = (props) => {
           /*If not overlapping, add to events useState (later backend)
         Check if it is weekend for costcalculator purposes
       set this as a new partyReservation in PartyPackage.js and set the duration in PartyPackage.js. These are used by other props. */
-      let startString = newEvent.start.toISOString();
-      let endString = newEvent.end.toISOString();
-      console.log("Start String: ", startString);
-      console.log("End String: ", endString);
-      newEvent.start = startString;
-      newEvent.end = endString;
+      
+      
+     //FORMAT FUCKERY 
+      //let startString = newEvent.start.toISOString();
+      //let endString = newEvent.end.toISOString();
+      //console.log("Start String: ", startString);
+      //console.log("End String: ", endString);
+      //newEvent.start = startString;
+      //newEvent.end = endString;
 
       let allEvents = tempEvents.concat(newEvent);
-      console.log(allEvents);
       
       setEvents(allEvents);
-        console.log("newEvent: ", newEvent);
-        console.log("Eventsit lisäämisen jälkeen: ", events);
         let weekendCheck = new Date(newEvent.start);
         checkIsWeekend(weekendCheck);
         props.setGuruEvents(events);
@@ -145,7 +151,6 @@ const Calendar = (props) => {
     } else {
       alert("All required fields are not filled!");
     }
-    console.log("PartyPackagelle lähetetty ", events);
   };
 
   //Check if new event overlaps with any of the events already in the calendar
