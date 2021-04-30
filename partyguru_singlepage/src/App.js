@@ -45,16 +45,16 @@ const App = () => {
         </Switch>
         <footer>
           <p className="footer-text">
-          <Link href="/gurupartypage">Gurupartypage </Link>
-          <Link href="/createpartypage">Createpartypage </Link>
-          <Link href="/cart">Cart </Link>
-          <Link href="/gurupage">gurupage </Link>
-          <Link href="/product/:id">Product id 1 </Link>
-          <Link href="/login">Login </Link>
-          <Link href="/invitetoparty">Invitetoparty </Link>
-          <Link href="/partypage">Partypage </Link>
-          <Link href="/RSVP">RSVP</Link>
-          <Link href="/profilepage">Profile Page</Link>
+          <Link underline="none" href="/gurupartypage">Gurupartypage </Link>
+          <Link underline="none" href="/createpartypage">Createpartypage </Link>
+          <Link underline="none" href="/cart">Cart </Link>
+          <Link underline="none" href="/gurupage">gurupage </Link>
+          <Link underline="none" href="/product/:id">Product id 1 </Link>
+          <Link underline="none" href="/login">Login </Link>
+          <Link underline="none" href="/invitetoparty">Invitetoparty </Link>
+          <Link underline="none" href="/partypage">Partypage </Link>
+          <Link underline="none" href="/RSVP">RSVP</Link>
+          <Link underline="none" href="/profilepage">Profile Page</Link>
           </p>
         </footer>
       </div>
