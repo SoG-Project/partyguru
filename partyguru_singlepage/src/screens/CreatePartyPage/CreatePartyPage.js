@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./CreatePartyPage.css";
 import {
   makeStyles,
@@ -11,9 +11,9 @@ import Grid from "@material-ui/core/Grid";
 import ContactInfoFieldsPartyPage from "./components/ContactInfoFieldsPartyPage";
 import Attendees from "./components/Attendees";
 import GameInfo from "./components/GameInfo";
-import CheckBoxes from "./components/CheckBoxes"
+import CheckBoxes from "./components/CheckBoxes";
 import axios from "axios";
-import Linkki from "./components/UniqueLink"
+import Linkki from "./components/UniqueLink";
 import UniqueLink from "./components/UniqueLink";
 
 const useStyles = makeStyles(() => ({
@@ -46,9 +46,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const CreatePartyPage = () => {
-
-  const [thisParty, setThisParty] = useState([])
-  const [partyPackageName, setPartyPackageName] = useState("")
+  const [thisParty, setThisParty] = useState([]);
+  const [partyPackageName, setPartyPackageName] = useState("");
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
   //and email.
@@ -73,18 +72,16 @@ const CreatePartyPage = () => {
   }
 */
   useEffect(() => {
-
     // PartyID is for the "Markus Nutivaara" test party, meant to represent a fresh party created on the previous page(s)
-    const partyID = "60895e79090792d987ddb8cd"
+    const partyID = "60895e79090792d987ddb8cd";
     axios.get(`/api/parties/${partyID}`).then((response) => {
-      setThisParty(response.data)
+      setThisParty(response.data);
       // Also getting the party package name from its ID
-      axios.get(`/api/packages/${response.data.packageid}`).then(response => {
-        setPartyPackageName(response.data.name)
-      })
-    })
-  }, [])
-
+      axios.get(`/api/packages/${response.data.packageid}`).then((response) => {
+        setPartyPackageName(response.data.name);
+      });
+    });
+  }, []);
 
   const classes = useStyles();
   return (
@@ -108,11 +105,14 @@ const CreatePartyPage = () => {
 
       <Grid container direction="row">
         <Grid item xs={5}>
-          <GameInfo gameName={partyPackageName} date={thisParty.datetime} duration={thisParty.duration}
-                    attendees={thisParty.num_attendees}/>
+          <GameInfo
+            gameName={partyPackageName}
+            date={thisParty.datetime}
+            duration={thisParty.duration}
+            attendees={thisParty.num_attendees}
+          />
         </Grid>
-        <Grid item xs={5}>
-        </Grid>
+        <Grid item xs={5}></Grid>
       </Grid>
       <div className={classes.mainContainer}>
         {/*Creates a grid to display the schedule for the party
@@ -180,15 +180,22 @@ const CreatePartyPage = () => {
           </Grid>
         </Grid>
 
-        <Typography gutterBottom variant="h4" style={{width:"60%", marginTop:"1%"}}>
-        Enter information about what your child likes about this game and any special considerations related to them.
-         This information will help our guru make the party the best possible experience for you and will only be visible to the Party Guru.</Typography>
+        <Typography
+          gutterBottom
+          variant="h4"
+          style={{ width: "60%", marginTop: "1%" }}
+        >
+          Enter information about what your child likes about this game and any
+          special considerations related to them. This information will help our
+          guru make the party the best possible experience for you and will only
+          be visible to the Party Guru.
+        </Typography>
         <Grid
           container
           justify="space-around"
           direction="row"
           alignItems="stretch"
-          style={{marginBottom: "1rem" }}
+          style={{ marginBottom: "1rem" }}
         >
           <Grid item xs={5}>
             <Paper elevation={4} style={{ height: "100%" }}>
@@ -200,7 +207,6 @@ const CreatePartyPage = () => {
                   padding: "2rem",
                 }}
               >
-
                 <Grid item xs={12}>
                   <Typography gutterBottom paragraph variant="h4">
                     Special information
@@ -232,7 +238,7 @@ const CreatePartyPage = () => {
           </Grid>
 
           <Grid item xs={5}>
-            <CheckBoxes partyPackage = {thisParty.packageid}/>
+            <CheckBoxes partyPackage={thisParty.packageid} />
           </Grid>
         </Grid>
         <Button
@@ -248,7 +254,7 @@ const CreatePartyPage = () => {
         </Button>
           */}
 
-        <UniqueLink partyID={thisParty._id}/>
+        <UniqueLink partyID={thisParty._id} />
       </div>
     </div>
   );
