@@ -24,16 +24,8 @@ const useStyles = makeStyles((theme) => ({
 const GameInfo = (props) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [partyDescription, setPartyDescription] = useState("");
-{/* some stupid mistake here so doesn't work, will look into this tomorrow
-  const createNewDescription = () => {
-    console.log(partyDescription)
-    axios.post(`/api/parties/`,{schedule:[] }).then(response => {
-        console.log(response.data)
-        
-    })
-  }
-*/}
+
+
   // This little fellow adds a zero to the displayed hours/minutes when required, because JavaScript dates suck.
   const addZero = (i) => {
     if (i < 10) {
@@ -72,7 +64,8 @@ const GameInfo = (props) => {
 
           <TextField
             color="primary"
-            onChange={(e) => setPartyDescription(e.target.value)}
+            onChange={(event) => props.setPartyDescription(event.target.value)}
+            value={props.partyDescription}
             multiline
             fullWidth
             rows={4}

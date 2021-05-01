@@ -64,7 +64,8 @@ const attendeesSchema = new mongoose.Schema({
       price: Number,
       guruid:[String],
       description: String,
-      scheduleitems: [String]
+      scheduleitems: [String],
+      likeableitems: [String]
   })
   const Partypack= new mongoose.model('Partypack',partypackSchema);
 
@@ -282,6 +283,9 @@ app.put('/api/parties/:id', function (req, res) {
     if(req.body.description!==undefined){
       updatedParty.description=req.body.description;
     }
+    if(req.body.partyheroinfo!==undefined){
+          updatedParty.partyheroinfo=req.body.description;
+      }
     //Replace the old Partyinfo-object with the new one
     Partyinfo.updateOne({"_id": id }, { $set: updatedParty})
     .then(result=>{
@@ -722,6 +726,7 @@ app.delete('/api/attendees/:id', function (req, res) {
       guruid:[String],
       description: String,
       scheduleitems: [String]
+      likeableitems: [String]
   }
  */
 
@@ -734,7 +739,9 @@ app.post('/api/packages', (req, res) => {
     price: req.body.price,
     guruid: req.body.guruid,
     description: req.body.description,
-    scheduleitems: req.body.scheduleitems
+    scheduleitems: req.body.scheduleitems,
+    likeableitems: req.body.likeableitems
+
   });
   entry.save()
   .then(result=>{

@@ -51,6 +51,11 @@ const CreatePartyPage = () => {
   const {user} = useAuth0()
   const [thisParty, setThisParty] = useState([])
   const [partyPackage, setPartyPackage] = useState()
+  const [partyDescription, setPartyDescription] = useState("");
+  const [partyHeroInfo, setPartyHeroInfo] = useState("");
+  const [partyHeroLikes, setPartyHeroLikes] = useState([])
+
+
 
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
@@ -68,6 +73,18 @@ const CreatePartyPage = () => {
       })
     })
   }, [user])
+
+  useEffect(() => {
+    setPartyDescription(thisParty.description)
+    setPartyHeroInfo(thisParty.partyheroinfo)
+    setPartyHeroLikes(thisParty.likes)
+  }, [thisParty])
+
+  const updateParty = () => {
+    axios.put(`/api/parties/${thisParty._id}`,{likes: partyHeroLikes, description: partyDescription, partyheroinfo: partyHeroInfo}).then(response => {
+      console.log(response.data)
+    })
+  }
 
 
 
@@ -98,6 +115,8 @@ const CreatePartyPage = () => {
             date={thisParty.datetime}
             duration={thisParty.duration}
             attendees={thisParty.num_attendees}
+            setPartyDescription={setPartyDescription}
+            partyDescription={partyDescription}
           />
         </Grid>
         <Grid item xs={5}></Grid>
@@ -163,6 +182,8 @@ const CreatePartyPage = () => {
                     color="primary"
                     multiline
                     fullWidth
+                    value={partyHeroInfo}
+                    onChange={(event) => setPartyHeroInfo(event.target.value) }
                     rows={4}
                     rowsMax={5}
                     id="namefield"
@@ -183,16 +204,16 @@ const CreatePartyPage = () => {
           </Grid>
 
           <Grid item xs={5}>
-            <CheckBoxes partyPackage={thisParty.packageid} />
+            <CheckBoxes partyPackage={partyPackage} partyHeroLikes={partyHeroLikes} setPartyHeroLikes={setPartyHeroLikes} />
           </Grid>
         </Grid>
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
-          href="/invitetoparty"
+          onClick={updateParty}
         >
-          To invitation creation
+          Save
         </Button>
         {/*<Button className={classes.button} variant="contained" color="primary" onClick={()=>{saveAttendees()}}>
           Save attendees

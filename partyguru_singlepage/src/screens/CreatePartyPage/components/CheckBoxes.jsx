@@ -35,6 +35,21 @@ const CheckBoxes = (props) => {
 
   const classes = useStyles()
 
+
+  // Add or remove an item from the partyHeroLikes array of the parent component based on checkbox status
+  const handleLikeChange = (i) => {
+
+    if (!props.partyHeroLikes.includes(props.partyPackage.likeableitems[i])) {
+      props.setPartyHeroLikes(props.partyHeroLikes.concat(props.partyPackage.likeableitems[i]))
+    }
+
+    if (props.partyHeroLikes.includes(props.partyPackage.likeableitems[i])) {
+      const filteredLikes = props.partyHeroLikes.filter(item => item !== props.partyPackage.likeableitems[i])
+      props.setPartyHeroLikes(filteredLikes)
+
+    }
+  }
+
   return(
     <div>
       
@@ -50,52 +65,24 @@ const CheckBoxes = (props) => {
               >
                 <Grid item>
                   <Typography paragraph gutterBottom variant="h4">
-                    Likes about Minecraft
+                    Likes about {props.partyPackage && props.partyPackage.name}
                   </Typography>
                   <Divider />
                 </Grid>
                 <Grid item>
                   <FormGroup direction="column">
-                    <FormControlLabel
-                      control={<Checkbox color="primary" name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          TNT
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      control={<Checkbox color="primary" name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          Cats
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      control={<Checkbox color="primary" name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          Dogs
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      control={<Checkbox color="primary" name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          Griefing
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      control={<Checkbox color="primary" name="Checkboxtest" />}
-                      label={
-                        <Typography className={classes.checkBoxText}>
-                          Co-op
-                        </Typography>
-                      }
-                    />
+                    {props.partyPackage && props.partyPackage.likeableitems.map((item, index) =>
+                        <FormControlLabel key={item}
+                            control={<Checkbox color="primary" name="likecheckbox" checked={props.partyHeroLikes.includes(item)}
+                                               onChange={()=>handleLikeChange(index)}/>}
+                            label={
+                              <Typography className={classes.checkBoxText}>
+                                {item}
+                              </Typography>
+                            }
+                        />
+                    ) }
+
                   </FormGroup>
                 </Grid>
               </Grid>
