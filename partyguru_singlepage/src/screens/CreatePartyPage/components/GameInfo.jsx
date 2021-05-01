@@ -2,6 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Typography, makeStyles, TextField } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import axios from "axios";
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   boldText: {
@@ -23,7 +25,15 @@ const GameInfo = (props) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [partyDescription, setPartyDescription] = useState("");
-
+{/* some stupid mistake here so doesn't work, will look into this tomorrow
+  const createNewDescription = () => {
+    console.log(partyDescription)
+    axios.post(`/api/parties/`,{schedule:[] }).then(response => {
+        console.log(response.data)
+        
+    })
+  }
+*/}
   // This little fellow adds a zero to the displayed hours/minutes when required, because JavaScript dates suck.
   const addZero = (i) => {
     if (i < 10) {
@@ -80,7 +90,17 @@ const GameInfo = (props) => {
             }}
           /></Grid>
         </Grid>
-
+        {/*
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.bigButton}
+          onClick={createNewDescription}
+                    
+        >
+          Tallenna kuvauksesi
+        </Button>
+        */}
         <Grid className={classes.gridBox} justify="flex-start" alignItems="center" container item direction="row" xs={5}>
           <Grid item>
             <Typography className={classes.boldText}>Date:</Typography>

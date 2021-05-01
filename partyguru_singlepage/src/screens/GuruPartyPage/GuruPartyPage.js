@@ -99,7 +99,7 @@ const GuruPartyPage = (props) => {
       console.log("GPP attendeeinfo ", attendees )
       console.log("GPP attendeenames ", attendeeName )
     });
-    //The following code somehow makes axios constantly fetch parties, cluttering the windows cmd and browser f12, it still works but looks pretty scary
+    
     axios.get(`/api/parties/${partyID}`).then((response) => {
       setParty(response.data);
       changeCheckBoxInfo(response.data.likes);
