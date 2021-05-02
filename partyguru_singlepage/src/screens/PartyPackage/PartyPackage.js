@@ -55,7 +55,7 @@ const PartyPackage = () => {
   //useStates to contain customer contact information
   const [customerName, setCustomerName] = useState();
   const [customerEmail, setCustomerEmail] = useState();
-  const {user} = useAuth0()
+  const {user} = useAuth0();
   const [partyStartTime, setPartyStartTime] = useState()
 
   //useState for duration, passed to CostCalculator to calculate costs
@@ -104,13 +104,13 @@ const PartyPackage = () => {
   };
 
   const createNewParty = () => {
-    console.log(partyStartTime)
+    console.log(partyStartTime);
     axios.post(`/api/parties/`,{packageid:product._id, guruid:currentGuruID, userid: user.sub, ownername: customerName, datetime: partyStartTime, duration:duration, email:customerEmail, phone: "",
       num_attendees: participants, schedule:[], likes:[], description:"" }).then(response => {
-        console.log(response.data)
-        history.push("/createpartypage")
-    })
-  }
+        console.log(response.data);
+        history.push("/createpartypage");
+    });
+  };
 
   return (
     <div className={classes.mainContainer}>
@@ -250,7 +250,7 @@ const PartyPackage = () => {
                 />
               </Grid>
               <Grid item align="center">
-                {guruEvents && customerEmail && customerName ? (
+                {guruEvents && partyStartTime && customerEmail && customerName ? (
                   <Button
                     variant="contained"
                     color="primary"

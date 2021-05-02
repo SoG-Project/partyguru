@@ -13,9 +13,8 @@ import Attendees from "./components/Attendees";
 import GameInfo from "./components/GameInfo";
 import CheckBoxes from "./components/CheckBoxes";
 import axios from "axios";
-import Linkki from "./components/UniqueLink";
 import UniqueLink from "./components/UniqueLink";
-import {useAuth0} from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const useStyles = makeStyles(() => ({
   margin: {
@@ -47,46 +46,52 @@ const useStyles = makeStyles(() => ({
 }));
 
 const CreatePartyPage = () => {
-
-  const {user} = useAuth0()
-  const [thisParty, setThisParty] = useState([])
-  const [partyPackage, setPartyPackage] = useState()
+  const { user } = useAuth0();
+  const [thisParty, setThisParty] = useState([]);
+  const [partyPackage, setPartyPackage] = useState();
   const [partyDescription, setPartyDescription] = useState("");
   const [partyHeroInfo, setPartyHeroInfo] = useState("");
-  const [partyHeroLikes, setPartyHeroLikes] = useState([])
-
-
+  const [partyHeroLikes, setPartyHeroLikes] = useState([]);
 
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
   //and email.
 
-
   useEffect(() => {
-
     // Finding the party with userid that matches the user's id
-    user && axios.get(`/api/parties/`).then((response) => {
-      setThisParty(response.data.find(party => party.userid === user.sub))
-      // Also getting the party package name from its ID
-      axios.get(`/api/packages/${response.data.find(party => party.userid === user.sub).packageid}`).then(response => {
-        setPartyPackage(response.data)
-      })
-    })
-  }, [user])
+    user &&
+      axios.get(`/api/parties/`).then((response) => {
+        setThisParty(response.data.find((party) => party.userid === user.sub));
+        // Also getting the party package name from its ID
+        axios
+          .get(
+            `/api/packages/${
+              response.data.find((party) => party.userid === user.sub).packageid
+            }`
+          )
+          .then((response) => {
+            setPartyPackage(response.data);
+          });
+      });
+  }, [user]);
 
   useEffect(() => {
-    setPartyDescription(thisParty.description)
-    setPartyHeroInfo(thisParty.partyheroinfo)
-    setPartyHeroLikes(thisParty.likes)
-  }, [thisParty])
+    setPartyDescription(thisParty.description);
+    setPartyHeroInfo(thisParty.partyheroinfo);
+    setPartyHeroLikes(thisParty.likes);
+  }, [thisParty]);
 
   const updateParty = () => {
-    axios.put(`/api/parties/${thisParty._id}`,{likes: partyHeroLikes, description: partyDescription, partyheroinfo: partyHeroInfo}).then(response => {
-      console.log(response.data)
-    })
-  }
-
-
+    axios
+      .put(`/api/parties/${thisParty._id}`, {
+        likes: partyHeroLikes,
+        description: partyDescription,
+        partyheroinfo: partyHeroInfo,
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+  };
 
   const classes = useStyles();
   return (
@@ -133,16 +138,13 @@ const CreatePartyPage = () => {
           direction="row"
           style={{ backgroundColor: "orange", marginBottom: "1rem" }}
         >
-          {partyPackage && partyPackage.scheduleitems.map(item =>
-                <Typography key={item} style={{ fontSize: "1.5rem" }}>
-                  {item}
-                </Typography>
-                )}
-
+          {partyPackage &&
+            partyPackage.scheduleitems.map((item) => (
+              <Typography key={item} style={{ fontSize: "1.5rem" }}>
+                {item}
+              </Typography>
+            ))}
         </Grid>
-
-
-
 
         <Typography
           gutterBottom
@@ -183,7 +185,7 @@ const CreatePartyPage = () => {
                     multiline
                     fullWidth
                     value={partyHeroInfo}
-                    onChange={(event) => setPartyHeroInfo(event.target.value) }
+                    onChange={(event) => setPartyHeroInfo(event.target.value)}
                     rows={4}
                     rowsMax={5}
                     id="namefield"
@@ -204,7 +206,11 @@ const CreatePartyPage = () => {
           </Grid>
 
           <Grid item xs={5}>
-            <CheckBoxes partyPackage={partyPackage} partyHeroLikes={partyHeroLikes} setPartyHeroLikes={setPartyHeroLikes} />
+            <CheckBoxes
+              partyPackage={partyPackage}
+              partyHeroLikes={partyHeroLikes}
+              setPartyHeroLikes={setPartyHeroLikes}
+            />
           </Grid>
         </Grid>
         <Button
@@ -213,13 +219,9 @@ const CreatePartyPage = () => {
           color="primary"
           onClick={updateParty}
         >
-          Save
+          Save choices
         </Button>
-        {/*<Button className={classes.button} variant="contained" color="primary" onClick={()=>{saveAttendees()}}>
-          Save attendees
-        </Button>
-          */}
-
+        <div style={{ borderBottom: "dashed", borderColor: "orange", marginBottom:"1%" }} />
         <UniqueLink partyID={thisParty._id} />
       </div>
     </div>
