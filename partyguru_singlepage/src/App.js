@@ -1,7 +1,5 @@
 import React from 'react'
 import { Router, Switch, Route} from 'react-router-dom';
-//import { browserHistory } from 'react-router'
-import { createBrowserHistory } from 'history'
 
 //Import Material-ui components here
 import Link from '@material-ui/core/Link';
@@ -28,10 +26,7 @@ import Header from "./components/Header";
 // Eli uudet screenit uusiin tiedostoihin ja importti tohon ylös, ja sitten ton alemman <Route> tagin mukaisesti uus reititys.
 const App = () => {
 
-  const browserHistory = createBrowserHistory()
-
   return (
-    //<Router history={browserHistory}>
       <div className="grid-container">
         <Header/>
         <Switch>
@@ -62,7 +57,6 @@ const App = () => {
           </p>
         </footer>
       </div>
-    //</Router>
   );
 }
 export default App
