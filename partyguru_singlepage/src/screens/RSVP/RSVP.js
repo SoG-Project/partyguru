@@ -446,7 +446,7 @@ const RSVP = () => {
         className={classes.bigButtons}
         variant="contained"
         color="primary"
-        href="/partyPage"
+        href={"/partyPage/" + thisParty._id}
       >
         I've already enrolled, just show me the party info
       </Button>
@@ -538,7 +538,7 @@ const RSVP = () => {
               expandIcon={<ExpandMoreIcon />}
             >
               <Typography className={classes.FAQText}>
-                What is Minecraft and how do I install it?
+                What is {partyPackage && partyPackage.name} and how do I install it?
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

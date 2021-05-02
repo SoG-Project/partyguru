@@ -9,6 +9,7 @@ import GameInfo from "../CreatePartyPage/components/GameInfo";
 import Attendees from "../GuruPartyPage/components/Attendees";
 import CheckBoxes from "../GuruPartyPage/components/CheckBoxes";
 import FAQ from "./components/FAQ";
+import PartyPageInfo from "./components/PartyPageInfo";
 //import ContactInfoFieldsPartyPage from "../CreatePartyPage/components/ContactInfoFieldsPartyPage";
 
 const useStyles = makeStyles((theme) => ({
@@ -72,13 +73,14 @@ const PartyPage = () => {
   const [partyID, changePartyID] = useState("605f8bcd8dfd970aa770584b");
   const [attendeesID, setAttendeeID] = useState("605f8bcd8dfd970aa770584b");
   const [party, setParty] = useState({});
+  const [partyPackage, setPartyPackage] = useState({})
   const [checkBoxInfo, changeCheckBoxInfo] = useState([]);
   const [attendeeInfo, changeAttendeeInfo] = useState([]);
   const [guruid, changeGuruID] = useState();
   const [guru, changeGuru] = useState({});
   const [contactInfo, setContactInfo] = useState();
 
-  const getData = () => {
+   const getData = () => {
     //axios gets the partypack
     axios.get(`/api/parties/${partyID}`).then((response) => {
       setParty(response.data);
@@ -111,13 +113,34 @@ const PartyPage = () => {
     console.log("AttendeeInfo is: ", attendeeInfo);
   }, [attendeeInfo]);
 
-  useEffect(() => {
-    //getData gets partypack in question.
-    getData();
-    //If you console.log here, it will not display the response gotten from the server since further code is being executed
-    //already since code is async. That means console log here is pointless. Try console.log in .then() function in getData()
-    //console.log(description, " is the description")
-  }, []);
+
+  useEffect( () => {
+    const newPartyID = window.location.href.split("partyPage/").pop()
+    axios.get(`/api/parties/${newPartyID}`).then((response) => {
+      setParty(response.data)
+      setContactInfo({
+        email: response.data.email,
+        name: response.data.ownername
+      })
+      changeGuruID(response.data.guruid);
+
+
+      axios.get(`/api/packages/${response.data.packageid}`).then(response => {
+        setPartyPackage(response.data)
+        console.log("pPackage" + response.data)
+      })
+
+      axios.get(`/api/attendees/${newPartyID}`).then((response) => {
+        /* setAttendeeName(response.data.attendees[0].name);
+        changeAttendeeInfo(response.data.attendees[0].attends);
+        console.log(response.data.attendees[0].name); */
+        changeAttendeeInfo(response.data[0].attendees); //if I change this value to anything else it will crash
+        //console.log(response.data[0].attendees[0].name)
+        console.log(response.data);
+      });
+
+    })
+  }, [])
 
   //setState is asynchronous, so we need to wait for the
   //guruid to be set.
@@ -133,18 +156,37 @@ const PartyPage = () => {
   const classes = useStyles();
   return (
     <div className={classes.mainContainer}>
+
       <Grid container="row">
         <Grid item xs={6}>
-          <GameInfo />
+          <PartyPageInfo partyDescription={party.description} gameName={partyPackage.name} date={party.datetime}  attendees={party.num_attendees}
+
+          />
         </Grid>
         <Grid item xs={6}>
           <Attendees attendeesArray={attendeeInfo} />
         </Grid>
       </Grid>
+      <Typography variant="h5">Schedule</Typography>
+      <Grid
+          container
+          justify="space-around"
+          direction="row"
+          style={{ backgroundColor: "orange", marginBottom: "1rem" }}
+      >
+        {partyPackage.scheduleitems &&
+        partyPackage.scheduleitems.map((item) => (
+            <Typography key={item} style={{ fontSize: "1.5rem" }}>
+              {item}
+            </Typography>
+        ))}
+      </Grid>
+
       <Grid container direction="row">
         <Grid item xs={6}>
           <CheckBoxes checkboxarray={checkBoxInfo} />
         </Grid>
+
         <Grid item xs={6}>
           <Grid
             container
@@ -227,7 +269,7 @@ const PartyPage = () => {
             </Paper>
           </Grid>)}
       </Grid>)}
-      <FAQ />
+      <FAQ gameName={partyPackage.name} />
     </div>
   );
 };

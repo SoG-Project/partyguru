@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const FAQ = () => {
+const FAQ = (props) => {
 
   const classes = useStyles()
 
@@ -104,7 +104,7 @@ const FAQ = () => {
               expandIcon={<ExpandMoreIcon />}
             >
               <Typography className={classes.FAQText}>
-                What is Minecraft and how do I install it?
+                What is {props.gameName} and how do I install it?
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

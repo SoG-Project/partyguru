@@ -221,6 +221,14 @@ const CreatePartyPage = () => {
         >
           Save choices
         </Button>
+        <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            href={"/partyPage/" + thisParty._id}
+        >
+          To Party Page
+        </Button>
         <div style={{ borderBottom: "dashed", borderColor: "orange", marginBottom:"1%" }} />
         <UniqueLink partyID={thisParty._id} />
       </div>
