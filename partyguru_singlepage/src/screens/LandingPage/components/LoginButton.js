@@ -12,7 +12,8 @@ const LoginButton = (props) => {
     console.log("ReturnURL on ", returnURL);
   }, [props, returnURL]);
 
-  return(<button onClick={() => loginWithRedirect()}>Log In</button>)
+  return(<button onClick={() => loginWithRedirect({ appState: { targetUrl: window.location.pathname } })}>Log In</button>)
+  //return(<button onClick={() => loginWithRedirect({ appState: { targetUrl: returnURL } })}>Log In</button>)
 };
 
 export default LoginButton;

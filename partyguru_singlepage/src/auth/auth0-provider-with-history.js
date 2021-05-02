@@ -8,9 +8,22 @@ const Auth0ProviderWithHistory = ({ children }) => {
 
   const history = useHistory();
 
-  const onRedirectCallback = (appState) => {
+  /*const onRedirectCallback = (appState) => {
     history.push(appState?.returnTo || window.location.pathname);
-  };
+  };*/
+
+  const onRedirectCallback = appState => {
+    console.log("APPSTATE ON ", appState)
+    appState && appState.targetUrl 
+        ? console.log("APPSTATE & TARGETURL EXIST") :
+          console.log("APPSTATE & TARGETURL DONT EXIST")
+    history.push(
+      appState && appState.targetUrl
+        ? appState.targetUrl
+        : window.location.pathname
+        //window.location.href = "http://localhost:3000"
+    );
+  }
 
   return (
     <Auth0Provider

@@ -5,11 +5,13 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./theme";
 import App from "./App";
 import "fontsource-roboto";
-import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
+import { createBrowserHistory } from 'history'
+
 import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
 
 ReactDOM.render(
-  <BrowserRouter>
+  <Router history={createBrowserHistory()}>
     <Auth0ProviderWithHistory>
       <React.StrictMode>
         <ThemeProvider theme={theme}>
@@ -17,6 +19,6 @@ ReactDOM.render(
         </ThemeProvider>
       </React.StrictMode>
     </Auth0ProviderWithHistory>
-  </BrowserRouter>,
+  </Router>,
   document.getElementById("root")
 );
