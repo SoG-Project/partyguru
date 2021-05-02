@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {useHistory} from "react-router-dom";
 import {
   Button,
   Grid,
@@ -54,11 +55,13 @@ const PartyPackage = () => {
   //useStates to contain customer contact information
   const [customerName, setCustomerName] = useState();
   const [customerEmail, setCustomerEmail] = useState();
+  const {user} = useAuth0()
+  const [partyStartTime, setPartyStartTime] = useState()
 
   //useState for duration, passed to CostCalculator to calculate costs
   const [duration, setDuration] = useState(1);
   //Extract functions from Auth0 to see if user is logged in.
-  const { user, isAuthenticated } = useAuth0();
+  const history = useHistory();
 
   //get ID of product from address of site
   //Needed to show name of product, gurus attached to it, and so on
@@ -96,12 +99,18 @@ const PartyPackage = () => {
         timeswhenunavailable: guruEvents
       }
     }).then(function(response) {
-      console.log(response);
+      history.push("/createpartypage");
     });
-    //axios.put(`/api/gurus/${currentGuruID}`, { timeswhenunavailable: guruEvents }).then((response) => {
-      //  console.log(response.data);
-      //});
   };
+
+  const createNewParty = () => {
+    console.log(partyStartTime)
+    axios.post(`/api/parties/`,{packageid:product._id, guruid:currentGuruID, userid: user.sub, ownername: customerName, datetime: partyStartTime, duration:duration, email:customerEmail, phone: "",
+      num_attendees: participants, schedule:[], likes:[], description:"" }).then(response => {
+        console.log(response.data)
+        history.push("/createpartypage")
+    })
+  }
 
   return (
     <div className={classes.mainContainer}>
@@ -209,6 +218,7 @@ const PartyPackage = () => {
                   setDuration={setDuration}
                   productGurus={productGurus}
                   setCurrentGuruID={setCurrentGuruID}
+                  setPartyStartTime = {setPartyStartTime}
                 />
               </Grid>
             </Grid>
@@ -245,9 +255,9 @@ const PartyPackage = () => {
                     variant="contained"
                     color="primary"
                     className={classes.bigButton}
-                    href="/cart"
+                    onClick={createNewParty}
                   >
-                    Add to cart and invite guests!
+                    Lock in party and invite guests!
                   </Button>
                 ) : (
                   <div>
@@ -261,20 +271,10 @@ const PartyPackage = () => {
                       className={classes.bigButton}
                       disabled
                     >
-                      Add to cart and invite guests!
+                      Lock in party and invite guests!
                     </Button>
                   </div>
                 )}
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.bigButton}
-                  onClick={() => {
-                    saveParties();
-                  }}
-                >
-                  Pistä partyt bäkkii
-                </Button>
               </Grid>
             </Grid>
           </Grid>

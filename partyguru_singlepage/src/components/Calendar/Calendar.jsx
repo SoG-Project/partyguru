@@ -74,6 +74,12 @@ const Calendar = (props) => {
     props.setCurrentGuruID(props.productGurus[0]._id);
   }, []);
 
+  useEffect(() => {
+    console.log("Eventsiä muutettu: ", events);
+    props.setGuruEvents(events);
+    console.log("Guru eventsit muutettu");
+  }, [events]);
+
   //to Handle pushing the add event button at the bottom of the calendar
   //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
   const handleEventAddButton = (event) => {
@@ -81,6 +87,7 @@ const Calendar = (props) => {
     event.preventDefault();
     /*Build correctly formed dates out of information the user has selected*/
     const dateFormatting = pickedDate + "T" + startTime;
+    let startText = dateFormatting;
     const start = new Date(dateFormatting);
     const end = new Date(dateFormatting);
     end.setHours(Number(end.getHours()) + Number(duration));
@@ -96,15 +103,13 @@ const Calendar = (props) => {
     );
     /*If no data is empty, proceed with creating the event*/
     if (start < end && start != null && duration != null && title != null) {
-      const newEvent = {
+      let newEvent = {
         id: createEventId(),
         title,
         start: start,
         end: end,
-        color: "blue",
-        party: true
       };
-        /*Delete previous event from calendar if one exists. 
+      /*Delete previous event from calendar if one exists. 
       This makes it so the customer only has one event of their own in the calendar at a time */
       let tempEvents = events;
       for (let i = 0; i < tempEvents.length; i++) {
@@ -113,32 +118,30 @@ const Calendar = (props) => {
           tempEvents.splice(i, 1);
           setEvents(tempEvents);
           break;
-        };
-      };
-        /*Set customers newly created event as prevEvent in case they want to change their timeslot so we can delete the old one */
+        }
+      }
+      /*Set customers newly created event as prevEvent in case they want to change their timeslot so we can delete the old one */
       setPrevEvent(newEvent);
-        /*Check that this new reservation is not overlapping with other events in the calendar */
+      /*Check that this new reservation is not overlapping with other events in the calendar */
       if (!isOverlapping(newEvent)) {
-          /*If not overlapping, add to events useState (later backend)
+        /*If not overlapping, add to events useState (later backend through PartyPackage)
         Check if it is weekend for costcalculator purposes
       set this as a new partyReservation in PartyPackage.js and set the duration in PartyPackage.js. These are used by other props. */
-      tempEvents.concat(newEvent);
-      console.log("TempEvents After Concat: ", tempEvents);
-      setEvents(tempEvents);
-        console.log("newEvent: ", newEvent);
-        console.log("Eventsit lisäämisen jälkeen: ", events);
+
+        let allEvents = tempEvents.concat(newEvent);
+
+        setEvents(allEvents);
         let weekendCheck = new Date(newEvent.start);
         checkIsWeekend(weekendCheck);
         props.setGuruEvents(events);
         props.setDuration(duration);
-        
+        props.setPartyStartTime(newEvent.start)
       } else {
         alert("New event is overlapping with another and cannot be added!");
       }
     } else {
       alert("All required fields are not filled!");
     }
-    console.log("PartyPackagelle lähetetty ", events);
   };
 
   //Check if new event overlaps with any of the events already in the calendar
@@ -154,14 +157,14 @@ const Calendar = (props) => {
         overlapEvent.start < new Date(eventArray[i].end)
       ) {
         return true;
-      };
+      }
       //Overlap = true if overlapping event ends during existing event (ex: event from 10-12, overlap ends at 11)
       if (
         overlapEvent.end > new Date(eventArray[i].start) &&
         overlapEvent.end < new Date(eventArray[i].end)
       ) {
         return true;
-      };
+      }
       //Sama alku ja loppu OK, mutta pitää tarkistaa jos alut yhtäsuuret mutta eri loppu
       //Overlap = true if overlapping event happens during another event (ex: event from 9-12, overlapping from 10-13)
       if (
@@ -169,21 +172,21 @@ const Calendar = (props) => {
         overlapEvent.end > new Date(eventArray[i].end)
       ) {
         return true;
-      };
+      }
       //Overlap = true if overlapping event starts at exactly the same time as another event
       if (
         overlapEvent.start.getTime() === new Date(eventArray[i].start).getTime()
       ) {
         return true;
-      };
+      }
       //Overlap true if overlapping event stars before existing and ends during or at same time
       if (
         overlapEvent.start < new Date(eventArray[i].start) &&
         overlapEvent.end >= new Date(eventArray[i].end)
       ) {
         return true;
-      };
-    };
+      }
+    }
     //If nothing above true, return false. Events do not overlap.
     return false;
   };
@@ -381,12 +384,20 @@ const Calendar = (props) => {
               Add event + debug
             </Button>
             <Grid item xs={6}>
-              <Typography gutterBottom style={{fontSize:"1.5rem"}}>Didn't find a suitable timeslot? Below you can change the guru hosting your party here and see if someone else is available!</Typography>
+              <Typography gutterBottom style={{ fontSize: "1.5rem" }}>
+                Didn't find a suitable timeslot? Below you can change the guru
+                hosting your party here and see if someone else is available!
+              </Typography>
             </Grid>
-            <Grid item xs={6} style={{marginBottom:"1%"}}>
+            <Grid item xs={6} style={{ marginBottom: "1%" }}>
               {productGurus ? (
                 <div>
-                  <InputLabel id="guruSelectorLabel" style={{fontSize:"small"}}>Selected Guru</InputLabel>
+                  <InputLabel
+                    id="guruSelectorLabel"
+                    style={{ fontSize: "small" }}
+                  >
+                    Selected Guru
+                  </InputLabel>
                   <NativeSelect
                     style={{ width: "auto" }}
                     inputProps={{

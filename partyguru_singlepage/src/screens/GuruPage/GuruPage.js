@@ -17,7 +17,7 @@ const GuruPage = (props) => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
 
-  // Initial useEffect on page load that gets the details of the correct guru
+  // Initial useEffect on page load that gets the details of the correct guru based on their user account.
   useEffect(() => {
     const fetchData = async () => {
 

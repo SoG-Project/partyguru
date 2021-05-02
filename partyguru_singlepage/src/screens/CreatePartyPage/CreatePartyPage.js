@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./CreatePartyPage.css";
 import {
   makeStyles,
@@ -11,10 +11,11 @@ import Grid from "@material-ui/core/Grid";
 import ContactInfoFieldsPartyPage from "./components/ContactInfoFieldsPartyPage";
 import Attendees from "./components/Attendees";
 import GameInfo from "./components/GameInfo";
-import CheckBoxes from "./components/CheckBoxes"
+import CheckBoxes from "./components/CheckBoxes";
 import axios from "axios";
-import Linkki from "./components/UniqueLink"
+import Linkki from "./components/UniqueLink";
 import UniqueLink from "./components/UniqueLink";
+import {useAuth0} from "@auth0/auth0-react";
 
 const useStyles = makeStyles(() => ({
   margin: {
@@ -47,43 +48,44 @@ const useStyles = makeStyles(() => ({
 
 const CreatePartyPage = () => {
 
+  const {user} = useAuth0()
   const [thisParty, setThisParty] = useState([])
-  const [partyPackageName, setPartyPackageName] = useState("")
+  const [partyPackage, setPartyPackage] = useState()
+  const [partyDescription, setPartyDescription] = useState("");
+  const [partyHeroInfo, setPartyHeroInfo] = useState("");
+  const [partyHeroLikes, setPartyHeroLikes] = useState([])
+
+
+
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
   //and email.
 
-  /* const saveAttendees = ()=>{
-    //Construct array out of the names and emails
-    var attendeeArray=[];
-    emailfields.map(attendee =>{
-      var singleAttendee={
-        name:attendee.clientName,
-        email:attendee.clientEmail
-      };
-      attendeeArray.push(singleAttendee);
-    })
-    var sendableJSON={
-      partyid: partyID,
-      attendees: attendeeArray
-    };
-    axios.post(`http://localhost:5000/api/attendees`,sendableJSON).then(response => {
-      console.log(response.data);
-    })
-  }
-*/
+
   useEffect(() => {
 
-    // PartyID is for the "Markus Nutivaara" test party, meant to represent a fresh party created on the previous page(s)
-    const partyID = "60895e79090792d987ddb8cd"
-    axios.get(`/api/parties/${partyID}`).then((response) => {
-      setThisParty(response.data)
+    // Finding the party with userid that matches the user's id
+    user && axios.get(`/api/parties/`).then((response) => {
+      setThisParty(response.data.find(party => party.userid === user.sub))
       // Also getting the party package name from its ID
-      axios.get(`/api/packages/${response.data.packageid}`).then(response => {
-        setPartyPackageName(response.data.name)
+      axios.get(`/api/packages/${response.data.find(party => party.userid === user.sub).packageid}`).then(response => {
+        setPartyPackage(response.data)
       })
     })
-  }, [])
+  }, [user])
+
+  useEffect(() => {
+    setPartyDescription(thisParty.description)
+    setPartyHeroInfo(thisParty.partyheroinfo)
+    setPartyHeroLikes(thisParty.likes)
+  }, [thisParty])
+
+  const updateParty = () => {
+    axios.put(`/api/parties/${thisParty._id}`,{likes: partyHeroLikes, description: partyDescription, partyheroinfo: partyHeroInfo}).then(response => {
+      console.log(response.data)
+    })
+  }
+
 
 
   const classes = useStyles();
@@ -108,11 +110,16 @@ const CreatePartyPage = () => {
 
       <Grid container direction="row">
         <Grid item xs={5}>
-          <GameInfo gameName={partyPackageName} date={thisParty.datetime} duration={thisParty.duration}
-                    attendees={thisParty.num_attendees}/>
+          <GameInfo
+            gameName={partyPackage && partyPackage.name}
+            date={thisParty.datetime}
+            duration={thisParty.duration}
+            attendees={thisParty.num_attendees}
+            setPartyDescription={setPartyDescription}
+            partyDescription={partyDescription}
+          />
         </Grid>
-        <Grid item xs={5}>
-        </Grid>
+        <Grid item xs={5}></Grid>
       </Grid>
       <div className={classes.mainContainer}>
         {/*Creates a grid to display the schedule for the party
@@ -126,69 +133,33 @@ const CreatePartyPage = () => {
           direction="row"
           style={{ backgroundColor: "orange", marginBottom: "1rem" }}
         >
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>Minecraft</Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>
-              Birthday Cheer
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>
-              Minecraft Mod 1
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>Eat Cake</Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>
-              Minecraft Mod 2
-            </Typography>
-          </Grid>
+          {partyPackage && partyPackage.scheduleitems.map(item =>
+                <Typography key={item} style={{ fontSize: "1.5rem" }}>
+                  {item}
+                </Typography>
+                )}
+
         </Grid>
 
-        {/*Available activities for this party pack*/}
-        <Typography variant="h5">Available activities</Typography>
-        <Grid
-          container
-          justify="space-around"
-          direction="row"
-          style={{ backgroundColor: "orange" }}
+
+
+
+        <Typography
+          gutterBottom
+          variant="h4"
+          style={{ width: "60%", marginTop: "1%" }}
         >
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>Minecraft</Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>
-              Birthday Cheer
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>
-              Minecraft mod 1
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>Eat cake</Typography>
-          </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "1.5rem" }}>
-              Minecraft Mod 2
-            </Typography>
-          </Grid>
-        </Grid>
-
-        <Typography gutterBottom variant="h4" style={{width:"60%", marginTop:"1%"}}>
-        Enter information about what your child likes about this game and any special considerations related to them.
-         This information will help our guru make the party the best possible experience for you and will only be visible to the Party Guru.</Typography>
+          Enter information about what your child likes about this game and any
+          special considerations related to them. This information will help our
+          guru make the party the best possible experience for you and will only
+          be visible to the Party Guru.
+        </Typography>
         <Grid
           container
           justify="space-around"
           direction="row"
           alignItems="stretch"
-          style={{marginBottom: "1rem" }}
+          style={{ marginBottom: "1rem" }}
         >
           <Grid item xs={5}>
             <Paper elevation={4} style={{ height: "100%" }}>
@@ -200,7 +171,6 @@ const CreatePartyPage = () => {
                   padding: "2rem",
                 }}
               >
-
                 <Grid item xs={12}>
                   <Typography gutterBottom paragraph variant="h4">
                     Special information
@@ -212,6 +182,8 @@ const CreatePartyPage = () => {
                     color="primary"
                     multiline
                     fullWidth
+                    value={partyHeroInfo}
+                    onChange={(event) => setPartyHeroInfo(event.target.value) }
                     rows={4}
                     rowsMax={5}
                     id="namefield"
@@ -232,23 +204,23 @@ const CreatePartyPage = () => {
           </Grid>
 
           <Grid item xs={5}>
-            <CheckBoxes partyPackage = {thisParty.packageid}/>
+            <CheckBoxes partyPackage={partyPackage} partyHeroLikes={partyHeroLikes} setPartyHeroLikes={setPartyHeroLikes} />
           </Grid>
         </Grid>
         <Button
           className={classes.button}
           variant="contained"
           color="primary"
-          href="/invitetoparty"
+          onClick={updateParty}
         >
-          To invitation creation
+          Save
         </Button>
         {/*<Button className={classes.button} variant="contained" color="primary" onClick={()=>{saveAttendees()}}>
           Save attendees
         </Button>
           */}
 
-        <UniqueLink partyID={thisParty._id}/>
+        <UniqueLink partyID={thisParty._id} />
       </div>
     </div>
   );
