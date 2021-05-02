@@ -150,7 +150,7 @@ const RSVP = () => {
   };
   return (
     <div className={classes.root}>
-      <Typography variant="h1">Invitation</Typography>
+      <Typography variant="h1">{partyPackage && partyPackage.name} Invitation</Typography>
       <Typography paragraph variant="body1" style={{ fontSize: "2rem" }}>
         {thisParty.description}
       </Typography>
