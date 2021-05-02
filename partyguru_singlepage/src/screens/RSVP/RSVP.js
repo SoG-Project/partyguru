@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 const RSVP = () => {
   const [thisParty, setThisParty] = useState("")
   const [partyPackage, setPartyPackage] = useState()
-  const attendeeID = "605f8d013778d70b51e26a20";
+  const attendeeID = Math.floor(Math.random() * 10000).toString()
   //This state controls the attending/not attending radio buttons.
   const [value, setValue] = useState("true");
   const [specialConsiderations, setSpecialConsiderations] = useState("");
@@ -137,7 +137,7 @@ const RSVP = () => {
           discord: gamingspecs.discordinstalled,
           attends: attending,
           considerations: specialConsiderations,
-          nickname: nickName, 
+          name: nickName,
         },
       ],
     };

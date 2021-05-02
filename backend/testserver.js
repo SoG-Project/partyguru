@@ -284,7 +284,7 @@ app.put('/api/parties/:id', function (req, res) {
       updatedParty.description=req.body.description;
     }
     if(req.body.partyheroinfo!==undefined){
-          updatedParty.partyheroinfo=req.body.description;
+        updatedParty.partyheroinfo=req.body.partyheroinfo;
       }
     //Replace the old Partyinfo-object with the new one
     Partyinfo.updateOne({"_id": id }, { $set: updatedParty})
@@ -635,6 +635,7 @@ app.post('/api/attendees', (req, res) => {
 app.put('/api/attendees/:id', function (req, res) {
   const id = req.params.id;
   console.log("Starting RSVP...");
+  console.log(req.body.attendees)
   //Attendee list to be updated
   Attendees.find({partyid:id}).then(returnedItems=>{
     console.log(returnedItems);
@@ -643,7 +644,7 @@ app.put('/api/attendees/:id', function (req, res) {
     //Check whether the fetched list is empty
     console.log("Party with this id found:" + id);
     if(!returnedItems.length) throw new Error("No attendee information found with that partyid. ID:" + id + ". Perhaps send a POST instead of PUT?");
-    //Iterate over the json-body and the fetched list, trying to match emails 
+    //Iterate over the json-body and the fetched list, trying to match emails
     console.log(req.body.attendees.length + "<-to be sent attendee length");
     console.log(attendeeList.attendees.length + "<--fetched list length");
     console.log(req.body.attendees[0]._id + "<----reqbodyattendees0 id");
@@ -658,8 +659,12 @@ app.put('/api/attendees/:id', function (req, res) {
           attendeeList.attendees.splice(i,1,spliceJSON);
           console.log('Attendee updated with this email:' + req.body.attendees[0].email);
         }
+
     }
-    //Save the updated list
+      attendeeList.attendees.push(req.body.attendees[0])
+
+      //Save the updated list
+      console.log("lista:", attendeeList)
     Attendees.updateOne({partyid: id }, { $set: attendeeList})
     .then(result=>{
       if(result.nModified===1){

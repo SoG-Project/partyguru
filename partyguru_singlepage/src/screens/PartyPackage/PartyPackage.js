@@ -107,7 +107,16 @@ const PartyPackage = () => {
     console.log(partyStartTime);
     axios.post(`/api/parties/`,{packageid:product._id, guruid:currentGuruID, userid: user.sub, ownername: customerName, datetime: partyStartTime, duration:duration, email:customerEmail, phone: "",
       num_attendees: participants, schedule:[], likes:[], description:"" }).then(response => {
+
+        const singleAttendee = {name: "Place Holder", email: customerEmail}
+        const attendeeArray = [singleAttendee]
+      const sendableJSON={
+          partyid: response.data._id,
+          attendees: attendeeArray
+      }
+      axios.post('/api/attendees',sendableJSON).then(response => {
         console.log(response.data);
+      })
         history.push("/createpartypage");
     });
   };
