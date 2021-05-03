@@ -31,7 +31,7 @@ const GuruPage = (props) => {
     return () => {
       //
     };
-  }, [user]);
+  }, [user, isAuthenticated]);
 
   if (isAuthenticated) return (
     <div className="mainContainer">

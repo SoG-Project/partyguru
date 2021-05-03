@@ -14,6 +14,7 @@ import {
   InputLabel,
   CircularProgress,
 } from "@material-ui/core";
+import axios from "axios";
 //FullCalendar documentation: https://fullcalendar.io/docs
 
 const useStyles = makeStyles((theme) => ({
@@ -66,19 +67,39 @@ const Calendar = (props) => {
   //useEffect joka fireää kun props.productGuru muuttuu ja laitetaan sillä nuo vitun statet oikein
 
   useEffect(() => {
+
     console.log("propsit ", props);
     setCurrentGuru(props.productGurus[0]);
     console.log("CurrentGuru set to ", props.productGurus[0]);
     setProductGurus(props.productGurus);
-    setEvents(props.productGurus[0].timeswhenunavailable);
     props.setCurrentGuruID(props.productGurus[0]._id);
+
+    let newEvents = props.productGurus[0].timeswhenunavailable
+    axios.get('/api/parties').then(response => {
+      response.data.forEach(party =>{
+        if (party.guruid === props.productGurus[0]._id) {
+          let newEvent = {
+            id: party._id,
+            title: "Reserved",
+            start: party.datetime,
+            end: new Date(party.datetime).setHours(new Date(party.datetime).getHours()+party.duration),
+            color: 'orange',
+            party: true
+          }
+          newEvents && newEvents.push(newEvent)
+
+        }
+      })
+      setEvents(newEvents)
+    })
+
   }, []);
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log("Eventsiä muutettu: ", events);
     props.setGuruEvents(events);
     console.log("Guru eventsit muutettu");
-  }, [events]);
+  }, [events]); */
 
   //to Handle pushing the add event button at the bottom of the calendar
   //currently builds start and end times for the event in the form of yyyy-mm-ddThh:mm
@@ -224,7 +245,29 @@ const Calendar = (props) => {
     let index = document.getElementById("guruSelector").value;
     let guruName = productGurus[index].name;
     setCurrentGuru(guruName);
-    setEvents(productGurus[index].timeswhenunavailable);
+
+
+    // Getting the relevant parties from the database on guru change
+    let newEvents = props.productGurus[index].timeswhenunavailable
+     axios.get('/api/parties').then(response => {
+      response.data.forEach(party =>{
+        if (party.guruid === props.productGurus[index]._id) {
+          let newEvent = {
+            id: party._id,
+            title: "Reserved",
+            start: party.datetime,
+            end: new Date(party.datetime).setHours(new Date(party.datetime).getHours()+party.duration),
+            color: 'orange',
+            party: true
+          }
+          // Ensures that there will be no duplicates
+          if(newEvents.some(e => e.id === newEvent.id))
+            console.log("Duplicate id")
+          else newEvents.push(newEvent)
+        }
+      })
+      setEvents(newEvents)
+    })
     props.setCurrentGuruID(productGurus[index]._id);
   };
 

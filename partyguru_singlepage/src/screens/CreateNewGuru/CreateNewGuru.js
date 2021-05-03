@@ -15,7 +15,7 @@ const CreateNewGuru = (props) => {
     const history = useHistory()
 
 
-
+    // This function checks if it can find a party guru with the same auth0 id, creating a new guru profile if it cannot find one.
     const createNewGuruPage = () => {
 
         axios.get(`/api/gurus/`).then((response) => {
