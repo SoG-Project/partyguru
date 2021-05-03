@@ -64,7 +64,7 @@ const LandingPage = () => {
     };
   }, []);
 
-  //Kun products muuttuu, alustetaan singleID
+  //When products changes, initialize singleID
   useEffect(() => {
     let found = products.filter((item) => {
       return item._id === singleid;
@@ -80,7 +80,7 @@ const LandingPage = () => {
     };
   }, [products, singleid]);
 
-  //Kun singleid muuttuu, etsi sen arvon mukainen partypackagedata ja laita se singleProductiin
+  //When singleid changes, find the commensurate partypackagedata and puts it to singleProduct
   useEffect(() => {
     let found = products.filter((item) => {
       return item._id === singleid;

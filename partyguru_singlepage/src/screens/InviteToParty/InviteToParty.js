@@ -17,7 +17,7 @@ import Themeswap from "./components/theme3";
 
 
 
-//asd
+//This entire page has kind of been scrapped, not used currently in the partyguru program
 
 //import { response } from "express"
 
@@ -70,19 +70,6 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: "2rem",
     },
   }));
-
-  function Themes(props) {
-  const { currenttheme } = props
-  switch(currenttheme) {
-    case ' liekkiteema':
-      return <img alt="Flames theme" src={"https://kjeh.fi/iKTpb"} />
-    case 'avaruusteema':
-      return <img alt="Space theme" src={"https://kjeh.fi/gLuYo"} />
-    default:
-      return <img alt="Default theme" src={"https://i.pinimg.com/originals/59/2e/81/592e812f43f66758178347430b992436.png"} />
-  }
-}
-      
 
 
 const InviteToParty = () => {
@@ -223,12 +210,12 @@ const handleEmailfieldDelete = (index) => {
        </h1>
 
         
-        {/*Preview feature in progress
+        {/*Preview feature 
         this will preview the users input with an invitation letter layout*/}
         
         <div className="preview">
           <div className="invitelayout">
-            {/*Tässä pitäisi renderöidä teema*/}
+            {/*The theme switching component*/}
             <Themeswap></Themeswap>
           
            <div className="invitetitle">
@@ -238,41 +225,6 @@ const handleEmailfieldDelete = (index) => {
           </div>
         </div>
         <h1>Contact field</h1>
-        {/* Radio buttons for the theme selection, don't do anything atm
-        made into a comment so they won't clutter the page while working
-
-        <div className="ThemeSelect">
-        <h1>Valitse teemasi:</h1>
-        <div>
-        <span>default</span>
-        <Radio
-        value="default"
-        checked={teema==="default"}        
-        color="primary"
-        onChange={handleInviteTheme}
-        />
-        </div>
-        <div>
-        <span>eeppiset liekit</span>
-        <Radio
-        value="liekit"
-        checked={teema==="liekit"} 
-        color="primary"
-        onChange={handleInviteTheme}
-        />
-        </div>  
-        <div>
-        <span>kiva maisema</span>
-        <Radio
-        value="maisema"
-        checked={teema==="maisema"}        
-        color="primary"
-        onChange={handleInviteTheme}
-        />
-        </div>
-        </div>
-      */}
-        
 
         {emailfields.map((x, i) => {
           return (
@@ -357,7 +309,3 @@ const handleEmailfieldDelete = (index) => {
 
 export default InviteToParty
 
-/*todo:
-make the theme selection
-done (kinda) but this really needs some improving
-*/

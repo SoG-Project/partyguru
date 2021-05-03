@@ -1,11 +1,14 @@
 import React from "react";
 import "./theme3.css";
-
+import flametheme from './Images/flametheme.png';
+import defaulttheme from './Images/defaulttheme.png';
+import spacetheme from './Images/spacetheme.png';
 //This kind of works but I can only swap between two different themes with this
+
 const imagesPath = {
-    flame: "https://kjeh.fi/iKTpb",
-    space: "https://kjeh.fi/gLuYo", //can't use this yet
-    basic: "https://i.pinimg.com/originals/59/2e/81/592e812f43f66758178347430b992436.png"
+    flame: flametheme,
+    space: spacetheme, //can't use this
+    basic: defaulttheme
   }
   
   class Themeswap extends React.Component {
@@ -16,7 +19,7 @@ const imagesPath = {
       this.setState(state => ({ open: !state.open }))
     }
   
-    getImageName = () => this.state.open ? 'basic' : 'flame'
+    getImageName = () => this.state.open ? 'basic' : 'flame' //Only possible to toggle between two different images with this
   
     render() {
       const imageName = this.getImageName();

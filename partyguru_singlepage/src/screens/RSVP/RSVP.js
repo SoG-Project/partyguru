@@ -122,7 +122,7 @@ const RSVP = () => {
   };
 
   const classes = useStyles();
-
+//Function that takes invitee's input if they are attending and have the necessary software installed and saves them into backend server
   const saveInformation = () => {
     console.log("Starting saveinformation");
     var attending = false;
@@ -459,6 +459,7 @@ const RSVP = () => {
         Show specs debug
       </Button>
       
+      {/* FAQ area that displays the frequently asked questions, displays answers by clicking on the boxes*/}
       <Grid
         container
         direction="column"

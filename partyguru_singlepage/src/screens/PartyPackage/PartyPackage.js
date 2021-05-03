@@ -102,7 +102,7 @@ const PartyPackage = () => {
       history.push("/createpartypage");
     });
   };
-
+//Function to create a party and send its info (date, duration, email, no. of attendees and such) into backend server
   const createNewParty = () => {
     console.log(partyStartTime);
     axios.post(`/api/parties/`,{packageid:product._id, guruid:currentGuruID, userid: user.sub, ownername: customerName, datetime: partyStartTime, duration:duration, email:customerEmail, phone: "",
