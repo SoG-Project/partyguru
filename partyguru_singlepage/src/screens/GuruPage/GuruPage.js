@@ -21,13 +21,9 @@ const GuruPage = (props) => {
   useEffect(() => {
     const fetchData = async () => {
 
-      const id = window.location.href.split("gurupage/").pop();
 
       isAuthenticated && axios.get(`/api/gurus/`).then((response) => {
         const allGurus = response.data;
-        if (id !== "")
-          setUserProfile(allGurus.find((guru) => guru._id === id))
-        else
           setUserProfile(allGurus.find((guru) => guru.useauthid === user.sub));
       });
     };

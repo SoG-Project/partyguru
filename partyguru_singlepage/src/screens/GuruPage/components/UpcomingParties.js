@@ -24,7 +24,7 @@ const UpcomingParties = (props) => {
                         variant="contained"
                         color="primary"
                         size="small"
-                        onClick={()=>console.log(params.value)}
+                        href={"/gurupartypage/" + params.value}
                     >
                         Open
                     </Button>
@@ -32,10 +32,11 @@ const UpcomingParties = (props) => {
             ),  },
     ]
 
+    // Getting the parties & making sure that only upcoming parties are listed
     useEffect(() => {
 
         axios.get('/api/parties').then(response => {
-           setParties(response.data.filter(party => party.guruid === props.guruID))
+           setParties(response.data.filter(party => (party.guruid === props.guruID) && (new Date(party.datetime) > new Date())))
 
         })
     }, [props.guruID]);
@@ -61,7 +62,8 @@ const UpcomingParties = (props) => {
         const newParties = []
         parties.forEach((party, index) => {
                 newParties.push({id: index, date: new Date(party.datetime).toString().split('(')[0], pPackage:
-                        (nameArray[index]), guestAmount: party.num_attendees, ppLink: ("Clicky click" + index)
+                        (nameArray[index]), guestAmount: party.num_attendees, ppLink: (party._id)
+
                 })
 
             if (index===parties.length-1)

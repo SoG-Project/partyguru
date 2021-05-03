@@ -332,7 +332,7 @@ app.put('/api/parties/:id', function (req, res) {
 //The request checks whether all fields are in the JSON-body, so send an empty field if it's not available
 //Returns status code 200 (successful) or 400 with error message (unsuccessful)
 
-app.post('/api/gurus', (req, res) => {
+/* app.post('/api/gurus', (req, res) => {
   try{
       if(req.body.name===undefined){
         throw('Error: no name');
@@ -387,7 +387,7 @@ app.post('/api/gurus', (req, res) => {
         console.log(error.message);
         res.status(400);
         res.send(error.message);});
-  });
+  }); */
 
 //Request: GET all gurus 
 //Returns an array of Guru-objects (successful) or status code 400 with error message (unsuccessful)
@@ -441,6 +441,7 @@ app.post('/api/gurus', (req, res) => {
     name: req.body.name,
     email: req.body.email,
     partyreservations: req.body.partyreservations,
+    useauthid:req.body.useauthid,
     video: req.body.video,
     image: req.body.image,
     availability: req.body.availability,

@@ -70,8 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 //Screen for party page and it's contents
 const PartyPage = () => {
-  const [partyID, changePartyID] = useState("605f8bcd8dfd970aa770584b");
-  const [attendeesID, setAttendeeID] = useState("605f8bcd8dfd970aa770584b");
+
   const [party, setParty] = useState({});
   const [partyPackage, setPartyPackage] = useState({})
   const [checkBoxInfo, changeCheckBoxInfo] = useState([]);
@@ -80,42 +79,10 @@ const PartyPage = () => {
   const [guru, changeGuru] = useState({});
   const [contactInfo, setContactInfo] = useState();
 
-   const getData = () => {
-    //axios gets the partypack
-    axios.get(`/api/parties/${partyID}`).then((response) => {
-      setParty(response.data);
-      changeCheckBoxInfo(response.data.likes);
-      setContactInfo({
-        email: response.data.email,
-        phone: response.data.phone,
-        ownername: response.data.ownername
-      });
-
-      console.log("GPP checkboxinfo on ", checkBoxInfo);
-      console.log("Guruid is ", response.data.guruid);
-      changeGuruID(response.data.guruid);
-    });
-    axios.get(`/api/attendees/${attendeesID}`).then((response) => {
-      /* setAttendeeName(response.data.attendees[0].name);
-      changeAttendeeInfo(response.data.attendees[0].attends);
-      console.log(response.data.attendees[0].name); */
-      changeAttendeeInfo(response.data[0].attendees); //if I change this value to anything else it will crash
-      //console.log(response.data[0].attendees[0].name)
-      console.log(response.data);
-    });
-  };
-
-  useEffect(() => {
-    console.log("PP contactInfo is ", contactInfo);
-  }, [contactInfo]);
-
-  useEffect(() => {
-    console.log("AttendeeInfo is: ", attendeeInfo);
-  }, [attendeeInfo]);
-
 
   useEffect( () => {
-    const newPartyID = window.location.href.split("partyPage/").pop()
+    let newPartyID = window.location.href.split("partyPage/").pop()
+    
     axios.get(`/api/parties/${newPartyID}`).then((response) => {
       setParty(response.data)
       setContactInfo({
@@ -184,7 +151,6 @@ const PartyPage = () => {
 
       <Grid container direction="row">
         <Grid item xs={6}>
-          <CheckBoxes checkboxarray={checkBoxInfo} />
         </Grid>
 
         <Grid item xs={6}>

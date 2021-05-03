@@ -108,7 +108,7 @@ const PartyPackage = () => {
     axios.post(`/api/parties/`,{packageid:product._id, guruid:currentGuruID, userid: user.sub, ownername: customerName, datetime: partyStartTime, duration:duration, email:customerEmail, phone: "",
       num_attendees: participants, schedule:[], likes:[], description:"" }).then(response => {
 
-        const singleAttendee = {name: "Place Holder", email: customerEmail}
+        const singleAttendee = {name: "Party Hero", email: customerEmail}
         const attendeeArray = [singleAttendee]
       const sendableJSON={
           partyid: response.data._id,

@@ -13,6 +13,7 @@ import Attendees from "./components/Attendees";
 import CheckBoxes from "./components/CheckBoxes"
 import GameInfo from "../CreatePartyPage/components/GameInfo"
 import axios from "axios";
+import PartyPageInfo from "../PartyPage/components/PartyPageInfo";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -62,79 +63,50 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GuruPartyPage = (props) => {
-  const partyID = "605f8bcd8dfd970aa770584b";
-  const attendeesID = "605f8bcd8dfd970aa770584b";
+
   const classes = useStyles();
   const [party, setParty] = useState({});
+  const [partyPackage, setPartyPackage] = useState({})
   const [guruid, changeGuruID] = useState();
   const [guru, changeGuru] = useState({});
   const [contactInfo, setContactInfo] = useState();
   //Partyheroinfo contains a string with the party hero description (e.g., I want to play Minecraft
   //and blow up castles). This way the client can say they want to do x things and the guru can see
   //these requests.
-  const [partyheroinfo, changePartyHeroInfo] = useState(
-    "Display information about the Party hero here"
-  );
-  const [attendeeName, setAttendeeName] = useState([]
-  );
+
+  const [attendeeName, setAttendeeName] = useState([]);
   //Creates an empty array to store what the party hero aka the one who bought the
   //party likes. Array with strings.This stores things such as liking cats or dogs
   //in Minecraft so that the Party Guru can make the best party for them possible.
-  const [checkBoxInfo, changeCheckBoxInfo] = useState([
+  const [checkBoxInfo, changeCheckBoxInfo] = useState([])
 
-  ])
+  const [attendees, changeAttendees] = useState([])
 
-  const [attendees, changeAttendees] = useState([
-    
-  ])
-  const getData = () => {
-    //axios gets the partypack
-    axios.get(`/api/attendees/${attendeesID}`).then((response) => {
-      /* setAttendeeName(response.data.attendees[0].name);
-      changeAttendeeInfo(response.data.attendees[0].attends);
-      console.log(response.data.attendees[0].name); */
-      changeAttendees(response.data[0].attendees)  //if I change this value to anything else it will crash
-      console.log(response.data[0].attendees[0].name)
-      console.log(response.data);
-      console.log("GPP attendeeinfo ", attendees )
-      console.log("GPP attendeenames ", attendeeName )
-    });
-    
-    axios.get(`/api/parties/${partyID}`).then((response) => {
-      setParty(response.data);
-      changeCheckBoxInfo(response.data.likes);
-      changePartyHeroInfo(response.data.partyheroinfo);
+  useEffect( () => {
+    let newPartyID = window.location.href.split("gurupartypage/").pop()
+
+    axios.get(`/api/parties/${newPartyID}`).then((response) => {
+      setParty(response.data)
       setContactInfo({
         email: response.data.email,
-        phone: response.data.phone,
-        ownername: response.data.ownername
-      });
-      console.log("Guruid is ", response.data.guruid);
+        name: response.data.ownername
+      })
+      changeCheckBoxInfo(response.data.likes)
       changeGuruID(response.data.guruid);
-      console.log(response.data.partyheroinfo);
-      console.log("GPP checkboxinfo on ", checkBoxInfo )
+
+
+      axios.get(`/api/packages/${response.data.packageid}`).then(response => {
+        setPartyPackage(response.data)
+        console.log("pPackage" + response.data)
+      })
+
+      axios.get(`/api/attendees/${newPartyID}`).then((response) => {
+        changeAttendees(response.data[0].attendees);
+        console.log(response.data);
+      });
+
     })
-  };
-
-
-  useEffect(() => {
-    //getData gets partypack in question.
-    getData();
-    //If you console.log here, it will not display the response gotten from the server since further code is being executed
-    //already since code is async. That means console log here is pointless. Try console.log in .then() function in getData()
-    //console.log(description, " is the description")
-  },[])
-
-  //getData gets the partypack in question from the server. axios.get() is an asynchronous function, so anything
-  //not in the .then() {} brackets will be executed before we get a response from the server. How far in the code we
-  //get depends on the execution time of the get function.
-
- 
-
-  /*const handlePartyHeroInfoChange = (event) => {
-    let info = event.target.value;
-    changePartyHeroInfo(info);
-  };*/
+  }, [])
 
   
 
@@ -213,10 +185,10 @@ const GuruPartyPage = (props) => {
      </div>
       <Grid container>
         <Grid item xs={6}>
-          <GameInfo />
+          <PartyPageInfo partyDescription={party.description} gameName={partyPackage.name} date={party.datetime}  attendees={party.num_attendees}/>
         </Grid>
         <Grid item xs={6}>
-          <Attendees attendeesArray={attendees} />
+          <Attendees attendeesArray={attendees} thisIsGuruPage={true} />
         </Grid>
       </Grid>
       <Divider className={classes.dividermargin} />
@@ -251,7 +223,7 @@ const GuruPartyPage = (props) => {
                   rows={4}
                   rowsMax={5}
                   id="namefield"
-                  value={partyheroinfo}
+                  value={party.partyheroinfo}
                   variant="outlined"
                   inputProps={{
                     readOnly: true,
@@ -268,10 +240,7 @@ const GuruPartyPage = (props) => {
         </Grid>
         
       </Grid>
-      
-      {/*<div>
-        <PartyHeroInfo description={partyheroinfo} />
-      </div>*/}
+
       
     </div>
   );

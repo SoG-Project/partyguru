@@ -82,7 +82,7 @@ const Header = (props) => {
                     </Grid>
 
                     <Grid item className={classes.menuElement}>
-                        <Link underline="none" className={classes.headerLink} href='/gurupage/'>Guru Page</Link>
+                        <Link underline="none" className={classes.headerLink} href='/createnewguru/'>Create a Guru Profile</Link>
                     </Grid>
 
                     <Grid item className={classes.menuElement}>

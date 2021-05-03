@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Paper, Typography, makeStyles } from "@material-ui/core";
+import {Paper, Typography, makeStyles, Tooltip, withStyles} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import HelpIcon from "@material-ui/icons/Help";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
@@ -24,6 +24,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const WhiteOnOrangeTooltip = withStyles({
+  tooltip: {
+    color: "white",
+    backgroundColor: "orange",
+    fontSize: "2rem"
+  }
+})(Tooltip);
+
 const Attendees = (props) => {
   const classes = useStyles();
 
@@ -40,9 +48,11 @@ const Attendees = (props) => {
             <Paper elevation={4} className={classes.attendeeBox}>
             <Grid container direction="row">
               <Grid item xs={10}>
+                <WhiteOnOrangeTooltip title={props.thisIsGuruPage && attendees[i].considerations}>
                 <Typography className={classes.attendeeText}>
                   {attendees[i].name}
                 </Typography>
+                </WhiteOnOrangeTooltip>
               </Grid>
               <Grid item xs={2}>
                 {/*Hide overflowing text?? https://material-ui.com/system/display/#text-overflow*/}
