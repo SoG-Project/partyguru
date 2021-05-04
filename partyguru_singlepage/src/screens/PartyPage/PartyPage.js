@@ -128,19 +128,31 @@ const PartyPage = () => {
           marginTop: "1%",
         }}
       />
-      <Typography variant="h5">Schedule</Typography>
-
+      <Typography variant="h3">Schedule</Typography>
       <Grid
         container
-        justify="space-around"
+        justify="flex-start"
         direction="row"
-        style={{ backgroundColor: "orange", marginBottom: "1rem" }}
+        style={{ marginBottom: "6rem", marginTop: "3rem" }}
       >
         {partyPackage.scheduleitems &&
           partyPackage.scheduleitems.map((item) => (
-            <Typography key={item} style={{ fontSize: "1.5rem" }}>
-              {item}
-            </Typography>
+            <Grid item xs={2}>
+              <Paper
+                style={{
+                  backgroundColor: "lightgray",
+                  paddingLeft: "4vh",
+                  paddingRight: "4vh",
+                  paddingBottom: "2vh",
+                  paddingTop: "2vh",
+                  margin: "1vh",
+                }}
+              >
+                <Typography key={item} style={{ fontSize: "1.5rem" }}>
+                  {item}
+                </Typography>
+              </Paper>
+            </Grid>
           ))}
       </Grid>
 
