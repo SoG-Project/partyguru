@@ -223,6 +223,7 @@ const CreatePartyPage = () => {
         </Button>
         <Button
             className={classes.button}
+            style={{marginLeft:"10%"}}
             variant="contained"
             color="primary"
             href={"/partyPage/" + thisParty._id}

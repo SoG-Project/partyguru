@@ -88,20 +88,6 @@ const PartyPackage = () => {
     });
   }, [product]);
 
-  //Function to send current events of selected guru into backend server
-  const saveParties = () => {
-    console.log("Current guru id: ", currentGuruID);
-    console.log("Lähetetään bäkkiin: ", guruEvents);
-    axios({
-      method:'put',
-      url:`/api/gurus/${currentGuruID}`,
-      data:{
-        timeswhenunavailable: guruEvents
-      }
-    }).then(function(response) {
-      history.push("/createpartypage");
-    });
-  };
 //Function to create a party and send its info (date, duration, email, no. of attendees and such) into backend server
   const createNewParty = () => {
     console.log(partyStartTime);

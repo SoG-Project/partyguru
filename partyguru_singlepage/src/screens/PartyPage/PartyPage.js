@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles, Typography } from "@material-ui/core";
+import { Button, makeStyles, Typography } from "@material-ui/core";
 import axios from "axios";
 import "./PartyPage.css";
 //import ContactCard from "./ContactCard";
@@ -47,8 +47,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "2rem",
   },
   guruAvatars: {
-    width: theme.spacing(15),
-    height: theme.spacing(15),
+    width: theme.spacing(25),
+    height: theme.spacing(25),
   },
   gurufont: {
     fontSize: "2rem",
@@ -63,10 +63,6 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
   },
 }));
-
-/**
- 
- */
 
 //Screen for party page and it's contents
 const PartyPage = () => {
@@ -127,7 +123,6 @@ const PartyPage = () => {
       <Grid container="row">
         <Grid item xs={6}>
           <PartyPageInfo partyDescription={party.description} gameName={partyPackage.name} date={party.datetime}  attendees={party.num_attendees}
-
           />
         </Grid>
         <Grid item xs={6}>
@@ -150,13 +145,63 @@ const PartyPage = () => {
       </Grid>
 
       <Grid container direction="row">
-        <Grid item xs={6}>
-        </Grid>
-
+      {contactInfo && (
+      <Grid container item xs={6} direction="column" spacing={1}>
+          <Grid item>
+            <Typography variant="h3" style={{ marginTop: "2rem" }} >
+              Client Information
+            </Typography>
+          </Grid>
+          {contactInfo.name && (
+          <Grid item>
+            <Paper style={{ width: "50%" }} elevation={4}>
+            <TextField
+              disabled
+              variant="outlined"
+              color="primary"
+              value={contactInfo.name}
+              className={classes.contactFields}
+              inputProps={{
+                style: { fontSize: "1.5rem", lineHeight: "150%", color:"black" },
+              }}
+            />
+            </Paper>
+          </Grid>)}
+          {contactInfo.email && (
+          <Grid item>
+            <Paper style={{ width: "50%" }} elevation={4}>
+            <TextField
+              disabled
+              variant="outlined"
+              color="primary"
+              value={contactInfo.email}
+              className={classes.contactFields}
+              inputProps={{
+                style: { fontSize: "1.5rem", lineHeight: "150%", color:"black" },
+              }}
+            />
+            </Paper>
+          </Grid>)}
+          {contactInfo.phone && (
+          <Grid item>
+            <Paper style={{ width: "50%" }} elevation={4}>
+            <TextField
+              disabled
+              variant="outlined"
+              color="primary"
+              value={contactInfo.phone}
+              className={classes.contactFields}
+              inputProps={{
+                style: { fontSize: "1.5rem", lineHeight: "150%" },
+              }}
+            />
+            </Paper>
+          </Grid>)}
+      </Grid>)}
         <Grid item xs={6}>
           <Grid
             container
-            direction="column"
+            direction="row"
             justify="center"
             alignItems="center"
           >
@@ -182,59 +227,7 @@ const PartyPage = () => {
           </Grid>
         </Grid>
       </Grid>
-      {contactInfo && (
-      <Grid container direction="column" spacing={1}>
-          <Grid item>
-            <Typography variant="h4" style={{ marginTop: "2rem" }} >
-              Client Information
-            </Typography>
-          </Grid>
-          {contactInfo.name && (
-          <Grid item>
-            <Paper style={{ width: "50%" }} elevation={4}>
-            <TextField
-              disabled
-              variant="outlined"
-              color="primary"
-              value={contactInfo.name}
-              className={classes.contactFields}
-              inputProps={{
-                style: { fontSize: "1.5rem", lineHeight: "150%" },
-              }}
-            />
-            </Paper>
-          </Grid>)}
-          {contactInfo.email && (
-          <Grid item>
-            <Paper style={{ width: "50%" }} elevation={4}>
-            <TextField
-              disabled
-              variant="outlined"
-              color="primary"
-              value={contactInfo.email}
-              className={classes.contactFields}
-              inputProps={{
-                style: { fontSize: "1.5rem", lineHeight: "150%" },
-              }}
-            />
-            </Paper>
-          </Grid>)}
-          {contactInfo.phone && (
-          <Grid item>
-            <Paper style={{ width: "50%" }} elevation={4}>
-            <TextField
-              disabled
-              variant="outlined"
-              color="primary"
-              value={contactInfo.phone}
-              className={classes.contactFields}
-              inputProps={{
-                style: { fontSize: "1.5rem", lineHeight: "150%" },
-              }}
-            />
-            </Paper>
-          </Grid>)}
-      </Grid>)}
+
       <FAQ gameName={partyPackage.name} />
     </div>
   );
