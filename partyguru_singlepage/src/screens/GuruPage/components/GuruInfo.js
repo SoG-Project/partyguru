@@ -71,7 +71,7 @@ const GuruInfo = (props) =>{
             <form>
                 <TextField style={{marginBottom: '15px'}} InputLabelProps={{style: {fontSize: 15}}} inputProps={{style: {fontSize: 12}}} value={guruInfo.name || ''} label="Name" onChange={handleNameChange}  variant="outlined" disabled/>   <br/>
                 <TextField style={{marginBottom: '15px'}} InputLabelProps={{style: {fontSize: 15}}} inputProps={{style: {fontSize: 12}}} value={guruInfo.nick || ''} label="Nick" onChange={handleNickChange} variant="outlined" disabled/>  <br/>
-                <TextField style={{marginBottom: '1px'}} InputLabelProps={{style: {fontSize: 15}}} inputProps={{style: {fontSize: 12}}} value={guruInfo.bio || ''} multiline rows="12" fullWidth label="Bio" onChange={handleBioChange} variant="outlined" disabled/>   <br/>
+                <TextField style={{marginBottom: '1px'}} InputLabelProps={{style: {fontSize: 15}}} inputProps={{style: {fontSize: 12}}} value={guruInfo.bio || ''} multiline rows="13" fullWidth label="Bio" onChange={handleBioChange} variant="outlined" disabled/>   <br/>
             </form>
             <Button style={{minWidth: "80px", minHeight: "40px"}} variant="contained" color="primary" className="flexAlignThis" onClick={handleClick}>Edit</Button>
         </div>

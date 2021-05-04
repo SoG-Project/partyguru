@@ -142,8 +142,8 @@ const CreatePartyPage = () => {
         >
           {partyPackage &&
             partyPackage.scheduleitems.map((item) => (
-              <Grid item xs={2}>
-                <Paper style={{backgroundColor: "lightgray", paddingLeft:"4vh", paddingRight:"4vh", paddingBottom:"2vh", paddingTop: "2vh", margin: "1vh"}}>
+              <Grid key={item} item xs={2}>
+                <Paper key={item} style={{backgroundColor: "lightgray", paddingLeft:"4vh", paddingRight:"4vh", paddingBottom:"2vh", paddingTop: "2vh", margin: "1vh"}}>
                   <Typography key={item} style={{ fontSize: "1.5rem" }}>
                     {item}
                   </Typography>
@@ -241,7 +241,16 @@ const CreatePartyPage = () => {
             />
           </Grid>
 
+
           <Grid item xs={3} align="center" style={{ marginRight: "10%" }}>
+            <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={updateParty}
+            >
+              Save choices
+            </Button>
             <Typography style={{ fontSize: "1.5rem" }}>
               Click the button below once you are done entering information to
               go view your party page.

@@ -1,0 +1,36 @@
+.guruGuestGrid{
+    display:grid;
+    grid-template-columns: repeat(2, 450px);
+    justify-content: center;
+    grid-template-rows: auto;
+    grid-gap:1px;
+    grid-template-areas:
+    "gImage info"
+    "pPackages video"
+    "link link";
+}
+
+.link {
+    grid-area:link;
+}
+
+.checkBoxes {
+    margin-left: 15%;
+    margin-bottom: 10px;
+}
+
+.guruGuestGrid > div{
+
+    display:flex;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0), 0 6px 12px 0 rgba(0.19, 0.19, 0.19, 0.19);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:1em;
+    gap:10px;
+}
+
+.framedText {
+    border-style: solid;
+    border-color:orange;
+}

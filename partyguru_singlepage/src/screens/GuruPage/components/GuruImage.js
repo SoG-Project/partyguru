@@ -45,10 +45,11 @@ const GuruImage = (props) =>{
         setNewGuruImageAddress(event.target.value)
     }
 
+    //This component will be different based on whether or not we are on the Guru Page for gurus or for users
    return (
         <div className="gImage">
             <img className="profilePic" src={guruImage} alt={"profilePic"}   />
-            <Button style={{minWidth: "80px", minHeight: "40px"}} variant="contained" color="primary" onClick={handleClick}>Change Pic</Button>
+            {props.guruPage ? <Button style={{minWidth: "80px", minHeight: "40px"}} variant="contained" color="primary" onClick={handleClick}>Change Pic</Button> : <h1>{props.name} aka '{props.nick}'</h1>}
             <GuruImageDialog confirmChanges={confirmChanges} newAddress={newGuruImageAddress} dialogOpen={dialogOpen}
                         handleChange={handleChange} handleClose={handleClose}
                         text={"Enter the new image URL"}/>

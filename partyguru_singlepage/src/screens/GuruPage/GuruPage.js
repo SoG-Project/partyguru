@@ -36,7 +36,7 @@ const GuruPage = (props) => {
   if (isAuthenticated) return (
     <div className="mainContainer">
         <div className="guruGrid">
-          <GuruImage guruImage={userProfile.image} guruID={userProfile._id} />
+          <GuruImage guruPage={true} guruImage={userProfile.image} guruID={userProfile._id} />
           <GuruInfo
             id={userProfile._id}
             bio={userProfile.bio}
@@ -44,7 +44,7 @@ const GuruPage = (props) => {
             nick={userProfile.nick}
           />
           <GuruPartyPackages guruID={userProfile._id} />
-          <GuruVideo video={userProfile.video} guruID={userProfile._id} />
+          <GuruVideo guruPage={true} video={userProfile.video} guruID={userProfile._id} />
           <GuruSmallCalendar
             guruID={userProfile._id}
             UnavailableDates={userProfile.timeswhenunavailable}

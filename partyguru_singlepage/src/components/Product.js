@@ -78,7 +78,6 @@ const Product = (props) => {
         response.data.filter(
           (guru) => guruIDs.includes(guru._id) && guru.availability === true
         );
-      console.log("täs guruarray (Product.js):", guruArray);
       setProductGurus(guruArray);
     });
   }, [props.product, guruIDs]);
@@ -137,7 +136,7 @@ const Product = (props) => {
                       interactive
                       key={guru._id}
                       title={
-                        <Link to="/gurupage">
+                        <Link to={"/ourgurus/" + guru._id } >
                           <Typography
                             style={{
                               fontSize: "1.5rem",
