@@ -130,16 +130,16 @@ const Product = (props) => {
             This can be done by creating a single string that contains all guru names (somehow) 
             and adding linebreaks to put them on different lines */}
             <Grid container style={{ height: "10rem", width: "100%" }}>
-              <AvatarGroup max={3}>
+              <AvatarGroup max={4}>
                 {productGuru &&
                   productGuru.map((guru) => (
                     <Tooltip
                     interactive
                     key={guru._id}
                       title={
-                        <Link to={`/gurupage/${guru._id}`} style={{ fontSize: "1.5rem", color:"white" }}>
-                          {guru.name}
-                        </Link>
+                        <Typography style={{ fontSize: "1.5rem", color:"white" }}>
+                          {guru.bio}
+                        </Typography>
                       }
                     >
                       <Avatar
