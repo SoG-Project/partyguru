@@ -19,6 +19,7 @@ import Profile from "./screens/ProfilePage/ProfilePage"
 //Import components
 import Header from "./components/Header";
 import CreateNewGuru from "./screens/CreateNewGuru/CreateNewGuru";
+import GuestGuruPage from "./screens/GuestGuruPage/GuestGuruPage";
 
 //Browserrouter hoitaa tän urlien reitityksen
 //Kaikki HTML koodi mitä tässä näkyy ajetaan joka sivulla,
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/cart"> <CartPage/> </Route>
           <Route path="/gurupage/"> <GuruPage/> </Route>
           <Route path="/createnewguru/"> <CreateNewGuru/> </Route>
+          <Route path="/ourgurus/"> <GuestGuruPage/> </Route>
           <Route path="/product/"> <PartyPackage/> </Route>
           <Route path="/login"><LoginPage/></Route>
           <Route path="/invitetoparty"><InviteToParty/></Route>

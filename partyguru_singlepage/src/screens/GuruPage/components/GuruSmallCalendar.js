@@ -37,7 +37,6 @@ const GuruSmallCalendar = (props) => {
                         color: 'orange',
                         party: true
                     }
-                    console.log(party.datetime)
                     newEvents && newEvents.push(newEvent)
                 }
             })
@@ -91,8 +90,8 @@ const GuruSmallCalendar = (props) => {
 
         if (recurring===true) {
 
-            let newEvents = [{}]
-            for(let i=1; i<10; i++) {
+            let newEvents = []
+            for(let i=0; i<9; i++) {
                 let newEvent = {
                     id: Math.floor(Math.random() * 10000).toString(),
                     title: title,
@@ -116,9 +115,8 @@ const GuruSmallCalendar = (props) => {
     // Saving the current calendar unavailability setup to the database
      const submitData = () => {
 
-        console.log(props.guruID)
         axios.put(`/api/gurus/${props.guruID}`, {timeswhenunavailable: events.filter(event => event.party === false)} ).then(response => {
-            console.log(response.data)
+            setLargeCalendarOpen(false)
         })
     }
 

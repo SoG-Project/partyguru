@@ -64,8 +64,7 @@ const Calendar = (props) => {
   const [productGurus, setProductGurus] = React.useState();
   const [currentGuru, setCurrentGuru] = React.useState();
 
-  //useEffect joka fireää kun props.productGuru muuttuu ja laitetaan sillä nuo vitun statet oikein
-
+//useEffect that should fire when props.productGuru changes, setting the states correctly
   useEffect(() => {
 
     console.log("propsit ", props);

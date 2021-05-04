@@ -29,7 +29,6 @@ const GuruPartyPackages = ({guruID}) =>{
 
     const handleEditChange = () => {
         setEditMode(!editMode)
-        console.log(pPackages)
     }
 
 
@@ -60,10 +59,8 @@ const GuruPartyPackages = ({guruID}) =>{
 
         pPackages.forEach(pPackage => {
                 if (pPackage.guruid.includes((guruID))) axios.put('/api/packages/' + (pPackage._id) + '/gurus', {guruid: [guruID]}).then(response => {
-                    console.log(response.data)
                     })
                 if (!pPackage.guruid.includes((guruID))) axios.delete('/api/packages/' + (pPackage._id) + '/gurus', {data:{guruid: [guruID]}}).then(response => {
-                    console.log(response.data)
 
                     })
             }
@@ -73,13 +70,13 @@ const GuruPartyPackages = ({guruID}) =>{
 
 
     return (
-        <div className="checkBoxes">
+        <div>
             <h2>Party packages you can host:</h2>
             <div className="guruFlexDiv">
             <ul>
             {pPackages && pPackages.map((pPackage, index) =>
-                <li key={pPackage._id}><FormControlLabel  control=
-                    {<Checkbox onChange={() => handleChange(index, pPackage.guruid.includes((guruID)))} name={pPackage.name} disabled={!editMode}
+                <li style={{marginLeft:"10px"}} key={pPackage._id}><FormControlLabel  control=
+                    {<Checkbox color="primary" onChange={() => handleChange(index, pPackage.guruid.includes((guruID)))} name={pPackage.name} disabled={!editMode}
                                checked={pPackage.guruid.includes((guruID)) || false}/>} label={<span style={{fontSize: '2rem', fontWeight: 'bold'}}>{pPackage.name}</span>} /></li> )}
             </ul>
             </div>
