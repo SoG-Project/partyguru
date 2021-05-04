@@ -31,7 +31,7 @@ const LoginPage = ()=> {
         color="primary"
         href="/createpartypage"
       >
-        Let's make a party!
+        Let's view your parties!
       </Button>)}
     </div>)
 }
