@@ -123,7 +123,7 @@ const LandingPage = () => {
         </Grid>
       </div>
 
-      <div className={classes.searchbar}>
+      {/*<div className={classes.searchbar}>
         <Paper style={{ backgroundColor: "lightgrey", marginLeft:"17%" , marginTop: "4vh"}}>
           <Grid container alignItems="center" direction="row" style={{marginBottom: "10%"}}>
             <Grid item className={classes.searchbarelements} xs={4}>
@@ -159,7 +159,7 @@ const LandingPage = () => {
             </Grid>
           </Grid>
         </Paper>
-      </div>
+      </div>*/}
 
       <div className={classes.root}>
         <Grid
