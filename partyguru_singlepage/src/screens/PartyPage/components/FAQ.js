@@ -48,10 +48,10 @@ const FAQ = (props) => {
                 How do I join a party?
               </Typography>
             </AccordionSummary>
+            {/* FAQ answer text for joining a party */}
             <AccordionDetails>
               <Typography className={classes.FAQText}>
-                Install thingies and join online when the time is right and the
-                full moon shines.
+              You only need to fill the required information. When the party is starting, come join us on discord an we can get the party started!
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -67,11 +67,11 @@ const FAQ = (props) => {
                 What kind of qualifications do Party Gurus have?
               </Typography>
             </AccordionSummary>
+            {/* FAQ answer text for party gurus and their qualifications */}
             <AccordionDetails>
               <Typography className={classes.FAQText}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+              Our Party Gurus are experienced gamers and entertainers. They know how to keep the party going and also impress your mates with their epic gaming skills.
+              There is never a boring party with these guys around!
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -87,11 +87,15 @@ const FAQ = (props) => {
                 What is Discord and how do I install it?
               </Typography>
             </AccordionSummary>
+            {/* FAQ answer text for discord and it's installation */}
             <AccordionDetails>
               <Typography className={classes.FAQText}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+              Discord is a free VoIP platform in which you can use text messaging and voice/video calls with your contacts.
+              You can create private groups and channels that are only accessible to people of your choosing.
+              You can install discord
+              <a href="https://discord.com/download"> from here. </a>
+              We have also made a video tutorial on installing discord which you can watch
+               <a href="https://www.youtube.com/watch?v=EfnG4zstVjU"> right here </a>
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -108,10 +112,9 @@ const FAQ = (props) => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
+              {/* FAQ answer text for game info and it's installation, obtained from backend */}
               <Typography className={classes.FAQText}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                {props.faq}
               </Typography>
             </AccordionDetails>
           </Accordion>

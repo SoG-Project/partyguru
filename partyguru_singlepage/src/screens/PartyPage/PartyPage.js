@@ -262,7 +262,9 @@ const PartyPage = () => {
         </Grid>
       </Grid>
 
-      <FAQ gameName={partyPackage.name} />
+      <FAQ gameName={partyPackage.name}
+      faq = {partyPackage.faq} />
+      
     </div>
   );
 };
