@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles, Typography } from "@material-ui/core";
+import { Button, makeStyles, Typography } from "@material-ui/core";
 import axios from "axios";
 import "./PartyPage.css";
 import { Avatar, Paper, TextField } from "@material-ui/core";
@@ -118,6 +118,10 @@ const PartyPage = () => {
         </Grid>
         <Grid item xs={6}>
           <Attendees attendeesArray={attendeeInfo} />
+        </Grid>
+        <Grid item>
+          <Typography style={{fontSize:"2rem"}}>Want to edit party information?</Typography>
+          <Button href="/createpartypage" variant="contained" color="primary" className={classes.button} style={{marginTop:"0.5rem"}}>Back</Button>
         </Grid>
       </Grid>
       <div
