@@ -117,7 +117,7 @@ const Header = (props) => {
                             open={open}
                             onClose={() => setAnchorEl(null)}
                         >
-                            <MenuItem onClick={() => handleMenuClick("/login")}> Login </MenuItem>
+                            <MenuItem onClick={() => handleMenuClick("/login")}> Profile </MenuItem>
                             <MenuItem onClick={()=> handleMenuClick("/gurupage")}> Guru Page </MenuItem>
                         </Menu>
                     </Grid>
