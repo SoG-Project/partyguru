@@ -189,14 +189,7 @@ const PartyPackage = () => {
             <Grid item>
               <Typography variant="h1">{product.name} Party Pack</Typography>
               <Typography gutterBottom paragraph style={{ fontSize: "1.5rem" }}>
-                Generic information about this package here. <br /> Lorem ipsum
-                dolor sit amet, consectetur adipisci elit, sed eiusmod tempor
-                incidunt ut labore et dolore magna aliqua. Ut enim ad minim
-                veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquid ex ea commodi consequat. Quis aute iure reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint obcaecat cupiditat non proident, sunt in culpa
-                qui officia deserunt mollit anim id est laborum.
+                {product && product.description}
               </Typography>
             </Grid>
           </Grid>
