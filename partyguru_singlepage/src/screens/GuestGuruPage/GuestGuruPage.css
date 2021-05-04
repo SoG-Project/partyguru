@@ -14,6 +14,19 @@
     grid-area:link;
 }
 
+@media (max-width: 600px) {
+    .guruGuestGrid { grid-template-columns: repeat(1, 320px);
+        grid-template-areas:
+        "gImage"
+        "info"
+        "pPackages"
+        "video"
+        "link"
+        "link"
+
+    }
+}
+
 .checkBoxes {
     margin-left: 15%;
     margin-bottom: 10px;
