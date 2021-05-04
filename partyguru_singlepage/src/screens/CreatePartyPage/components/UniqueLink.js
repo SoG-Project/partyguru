@@ -8,6 +8,7 @@ const UniqueLink = (props) => {
     setUniqueLink(
       window.location.href.split("createpartypage")[0] + "RSVP/" + props.partyID
     );
+    props.setGuestsInvited(true);
   };
 
   return (
@@ -29,13 +30,8 @@ const UniqueLink = (props) => {
         style={{ fontSize: "1.5rem", marginLeft:"1%"}}
         onClick={generateLink}
       >
-        Generate link and copy to clipboard
+        Generate link
       </Button>
-      <Typography variant="h3" style={{ color: "red" }}>
-        DEBUG Voit kokeilla kans näitä ID:itä RSVP sivun urlissa:
-        605f8bcd8dfd970aa770584b - 605f8bcd8dfd970aa770584a -
-        606f3b274136e65a35f41d1d
-      </Typography>
     </div>
   );
 };

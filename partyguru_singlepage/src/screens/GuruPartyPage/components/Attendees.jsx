@@ -28,7 +28,7 @@ const WhiteOnOrangeTooltip = withStyles({
   tooltip: {
     color: "white",
     backgroundColor: "orange",
-    fontSize: "2rem"
+    fontSize: "1.5rem"
   }
 })(Tooltip);
 

@@ -237,6 +237,7 @@ const Calendar = (props) => {
     const picked = document.getElementById("durationSelector").value;
     console.log("Duration changed to ", picked);
     setDuration(picked);
+    props.setDuration(picked);
   };
 
   //Change currently selected guru to diplay his calendar
@@ -424,7 +425,7 @@ const Calendar = (props) => {
               onClick={handleEventAddButton}
               className={classes.bigButton}
             >
-              Add event + debug
+              Add event
             </Button>
             <Grid item xs={6}>
               <Typography gutterBottom style={{ fontSize: "1.5rem" }}>

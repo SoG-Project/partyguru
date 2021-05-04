@@ -134,12 +134,25 @@ const Product = (props) => {
                 {productGuru &&
                   productGuru.map((guru) => (
                     <Tooltip
-                    interactive
-                    key={guru._id}
+                      interactive
+                      key={guru._id}
                       title={
-                        <Typography style={{ fontSize: "1.5rem", color:"white" }}>
-                          {guru.bio}
-                        </Typography>
+                        <Link to="/gurupage">
+                          <Typography
+                            style={{
+                              fontSize: "1.5rem",
+                              color: "white",
+                              fontWeight: "600",
+                            }}
+                          >
+                            {guru.name}
+                          </Typography>
+                          <Typography
+                            style={{ fontSize: "1.5rem", color: "white" }}
+                          >
+                            {guru.bio}
+                          </Typography>
+                        </Link>
                       }
                     >
                       <Avatar
@@ -151,10 +164,6 @@ const Product = (props) => {
                   ))}
               </AvatarGroup>
             </Grid>
-            {/*Another typography to contain the price of the product*/}
-            <Typography className={classes.cost}>
-              Starting at {product.price}€
-            </Typography>
             <Button
               className={classes.bigButton}
               variant="contained"

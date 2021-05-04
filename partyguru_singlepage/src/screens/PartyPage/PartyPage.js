@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Button, makeStyles, Typography } from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 import axios from "axios";
 import "./PartyPage.css";
-//import ContactCard from "./ContactCard";
 import { Avatar, Paper, TextField } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import GameInfo from "../CreatePartyPage/components/GameInfo";
 import Attendees from "../GuruPartyPage/components/Attendees";
-import CheckBoxes from "../GuruPartyPage/components/CheckBoxes";
 import FAQ from "./components/FAQ";
 import PartyPageInfo from "./components/PartyPageInfo";
-//import ContactInfoFieldsPartyPage from "../CreatePartyPage/components/ContactInfoFieldsPartyPage";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -21,9 +17,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   textfielderino: {
-    padding: "",
-    /*minWidth: "20%",
-    maxWidth: "20%",*/
     fontSize: "2rem",
   },
   resize: {
@@ -66,32 +59,28 @@ const useStyles = makeStyles((theme) => ({
 
 //Screen for party page and it's contents
 const PartyPage = () => {
-
   const [party, setParty] = useState({});
-  const [partyPackage, setPartyPackage] = useState({})
-  const [checkBoxInfo, changeCheckBoxInfo] = useState([]);
+  const [partyPackage, setPartyPackage] = useState({});
   const [attendeeInfo, changeAttendeeInfo] = useState([]);
   const [guruid, changeGuruID] = useState();
   const [guru, changeGuru] = useState({});
   const [contactInfo, setContactInfo] = useState();
 
+  useEffect(() => {
+    let newPartyID = window.location.href.split("partyPage/").pop();
 
-  useEffect( () => {
-    let newPartyID = window.location.href.split("partyPage/").pop()
-    
     axios.get(`/api/parties/${newPartyID}`).then((response) => {
-      setParty(response.data)
+      setParty(response.data);
       setContactInfo({
         email: response.data.email,
-        name: response.data.ownername
-      })
+        name: response.data.ownername,
+      });
       changeGuruID(response.data.guruid);
 
-
-      axios.get(`/api/packages/${response.data.packageid}`).then(response => {
-        setPartyPackage(response.data)
-        console.log("pPackage" + response.data)
-      })
+      axios.get(`/api/packages/${response.data.packageid}`).then((response) => {
+        setPartyPackage(response.data);
+        console.log("pPackage" + response.data);
+      });
 
       axios.get(`/api/attendees/${newPartyID}`).then((response) => {
         /* setAttendeeName(response.data.attendees[0].name);
@@ -101,9 +90,8 @@ const PartyPage = () => {
         //console.log(response.data[0].attendees[0].name)
         console.log(response.data);
       });
-
-    })
-  }, [])
+    });
+  }, []);
 
   //setState is asynchronous, so we need to wait for the
   //guruid to be set.
@@ -119,94 +107,124 @@ const PartyPage = () => {
   const classes = useStyles();
   return (
     <div className={classes.mainContainer}>
-
       <Grid container="row">
         <Grid item xs={6}>
-          <PartyPageInfo partyDescription={party.description} gameName={partyPackage.name} date={party.datetime}  attendees={party.num_attendees}
+          <PartyPageInfo
+            partyDescription={party.description}
+            gameName={partyPackage.name}
+            date={party.datetime}
+            attendees={party.num_attendees}
           />
         </Grid>
         <Grid item xs={6}>
           <Attendees attendeesArray={attendeeInfo} />
         </Grid>
       </Grid>
+      <div
+        style={{
+          borderBottom: "dashed",
+          borderColor: "orange",
+          marginBottom: "1%",
+          marginTop: "1%",
+        }}
+      />
       <Typography variant="h5">Schedule</Typography>
+
       <Grid
-          container
-          justify="space-around"
-          direction="row"
-          style={{ backgroundColor: "orange", marginBottom: "1rem" }}
+        container
+        justify="space-around"
+        direction="row"
+        style={{ backgroundColor: "orange", marginBottom: "1rem" }}
       >
         {partyPackage.scheduleitems &&
-        partyPackage.scheduleitems.map((item) => (
+          partyPackage.scheduleitems.map((item) => (
             <Typography key={item} style={{ fontSize: "1.5rem" }}>
               {item}
             </Typography>
-        ))}
+          ))}
       </Grid>
 
       <Grid container direction="row">
-      {contactInfo && (
-      <Grid container item xs={6} direction="column" spacing={1}>
-          <Grid item>
-            <Typography variant="h3" style={{ marginTop: "2rem" }} >
-              Client Information
-            </Typography>
-          </Grid>
-          {contactInfo.name && (
-          <Grid item>
-            <Paper style={{ width: "50%" }} elevation={4}>
-            <TextField
-              disabled
-              variant="outlined"
-              color="primary"
-              value={contactInfo.name}
-              className={classes.contactFields}
-              inputProps={{
-                style: { fontSize: "1.5rem", lineHeight: "150%", color:"black" },
-              }}
-            />
-            </Paper>
-          </Grid>)}
-          {contactInfo.email && (
-          <Grid item>
-            <Paper style={{ width: "50%" }} elevation={4}>
-            <TextField
-              disabled
-              variant="outlined"
-              color="primary"
-              value={contactInfo.email}
-              className={classes.contactFields}
-              inputProps={{
-                style: { fontSize: "1.5rem", lineHeight: "150%", color:"black" },
-              }}
-            />
-            </Paper>
-          </Grid>)}
-          {contactInfo.phone && (
-          <Grid item>
-            <Paper style={{ width: "50%" }} elevation={4}>
-            <TextField
-              disabled
-              variant="outlined"
-              color="primary"
-              value={contactInfo.phone}
-              className={classes.contactFields}
-              inputProps={{
-                style: { fontSize: "1.5rem", lineHeight: "150%" },
-              }}
-            />
-            </Paper>
-          </Grid>)}
-      </Grid>)}
-        <Grid item xs={6}>
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <Paper className={classes.gurubox}>
+        {contactInfo && (
+          <Grid container item xs={5} direction="column" spacing={1}>
+            <Grid item>
+              <Typography variant="h3" style={{ marginTop: "2rem" }}>
+                Client Information
+              </Typography>
+            </Grid>
+            {contactInfo.name && (
               <Grid item>
+                <Paper style={{ width: "60%" }} elevation={4}>
+                  <TextField
+                    disabled
+                    variant="outlined"
+                    color="primary"
+                    value={contactInfo.name}
+                    className={classes.contactFields}
+                    inputProps={{
+                      style: {
+                        fontSize: "1.5rem",
+                        lineHeight: "150%",
+                        color: "black",
+                      },
+                    }}
+                  />
+                </Paper>
+              </Grid>
+            )}
+            {contactInfo.email && (
+              <Grid item>
+                <Paper style={{ width: "60%" }} elevation={4}>
+                  <TextField
+                    disabled
+                    variant="outlined"
+                    color="primary"
+                    value={contactInfo.email}
+                    className={classes.contactFields}
+                    inputProps={{
+                      style: {
+                        fontSize: "1.5rem",
+                        lineHeight: "150%",
+                        color: "black",
+                      },
+                    }}
+                  />
+                </Paper>
+              </Grid>
+            )}
+            {contactInfo.phone && (
+              <Grid item>
+                <Paper style={{ width: "50%" }} elevation={4}>
+                  <TextField
+                    disabled
+                    variant="outlined"
+                    color="primary"
+                    value={contactInfo.phone}
+                    className={classes.contactFields}
+                    inputProps={{
+                      style: { fontSize: "1.5rem", lineHeight: "150%" },
+                    }}
+                  />
+                </Paper>
+              </Grid>
+            )}
+          </Grid>
+        )}
+        <Grid item xs={6}>
+          <Paper className={classes.guruBox}>
+            <Grid
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item>
+                <Typography
+                  className={classes.gurufont}
+                  style={{ fontWeight: "600" }}
+                >
+                  Guru of this party
+                </Typography>
                 <Typography className={classes.gurufont} variant="h6">
                   {guru.name}
                 </Typography>
@@ -223,8 +241,8 @@ const PartyPage = () => {
                   {guru.nick}
                 </Typography>
               </Grid>
-            </Paper>
-          </Grid>
+            </Grid>
+          </Paper>
         </Grid>
       </Grid>
 

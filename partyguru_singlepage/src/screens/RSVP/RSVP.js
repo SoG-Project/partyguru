@@ -74,9 +74,8 @@ const RSVP = () => {
   //be beneficial to offer instructions on how to install them (e.g. official Minecraft/Discord FAQ)
   const [gamingspecs, setSpecs] = useState({
     gameinstalled: false,
-    gamenotinstalled: false,
     discordinstalled: false,
-    discordnotinstalled: false,
+
   });
 
   useEffect( () => {
@@ -378,7 +377,7 @@ const RSVP = () => {
         >
           <Grid item xs={4}>
             <Typography align="center" style={{ fontSize: "2rem" }}>
-              Discrod
+              Discord
             </Typography>
           </Grid>
           <Grid item xs={4}>

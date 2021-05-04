@@ -6,6 +6,7 @@ import {
   Typography,
   Button,
   Paper,
+  Tooltip,
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import ContactInfoFieldsPartyPage from "./components/ContactInfoFieldsPartyPage";
@@ -52,6 +53,7 @@ const CreatePartyPage = () => {
   const [partyDescription, setPartyDescription] = useState("");
   const [partyHeroInfo, setPartyHeroInfo] = useState("");
   const [partyHeroLikes, setPartyHeroLikes] = useState([]);
+  const [guestsInvited, setGuestsInvited] = useState(false);
 
   //This useState keeps track of all the name+email fields. The fields in guestion contain the information about the invitees
   //the customer wants to invite to the party.  Emailfields are stored inside an array. The array contains the client name
@@ -213,25 +215,45 @@ const CreatePartyPage = () => {
             />
           </Grid>
         </Grid>
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          onClick={updateParty}
+        <div
+          style={{
+            borderBottom: "dashed",
+            borderColor: "orange",
+            marginBottom: "1%",
+            marginTop: "1%",
+          }}
+        />
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          direction="row"
+          style={{ marginTop: "1%" }}
         >
-          Save choices
-        </Button>
-        <Button
-            className={classes.button}
-            style={{marginLeft:"10%"}}
-            variant="contained"
-            color="primary"
-            href={"/partyPage/" + thisParty._id}
-        >
-          To Party Page
-        </Button>
-        <div style={{ borderBottom: "dashed", borderColor: "orange", marginBottom:"1%" }} />
-        <UniqueLink partyID={thisParty._id} />
+          <Grid item xs={7} style={{ marginLeft: "4%" }}>
+            <UniqueLink
+              partyID={thisParty._id}
+              setGuestsInvited={setGuestsInvited}
+            />
+          </Grid>
+
+          <Grid item xs={3} align="center" style={{ marginRight: "10%" }}>
+            <Typography style={{ fontSize: "1.5rem" }}>
+              Click the button below once you are done entering information to
+              go view your party page.
+            </Typography>
+            
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                href={"/partyPage/" + thisParty._id}
+              >
+                To Party Page
+              </Button>
+            
+          </Grid>
+        </Grid>
       </div>
     </div>
   );
