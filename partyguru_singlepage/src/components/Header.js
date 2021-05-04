@@ -77,9 +77,13 @@ const Header = (props) => {
                         <a href="/"> <img className={classes.logo} alt="Shool of Gaming logo" src={'https://sog.gg/wp-content/uploads/2019/08/SOG_logo_black-01.png'} /> </a>
                     </Grid>
 
-                    <Grid item  className={classes.menuElement}>
-                        <Link  underline="none" className={classes.headerLink} href="/cart">Cart</Link>
+                    <Grid item xs={5}>
+                        
                     </Grid>
+
+                    {/*<Grid item  className={classes.menuElement}>
+                        <Link  underline="none" className={classes.headerLink} href="/cart">Cart</Link>
+                    </Grid>*/}
 
                     <Grid item className={classes.menuElement}>
                         <Link underline="none" className={classes.headerLink} href='/createnewguru/'>Create a Guru Profile</Link>
