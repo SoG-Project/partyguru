@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   Button,
   Grid,
@@ -8,6 +8,7 @@ import {
   Paper,
   Avatar,
   Tooltip,
+  Link
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Image from "material-ui-image";
@@ -55,8 +56,8 @@ const PartyPackage = () => {
   //useStates to contain customer contact information
   const [customerName, setCustomerName] = useState();
   const [customerEmail, setCustomerEmail] = useState();
-  const {user} = useAuth0();
-  const [partyStartTime, setPartyStartTime] = useState()
+  const { user } = useAuth0();
+  const [partyStartTime, setPartyStartTime] = useState();
 
   //useState for duration, passed to CostCalculator to calculate costs
   const [duration, setDuration] = useState(1);
@@ -88,23 +89,36 @@ const PartyPackage = () => {
     });
   }, [product]);
 
-//Function to create a party and send its info (date, duration, email, no. of attendees and such) into backend server
+  //Function to create a party and send its info (date, duration, email, no. of attendees and such) into backend server
   const createNewParty = () => {
     console.log(partyStartTime);
-    axios.post(`/api/parties/`,{packageid:product._id, guruid:currentGuruID, userid: user.sub, ownername: customerName, datetime: partyStartTime, duration:duration, email:customerEmail, phone: "",
-      num_attendees: participants, schedule:[], likes:[], description:"" }).then(response => {
-
-        const singleAttendee = {name: "Party Hero", email: customerEmail}
-        const attendeeArray = [singleAttendee]
-      const sendableJSON={
-          partyid: response.data._id,
-          attendees: attendeeArray
-      }
-      axios.post('/api/attendees',sendableJSON).then(response => {
-        console.log(response.data);
+    axios
+      .post(`/api/parties/`, {
+        packageid: product._id,
+        guruid: currentGuruID,
+        userid: user.sub,
+        ownername: customerName,
+        datetime: partyStartTime,
+        duration: duration,
+        email: customerEmail,
+        phone: "",
+        num_attendees: participants,
+        schedule: [],
+        likes: [],
+        description: "",
       })
+      .then((response) => {
+        const singleAttendee = { name: "Party Hero", email: customerEmail };
+        const attendeeArray = [singleAttendee];
+        const sendableJSON = {
+          partyid: response.data._id,
+          attendees: attendeeArray,
+        };
+        axios.post("/api/attendees", sendableJSON).then((response) => {
+          console.log(response.data);
+        });
         history.push("/createpartypage");
-    });
+      });
   };
 
   return (
@@ -144,11 +158,25 @@ const PartyPackage = () => {
                   {productGurus &&
                     productGurus.map((guru) => (
                       <Tooltip
+                        interactive
                         key={guru._id}
                         title={
-                          <Typography style={{ fontSize: "1.5rem" }}>
-                            {guru.name}
-                          </Typography>
+                          <Link to={"/ourgurus/" + guru._id}>
+                            <Typography
+                              style={{
+                                fontSize: "1.5rem",
+                                color: "white",
+                                fontWeight: "600",
+                              }}
+                            >
+                              {guru.name}
+                            </Typography>
+                            <Typography
+                              style={{ fontSize: "1.5rem", color: "white" }}
+                            >
+                              {guru.bio}
+                            </Typography>
+                          </Link>
                         }
                       >
                         <Avatar
@@ -206,7 +234,7 @@ const PartyPackage = () => {
                   setDuration={setDuration}
                   productGurus={productGurus}
                   setCurrentGuruID={setCurrentGuruID}
-                  setPartyStartTime = {setPartyStartTime}
+                  setPartyStartTime={setPartyStartTime}
                 />
               </Grid>
             </Grid>
@@ -238,7 +266,10 @@ const PartyPackage = () => {
                 />
               </Grid>
               <Grid item align="center">
-                {guruEvents && partyStartTime && customerEmail && customerName ? (
+                {guruEvents &&
+                partyStartTime &&
+                customerEmail &&
+                customerName ? (
                   <Button
                     variant="contained"
                     color="primary"
