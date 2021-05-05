@@ -5,7 +5,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from "@material-ui/core/Button";
 
 
-const GuruPartyPackages = ({guruID}) =>{
+const GuruGuestCheckBoxes = (props) =>{
 
 
 
@@ -15,22 +15,21 @@ const GuruPartyPackages = ({guruID}) =>{
     useEffect(() => {
 
         axios.get('/api/packages').then(response => {
-
             //sorting the packages by ID using an inline compare function
             setPPackages(response.data.sort((a,b) => (a._id > b._id) ? 1 : ((b._id > a._id) ? -1 : 0))
             )
         })
 
 
-    }, [guruID]);
+    }, [props.guruID]);
 
 
     return (
         <div>
-            <h2>Party packages I can host right now:</h2>
+            <h2>Party packages {props.guruName} hosts:</h2>
                 <ul className="checkBoxes">
                     {pPackages && pPackages.map((pPackage, index) =>
-                        <li key={pPackage._id}><FormControlLabel control={<Checkbox color="primary" name={pPackage.name} checked={pPackage.guruid.includes((guruID)) || false}/>}
+                        <li key={pPackage._id}><FormControlLabel control={<Checkbox color="primary" name={pPackage.name} checked={pPackage.guruid.includes((props.guruID)) || false}/>}
                                                                   label={<span style={{fontSize: '2rem', fontWeight: 'bold'}}>{pPackage.name}</span>} /></li> )}
                 </ul>
         </div>
@@ -38,4 +37,4 @@ const GuruPartyPackages = ({guruID}) =>{
 
 }
 
-export default GuruPartyPackages
+export default GuruGuestCheckBoxes
