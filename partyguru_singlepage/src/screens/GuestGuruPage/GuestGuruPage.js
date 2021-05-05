@@ -32,7 +32,7 @@ const GuestGuruPage = (props) => {
                     <img style={{marginTop: "20px"}}className={"sogImg"} src="https://sog.gg/wp-content/uploads/2019/08/SOG_logo_black-01.png"/>
                 </div>
                 <GuruVideo video={thisGuru.video} guruID={thisGuru._id}/>
-                <GuestGuruCheckboxes guruID={thisGuru._id} guruName={thisGuru._id}/>
+                <GuestGuruCheckboxes guruID={thisGuru._id} guruName={thisGuru.name}/>
                 <div className="link">
                     <Button
                         style={{minWidth: "80px", minHeight: "40px", marginTop: "40px", marginBottom: "40px"}}
