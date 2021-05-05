@@ -8,7 +8,6 @@ import {
   Paper,
   Avatar,
   Tooltip,
-  Link
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Image from "material-ui-image";
@@ -19,6 +18,8 @@ import CostCalculator from "../../components/CostCalculator";
 import Calendar from "../../components/Calendar/Calendar";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AvatarGroup } from "@material-ui/lab";
+import { Link } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
