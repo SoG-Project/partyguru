@@ -124,10 +124,6 @@ const Product = (props) => {
             <Typography gutterBottom variant="h4" style={{ marginTop: "7px" }}>
               Gurus:
             </Typography>
-            {/*To enable there to be X number of Gurus all the names should be put inside a single Typography
-            This typography should then have overflow="hidden", textOverflow="ellipsis"
-            This can be done by creating a single string that contains all guru names (somehow) 
-            and adding linebreaks to put them on different lines */}
             <Grid container style={{ height: "10rem", width: "100%" }}>
               <AvatarGroup max={4}>
                 {productGuru &&
